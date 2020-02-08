@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter_v2/main.dart';
+import 'package:lta_datamall_flutter_v2/screens/bus_stops.dart';
 import 'package:lta_datamall_flutter_v2/screens/settings.dart';
 
 class MainAppDrawer extends StatelessWidget {
@@ -26,6 +27,9 @@ class MainAppDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.account_circle),
             title: Text('Bus Stops'),
+            onTap: () {
+              Navigator.pushNamed(context, BusStops.id);
+            },
           ),
           ListTile(
             leading: Icon(Icons.settings),

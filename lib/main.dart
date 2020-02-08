@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter_v2/components/main_app_drawer.dart';
 import 'package:lta_datamall_flutter_v2/providers/settings_provider.dart';
+import 'package:lta_datamall_flutter_v2/screens/bus_arrivals.dart';
+import 'package:lta_datamall_flutter_v2/screens/bus_stops.dart';
 import 'package:lta_datamall_flutter_v2/screens/settings.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
             routes: {
               Overview.id: (context) => Overview(),
               Settings.id: (context) => Settings(),
+              BusStops.id: (context) => BusStops(),
+              BusArrivals.id: (context) => BusArrivals(),
             },
           );
         },
