@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter_v2/components/main_app_drawer.dart';
+import 'package:lta_datamall_flutter_v2/widgets/main_app_drawer.dart';
 import 'package:lta_datamall_flutter_v2/providers/settings_provider.dart';
 import 'package:lta_datamall_flutter_v2/screens/bus_arrivals.dart';
 import 'package:lta_datamall_flutter_v2/screens/bus_stops.dart';
