@@ -1,4 +1,4 @@
-package com.example.lta_datamall_flutter_v2
+package com.example.lta_datamall_flutter
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

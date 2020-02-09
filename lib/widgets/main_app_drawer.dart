@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter_v2/main.dart';
-import 'package:lta_datamall_flutter_v2/screens/bus_stops.dart';
-import 'package:lta_datamall_flutter_v2/screens/settings.dart';
+import 'package:lta_datamall_flutter/main.dart';
+import 'package:lta_datamall_flutter/screens/bus_stops.dart';
+import 'package:lta_datamall_flutter/screens/settings.dart';
 
 class MainAppDrawer extends StatelessWidget {
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter_v2/widgets/main_app_drawer.dart';
-import 'package:lta_datamall_flutter_v2/screens/bus_arrivals.dart';
+import 'package:lta_datamall_flutter/widgets/main_app_drawer.dart';
+import 'package:lta_datamall_flutter/screens/bus_arrivals.dart';
 
 class BusStops extends StatelessWidget {
   static const String id = 'bus_stops_screen';

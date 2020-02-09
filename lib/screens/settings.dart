@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter_v2/widgets/main_app_drawer.dart';
-import 'package:lta_datamall_flutter_v2/providers/settings_provider.dart';
+import 'package:lta_datamall_flutter/widgets/main_app_drawer.dart';
+import 'package:lta_datamall_flutter/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 
 class Settings extends StatelessWidget {

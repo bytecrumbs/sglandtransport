@@ -1,4 +1,4 @@
-# lta_datamall_flutter_v2
+# lta_datamall_flutter
 
 A new Flutter project.
 
