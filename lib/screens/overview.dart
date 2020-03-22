@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/screens/bus_stops.dart';
+import 'package:lta_datamall_flutter/screens/settings.dart';
 import 'package:lta_datamall_flutter/widgets/main_app_drawer.dart';
 
 class Overview extends StatelessWidget {
@@ -10,8 +12,50 @@ class Overview extends StatelessWidget {
         title: const Text('Overview'),
       ),
       drawer: MainAppDrawer(),
-      body: const Center(
-        child: Text('Overview'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.directions_bike),
+                  iconSize: 70,
+                  onPressed: () {
+                    print('Bicycle');
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.directions_bus),
+                  iconSize: 70,
+                  onPressed: () {
+                    Navigator.pushNamed(context, BusStops.id);
+                  },
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.local_taxi),
+                  iconSize: 70,
+                  onPressed: () {
+                    print('Navigate to Taxi');
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.settings),
+                  iconSize: 70,
+                  onPressed: () {
+                    Navigator.pushNamed(context, Settings.id);
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
