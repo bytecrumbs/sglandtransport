@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/screens/bus_stops.dart';
 import 'package:lta_datamall_flutter/screens/settings.dart';
-import 'package:lta_datamall_flutter/widgets/main_app_drawer.dart';
 
 class Overview extends StatelessWidget {
   static const String id = 'overview_screen';
@@ -9,9 +8,9 @@ class Overview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Container(),
         title: const Text('Overview'),
       ),
-      drawer: MainAppDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

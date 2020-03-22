@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/widgets/main_app_drawer.dart';
+import 'package:lta_datamall_flutter/screens/overview.dart';
 import 'package:lta_datamall_flutter/screens/bus_arrivals.dart';
 
 class BusStops extends StatelessWidget {
@@ -8,9 +8,14 @@ class BusStops extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.apps),
+          onPressed: () {
+            Navigator.pushNamed(context, Overview.id);
+          },
+        ),
         title: const Text('Bus Stops'),
       ),
-      drawer: MainAppDrawer(),
       body: ListView(
         children: <Widget>[
           ListTile(
