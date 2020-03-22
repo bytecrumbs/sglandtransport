@@ -10,8 +10,8 @@ class Overview extends StatelessWidget {
         title: const Text('Overview'),
       ),
       drawer: MainAppDrawer(),
-      body: Center(
-        child: const Text('Overview'),
+      body: const Center(
+        child: Text('Overview'),
       ),
     );
   }

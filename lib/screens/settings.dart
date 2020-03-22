@@ -22,7 +22,7 @@ class Settings extends StatelessWidget {
               },
               value: Provider.of<SettingsProvider>(context).isDarkMode,
               secondary: Icon(Icons.brightness_6),
-              title: Text('Dark Mode'),
+              title: const Text('Dark Mode'),
             )
           ],
         ));

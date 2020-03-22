@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/screens/overview.dart';
-import 'package:lta_datamall_flutter/widgets/main_app_drawer.dart';
 import 'package:lta_datamall_flutter/providers/settings_provider.dart';
 import 'package:lta_datamall_flutter/screens/bus_arrivals.dart';
 import 'package:lta_datamall_flutter/screens/bus_stops.dart';
@@ -12,10 +11,10 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return ChangeNotifierProvider<SettingsProvider>(
       create: (_) => SettingsProvider(),
       child: Consumer<SettingsProvider>(
-        builder: (context, settings, _) {
+        builder: (BuildContext context, SettingsProvider settings, _) {
           return MaterialApp(
             title: 'LTA Datamall App',
             darkTheme: ThemeData.dark(),
@@ -24,11 +23,11 @@ class MyApp extends StatelessWidget {
                   settings.isDarkMode ? Brightness.dark : Brightness.light,
             ),
             initialRoute: Overview.id,
-            routes: {
-              Overview.id: (context) => Overview(),
-              Settings.id: (context) => Settings(),
-              BusStops.id: (context) => BusStops(),
-              BusArrivals.id: (context) => BusArrivals(),
+            routes: <String, WidgetBuilder>{
+              Overview.id: (BuildContext context) => Overview(),
+              Settings.id: (BuildContext context) => Settings(),
+              BusStops.id: (BuildContext context) => BusStops(),
+              BusArrivals.id: (BuildContext context) => BusArrivals(),
             },
           );
         },
