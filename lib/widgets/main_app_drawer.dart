@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/main.dart';
 import 'package:lta_datamall_flutter/screens/bus_stops.dart';
+import 'package:lta_datamall_flutter/screens/overview.dart';
 import 'package:lta_datamall_flutter/screens/settings.dart';
 
 class MainAppDrawer extends StatelessWidget {
@@ -14,25 +14,25 @@ class MainAppDrawer extends StatelessWidget {
             child: Text('What would you like to see?'),
           ),
           ListTile(
-            leading: Icon(Icons.message),
+            leading: Icon(Icons.home),
             title: Text('Overview'),
             onTap: () {
               Navigator.pushNamed(context, Overview.id);
             },
           ),
           ListTile(
-            leading: Icon(Icons.message),
+            leading: Icon(Icons.directions_bike),
             title: Text('Bicycle Parking'),
           ),
           ListTile(
-            leading: Icon(Icons.account_circle),
+            leading: Icon(Icons.directions_bus),
             title: Text('Bus Stops'),
             onTap: () {
               Navigator.pushNamed(context, BusStops.id);
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: Icon(Icons.local_taxi),
             title: Text('Taxis'),
           ),
           ListTile(
