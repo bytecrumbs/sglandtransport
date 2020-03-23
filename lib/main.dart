@@ -49,20 +49,13 @@ class _MainAppState extends State<MainApp> {
   List<Widget> pageList = <Widget>[
     BusStops(),
     BicycleParking(),
+    Settings(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('LTA Datamall'),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, Settings.id);
-            },
-            icon: Icon(Icons.settings),
-          )
-        ],
       ),
       body: PageTransitionSwitcher(
         transitionBuilder: (
@@ -93,6 +86,10 @@ class _MainAppState extends State<MainApp> {
           BottomNavigationBarItem(
             icon: Icon(Icons.directions_bike),
             title: const Text('Bicycle Parking'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: const Text('Settings'),
           ),
         ],
       ),

@@ -7,22 +7,18 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Settings'),
-        ),
-        body: ListView(
-          children: <Widget>[
-            SwitchListTile.adaptive(
-              onChanged: (bool value) {
-                Provider.of<SettingsProvider>(context, listen: false)
-                    .toggleDarkMode(value);
-              },
-              value: Provider.of<SettingsProvider>(context).isDarkMode,
-              secondary: Icon(Icons.brightness_6),
-              title: const Text('Dark Mode'),
-            )
-          ],
-        ));
+    return ListView(
+      children: <Widget>[
+        SwitchListTile.adaptive(
+          onChanged: (bool value) {
+            Provider.of<SettingsProvider>(context, listen: false)
+                .toggleDarkMode(value);
+          },
+          value: Provider.of<SettingsProvider>(context).isDarkMode,
+          secondary: Icon(Icons.brightness_6),
+          title: const Text('Dark Mode'),
+        )
+      ],
+    );
   }
 }
