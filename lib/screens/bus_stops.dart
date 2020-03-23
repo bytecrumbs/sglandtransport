@@ -15,7 +15,55 @@ class BusStops extends StatelessWidget {
           },
         ),
         ListTile(
-          title: const Text('343434'),
+          title: const Text('234534'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('765675'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('456566'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('545543'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('345777'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('666555'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('334432'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('776543'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('443221'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('454323'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('987654'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('667865'),
+          trailing: Icon(Icons.arrow_right),
+        ),
+        ListTile(
+          title: const Text('454333'),
           trailing: Icon(Icons.arrow_right),
         ),
       ],
