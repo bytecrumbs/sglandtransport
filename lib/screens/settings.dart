@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/screens/overview.dart';
 import 'package:lta_datamall_flutter/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -10,12 +9,6 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.apps),
-            onPressed: () {
-              Navigator.pushNamed(context, Overview.id);
-            },
-          ),
           title: const Text('Settings'),
         ),
         body: ListView(

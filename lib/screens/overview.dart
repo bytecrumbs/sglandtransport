@@ -6,55 +6,49 @@ class Overview extends StatelessWidget {
   static const String id = 'overview_screen';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Container(),
-        title: const Text('Overview'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.directions_bike),
-                  iconSize: 70,
-                  onPressed: () {
-                    print('Bicycle');
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.directions_bus),
-                  iconSize: 70,
-                  onPressed: () {
-                    Navigator.pushNamed(context, BusStops.id);
-                  },
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.local_taxi),
-                  iconSize: 70,
-                  onPressed: () {
-                    print('Navigate to Taxi');
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.settings),
-                  iconSize: 70,
-                  onPressed: () {
-                    Navigator.pushNamed(context, Settings.id);
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.directions_bike),
+                iconSize: 70,
+                onPressed: () {
+                  print('Bicycle');
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.directions_bus),
+                iconSize: 70,
+                onPressed: () {
+                  Navigator.pushNamed(context, BusStops.id);
+                },
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.local_taxi),
+                iconSize: 70,
+                onPressed: () {
+                  print('Navigate to Taxi');
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.settings),
+                iconSize: 70,
+                onPressed: () {
+                  Navigator.pushNamed(context, Settings.id);
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
