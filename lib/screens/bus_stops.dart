@@ -25,11 +25,15 @@ class BusStops extends StatelessWidget {
             tappable: false,
             closedShape: const RoundedRectangleBorder(),
             closedElevation: 0.0,
-            closedBuilder: (BuildContext _, VoidCallback openContainer) {
+            openColor: Theme.of(context).scaffoldBackgroundColor,
+            closedColor: Theme.of(context).scaffoldBackgroundColor,
+            closedBuilder: (BuildContext context, VoidCallback openContainer) {
               return ListTile(
                 leading: Icon(Icons.departure_board),
                 onTap: openContainer,
-                title: Text(busStop),
+                title: Text(
+                  busStop,
+                ),
                 trailing: Icon(Icons.assignment),
               );
             },
