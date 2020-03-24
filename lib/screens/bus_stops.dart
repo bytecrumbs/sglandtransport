@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/screens/bus_arrivals.dart';
 
@@ -5,67 +6,34 @@ class BusStops extends StatelessWidget {
   static const String id = 'bus_stops_screen';
   @override
   Widget build(BuildContext context) {
+    const List<String> busStops = <String>[
+      '343234',
+      '111222',
+      '342342',
+      '543543',
+      '653211',
+    ];
+
     return ListView(
       children: <Widget>[
-        ListTile(
-          title: const Text('434343'),
-          trailing: Icon(Icons.arrow_right),
-          onTap: () {
-            Navigator.pushNamed(context, BusArrivals.id);
-          },
-        ),
-        ListTile(
-          title: const Text('234534'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('765675'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('456566'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('545543'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('345777'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('666555'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('334432'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('776543'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('443221'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('454323'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('987654'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('667865'),
-          trailing: Icon(Icons.arrow_right),
-        ),
-        ListTile(
-          title: const Text('454333'),
-          trailing: Icon(Icons.arrow_right),
-        ),
+        for (String busStop in busStops)
+          OpenContainer(
+            transitionType: ContainerTransitionType.fade,
+            openBuilder: (BuildContext _, VoidCallback openContainer) {
+              return BusArrivals();
+            },
+            tappable: false,
+            closedShape: const RoundedRectangleBorder(),
+            closedElevation: 0.0,
+            closedBuilder: (BuildContext _, VoidCallback openContainer) {
+              return ListTile(
+                leading: Icon(Icons.departure_board),
+                onTap: openContainer,
+                title: Text(busStop),
+                trailing: Icon(Icons.assignment),
+              );
+            },
+          ),
       ],
     );
   }
