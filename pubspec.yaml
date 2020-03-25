@@ -26,10 +26,13 @@ dependencies:
   provider: ^4.0.2
   animations: ^1.0.0+5
   http: ^0.12.0+4
+  json_annotation: ^3.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.8.0
+  json_serializable: ^3.2.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
