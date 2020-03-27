@@ -36,7 +36,11 @@ class _BusStopsState extends State<BusStops> {
               return OpenContainer(
                 transitionType: ContainerTransitionType.fade,
                 openBuilder: (BuildContext _, VoidCallback openContainer) {
-                  return BusArrivals();
+                  return BusArrivals(
+                    busStopCode: busStops[index].busStopCode,
+                    description: busStops[index].description,
+                    roadName: busStops[index].roadName,
+                  );
                 },
                 tappable: false,
                 closedShape: const RoundedRectangleBorder(),

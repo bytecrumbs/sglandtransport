@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/providers/settings_provider.dart';
-import 'package:lta_datamall_flutter/screens/bus_arrivals.dart';
 import 'package:lta_datamall_flutter/screens/main_container.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +22,6 @@ class MyApp extends StatelessWidget {
             initialRoute: MainContainer.id,
             routes: <String, WidgetBuilder>{
               MainContainer.id: (BuildContext context) => MainContainer(),
-              BusArrivals.id: (BuildContext context) => BusArrivals(),
             },
           );
         },
