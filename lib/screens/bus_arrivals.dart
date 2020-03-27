@@ -75,6 +75,10 @@ class _BusArrivalsState extends State<BusArrivals> {
                   return ListView.builder(
                     itemCount: busServices.length,
                     itemBuilder: (BuildContext context, int index) {
+                      final DateTime nextArrivalTime = DateTime.parse(snapshot
+                          .data.services[index].nextBus.estimatedArrival);
+                      final int arrivalInMinutes =
+                          nextArrivalTime.difference(DateTime.now()).inMinutes;
                       return Card(
                         margin: const EdgeInsets.all(6),
                         child: ListTile(
@@ -82,7 +86,9 @@ class _BusArrivalsState extends State<BusArrivals> {
                           title: Text(
                               'Service No: ${busServices[index].serviceNo}'),
                           subtitle: Text(busServices[index].busOperator),
-                          trailing: const Text('TBD'),
+                          trailing: Text(
+                            arrivalInMinutes.toString(),
+                          ),
                         ),
                       );
                     },
