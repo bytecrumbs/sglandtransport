@@ -24,10 +24,21 @@ class BusArrivals extends StatefulWidget {
 class _BusArrivalsState extends State<BusArrivals> {
   Future<BusArrivalModel> _future;
 
+  final Map<String, String> _busType = <String, String>{
+    'SD': 'Single Deck',
+    'DD': 'Double Deck',
+    'BD': 'Bendy',
+  };
+
   @override
   void initState() {
     super.initState();
     _future = fetchBusArrivalList(http.IOClient(), widget.busStopCode);
+  }
+
+  int _getArrivalInMinutes(String arrivalTime) {
+    final DateTime nextArrivalTime = DateTime.parse(arrivalTime);
+    return nextArrivalTime.difference(DateTime.now()).inMinutes;
   }
 
   @override
@@ -75,19 +86,23 @@ class _BusArrivalsState extends State<BusArrivals> {
                   return ListView.builder(
                     itemCount: busServices.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final DateTime nextArrivalTime = DateTime.parse(snapshot
-                          .data.services[index].nextBus.estimatedArrival);
-                      final int arrivalInMinutes =
-                          nextArrivalTime.difference(DateTime.now()).inMinutes;
+                      final BusArrivalServiceModel currentBusService =
+                          busServices[index];
+                      final int arrivalInMinutes = _getArrivalInMinutes(
+                          currentBusService.nextBus.estimatedArrival);
                       return Card(
                         margin: const EdgeInsets.all(6),
                         child: ListTile(
-                          leading: Icon(Icons.departure_board),
+                          leading: CircleAvatar(
+                            child: Text(currentBusService.serviceNo),
+                          ),
                           title: Text(
-                              'Service No: ${busServices[index].serviceNo}'),
-                          subtitle: Text(busServices[index].busOperator),
+                            '${currentBusService.busOperator} - ${_busType[currentBusService.nextBus.type]}',
+                          ),
                           trailing: Text(
-                            arrivalInMinutes.toString(),
+                            arrivalInMinutes <= 0
+                                ? 'Arr'
+                                : "${arrivalInMinutes.toString()}'",
                           ),
                         ),
                       );
