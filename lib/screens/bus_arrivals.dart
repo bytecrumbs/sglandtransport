@@ -29,6 +29,11 @@ class _BusArrivalsState extends State<BusArrivals> {
     'DD': 'Double Deck',
     'BD': 'Bendy',
   };
+  final Map<String, String> _busLoad = <String, String>{
+    'SEA': 'Seats Available',
+    'SDA': 'Standing Available',
+    'LSD': 'Limited Standing',
+  };
 
   @override
   void initState() {
@@ -98,6 +103,9 @@ class _BusArrivalsState extends State<BusArrivals> {
                           ),
                           title: Text(
                             '${currentBusService.busOperator} - ${_busType[currentBusService.nextBus.type]}',
+                          ),
+                          subtitle: Text(
+                            _busLoad[currentBusService.nextBus.load],
                           ),
                           trailing: Text(
                             arrivalInMinutes <= 0
