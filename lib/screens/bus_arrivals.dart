@@ -41,6 +41,14 @@ class _BusArrivalsState extends State<BusArrivals> {
     _future = fetchBusArrivalList(http.IOClient(), widget.busStopCode);
   }
 
+  Future<BusArrivalModel> _refreshBusArrivals() {
+    setState(() {
+      _future = fetchBusArrivalList(http.IOClient(), widget.busStopCode);
+    });
+
+    return _future;
+  }
+
   int _getArrivalInMinutes(String arrivalTime) {
     final DateTime nextArrivalTime = DateTime.parse(arrivalTime);
     return nextArrivalTime.difference(DateTime.now()).inMinutes;
@@ -53,6 +61,13 @@ class _BusArrivalsState extends State<BusArrivals> {
       appBar: AppBar(
         title: const Text('Bus Arrivals'),
         // TODO(sascha): add a 'Refresh' action here
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () {
+                _refreshBusArrivals();
+              })
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,33 +105,36 @@ class _BusArrivalsState extends State<BusArrivals> {
                   // print(snapshot.data.busStopCode);
                   final List<BusArrivalServiceModel> busServices =
                       snapshot.data.services;
-                  return ListView.builder(
-                    itemCount: busServices.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final BusArrivalServiceModel currentBusService =
-                          busServices[index];
-                      final int arrivalInMinutes = _getArrivalInMinutes(
-                          currentBusService.nextBus.estimatedArrival);
-                      return Card(
-                        margin: const EdgeInsets.all(6),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            child: Text(currentBusService.serviceNo),
+                  return RefreshIndicator(
+                    onRefresh: _refreshBusArrivals,
+                    child: ListView.builder(
+                      itemCount: busServices.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final BusArrivalServiceModel currentBusService =
+                            busServices[index];
+                        final int arrivalInMinutes = _getArrivalInMinutes(
+                            currentBusService.nextBus.estimatedArrival);
+                        return Card(
+                          margin: const EdgeInsets.all(6),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              child: Text(currentBusService.serviceNo),
+                            ),
+                            title: Text(
+                              '${currentBusService.busOperator} - ${_busType[currentBusService.nextBus.type]}',
+                            ),
+                            subtitle: Text(
+                              _busLoad[currentBusService.nextBus.load],
+                            ),
+                            trailing: Text(
+                              arrivalInMinutes <= 0
+                                  ? 'Arr'
+                                  : "${arrivalInMinutes.toString()}'",
+                            ),
                           ),
-                          title: Text(
-                            '${currentBusService.busOperator} - ${_busType[currentBusService.nextBus.type]}',
-                          ),
-                          subtitle: Text(
-                            _busLoad[currentBusService.nextBus.load],
-                          ),
-                          trailing: Text(
-                            arrivalInMinutes <= 0
-                                ? 'Arr'
-                                : "${arrivalInMinutes.toString()}'",
-                          ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   );
                 } else if (snapshot.hasError) {
                   // TODO(sascha): do something here
