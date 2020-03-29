@@ -46,11 +46,13 @@ class _BusArrivalsState extends State<BusArrivals> {
     return nextArrivalTime.difference(DateTime.now()).inMinutes;
   }
 
+  // TODO(sascha): also display information for the next 2 buses arriving
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bus Arrivals'),
+        // TODO(sascha): add a 'Refresh' action here
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
