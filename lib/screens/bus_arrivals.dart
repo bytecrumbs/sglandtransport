@@ -60,7 +60,6 @@ class _BusArrivalsState extends State<BusArrivals> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bus Arrivals'),
-        // TODO(sascha): add a 'Refresh' action here
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.refresh),
