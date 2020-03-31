@@ -107,6 +107,7 @@ class _BusArrivalsState extends State<BusArrivals> {
                   return RefreshIndicator(
                     onRefresh: _refreshBusArrivals,
                     child: ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
                       itemCount: busServices.length,
                       itemBuilder: (BuildContext context, int index) {
                         final BusArrivalServiceModel currentBusService =
