@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:lta_datamall_flutter/api.dart';
-import 'package:lta_datamall_flutter/models/bus_stop_list_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus_arrivals.dart';
 
@@ -14,7 +13,7 @@ class BusStops extends StatefulWidget {
 }
 
 class _BusStopsState extends State<BusStops> {
-  Future<BusStopListModel> _future;
+  Future<List<BusStopModel>> _future;
 
   @override
   void initState() {
@@ -24,12 +23,12 @@ class _BusStopsState extends State<BusStops> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<BusStopListModel>(
+    return FutureBuilder<List<BusStopModel>>(
       future: _future,
       builder:
-          (BuildContext context, AsyncSnapshot<BusStopListModel> snapshot) {
+          (BuildContext context, AsyncSnapshot<List<BusStopModel>> snapshot) {
         if (snapshot.hasData) {
-          final List<BusStopModel> busStops = snapshot.data.value;
+          final List<BusStopModel> busStops = snapshot.data;
           return ListView.builder(
             itemCount: busStops.length,
             itemBuilder: (BuildContext context, int index) {

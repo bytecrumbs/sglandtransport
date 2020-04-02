@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stop_list_model.dart';
+import 'package:lta_datamall_flutter/models/bus_stop_model.dart';
 
-Future<BusStopListModel> fetchBusStopList(
+Future<List<BusStopModel>> fetchBusStopList(
   http.Client client,
 ) async {
   // TODO(sascha): Store this header value somewhere more central and reusable
@@ -12,20 +13,42 @@ Future<BusStopListModel> fetchBusStopList(
     'AccountKey': 'xNTAqVxgQiOwp9MQa9y0tQ==',
   };
 
-  final http.Response response = await client.get(
-    'http://datamall2.mytransport.sg/ltaodataservice/BusStops',
-    headers: requestHeaders,
-  );
+  final List<int> skip = <int>[
+    0,
+    500,
+    1000,
+    1500,
+    2000,
+    2500,
+    3000,
+    3500,
+    4000,
+    4500,
+    5000,
+  ];
 
-  if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON.
-    // TODO(sascha): resolve the below excluded linting problem
-    // ignore: argument_type_not_assignable
-    return BusStopListModel.fromJson(jsonDecode(response.body));
-  } else {
-    // If that call was not successful, throw an error.
-    throw Exception('Failed to load post');
+  List<BusStopModel> result = <BusStopModel>[];
+
+  for (final int currentSkip in skip) {
+    final http.Response response = await client.get(
+      'http://datamall2.mytransport.sg/ltaodataservice/BusStops?\$skip=$currentSkip',
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON.
+      // TODO(sascha): resolve the below excluded linting problem
+      final BusStopListModel busStopListModel =
+          // ignore: argument_type_not_assignable
+          BusStopListModel.fromJson(jsonDecode(response.body));
+      result = result + busStopListModel.value;
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
   }
+
+  return result;
 }
 
 Future<BusArrivalModel> fetchBusArrivalList(
