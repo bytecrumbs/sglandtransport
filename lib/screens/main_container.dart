@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/screens/bicycle_parking.dart';
-import 'package:lta_datamall_flutter/screens/bus_stops.dart';
+import 'package:lta_datamall_flutter/screens/bus_stops/bus_stops_screen.dart';
 import 'package:lta_datamall_flutter/screens/settings.dart';
 
 class MainContainer extends StatefulWidget {

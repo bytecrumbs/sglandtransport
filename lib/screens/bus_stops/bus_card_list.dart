@@ -5,20 +5,6 @@ import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus_arrivals.dart';
 
-class BusStops extends StatelessWidget {
-  static const String id = 'bus_stops_screen';
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SearchField(),
-        BusCardList(),
-      ],
-    );
-  }
-}
-
 class BusCardList extends StatefulWidget {
   @override
   _BusCardListState createState() => _BusCardListState();
@@ -81,23 +67,6 @@ class _BusCardListState extends State<BusCardList> {
             child: CircularProgressIndicator(),
           );
         },
-      ),
-    );
-  }
-}
-
-class SearchField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(16.0),
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: 'Enter a Bus Stop number',
-          icon: Icon(Icons.search),
-          suffixIcon: Icon(Icons.clear),
-          border: OutlineInputBorder(),
-        ),
       ),
     );
   }
