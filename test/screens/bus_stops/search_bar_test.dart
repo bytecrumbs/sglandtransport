@@ -3,24 +3,23 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lta_datamall_flutter/screens/bus_stops/search_bar.dart';
 
 void main() {
-  Widget _getSearchBar() {
-    return MaterialApp(
+  Future<void> _pumpSearchBar(WidgetTester tester) async {
+    return await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: SearchBar(),
       ),
-    );
+    ));
   }
 
   testWidgets('TextField has a label', (WidgetTester tester) async {
-    await tester.pumpWidget(_getSearchBar());
+    await _pumpSearchBar(tester);
 
     final Finder labelFinder = find.text('Enter a Bus Stop number');
     expect(labelFinder, findsOneWidget);
   });
 
   testWidgets('TextField allows text input', (WidgetTester tester) async {
-    await tester.pumpWidget(_getSearchBar());
-
+    await _pumpSearchBar(tester);
     const String textFieldValue = '010101';
     await tester.enterText(find.byType(TextField), textFieldValue);
     final Finder textFieldValueFinder = find.text(textFieldValue);
@@ -29,8 +28,7 @@ void main() {
 
   testWidgets('TextField has an icon that clears text',
       (WidgetTester tester) async {
-    await tester.pumpWidget(_getSearchBar());
-
+    await _pumpSearchBar(tester);
     // write into the text field and confirm text is there
     const String textFieldValue = '010101';
     await tester.enterText(find.byType(TextField), textFieldValue);
@@ -47,8 +45,7 @@ void main() {
 
   testWidgets('TextField allows only to enter numbers',
       (WidgetTester tester) async {
-    await tester.pumpWidget(_getSearchBar());
-
+    await _pumpSearchBar(tester);
     // write into the text field and confirm text is there
     const String validTextFieldValue = '010101';
     await tester.enterText(find.byType(TextField), validTextFieldValue);
