@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
-import 'package:lta_datamall_flutter/models/bus_stop_list_model.dart';
-import 'package:lta_datamall_flutter/models/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_list_model.dart';
+import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 
 Future<List<BusStopModel>> fetchBusStopList(
   http.Client client,

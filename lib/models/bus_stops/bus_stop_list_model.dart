@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lta_datamall_flutter/models/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 
 part 'bus_stop_list_model.g.dart';
 
