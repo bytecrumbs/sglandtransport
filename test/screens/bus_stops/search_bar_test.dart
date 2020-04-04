@@ -44,4 +44,24 @@ void main() {
     // confirm text is not there anymore
     expect(textFieldValueFinder, findsNothing);
   });
+
+  testWidgets('TextField allows only to enter numbers',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(_getSearchBar());
+
+    // write into the text field and confirm text is there
+    const String validTextFieldValue = '010101';
+    await tester.enterText(find.byType(TextField), validTextFieldValue);
+    final Finder validTextFieldValueFinder = find.text(validTextFieldValue);
+    expect(validTextFieldValueFinder, findsOneWidget);
+
+    // clear the text field
+    await tester.tap(find.byIcon(Icons.clear));
+    await tester.pump();
+
+    const String invalidTextFieldValue = 'asdf';
+    await tester.enterText(find.byType(TextField), invalidTextFieldValue);
+    final Finder invalidTextFieldValueFinder = find.text(invalidTextFieldValue);
+    expect(invalidTextFieldValueFinder, findsNothing);
+  });
 }

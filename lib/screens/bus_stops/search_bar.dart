@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SearchBar extends StatelessWidget {
   @override
@@ -7,6 +8,10 @@ class SearchBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly,
+        ],
         controller: _controller,
         decoration: InputDecoration(
           labelText: 'Enter a Bus Stop number',
