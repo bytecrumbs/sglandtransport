@@ -32,17 +32,9 @@ Runner/GeneratedPluginRegistrant.*
 !default.perspectivev3
 
 # Fastlane exclusions
-Runner.ipa
-Runner.*.zip
-
-# fastlane specific
+**/*.ipa
+**/*.app.dSYM.zip
 **/fastlane/report.xml
-
-# deliver temporary files
 **/fastlane/Preview.html
-
-# snapshot generated screenshots
 **/fastlane/screenshots
-
-# scan temporary files
 **/fastlane/test_output
