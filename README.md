@@ -1,16 +1,28 @@
-# lta_datamall_flutter
+# LTA Datamall app
 
-A new Flutter project.
+This app provides screens and functionality for APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
 
-## Getting Started
+## Prerequisites
 
-This project is a starting point for a Flutter application.
+- Flutter (https://flutter.dev/docs/get-started/install)
 
-A few resources to get you started if this is your first Flutter project:
+## Deployments
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+This project is using Fastlane (https://fastlane.tools/) as its deployment pipeline.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Beta deployments
+
+#### To deploy to iOS TestFlight from local:
+
+```
+cd ios
+fastlane beta
+```
+
+#### To deploy to Android beta from local:
+
+TBD
+
+## Production deployments
+
+TBD
