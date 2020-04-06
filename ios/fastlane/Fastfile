@@ -19,10 +19,16 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    sh "./flutter_analyze.sh"
-    sh "./flutter_test.sh"
+    ensure_git_status_clean
+    git_pull
+    ensure_git_status_clean
+    Dir.chdir "../.." do
+      sh("flutter", "analyze")
+      sh("flutter", "test")
+    end
     increment_build_number(xcodeproj: "Runner.xcodeproj")
     build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
     upload_to_testflight
+    commit_version_bump
   end
 end
