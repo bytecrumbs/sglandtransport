@@ -30,5 +30,6 @@ platform :ios do
     build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
     upload_to_testflight
     commit_version_bump
+    push_to_git_remote
   end
 end
