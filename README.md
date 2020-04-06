@@ -16,7 +16,7 @@ This project is using Fastlane (https://fastlane.tools/) as its deployment pipel
 
 ```
 cd ios
-fastlane beta
+bundle exec fastlane beta
 ```
 
 #### To deploy to Android beta from local:
