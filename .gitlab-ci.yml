@@ -1,9 +1,13 @@
 stages:
   - beta
 
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+
 before_script:
-  - export LC_ALL=en_US.UTF-8
-  - export LANG=en_US.UTF-8
+  - gem install bundler
+  - bundle install
 
 build_job:
   stage: beta
