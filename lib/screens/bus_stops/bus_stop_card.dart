@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class BusCard extends StatelessWidget {
   const BusCard({
-    this.openContainer,
-    this.busStopCode,
-    this.description,
-    this.roadName,
+    @required this.openContainer,
+    @required this.busStopCode,
+    @required this.description,
+    @required this.roadName,
   });
 
   final Function() openContainer;
