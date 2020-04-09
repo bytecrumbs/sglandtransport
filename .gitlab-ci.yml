@@ -6,7 +6,8 @@ variables:
   LANG: "en_US.UTF-8"
 
 before_script:
-  - cd /ios
+  - pwd
+  - cd ios
   - gem install bundler
   - bundle install
 
@@ -15,7 +16,7 @@ build_job:
   tags:
     - ios
   script:
-    - cd /ios
+    - cd ios
     - fastlane beta
   artifacts:
     expire_in: 90 days
