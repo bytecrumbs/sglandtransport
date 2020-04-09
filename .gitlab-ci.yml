@@ -1,0 +1,29 @@
+stages:
+  - beta
+
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+
+before_script:
+  - pwd
+  - cd ios
+  - bundle update --bundler
+  - gem install bundler
+  - bundle install
+
+build_job:
+  stage: beta
+  tags:
+    - ios
+  script:
+    - fastlane beta
+  artifacts:
+    expire_in: 90 days
+    paths:
+    - build
+  only:
+    - master
+    - develop
+    - feature/*
+
