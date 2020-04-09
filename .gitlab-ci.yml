@@ -17,7 +17,6 @@ build_job:
   tags:
     - ios
   script:
-    - cd ios
     - fastlane beta
   artifacts:
     expire_in: 90 days
