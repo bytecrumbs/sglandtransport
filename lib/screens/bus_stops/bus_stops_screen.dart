@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/screens/bus_stops/bus_card_list.dart';
+import 'package:lta_datamall_flutter/screens/bus_stops/bus_stop_card_list.dart';
 import 'package:lta_datamall_flutter/screens/bus_stops/search_bar.dart';
 
 class BusStops extends StatelessWidget {
@@ -10,7 +10,7 @@ class BusStops extends StatelessWidget {
     return Column(
       children: <Widget>[
         SearchBar(),
-        BusCardList(),
+        BusStopCardList(),
       ],
     );
   }

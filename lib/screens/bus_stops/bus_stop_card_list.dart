@@ -4,13 +4,14 @@ import 'package:http/io_client.dart' as http;
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus_arrivals.dart';
+import 'package:lta_datamall_flutter/screens/bus_stops/bus_stop_card.dart';
 
-class BusCardList extends StatefulWidget {
+class BusStopCardList extends StatefulWidget {
   @override
-  _BusCardListState createState() => _BusCardListState();
+  _BusStopCardListState createState() => _BusStopCardListState();
 }
 
-class _BusCardListState extends State<BusCardList> {
+class _BusStopCardListState extends State<BusStopCardList> {
   Future<List<BusStopModel>> _future;
 
   @override
@@ -47,16 +48,11 @@ class _BusCardListState extends State<BusCardList> {
                   closedColor: Theme.of(context).scaffoldBackgroundColor,
                   closedBuilder:
                       (BuildContext context, VoidCallback openContainer) {
-                    return Card(
-                      margin: const EdgeInsets.all(6),
-                      child: ListTile(
-                        leading: Icon(Icons.departure_board),
-                        onTap: openContainer,
-                        title: Text(
-                            '${busStops[index].busStopCode} (${busStops[index].description})'),
-                        subtitle: Text(busStops[index].roadName),
-                        trailing: Icon(Icons.assignment),
-                      ),
+                    return BusCard(
+                      openContainer: openContainer,
+                      busStopCode: busStops[index].busStopCode,
+                      description: busStops[index].description,
+                      roadName: busStops[index].roadName,
                     );
                   },
                 );
