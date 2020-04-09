@@ -48,7 +48,7 @@ class _BusStopCardListState extends State<BusStopCardList> {
                   closedColor: Theme.of(context).scaffoldBackgroundColor,
                   closedBuilder:
                       (BuildContext context, VoidCallback openContainer) {
-                    return BusCard(
+                    return BusStopCard(
                       openContainer: openContainer,
                       busStopCode: busStops[index].busStopCode,
                       description: busStops[index].description,

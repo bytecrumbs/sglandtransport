@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BusCard extends StatelessWidget {
-  const BusCard({
+class BusStopCard extends StatelessWidget {
+  const BusStopCard({
     @required this.openContainer,
     @required this.busStopCode,
     @required this.description,

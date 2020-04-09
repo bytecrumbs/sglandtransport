@@ -11,7 +11,7 @@ void main() {
   Future<void> _pumpBusStopCard(WidgetTester tester) async {
     return await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: BusCard(
+        body: BusStopCard(
           busStopCode: busStopCode,
           description: description,
           roadName: roadName,
