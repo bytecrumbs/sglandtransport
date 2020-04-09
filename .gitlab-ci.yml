@@ -1,0 +1,22 @@
+stages:
+  - beta
+
+before_script:
+  - export LC_ALL=en_US.UTF-8
+  - export LANG=en_US.UTF-8
+
+build_job:
+  stage: beta
+  tags:
+    - ios
+  script:
+    - fastlane beta
+  artifacts:
+    expire_in: 90 days
+    paths:
+    - build
+  only:
+    - master
+    - develop
+    - feature/*
+
