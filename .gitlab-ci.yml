@@ -21,7 +21,7 @@ build_job:
     paths:
       - gitlab_ci_build
   only:
-    - develop
+    - development
     - feature/*
 
 beta_job:
