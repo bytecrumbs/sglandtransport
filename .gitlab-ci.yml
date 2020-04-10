@@ -1,5 +1,5 @@
 stages:
-  - beta
+  - test
 
 variables:
   LC_ALL: "en_US.UTF-8"
@@ -13,17 +13,16 @@ before_script:
   - bundle install
 
 build_job:
-  stage: beta
+  stage: test
   tags:
     - ios
   script:
-    - fastlane beta
+    - fastlane test
   artifacts:
     expire_in: 90 days
     paths:
-    - build
+      - build
   only:
     - master
     - develop
     - feature/*
-
