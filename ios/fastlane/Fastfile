@@ -16,6 +16,7 @@
 default_platform(:ios)
 
 platform :ios do
+
   desc "Push a new beta build to TestFlight"
   lane :test do
     Dir.chdir "../.." do
@@ -34,4 +35,5 @@ platform :ios do
     commit_version_bump
     push_to_git_remote
   end
+  
 end
