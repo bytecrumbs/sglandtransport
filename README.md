@@ -26,3 +26,32 @@ TBD
 ## Production deployments
 
 TBD
+
+### Gitlab Runner Setup
+
+## Download gitlab-runner from below
+
+curl — output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-darwin-amd64
+
+## Enable executable permission
+
+sudo chmod +x /usr/local/bin/gitlab-runner
+
+## For register - Use this token 3d1s4zAnGMrc8Qyp8XFR
+
+gitlab-runner register
+Refer -
+Goto https://gitlab.com/sascha.derungs/lta-datamall-flutter/-/settings/ci_cd
+Expand Runner section
+
+## Install runner
+
+gitlab-runner install
+
+## Start runner
+
+gitlab-runner start
+
+## Stop runner
+
+gitlab-runner stop
