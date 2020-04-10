@@ -50,7 +50,7 @@ gitlab-runner register
 1. gitlab-ci coordinator URL: https://gitlab.com/
 2. gitlab-ci token: 3d1s4zAnGMrc8Qyp8XFR
 3. gitlab-ci description: ltaDatamallApp
-4. gitlab-ci tags: << leave blank >>
+4. gitlab-ci tags: ios
 5. executor: shell
 
 Refer -
