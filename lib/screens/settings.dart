@@ -20,11 +20,19 @@ class Settings extends StatelessWidget {
           title: const Text('Dark Mode'),
         ),
         RaisedButton(
-            child: const Text('Tap to produce Crash (test crashlytics)'),
+            child: const Text('Tap to produce error (test crashlytics)'),
             onPressed: () {
               // Use Crashlytics to throw an error. Use this for
               // confirmation that errors are being correctly reported.
               Crashlytics.instance.crash();
+            }),
+        RaisedButton(
+            child:
+                const Text('Tap to produce uncaught error (test crashlytics)'),
+            onPressed: () {
+              // Example of thrown error, it will be caught and sent to
+              // Crashlytics.
+              throw StateError('Uncaught error thrown by app.');
             }),
       ],
     );
