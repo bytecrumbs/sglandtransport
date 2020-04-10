@@ -37,8 +37,18 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const BusArrivalHeader(
-          headerText: 'Buses',
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            const BusArrivalHeader(
+              headerText: 'Buses',
+            ),
+            IconButton(
+                icon: Icon(Icons.refresh),
+                onPressed: () {
+                  _refreshBusArrivals();
+                })
+          ],
         ),
         Expanded(
           child: FutureBuilder<BusArrivalModel>(
