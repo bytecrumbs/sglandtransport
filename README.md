@@ -73,5 +73,3 @@ gitlab-runner start
 ```
 gitlab-runner stop
 ```
-
-dummy text
