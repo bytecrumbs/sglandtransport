@@ -21,7 +21,7 @@ build_job:
   artifacts:
     expire_in: 90 days
     paths:
-      - build
+      - gitlab_ci_build
   only:
     - master
     - develop
