@@ -23,6 +23,7 @@ platform :ios do
       sh("flutter", "test")
     end
   end
+  
   lane :beta do
     ensure_git_status_clean
     git_pull
