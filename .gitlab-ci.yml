@@ -8,9 +8,6 @@ variables:
 before_script:
   - pwd
   - cd ios
-  - bundle update --bundler
-  - gem install bundler
-  - bundle install
 
 build_job:
   stage: test
