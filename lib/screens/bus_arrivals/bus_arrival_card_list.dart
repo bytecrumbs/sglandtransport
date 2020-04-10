@@ -44,10 +44,11 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
               headerText: 'Buses',
             ),
             IconButton(
-                icon: Icon(Icons.refresh),
-                onPressed: () {
-                  _refreshBusArrivals();
-                })
+              icon: Icon(Icons.refresh),
+              onPressed: () {
+                _refreshBusArrivals();
+              },
+            )
           ],
         ),
         Expanded(
