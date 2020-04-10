@@ -8,13 +8,14 @@ variables:
 
 before_script:
   - pwd
+  - cd ios
 
 build_job:
   stage: test
   tags:
     - develop-ios
   script:
-    - flutter test
+    - fastlane test
   artifacts:
     expire_in: 90 days
     paths:
