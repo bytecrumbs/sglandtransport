@@ -16,10 +16,6 @@ build_job:
     - develop-ios
   script:
     - fastlane test
-  artifacts:
-    expire_in: 90 days
-    paths:
-      - gitlab_ci_build
   only:
     - development
     - feature/*
