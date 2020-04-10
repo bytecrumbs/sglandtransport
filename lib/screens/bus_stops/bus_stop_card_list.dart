@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/screens/bus_arrivals.dart';
+import 'package:lta_datamall_flutter/screens/bus_arrivals/bus_arrivals_screen.dart';
 import 'package:lta_datamall_flutter/screens/bus_stops/bus_stop_card.dart';
 
 class BusStopCardList extends StatefulWidget {
@@ -35,7 +35,7 @@ class _BusStopCardListState extends State<BusStopCardList> {
                 return OpenContainer(
                   transitionType: ContainerTransitionType.fade,
                   openBuilder: (BuildContext _, VoidCallback openContainer) {
-                    return BusArrivals(
+                    return BusArrivalsScreen(
                       busStopCode: busStops[index].busStopCode,
                       description: busStops[index].description,
                       roadName: busStops[index].roadName,

@@ -3,9 +3,12 @@ import 'package:http/io_client.dart' as http;
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
+import 'package:lta_datamall_flutter/screens/bus_arrivals/bus_arrival_card.dart';
+import 'package:lta_datamall_flutter/screens/bus_arrivals/bus_arrival_header.dart';
+import 'package:lta_datamall_flutter/screens/bus_arrivals/bus_stop_info_header.dart';
 
-class BusArrivals extends StatefulWidget {
-  const BusArrivals({
+class BusArrivalsScreen extends StatefulWidget {
+  const BusArrivalsScreen({
     @required this.busStopCode,
     @required this.description,
     @required this.roadName,
@@ -18,22 +21,11 @@ class BusArrivals extends StatefulWidget {
   final String roadName;
 
   @override
-  _BusArrivalsState createState() => _BusArrivalsState();
+  _BusArrivalsScreenState createState() => _BusArrivalsScreenState();
 }
 
-class _BusArrivalsState extends State<BusArrivals> {
+class _BusArrivalsScreenState extends State<BusArrivalsScreen> {
   Future<BusArrivalModel> _future;
-
-  final Map<String, String> _busType = <String, String>{
-    'SD': 'Single Deck',
-    'DD': 'Double Deck',
-    'BD': 'Bendy',
-  };
-  final Map<String, String> _busLoad = <String, String>{
-    'SEA': 'Seats Available',
-    'SDA': 'Standing Available',
-    'LSD': 'Limited Standing',
-  };
 
   @override
   void initState() {
@@ -47,11 +39,6 @@ class _BusArrivalsState extends State<BusArrivals> {
     });
 
     return _future;
-  }
-
-  int _getArrivalInMinutes(String arrivalTime) {
-    final DateTime nextArrivalTime = DateTime.parse(arrivalTime);
-    return nextArrivalTime.difference(DateTime.now()).inMinutes;
   }
 
   // TODO(sascha): also display information for the next 2 buses arriving
@@ -69,31 +56,15 @@ class _BusArrivalsState extends State<BusArrivals> {
         ],
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const SizedBox(height: 10),
-          Container(
-            margin: const EdgeInsets.all(6),
-            child: const Text(
-              'Bus Stop',
-              style: TextStyle(
-                fontSize: 16.0,
-              ),
-            ),
+          BusStopInfoHeader(
+            busStopCode: widget.busStopCode,
+            description: widget.description,
+            roadName: widget.roadName,
           ),
-          Card(
-            margin: const EdgeInsets.all(6),
-            child: ListTile(
-              title: Text('${widget.busStopCode} (${widget.description})'),
-              subtitle: Text(widget.roadName),
-            ),
-          ),
-          Container(
-            child: const Text(
-              'Buses',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            margin: const EdgeInsets.all(6),
+          // TODO(sascha): Extract into its own Stateful widget
+          const BusArrivalHeader(
+            headerText: 'Buses',
           ),
           Expanded(
             child: FutureBuilder<BusArrivalModel>(
@@ -112,26 +83,13 @@ class _BusArrivalsState extends State<BusArrivals> {
                       itemBuilder: (BuildContext context, int index) {
                         final BusArrivalServiceModel currentBusService =
                             busServices[index];
-                        final int arrivalInMinutes = _getArrivalInMinutes(
-                            currentBusService.nextBus.estimatedArrival);
-                        return Card(
-                          margin: const EdgeInsets.all(6),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              child: Text(currentBusService.serviceNo),
-                            ),
-                            title: Text(
-                              '${currentBusService.busOperator} - ${_busType[currentBusService.nextBus.type]}',
-                            ),
-                            subtitle: Text(
-                              _busLoad[currentBusService.nextBus.load],
-                            ),
-                            trailing: Text(
-                              arrivalInMinutes <= 0
-                                  ? 'Arr'
-                                  : "${arrivalInMinutes.toString()}'",
-                            ),
-                          ),
+                        return BusArrivalCard(
+                          serviceNo: currentBusService.serviceNo,
+                          busOperator: currentBusService.busOperator,
+                          nextBusType: currentBusService.nextBus.type,
+                          nextBusLoad: currentBusService.nextBus.load,
+                          estimatedArrival:
+                              currentBusService.nextBus.estimatedArrival,
                         );
                       },
                     ),
