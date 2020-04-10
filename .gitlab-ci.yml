@@ -13,7 +13,7 @@ before_script:
 build_job:
   stage: test
   tags:
-    - ios
+    - develop-ios
   script:
     - fastlane test
   artifacts:
@@ -27,7 +27,7 @@ build_job:
 beta_job:
   stage: beta
   tags:
-    - ios
+    - main-ios
   script:
     - fastlane beta
   artifacts:
