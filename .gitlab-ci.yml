@@ -1,5 +1,6 @@
 stages:
   - test
+  - beta
 
 variables:
   LC_ALL: "en_US.UTF-8"
@@ -20,6 +21,18 @@ build_job:
     paths:
       - gitlab_ci_build
   only:
-    - master
     - develop
     - feature/*
+
+beta_job:
+  stage: beta
+  tags:
+    - ios
+  script:
+    - fastlane beta
+  artifacts:
+    expire_in: 90 days
+    paths:
+      - gitlab_ci_build
+  only:
+    - master
