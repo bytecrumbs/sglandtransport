@@ -37,3 +37,5 @@ lib/generated_plugin_registrant.dart
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 coverage/
+builds/dcinDi7y/0/sascha.derungs/lta-datamall-flutter.tmp/CI_SERVER_TLS_CA_FILE
+builds/dcinDi7y/0/sascha.derungs/lta-datamall-flutter.tmp/git-template/config
