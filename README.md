@@ -27,21 +27,21 @@ TBD
 
 TBD
 
-### Gitlab Runner Setup
+## Gitlab Runner Setup
 
-## Download gitlab-runner from below
+### Download gitlab-runner from below
 
 ```
 curl --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-darwin-amd64
 ```
 
-## Enable executable permission
+### Enable executable permission
 
 ```
 sudo chmod +x /usr/local/bin/gitlab-runner
 ```
 
-## Register the Runner
+### Register the Runner
 
 ```
 gitlab-runner register
@@ -56,22 +56,20 @@ gitlab-runner register
 Refer -
 Goto https://gitlab.com/sascha.derungs/lta-datamall-flutter/-/settings/ci_cd -> Expand Runner section
 
-## Install runner
+### Install runner
 
 ```
 gitlab-runner install
 ```
 
-## Start runner
+### Start runner
 
 ```
 gitlab-runner start
 ```
 
-## Stop runner
+### Stop runner
 
 ```
 gitlab-runner stop
 ```
-
-dummy text
