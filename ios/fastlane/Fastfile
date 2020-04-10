@@ -17,14 +17,16 @@ default_platform(:ios)
 
 platform :ios do
   desc "Push a new beta build to TestFlight"
-  lane :beta do
-    ensure_git_status_clean
-    git_pull
-    ensure_git_status_clean
+  lane :test do
     Dir.chdir "../.." do
       sh("flutter", "analyze")
       sh("flutter", "test")
     end
+  end
+  lane :beta do
+    ensure_git_status_clean
+    git_pull
+    ensure_git_status_clean
     increment_build_number(xcodeproj: "Runner.xcodeproj")
     build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
     upload_to_testflight
