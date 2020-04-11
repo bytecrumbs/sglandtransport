@@ -1,8 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/screens/bicycle/bicycle_parking.dart';
-import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stops_screen.dart';
-import 'package:lta_datamall_flutter/screens/settings/settings.dart';
+import 'package:lta_datamall_flutter/screens/bus/favorites_bus_section.dart';
+import 'package:lta_datamall_flutter/screens/bus/nearby_bus_section.dart';
+import 'package:lta_datamall_flutter/screens/bus/search_bus_section.dart';
 import 'package:lta_datamall_flutter/screens/widgets/app_drawer.dart';
 
 class MainBusScreen extends StatefulWidget {
@@ -16,15 +16,15 @@ class _MainBusScreenState extends State<MainBusScreen> {
   int pageIndex = 0;
 
   List<Widget> pageList = <Widget>[
-    BusStops(),
-    BicycleParking(),
-    Settings(),
+    NearbyBusStops(),
+    FavoriteBusStops(),
+    SearchBusStops(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('LTA Datamall'),
+        title: const Text('Buses'),
       ),
       drawer: AppDrawer(),
       body: PageTransitionSwitcher(
@@ -50,16 +50,16 @@ class _MainBusScreenState extends State<MainBusScreen> {
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_bus),
-            title: const Text('Bus timing'),
+            icon: Icon(Icons.location_searching),
+            title: const Text('Nearby'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_bike),
-            title: const Text('Bicycle Parking'),
+            icon: Icon(Icons.favorite),
+            title: const Text('Favorites'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: const Text('Settings'),
+            icon: Icon(Icons.search),
+            title: const Text('Search'),
           ),
         ],
       ),
