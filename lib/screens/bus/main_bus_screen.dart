@@ -4,14 +4,14 @@ import 'package:lta_datamall_flutter/screens/bicycle/bicycle_parking.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stops_screen.dart';
 import 'package:lta_datamall_flutter/screens/settings/settings.dart';
 
-class MainContainer extends StatefulWidget {
+class MainBusScreen extends StatefulWidget {
   static const String id = 'main_bus_screen';
 
   @override
-  _MainContainerState createState() => _MainContainerState();
+  _MainBusScreenState createState() => _MainBusScreenState();
 }
 
-class _MainContainerState extends State<MainContainer> {
+class _MainBusScreenState extends State<MainBusScreen> {
   int pageIndex = 0;
 
   List<Widget> pageList = <Widget>[
