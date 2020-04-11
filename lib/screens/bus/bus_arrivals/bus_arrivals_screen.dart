@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/screens/bus_arrivals/bus_arrival_card_list.dart';
-import 'package:lta_datamall_flutter/screens/bus_arrivals/bus_stop_info_header.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card_list.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_stop_info_header.dart';
 
 class BusArrivalsScreen extends StatelessWidget {
   const BusArrivalsScreen({

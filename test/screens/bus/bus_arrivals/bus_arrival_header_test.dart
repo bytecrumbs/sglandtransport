@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lta_datamall_flutter/screens/bus_arrivals/bus_arrival_header.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_header.dart';
 
 Future<void> _pumpBusArrivalHeader(
     WidgetTester tester, String headerText) async {

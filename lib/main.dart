@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/providers/settings_provider.dart';
-import 'package:lta_datamall_flutter/screens/main_container.dart';
+import 'package:lta_datamall_flutter/screens/bus/main_container.dart';
 import 'package:provider/provider.dart';
 
 void main() {

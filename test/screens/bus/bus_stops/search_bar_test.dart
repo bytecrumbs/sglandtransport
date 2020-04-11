@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lta_datamall_flutter/screens/bus_stops/search_bar.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_stops/search_bar.dart';
 
 void main() {
   Future<void> _pumpSearchBar(WidgetTester tester) async {

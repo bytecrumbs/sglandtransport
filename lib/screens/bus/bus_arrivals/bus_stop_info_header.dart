@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/screens/bus_arrivals/bus_arrival_header.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_header.dart';
 
 class BusStopInfoHeader extends StatelessWidget {
   const BusStopInfoHeader({

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/screens/bus_arrivals/bus_arrivals_screen.dart';
-import 'package:lta_datamall_flutter/screens/bus_stops/bus_stop_card.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card.dart';
 
 class BusStopCardList extends StatefulWidget {
   @override

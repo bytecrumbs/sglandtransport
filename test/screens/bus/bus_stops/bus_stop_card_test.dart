@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lta_datamall_flutter/screens/bus_stops/bus_stop_card.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card.dart';
 
 void main() {
   const String busStopCode = 'BusStopCode';

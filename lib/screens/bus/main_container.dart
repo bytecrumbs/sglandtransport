@@ -1,11 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/screens/bicycle_parking.dart';
-import 'package:lta_datamall_flutter/screens/bus_stops/bus_stops_screen.dart';
-import 'package:lta_datamall_flutter/screens/settings.dart';
+import 'package:lta_datamall_flutter/screens/bicycle/bicycle_parking.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stops_screen.dart';
+import 'package:lta_datamall_flutter/screens/settings/settings.dart';
 
 class MainContainer extends StatefulWidget {
-  static const String id = 'main_app_screen';
+  static const String id = 'main_bus_screen';
 
   @override
   _MainContainerState createState() => _MainContainerState();
