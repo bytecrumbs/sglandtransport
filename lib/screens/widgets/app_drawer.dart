@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/screens/bicycle/main_bicycle_screen.dart';
+import 'package:lta_datamall_flutter/screens/bus/main_bus_screen.dart';
+import 'package:lta_datamall_flutter/screens/settings/main_settings_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -24,24 +27,21 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.directions_bus),
             title: const Text('Bus Timing'),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              Navigator.pushNamed(context, MainBusScreen.id);
             },
           ),
           ListTile(
             leading: Icon(Icons.directions_bike),
             title: const Text('Bicycle Parking'),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              Navigator.pushNamed(context, MainBicycleScreen.id);
             },
           ),
           ListTile(
             leading: Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              Navigator.pushNamed(context, MainSettingsScreen.id);
             },
           ),
         ],

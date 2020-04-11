@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/providers/settings_provider.dart';
+import 'package:lta_datamall_flutter/screens/bicycle/main_bicycle_screen.dart';
 import 'package:lta_datamall_flutter/screens/bus/main_bus_screen.dart';
+import 'package:lta_datamall_flutter/screens/settings/main_settings_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -38,6 +40,10 @@ class MyApp extends StatelessWidget {
             initialRoute: MainBusScreen.id,
             routes: <String, WidgetBuilder>{
               MainBusScreen.id: (BuildContext context) => MainBusScreen(),
+              MainBicycleScreen.id: (BuildContext context) =>
+                  MainBicycleScreen(),
+              MainSettingsScreen.id: (BuildContext context) =>
+                  MainSettingsScreen(),
             },
           );
         },
