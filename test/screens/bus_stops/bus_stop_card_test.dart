@@ -6,7 +6,9 @@ void main() {
   const String busStopCode = 'BusStopCode';
   const String description = 'Description';
   const String roadName = 'RoadName';
-  final Function() openContainer = () {};
+  final Function() openContainer = () {
+    print('Callback called');
+  };
 
   Future<void> _pumpBusStopCard(WidgetTester tester) async {
     return await tester.pumpWidget(MaterialApp(
@@ -36,5 +38,13 @@ void main() {
     expect(labelFinder, findsOneWidget);
   });
 
-  // TODO(anyone): Add a test that confirms the callback is called once when the widget is tapped
+  testWidgets('Callback is called when Card is clicked',
+      (WidgetTester tester) async {
+    await _pumpBusStopCard(tester);
+
+    expect(
+      () => tester.tap(find.text(roadName)),
+      prints('Callback called\n'),
+    );
+  });
 }
