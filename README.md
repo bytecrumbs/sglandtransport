@@ -1,3 +1,7 @@
+# Code Coverage
+[![pipeline status](https://gitlab.com/sascha.derungs/lta-datamall-flutter/badges/development/pipeline.svg)](https://gitlab.com/sascha.derungs/lta-datamall-flutter/-/commits/development)
+[![coverage report](https://gitlab.com/sascha.derungs/lta-datamall-flutter/badges/development/coverage.svg)](https://gitlab.com/sascha.derungs/lta-datamall-flutter/-/commits/development)
+
 # LTA Datamall app
 
 This app provides screens and functionality for APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
