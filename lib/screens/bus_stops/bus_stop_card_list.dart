@@ -20,6 +20,14 @@ class _BusStopCardListState extends State<BusStopCardList> {
     _future = fetchBusStopList(http.IOClient());
   }
 
+  void dismissFocus() {
+    final FocusScopeNode currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -35,6 +43,7 @@ class _BusStopCardListState extends State<BusStopCardList> {
                 return OpenContainer(
                   transitionType: ContainerTransitionType.fade,
                   openBuilder: (BuildContext _, VoidCallback openContainer) {
+                    dismissFocus();
                     return BusArrivalsScreen(
                       busStopCode: busStops[index].busStopCode,
                       description: busStops[index].description,
