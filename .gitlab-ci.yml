@@ -10,12 +10,15 @@ before_script:
   - pwd
   - cd ios
 
-build_job:
+unit_test:
   stage: test
   tags:
     - develop-ios
   script:
     - fastlane test
+  artifacts:
+    paths:
+      - coverage
   only:
     - development
     - feature/*

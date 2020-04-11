@@ -21,7 +21,9 @@ platform :ios do
   lane :test do
     Dir.chdir "../.." do
       sh("flutter", "analyze")
-      sh("flutter", "test")
+      sh("flutter test --coverage")
+      sh("lcov --list coverage/lcov.info")
+      sh("genhtml coverage/lcov.info --output=coverage")
     end
   end
   
