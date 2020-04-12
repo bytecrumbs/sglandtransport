@@ -1,4 +1,5 @@
 # Code Coverage
+
 [![pipeline status](https://gitlab.com/sascha.derungs/lta-datamall-flutter/badges/development/pipeline.svg)](https://gitlab.com/sascha.derungs/lta-datamall-flutter/-/commits/development)
 [![coverage report](https://gitlab.com/sascha.derungs/lta-datamall-flutter/badges/development/coverage.svg)](https://gitlab.com/sascha.derungs/lta-datamall-flutter/-/commits/development)
 
@@ -54,7 +55,7 @@ gitlab-runner register
 1. gitlab-ci coordinator URL: https://gitlab.com/
 2. gitlab-ci token: 3d1s4zAnGMrc8Qyp8XFR
 3. gitlab-ci description: ltaDatamallApp
-4. gitlab-ci tags: ios
+4. gitlab-ci tags: unit_test
 5. executor: shell
 
 Refer -
@@ -76,4 +77,19 @@ gitlab-runner start
 
 ```
 gitlab-runner stop
+```
+
+## Run test and Generate coverage and convert to HTML
+
+### Installing dependency
+
+```
+brew install lcov
+```
+
+### Run tests, generate coverage files and convert to HTML
+
+```
+flutter test --coverage
+genhtml coverage/lcov.info -o coverage/html
 ```

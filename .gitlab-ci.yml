@@ -1,6 +1,5 @@
 stages:
   - test
-  - beta
 
 variables:
   LC_ALL: "en_US.UTF-8"
@@ -13,7 +12,7 @@ before_script:
 unit_test:
   stage: test
   tags:
-    - develop-ios
+    - unit_test
   script:
     - fastlane test
   artifacts:
@@ -22,16 +21,3 @@ unit_test:
   only:
     - development
     - feature/*
-
-beta_job:
-  stage: beta
-  tags:
-    - main-ios
-  script:
-    - fastlane beta
-  artifacts:
-    expire_in: 90 days
-    paths:
-      - gitlab_ci_build
-  only:
-    - master
