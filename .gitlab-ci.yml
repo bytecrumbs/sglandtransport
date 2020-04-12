@@ -7,14 +7,16 @@ variables:
 
 before_script:
   - pwd
-  - cd ios
 
 unit_test:
   stage: test
   tags:
     - unit_test
   script:
-    - fastlane test
+    - flutter analyze
+    - flutter test --coverage
+    - lcov --list coverage/lcov.info
+    - genhtml coverage/lcov.info --output=coverage
   artifacts:
     paths:
       - coverage

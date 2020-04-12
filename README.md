@@ -79,7 +79,7 @@ gitlab-runner start
 gitlab-runner stop
 ```
 
-## Run test and Generate coverage and convert to HTML
+## Run test, generate coverage and convert to HTML
 
 ### Installing dependency
 
