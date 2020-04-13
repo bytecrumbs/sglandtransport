@@ -32,26 +32,24 @@ void main() {
           'load': 'load',
           'type': 'type',
           'feature': 'feature',
-          'estimatedArrival': 'estimatedArrival'
+          'estimatedArrival': '2020-02-12T14:09:11+08:00'
         },
         'nextBus2': <String, String>{
           'load': 'load',
           'type': 'type',
           'feature': 'feature',
-          'estimatedArrival': 'estimatedArrival'
+          'estimatedArrival': '2020-02-12T14:09:11+08:00'
         },
         'nextBus3': <String, String>{
           'load': 'load',
           'type': 'type',
           'feature': 'feature',
-          'estimatedArrival': 'estimatedArrival'
+          'estimatedArrival': '2020-02-12T14:09:11+08:00'
         }
       },
     );
     final Finder serviceNoFinder = find.text(serviceNo);
-    final Finder busOperatorFinder = find.text('$busOperator');
 
     expect(serviceNoFinder, findsOneWidget);
-    expect(busOperatorFinder, findsOneWidget);
   });
 }
