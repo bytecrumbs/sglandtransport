@@ -19,8 +19,7 @@ Future<void> _pumpBusArrivalCard(
 }
 
 void main() {
-  testWidgets('BusArrivalCard shows the right text',
-      (WidgetTester tester) async {
+  testWidgets('BusArrivalCard shows bus number', (WidgetTester tester) async {
     const String serviceNo = '100';
     const String busOperator = 'SBST';
     await _pumpBusArrivalCard(
@@ -52,4 +51,6 @@ void main() {
 
     expect(serviceNoFinder, findsOneWidget);
   });
+
+  // TODO add test on clicking on bus
 }
