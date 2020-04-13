@@ -1,56 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_details.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/utils.dart';
 
 class BusArrivalCard extends StatelessWidget {
-  BusArrivalCard({
+  const BusArrivalCard({
     @required this.serviceNo,
     @required this.busOperator,
-    @required this.nextBusType,
-    @required this.nextBusLoad,
-    @required this.estimatedArrival,
+    @required this.nextBusesDetails,
   });
 
   final String serviceNo;
   final String busOperator;
-  final String nextBusType;
-  final String nextBusLoad;
-  final String estimatedArrival;
-
-  final Map<String, String> _busType = <String, String>{
-    'SD': 'Single Deck',
-    'DD': 'Double Deck',
-    'BD': 'Bendy',
-  };
-  final Map<String, String> _busLoad = <String, String>{
-    'SEA': 'Seats Available',
-    'SDA': 'Standing Available',
-    'LSD': 'Limited Standing',
-  };
-
-  String _getArrivalInMinutes(String arrivalTime) {
-    final DateTime nextArrivalTime = DateTime.parse(arrivalTime);
-    final int arrivalInMinutes =
-        nextArrivalTime.difference(DateTime.now()).inMinutes;
-    return arrivalInMinutes <= 0 ? 'Arr' : arrivalInMinutes.toString();
-  }
+  final Map<String, Map> nextBusesDetails;
 
   @override
   Widget build(BuildContext context) {
-    final String arrivalInMinutes = _getArrivalInMinutes(estimatedArrival);
-    return Card(
-      margin: const EdgeInsets.all(6),
-      child: ListTile(
-        leading: CircleAvatar(
-          child: Text(serviceNo),
+    return ListTileTheme(
+      contentPadding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+      child: ExpansionTile(
+        title: ListTile(
+          leading: CircleAvatar(child: Text(serviceNo)),
+          title: Text(Utility().getTimeToBusStop(
+            nextBusesDetails['nextBus']['estimatedArrival'] as String,
+          )),
         ),
-        title: Text(
-          '$busOperator - ${_busType[nextBusType]}',
-        ),
-        subtitle: Text(
-          _busLoad[nextBusLoad],
-        ),
-        trailing: Text(
-          arrivalInMinutes,
-        ),
+        children: <Widget>[
+          BusArrivalDetails(busDetails: nextBusesDetails['nextBus']),
+          BusArrivalDetails(busDetails: nextBusesDetails['nextBus2']),
+          BusArrivalDetails(busDetails: nextBusesDetails['nextBus3'])
+        ],
       ),
     );
   }
