@@ -11,7 +11,6 @@ Future<void> _pumpBusArrivalCard(
     home: Scaffold(
       body: BusArrivalCard(
         serviceNo: serviceNo,
-        busOperator: busOperator,
         nextBusesDetails: nextBusesDetails,
       ),
     ),
