@@ -5,12 +5,10 @@ import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/utils.dart';
 class BusArrivalCard extends StatelessWidget {
   const BusArrivalCard({
     @required this.serviceNo,
-    @required this.busOperator,
     @required this.nextBusesDetails,
   });
 
   final String serviceNo;
-  final String busOperator;
   final Map<String, Map> nextBusesDetails;
 
   @override

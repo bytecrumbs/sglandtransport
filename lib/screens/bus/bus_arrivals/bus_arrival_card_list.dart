@@ -70,7 +70,6 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
 
                       return BusArrivalCard(
                         serviceNo: currentBusService.serviceNo,
-                        busOperator: currentBusService.busOperator,
                         nextBusesDetails: <String, Map>{
                           'nextBus': <String, String>{
                             'load': currentBusService.nextBus.load,
