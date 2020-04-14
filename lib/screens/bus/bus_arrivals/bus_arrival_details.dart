@@ -3,10 +3,14 @@ import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/utils.dart';
 
 class BusArrivalDetails extends StatelessWidget {
   const BusArrivalDetails({
-    @required this.busDetails,
+    @required this.feature,
+    @required this.load,
+    @required this.estimatedArrival,
   });
 
-  final Map<String, String> busDetails;
+  final String feature;
+  final String load;
+  final String estimatedArrival;
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +33,12 @@ class BusArrivalDetails extends StatelessWidget {
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       leading: CircleAvatar(backgroundColor: Colors.transparent),
-      title: Text(Utility().getTimeToBusStop(busDetails['estimatedArrival'])),
+      title: Text(Utility().getTimeToBusStop(estimatedArrival)),
       subtitle: Text(
-        _getBusFeature(busDetails['feature']),
+        _getBusFeature(feature),
       ),
       trailing: Text(
-        _getBusLoad(busDetails['load']),
+        _getBusLoad(load),
       ),
     );
   }

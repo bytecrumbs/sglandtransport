@@ -27,9 +27,21 @@ class BusArrivalCard extends StatelessWidget {
           )),
         ),
         children: <Widget>[
-          BusArrivalDetails(busDetails: nextBus),
-          BusArrivalDetails(busDetails: nextBus2),
-          BusArrivalDetails(busDetails: nextBus3)
+          BusArrivalDetails(
+            feature: nextBus['feature'],
+            load: nextBus['load'],
+            estimatedArrival: nextBus['estimatedArrival'],
+          ),
+          BusArrivalDetails(
+            feature: nextBus2['feature'],
+            load: nextBus2['load'],
+            estimatedArrival: nextBus2['estimatedArrival'],
+          ),
+          BusArrivalDetails(
+            feature: nextBus3['feature'],
+            load: nextBus3['load'],
+            estimatedArrival: nextBus3['estimatedArrival'],
+          ),
         ],
       ),
     );
