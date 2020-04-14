@@ -49,7 +49,10 @@ class MyApp extends StatelessWidget {
             initialRoute: MainBusScreen.id,
             navigatorObservers: <NavigatorObserver>[observer],
             routes: <String, WidgetBuilder>{
-              MainBusScreen.id: (BuildContext context) => MainBusScreen(),
+              MainBusScreen.id: (BuildContext context) => MainBusScreen(
+                    analytics: analytics,
+                    observer: observer,
+                  ),
               MainBicycleScreen.id: (BuildContext context) =>
                   MainBicycleScreen(),
               MainSettingsScreen.id: (BuildContext context) =>
