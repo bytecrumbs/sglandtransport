@@ -5,15 +5,15 @@ import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/utils.dart';
 class BusArrivalCard extends StatelessWidget {
   const BusArrivalCard({
     @required this.serviceNo,
-    @required this.nextBusLoad,
-    @required this.nextBus2Load,
-    @required this.nextBus3Load,
+    @required this.nextBus,
+    @required this.nextBus2,
+    @required this.nextBus3,
   });
 
   final String serviceNo;
-  final Map<String, String> nextBusLoad;
-  final Map<String, String> nextBus2Load;
-  final Map<String, String> nextBus3Load;
+  final Map<String, String> nextBus;
+  final Map<String, String> nextBus2;
+  final Map<String, String> nextBus3;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +23,13 @@ class BusArrivalCard extends StatelessWidget {
         title: ListTile(
           leading: CircleAvatar(child: Text(serviceNo)),
           title: Text(Utility().getTimeToBusStop(
-            nextBusLoad['estimatedArrival'],
+            nextBus['estimatedArrival'],
           )),
         ),
         children: <Widget>[
-          BusArrivalDetails(busDetails: nextBusLoad),
-          BusArrivalDetails(busDetails: nextBus2Load),
-          BusArrivalDetails(busDetails: nextBus3Load)
+          BusArrivalDetails(busDetails: nextBus),
+          BusArrivalDetails(busDetails: nextBus2),
+          BusArrivalDetails(busDetails: nextBus3)
         ],
       ),
     );

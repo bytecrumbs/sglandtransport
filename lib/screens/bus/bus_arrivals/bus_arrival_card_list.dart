@@ -69,21 +69,21 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
                           busServices[index];
                       return BusArrivalCard(
                         serviceNo: currentBusService.serviceNo,
-                        nextBusLoad: <String, String>{
+                        nextBus: <String, String>{
                           'load': currentBusService.nextBus.load,
                           'type': currentBusService.nextBus.type,
                           'feature': currentBusService.nextBus.feature,
                           'estimatedArrival':
                               currentBusService.nextBus.estimatedArrival,
                         },
-                        nextBus2Load: <String, String>{
+                        nextBus2: <String, String>{
                           'load': currentBusService.nextBus2.load,
                           'type': currentBusService.nextBus2.type,
                           'feature': currentBusService.nextBus2.feature,
                           'estimatedArrival':
                               currentBusService.nextBus2.estimatedArrival,
                         },
-                        nextBus3Load: <String, String>{
+                        nextBus3: <String, String>{
                           'load': currentBusService.nextBus3.load,
                           'type': currentBusService.nextBus3.type,
                           'feature': currentBusService.nextBus3.feature,
