@@ -70,28 +70,26 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
 
                       return BusArrivalCard(
                         serviceNo: currentBusService.serviceNo,
-                        nextBusesDetails: <String, Map>{
-                          'nextBus': <String, String>{
-                            'load': currentBusService.nextBus.load,
-                            'type': currentBusService.nextBus.type,
-                            'feature': currentBusService.nextBus.feature,
-                            'estimatedArrival':
-                                currentBusService.nextBus.estimatedArrival,
-                          },
-                          'nextBus2': <String, String>{
-                            'load': currentBusService.nextBus2.load,
-                            'type': currentBusService.nextBus2.type,
-                            'feature': currentBusService.nextBus.feature,
-                            'estimatedArrival':
-                                currentBusService.nextBus2.estimatedArrival,
-                          },
-                          'nextBus3': <String, String>{
-                            'load': currentBusService.nextBus3.load,
-                            'type': currentBusService.nextBus3.type,
-                            'feature': currentBusService.nextBus.feature,
-                            'estimatedArrival':
-                                currentBusService.nextBus3.estimatedArrival,
-                          }
+                        nextBusLoad: <String, String>{
+                          'load': currentBusService.nextBus.load,
+                          'type': currentBusService.nextBus.type,
+                          'feature': currentBusService.nextBus.feature,
+                          'estimatedArrival':
+                              currentBusService.nextBus.estimatedArrival,
+                        },
+                        nextBus2Load: <String, String>{
+                          'load': currentBusService.nextBus2.load,
+                          'type': currentBusService.nextBus2.type,
+                          'feature': currentBusService.nextBus2.feature,
+                          'estimatedArrival':
+                              currentBusService.nextBus2.estimatedArrival,
+                        },
+                        nextBus3Load: <String, String>{
+                          'load': currentBusService.nextBus3.load,
+                          'type': currentBusService.nextBus3.type,
+                          'feature': currentBusService.nextBus3.feature,
+                          'estimatedArrival':
+                              currentBusService.nextBus3.estimatedArrival,
                         },
                       );
                     },
