@@ -6,7 +6,7 @@ class BusArrivalDetails extends StatelessWidget {
     @required this.busDetails,
   });
 
-  final Map busDetails;
+  final Map<String, String> busDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,7 @@ class BusArrivalDetails extends StatelessWidget {
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       leading: CircleAvatar(backgroundColor: Colors.transparent),
-      title: Text(
-          Utility().getTimeToBusStop(busDetails['estimatedArrival'] as String)),
+      title: Text(Utility().getTimeToBusStop(busDetails['estimatedArrival'])),
       subtitle: Text(
         _getBusFeature(busDetails['feature']),
       ),

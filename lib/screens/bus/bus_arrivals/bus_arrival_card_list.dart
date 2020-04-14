@@ -67,7 +67,6 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
                     itemBuilder: (BuildContext context, int index) {
                       final BusArrivalServiceModel currentBusService =
                           busServices[index];
-
                       return BusArrivalCard(
                         serviceNo: currentBusService.serviceNo,
                         nextBusLoad: <String, String>{

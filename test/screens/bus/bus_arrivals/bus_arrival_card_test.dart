@@ -52,6 +52,4 @@ void main() {
 
     expect(serviceNoFinder, findsOneWidget);
   });
-
-  // TODO add test on clicking on bus
 }

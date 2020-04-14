@@ -4,7 +4,7 @@ import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_detail
 
 Future<void> _pumpBusArrivalDetails(
     {@required WidgetTester tester,
-    @required Map<String, dynamic> busDetails}) async {
+    @required Map<String, String> busDetails}) async {
   return await tester.pumpWidget(MaterialApp(
     home: Scaffold(
       body: BusArrivalDetails(busDetails: busDetails),
@@ -14,7 +14,7 @@ Future<void> _pumpBusArrivalDetails(
 
 void main() {
   testWidgets('Displays information about bus', (WidgetTester tester) async {
-    await _pumpBusArrivalDetails(tester: tester, busDetails: <String, dynamic>{
+    await _pumpBusArrivalDetails(tester: tester, busDetails: <String, String>{
       'load': 'SEA',
       'type': 'DD',
       'feature': 'WAB',
