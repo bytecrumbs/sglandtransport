@@ -45,9 +45,12 @@ class BusArrivalCard extends StatelessWidget {
         getTimeToBusStop(nextBusEstimatedArrival, true);
 
     Widget _getBusFeature(dynamic wab) {
+      if (wab != 'WAB') {
+        return null;
+      }
+
       return Icon(
         Icons.accessible,
-        color: wab == 'WAB' ? Colors.black : Colors.red,
         size: 25.0,
       );
     }
@@ -69,8 +72,7 @@ class BusArrivalCard extends StatelessWidget {
     Widget colorNextBusTiming(String nextBusTiming) {
       return Text(
         nextBusTiming,
-        style: TextStyle(
-          color: nextBusTiming == 'Arr' ? Colors.green : Colors.black,
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 20,
         ),
