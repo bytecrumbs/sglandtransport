@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/utils.dart';
+import 'package:lta_datamall_flutter/widgets/boxInfo.dart';
 
 class BusArrivalCard extends StatelessWidget {
   const BusArrivalCard({
@@ -27,18 +28,8 @@ class BusArrivalCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Container(
-              alignment: const Alignment(0.0, 0.0),
-              constraints: const BoxConstraints(minWidth: 90),
-              height: 65,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-                color: Theme.of(context).primaryColorDark,
-              ),
-              margin: const EdgeInsets.all(10.0),
-              padding: const EdgeInsets.all(10.0),
+            BoxInfo(
+              color: Theme.of(context).primaryColorDark,
               child: Text(
                 serviceNo,
                 style: const TextStyle(
@@ -48,18 +39,8 @@ class BusArrivalCard extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              constraints: const BoxConstraints(minWidth: 90),
-              height: 65,
-              alignment: const Alignment(0.0, 0.0),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-                color: Theme.of(context).primaryColorLight,
-              ),
-              margin: const EdgeInsets.all(10.0),
-              padding: const EdgeInsets.all(10.0),
+            BoxInfo(
+              color: Theme.of(context).primaryColorLight,
               child: Column(
                 children: <Widget>[
                   Container(
@@ -89,33 +70,4 @@ class BusArrivalCard extends StatelessWidget {
       ],
     );
   }
-  //   return ListTileTheme(
-  //     contentPadding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-  //     child: ExpansionTile(
-  //       title: ListTile(
-  //         leading: CircleAvatar(child: Text(serviceNo)),
-  //         title: Text(Utility().getTimeToBusStop(
-  //           nextBus['estimatedArrival'],
-  //         )),
-  //       ),
-  //       children: <Widget>[
-  //         BusArrivalDetails(
-  //           feature: nextBus['feature'],
-  //           load: nextBus['load'],
-  //           estimatedArrival: nextBus['estimatedArrival'],
-  //         ),
-  //         BusArrivalDetails(
-  //           feature: nextBus2['feature'],
-  //           load: nextBus2['load'],
-  //           estimatedArrival: nextBus2['estimatedArrival'],
-  //         ),
-  //         BusArrivalDetails(
-  //           feature: nextBus3['feature'],
-  //           load: nextBus3['load'],
-  //           estimatedArrival: nextBus3['estimatedArrival'],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }
