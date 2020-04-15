@@ -39,8 +39,8 @@ void main() {
       nextBus2EstimatedArrival: '2020-02-12T14:09:11+08:00',
       nextBus3EstimatedArrival: '2020-02-12T14:09:11+08:00',
     );
-    final Finder serviceNoFinder = find.text(serviceNo);
 
-    expect(serviceNoFinder, findsOneWidget);
+    expect(find.text(serviceNo), findsOneWidget);
+    expect(find.text('Seats Available'), findsOneWidget);
   });
 }

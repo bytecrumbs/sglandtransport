@@ -59,7 +59,7 @@ class BusArrivalCard extends StatelessWidget {
         'LSD': 'Limited Standing',
       };
 
-      return load == '' || load == 'SEA' ? '' : _busLoad[load];
+      return load == '' ? '' : _busLoad[load];
     }
 
     Widget colorNextBusTiming(String nextBusTiming) {
