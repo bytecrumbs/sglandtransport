@@ -14,8 +14,10 @@ class BoxInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: const Alignment(0.0, 0.0),
-      constraints: const BoxConstraints(minWidth: 90),
-      height: 65,
+      constraints: const BoxConstraints(
+        minWidth: 90,
+        minHeight: 65,
+      ),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(
           Radius.circular(5.0),
