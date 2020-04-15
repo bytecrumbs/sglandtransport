@@ -3,41 +3,72 @@ import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/utils.dart';
 import 'package:lta_datamall_flutter/widgets/boxInfo.dart';
 
 class BusArrivalCard extends StatelessWidget {
-  const BusArrivalCard({
-    @required this.serviceNo,
-    @required this.nextBus,
-    @required this.nextBus2,
-    @required this.nextBus3,
-  });
+  const BusArrivalCard(
+      {@required this.serviceNo,
+      @required this.nextBusEstimatedArrival,
+      @required this.nextBus2EstimatedArrival,
+      @required this.nextBus3EstimatedArrival,
+      @required this.nextBusLoad,
+      @required this.nextBusType,
+      @required this.nextBusFeature});
 
   final String serviceNo;
-  final Map<String, String> nextBus;
-  final Map<String, String> nextBus2;
-  final Map<String, String> nextBus3;
+  final String nextBusEstimatedArrival;
+  final String nextBus2EstimatedArrival;
+  final String nextBus3EstimatedArrival;
+  final String nextBusLoad;
+  final String nextBusType;
+  final String nextBusFeature;
 
   @override
   Widget build(BuildContext context) {
     final String estimatedArrivalNextTwoBus =
-        '${Utility().getTimeToBusStop(nextBus2['estimatedArrival'])}, ${Utility().getTimeToBusStop(nextBus3['estimatedArrival'])}';
+        '${Utility().getTimeToBusStop(nextBus2EstimatedArrival)}, ${Utility().getTimeToBusStop(nextBus3EstimatedArrival)}';
 
     final String mainTiming =
-        Utility().getTimeToBusStop(nextBus['estimatedArrival'], true);
+        Utility().getTimeToBusStop(nextBusEstimatedArrival, true);
+
+    String _getBusFeature(dynamic wab) {
+      return wab == 'WAB'
+          ? 'Wheelchair Accessible'
+          : 'Non-Wheelchair Accessible';
+    }
+
+    String _getBusLoad(dynamic load) {
+      final Map<String, String> _busLoad = <String, String>{
+        'SEA': 'Seats Available',
+        'SDA': 'Standing Available',
+        'LSD': 'Limited Standing',
+      };
+
+      return load == '' ? 'N/A' : _busLoad[load];
+    }
 
     return Column(
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            BoxInfo(
-              color: Theme.of(context).primaryColorDark,
-              child: Text(
-                serviceNo,
-                style: const TextStyle(
-                  fontSize: 23,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+            Row(
+              children: <Widget>[
+                BoxInfo(
+                  color: Theme.of(context).primaryColorDark,
+                  child: Text(
+                    serviceNo,
+                    style: const TextStyle(
+                      fontSize: 23,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(_getBusLoad(nextBusLoad)),
+                      Text(_getBusFeature(nextBusFeature)),
+                    ])
+              ],
             ),
             BoxInfo(
               color: Theme.of(context).primaryColorLight,
