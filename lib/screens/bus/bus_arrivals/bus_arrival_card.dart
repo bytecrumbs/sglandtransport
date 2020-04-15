@@ -48,7 +48,7 @@ class BusArrivalCard extends StatelessWidget {
       return Icon(
         Icons.accessible,
         color: wab == 'WAB' ? Colors.black : Colors.red,
-        size: 30.0,
+        size: 25.0,
       );
     }
 
@@ -60,6 +60,10 @@ class BusArrivalCard extends StatelessWidget {
       };
 
       return load == '' ? '' : _busLoad[load];
+    }
+
+    String _getBusType(dynamic type) {
+      return type == 'DD' ? 'Double Deck' : '';
     }
 
     Widget colorNextBusTiming(String nextBusTiming) {
@@ -104,9 +108,10 @@ class BusArrivalCard extends StatelessWidget {
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(
-                          margin: const EdgeInsets.only(bottom: 5),
-                          child: Text(_getBusLoad(nextBusLoad))),
+                      Text(_getBusLoad(nextBusLoad)),
+                      const SizedBox(height: 5),
+                      Text(_getBusType(nextBusType)),
+                      const SizedBox(height: 2),
                       _getBusFeature(nextBusFeature),
                     ])
               ],
@@ -132,7 +137,8 @@ class BusArrivalCard extends StatelessWidget {
               ),
             ),
           ],
-        )
+        ),
+        const SizedBox(height: 5),
       ],
     );
   }
