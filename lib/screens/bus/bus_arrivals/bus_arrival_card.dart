@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/utils.dart';
 import 'package:lta_datamall_flutter/widgets/boxInfo.dart';
 
 class BusArrivalCard extends StatelessWidget {
@@ -22,16 +21,35 @@ class BusArrivalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String getTimeToBusStop(String arrivalTime, [bool isSuffixShown]) {
+      if (arrivalTime == '') {
+        return 'n/a';
+      }
+
+      final String suffix = isSuffixShown != null && isSuffixShown ? 'min' : '';
+
+      final int arrivalInMinutes =
+          DateTime.parse(arrivalTime).difference(DateTime.now()).inMinutes;
+
+      if (arrivalInMinutes <= 2) {
+        return 'Arr';
+      } else {
+        return '${arrivalInMinutes.toString()}$suffix';
+      }
+    }
+
     final String estimatedArrivalNextTwoBus =
-        '${Utility().getTimeToBusStop(nextBus2EstimatedArrival)}, ${Utility().getTimeToBusStop(nextBus3EstimatedArrival)}';
+        '${getTimeToBusStop(nextBus2EstimatedArrival)}, ${getTimeToBusStop(nextBus3EstimatedArrival)}';
 
-    final String mainTiming =
-        Utility().getTimeToBusStop(nextBusEstimatedArrival, true);
+    final String nextBusTiming =
+        getTimeToBusStop(nextBusEstimatedArrival, true);
 
-    String _getBusFeature(dynamic wab) {
-      return wab == 'WAB'
-          ? 'Wheelchair Accessible'
-          : 'Non-Wheelchair Accessible';
+    Widget _getBusFeature(dynamic wab) {
+      return Icon(
+        Icons.accessible,
+        color: wab == 'WAB' ? Colors.black : Colors.red,
+        size: 30.0,
+      );
     }
 
     String _getBusLoad(dynamic load) {
@@ -41,7 +59,28 @@ class BusArrivalCard extends StatelessWidget {
         'LSD': 'Limited Standing',
       };
 
-      return load == '' ? 'N/A' : _busLoad[load];
+      return load == '' || load == 'SEA' ? '' : _busLoad[load];
+    }
+
+    Widget colorNextTiming(String nextBusTiming) {
+      if (nextBusTiming == 'Arr') {
+        return Text(
+          nextBusTiming,
+          style: const TextStyle(
+            color: Colors.green,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        );
+      } else {
+        return Text(
+          nextBusTiming,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        );
+      }
     }
 
     return Column(
@@ -65,24 +104,20 @@ class BusArrivalCard extends StatelessWidget {
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(_getBusLoad(nextBusLoad)),
-                      Text(_getBusFeature(nextBusFeature)),
+                      Container(
+                          margin: const EdgeInsets.only(bottom: 5),
+                          child: Text(_getBusLoad(nextBusLoad))),
+                      _getBusFeature(nextBusFeature),
                     ])
               ],
             ),
             BoxInfo(
-              color: Theme.of(context).primaryColorLight,
+              color: Theme.of(context).highlightColor,
               child: Column(
                 children: <Widget>[
                   Container(
                     margin: const EdgeInsets.only(bottom: 3),
-                    child: Text(
-                      mainTiming,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
+                    child: colorNextTiming(nextBusTiming),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
