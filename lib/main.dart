@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -24,6 +26,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
@@ -42,8 +47,12 @@ class MyApp extends StatelessWidget {
                   settings.isDarkMode ? Brightness.dark : Brightness.light,
             ),
             initialRoute: MainBusScreen.id,
+            navigatorObservers: <NavigatorObserver>[observer],
             routes: <String, WidgetBuilder>{
-              MainBusScreen.id: (BuildContext context) => MainBusScreen(),
+              MainBusScreen.id: (BuildContext context) => MainBusScreen(
+                    analytics: analytics,
+                    observer: observer,
+                  ),
               MainBicycleScreen.id: (BuildContext context) =>
                   MainBicycleScreen(),
               MainSettingsScreen.id: (BuildContext context) =>

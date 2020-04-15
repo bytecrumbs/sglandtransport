@@ -5,13 +5,15 @@ import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/utils.dart';
 class BusArrivalCard extends StatelessWidget {
   const BusArrivalCard({
     @required this.serviceNo,
-    @required this.busOperator,
-    @required this.nextBusesDetails,
+    @required this.nextBus,
+    @required this.nextBus2,
+    @required this.nextBus3,
   });
 
   final String serviceNo;
-  final String busOperator;
-  final Map<String, Map> nextBusesDetails;
+  final Map<String, String> nextBus;
+  final Map<String, String> nextBus2;
+  final Map<String, String> nextBus3;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +23,25 @@ class BusArrivalCard extends StatelessWidget {
         title: ListTile(
           leading: CircleAvatar(child: Text(serviceNo)),
           title: Text(Utility().getTimeToBusStop(
-            nextBusesDetails['nextBus']['estimatedArrival'] as String,
+            nextBus['estimatedArrival'],
           )),
         ),
         children: <Widget>[
-          BusArrivalDetails(busDetails: nextBusesDetails['nextBus']),
-          BusArrivalDetails(busDetails: nextBusesDetails['nextBus2']),
-          BusArrivalDetails(busDetails: nextBusesDetails['nextBus3'])
+          BusArrivalDetails(
+            feature: nextBus['feature'],
+            load: nextBus['load'],
+            estimatedArrival: nextBus['estimatedArrival'],
+          ),
+          BusArrivalDetails(
+            feature: nextBus2['feature'],
+            load: nextBus2['load'],
+            estimatedArrival: nextBus2['estimatedArrival'],
+          ),
+          BusArrivalDetails(
+            feature: nextBus3['feature'],
+            load: nextBus3['load'],
+            estimatedArrival: nextBus3['estimatedArrival'],
+          ),
         ],
       ),
     );

@@ -67,32 +67,28 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
                     itemBuilder: (BuildContext context, int index) {
                       final BusArrivalServiceModel currentBusService =
                           busServices[index];
-
                       return BusArrivalCard(
                         serviceNo: currentBusService.serviceNo,
-                        busOperator: currentBusService.busOperator,
-                        nextBusesDetails: <String, Map>{
-                          'nextBus': <String, String>{
-                            'load': currentBusService.nextBus.load,
-                            'type': currentBusService.nextBus.type,
-                            'feature': currentBusService.nextBus.feature,
-                            'estimatedArrival':
-                                currentBusService.nextBus.estimatedArrival,
-                          },
-                          'nextBus2': <String, String>{
-                            'load': currentBusService.nextBus2.load,
-                            'type': currentBusService.nextBus2.type,
-                            'feature': currentBusService.nextBus.feature,
-                            'estimatedArrival':
-                                currentBusService.nextBus2.estimatedArrival,
-                          },
-                          'nextBus3': <String, String>{
-                            'load': currentBusService.nextBus3.load,
-                            'type': currentBusService.nextBus3.type,
-                            'feature': currentBusService.nextBus.feature,
-                            'estimatedArrival':
-                                currentBusService.nextBus3.estimatedArrival,
-                          }
+                        nextBus: <String, String>{
+                          'load': currentBusService.nextBus.load,
+                          'type': currentBusService.nextBus.type,
+                          'feature': currentBusService.nextBus.feature,
+                          'estimatedArrival':
+                              currentBusService.nextBus.estimatedArrival,
+                        },
+                        nextBus2: <String, String>{
+                          'load': currentBusService.nextBus2.load,
+                          'type': currentBusService.nextBus2.type,
+                          'feature': currentBusService.nextBus2.feature,
+                          'estimatedArrival':
+                              currentBusService.nextBus2.estimatedArrival,
+                        },
+                        nextBus3: <String, String>{
+                          'load': currentBusService.nextBus3.load,
+                          'type': currentBusService.nextBus3.type,
+                          'feature': currentBusService.nextBus3.feature,
+                          'estimatedArrival':
+                              currentBusService.nextBus3.estimatedArrival,
                         },
                       );
                     },
