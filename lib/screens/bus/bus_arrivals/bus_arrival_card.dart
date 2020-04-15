@@ -84,9 +84,9 @@ class BusArrivalCard extends StatelessWidget {
                   color: Theme.of(context).primaryColorDark,
                   child: Column(
                     children: <Widget>[
-                      Text(
+                      const Text(
                         'Bus',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
