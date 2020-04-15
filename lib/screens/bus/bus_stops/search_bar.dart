@@ -14,7 +14,7 @@ class SearchBar extends StatelessWidget {
         ],
         controller: _controller,
         decoration: InputDecoration(
-          labelText: 'Enter a Bus Stop number',
+          labelText: 'Enter a bus stop number',
           prefixIcon: Icon(Icons.search),
           suffixIcon: IconButton(
             icon: Icon(Icons.clear),

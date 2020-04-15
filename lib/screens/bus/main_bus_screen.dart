@@ -4,7 +4,6 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/screens/bus/favorites_bus_section.dart';
 import 'package:lta_datamall_flutter/screens/bus/nearby_bus_section.dart';
-import 'package:lta_datamall_flutter/screens/bus/search_bus_section.dart';
 import 'package:lta_datamall_flutter/screens/widgets/app_drawer.dart';
 
 class MainBusScreen extends StatefulWidget {
@@ -31,7 +30,6 @@ class _MainBusScreenState extends State<MainBusScreen> {
   List<Widget> pageList = <Widget>[
     NearbyBusStops(),
     FavoriteBusStops(),
-    SearchBusStops(),
   ];
 
   @override
@@ -71,11 +69,7 @@ class _MainBusScreenState extends State<MainBusScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             title: const Text('Favorites'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            title: const Text('Search'),
-          ),
+          )
         ],
       ),
     );

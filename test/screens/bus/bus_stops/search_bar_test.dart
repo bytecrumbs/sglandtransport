@@ -14,7 +14,7 @@ void main() {
   testWidgets('TextField has a label', (WidgetTester tester) async {
     await _pumpSearchBar(tester);
 
-    final Finder labelFinder = find.text('Enter a Bus Stop number');
+    final Finder labelFinder = find.text('Enter a bus stop number');
     expect(labelFinder, findsOneWidget);
   });
 
