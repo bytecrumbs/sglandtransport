@@ -17,6 +17,15 @@ class BusFavoritesService {
     return prefs.getStringList(favoriteBusStopsString) ?? <String>[];
   }
 
+  Future<bool> isFavoriteBusStop(String busStopCode) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final List<String> currentFavorites =
+        prefs.getStringList(favoriteBusStopsString) ?? <String>[];
+
+    return currentFavorites.contains(busStopCode);
+  }
+
   Future<void> addFavoriteBusStop(String busStopCode) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 

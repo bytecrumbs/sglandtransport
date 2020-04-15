@@ -17,6 +17,23 @@ void main() {
       expect(favoriteBusStops, busStops);
     });
 
+    test('It tells if a given bus stop is already stored as a Favorite',
+        () async {
+      final List<String> busStops = <String>['123456', '222333'];
+
+      SharedPreferences.setMockInitialValues(
+          <String, dynamic>{'favoriteBusStops': busStops});
+
+      final BusFavoritesService favoritesService = BusFavoritesService();
+
+      bool isFavoriteBusStop =
+          await favoritesService.isFavoriteBusStop(busStops[0]);
+      expect(isFavoriteBusStop, true);
+
+      isFavoriteBusStop = await favoritesService.isFavoriteBusStop('999999');
+      expect(isFavoriteBusStop, false);
+    });
+
     test('It returns empty list when no favorites are stored', () async {
       SharedPreferences.setMockInitialValues(<String, dynamic>{});
 
