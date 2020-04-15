@@ -62,25 +62,15 @@ class BusArrivalCard extends StatelessWidget {
       return load == '' || load == 'SEA' ? '' : _busLoad[load];
     }
 
-    Widget colorNextTiming(String nextBusTiming) {
-      if (nextBusTiming == 'Arr') {
-        return Text(
-          nextBusTiming,
-          style: const TextStyle(
-            color: Colors.green,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        );
-      } else {
-        return Text(
-          nextBusTiming,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        );
-      }
+    Widget colorNextBusTiming(String nextBusTiming) {
+      return Text(
+        nextBusTiming,
+        style: TextStyle(
+          color: nextBusTiming == 'Arr' ? Colors.green : Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+      );
     }
 
     return Column(
