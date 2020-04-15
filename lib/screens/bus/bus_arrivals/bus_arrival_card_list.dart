@@ -69,27 +69,15 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
                           busServices[index];
                       return BusArrivalCard(
                         serviceNo: currentBusService.serviceNo,
-                        nextBus: <String, String>{
-                          'load': currentBusService.nextBus.load,
-                          'type': currentBusService.nextBus.type,
-                          'feature': currentBusService.nextBus.feature,
-                          'estimatedArrival':
-                              currentBusService.nextBus.estimatedArrival,
-                        },
-                        nextBus2: <String, String>{
-                          'load': currentBusService.nextBus2.load,
-                          'type': currentBusService.nextBus2.type,
-                          'feature': currentBusService.nextBus2.feature,
-                          'estimatedArrival':
-                              currentBusService.nextBus2.estimatedArrival,
-                        },
-                        nextBus3: <String, String>{
-                          'load': currentBusService.nextBus3.load,
-                          'type': currentBusService.nextBus3.type,
-                          'feature': currentBusService.nextBus3.feature,
-                          'estimatedArrival':
-                              currentBusService.nextBus3.estimatedArrival,
-                        },
+                        nextBusLoad: currentBusService.nextBus.load,
+                        nextBusType: currentBusService.nextBus.type,
+                        nextBusFeature: currentBusService.nextBus.feature,
+                        nextBusEstimatedArrival:
+                            currentBusService.nextBus.estimatedArrival,
+                        nextBus2EstimatedArrival:
+                            currentBusService.nextBus2.estimatedArrival,
+                        nextBus3EstimatedArrival:
+                            currentBusService.nextBus3.estimatedArrival,
                       );
                     },
                   ),
