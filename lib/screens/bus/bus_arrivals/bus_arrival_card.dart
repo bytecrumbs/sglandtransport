@@ -82,13 +82,23 @@ class BusArrivalCard extends StatelessWidget {
               children: <Widget>[
                 BoxInfo(
                   color: Theme.of(context).primaryColorDark,
-                  child: Text(
-                    serviceNo,
-                    style: const TextStyle(
-                      fontSize: 23,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        'Bus',
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        serviceNo,
+                        style: const TextStyle(
+                          fontSize: 23,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 Column(
@@ -107,7 +117,7 @@ class BusArrivalCard extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     margin: const EdgeInsets.only(bottom: 3),
-                    child: colorNextTiming(nextBusTiming),
+                    child: colorNextBusTiming(nextBusTiming),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
