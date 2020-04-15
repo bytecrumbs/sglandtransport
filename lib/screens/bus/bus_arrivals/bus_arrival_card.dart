@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/widgets/boxInfo.dart';
+import 'package:lta_datamall_flutter/widgets/box_info.dart';
 
 class BusArrivalCard extends StatelessWidget {
   const BusArrivalCard(
