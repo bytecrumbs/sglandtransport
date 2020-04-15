@@ -65,8 +65,24 @@ class BusArrivalCard extends StatelessWidget {
       return load == '' ? '' : _busLoad[load];
     }
 
-    String _getBusType(dynamic type) {
-      return type == 'DD' ? 'Double Deck' : '';
+    Widget _getBusType(dynamic type) {
+      final Map<String, String> _busType = <String, String>{
+        'SD': 'Single Deck',
+        'DD': 'Double Deck',
+        'BD': 'Bendy',
+      };
+
+      return Container(
+        margin: const EdgeInsets.only(right: 5),
+        padding: const EdgeInsets.only(
+          left: 5,
+          right: 5,
+          top: 3,
+          bottom: 3,
+        ),
+        color: Theme.of(context).secondaryHeaderColor,
+        child: Text(_busType[type]),
+      );
     }
 
     Widget colorNextBusTiming(String nextBusTiming) {
@@ -79,69 +95,89 @@ class BusArrivalCard extends StatelessWidget {
       );
     }
 
-    return Column(
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                BoxInfo(
-                  color: Theme.of(context).primaryColorDark,
-                  child: Column(
-                    children: <Widget>[
-                      const Text(
-                        'Bus',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      Text(
-                        serviceNo,
-                        style: const TextStyle(
-                          fontSize: 23,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(_getBusLoad(nextBusLoad)),
-                      const SizedBox(height: 5),
-                      Text(_getBusType(nextBusType)),
-                      const SizedBox(height: 2),
-                      _getBusFeature(nextBusFeature),
-                    ])
-              ],
-            ),
-            BoxInfo(
-              color: Theme.of(context).highlightColor,
-              child: Column(
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 3),
-                    child: colorNextBusTiming(nextBusTiming),
+                  BoxInfo(
+                    color: Theme.of(context).primaryColorDark,
+                    child: Column(
+                      children: <Widget>[
+                        const Text(
+                          'Bus',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          serviceNo,
+                          style: const TextStyle(
+                            fontSize: 23,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        estimatedArrivalNextTwoBus,
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                    ],
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              margin: const EdgeInsets.only(right: 5),
+                              padding: const EdgeInsets.only(
+                                left: 5,
+                                right: 5,
+                                top: 3,
+                                bottom: 3,
+                              ),
+                              color: Theme.of(context).primaryColorLight,
+                              child: Text(_getBusLoad(nextBusLoad)),
+                            ),
+                            _getBusFeature(nextBusFeature),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        _getBusType(nextBusType),
+                      ],
+                    ),
                   )
                 ],
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 5),
-      ],
+              BoxInfo(
+                color: Theme.of(context).highlightColor,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 3),
+                      child: colorNextBusTiming(nextBusTiming),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          estimatedArrivalNextTwoBus,
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
