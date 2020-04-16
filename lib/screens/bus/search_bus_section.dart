@@ -1,14 +1,94 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/screens/bus/bus_stops/search_bar.dart';
+import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
+import 'package:http/io_client.dart' as http;
+import '../../api.dart';
+import 'bus_stops/bus_stop_card.dart';
 
-class SearchBusStops extends StatelessWidget {
+class SearchBusStops extends StatefulWidget {
+  @override
+  _SearchBusStopsState createState() => _SearchBusStopsState();
+}
+
+class _SearchBusStopsState extends State<SearchBusStops> {
+  Future<List<BusStopModel>> _future;
+  TextEditingController controller = TextEditingController();
+  List<BusStopModel> busStops = <BusStopModel>[];
+  final List<BusStopModel> _searchResult = <BusStopModel>[];
+
+  void onSearchTextChanged(String value) {
+    _searchResult.clear();
+    if (value.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    for (final BusStopModel busStop in busStops) {
+      if (busStop.busStopCode.contains(value) == true)
+        _searchResult.add(busStop);
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _future = fetchBusStopList(http.IOClient());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SearchBar(),
+        Container(
+          color: Theme.of(context).primaryColor,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: ListTile(
+                leading: Icon(Icons.search),
+                title: TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                      hintText: 'Search', border: InputBorder.none),
+                  onChanged: onSearchTextChanged,
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.cancel),
+                  onPressed: () {
+                    controller.clear();
+                    onSearchTextChanged('');
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
         Expanded(
-          child: Container(),
+          child: FutureBuilder<List<BusStopModel>>(
+            future: _future,
+            builder: (BuildContext context,
+                AsyncSnapshot<List<BusStopModel>> snapshot) {
+              if (snapshot.hasData) {
+                busStops = snapshot.data;
+                return ListView.builder(
+                  itemCount: _searchResult.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _searchResult.isNotEmpty
+                        ? BusStopCard(
+                            openContainer: () {},
+                            busStopCode: busStops[index].busStopCode,
+                            description: busStops[index].description,
+                            roadName: busStops[index].roadName,
+                          )
+                        : Container();
+                  },
+                );
+              } else if (snapshot.hasError) {}
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
         ),
       ],
     );
