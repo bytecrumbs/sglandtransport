@@ -3,6 +3,7 @@ import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:http/io_client.dart' as http;
 import '../../api.dart';
 import 'bus_stops/bus_stop_card.dart';
+import 'bus_stops/search_view.dart';
 
 class SearchBusStops extends StatefulWidget {
   @override
@@ -39,29 +40,9 @@ class _SearchBusStopsState extends State<SearchBusStops> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
-          color: Theme.of(context).primaryColor,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: ListTile(
-                leading: Icon(Icons.search),
-                title: TextField(
-                  controller: controller,
-                  decoration: InputDecoration(
-                      hintText: 'Search', border: InputBorder.none),
-                  onChanged: onSearchTextChanged,
-                ),
-                trailing: IconButton(
-                  icon: Icon(Icons.cancel),
-                  onPressed: () {
-                    controller.clear();
-                    onSearchTextChanged('');
-                  },
-                ),
-              ),
-            ),
-          ),
+        SearchView(
+          controller: controller,
+          onSearchTextChanged: onSearchTextChanged,
         ),
         Expanded(
           child: FutureBuilder<List<BusStopModel>>(
