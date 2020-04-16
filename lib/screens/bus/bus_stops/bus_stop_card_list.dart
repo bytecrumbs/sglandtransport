@@ -5,7 +5,6 @@ import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card.dart';
-import 'package:lta_datamall_flutter/screens/bus/bus_stops/search_bar.dart';
 
 class BusStopCardList extends StatefulWidget {
   @override
@@ -14,6 +13,9 @@ class BusStopCardList extends StatefulWidget {
 
 class _BusStopCardListState extends State<BusStopCardList> {
   Future<List<BusStopModel>> _future;
+  List<BusStopModel> busStops = <BusStopModel>[];
+  final List<BusStopModel> _searchResult = <BusStopModel>[];
+  TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
@@ -29,47 +31,117 @@ class _BusStopCardListState extends State<BusStopCardList> {
     }
   }
 
+  void onSearchTextChanged(String value) {
+    _searchResult.clear();
+    if (value.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    for (final BusStopModel busStop in busStops) {
+      if (busStop.busStopCode.contains(value) == true)
+        _searchResult.add(busStop);
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SearchBar(),
+        Container(
+          color: Theme.of(context).primaryColor,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: ListTile(
+                leading: Icon(Icons.search),
+                title: TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                      hintText: 'Search', border: InputBorder.none),
+                  onChanged: onSearchTextChanged,
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.cancel),
+                  onPressed: () {
+                    controller.clear();
+                    onSearchTextChanged('');
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
         Expanded(
           child: FutureBuilder<List<BusStopModel>>(
             future: _future,
             builder: (BuildContext context,
                 AsyncSnapshot<List<BusStopModel>> snapshot) {
               if (snapshot.hasData) {
-                final List<BusStopModel> busStops = snapshot.data;
+                busStops = snapshot.data;
                 return ListView.builder(
-                  itemCount: busStops.length,
+                  itemCount: _searchResult.isNotEmpty
+                      ? _searchResult.length
+                      : busStops.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return OpenContainer(
-                      transitionType: ContainerTransitionType.fade,
-                      openBuilder:
-                          (BuildContext _, VoidCallback openContainer) {
-                        dismissFocus();
-                        return BusArrivalsScreen(
-                          busStopCode: busStops[index].busStopCode,
-                          description: busStops[index].description,
-                          roadName: busStops[index].roadName,
-                        );
-                      },
-                      tappable: false,
-                      closedShape: const RoundedRectangleBorder(),
-                      closedElevation: 0.0,
-                      openColor: Theme.of(context).scaffoldBackgroundColor,
-                      closedColor: Theme.of(context).scaffoldBackgroundColor,
-                      closedBuilder:
-                          (BuildContext context, VoidCallback openContainer) {
-                        return BusStopCard(
-                          openContainer: openContainer,
-                          busStopCode: busStops[index].busStopCode,
-                          description: busStops[index].description,
-                          roadName: busStops[index].roadName,
-                        );
-                      },
-                    );
+                    return _searchResult.isNotEmpty
+                        ? OpenContainer(
+                            transitionType: ContainerTransitionType.fade,
+                            openBuilder:
+                                (BuildContext _, VoidCallback openContainer) {
+                              dismissFocus();
+                              return BusArrivalsScreen(
+                                busStopCode: _searchResult[index].busStopCode,
+                                description: _searchResult[index].description,
+                                roadName: _searchResult[index].roadName,
+                              );
+                            },
+                            tappable: false,
+                            closedShape: const RoundedRectangleBorder(),
+                            closedElevation: 0.0,
+                            openColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            closedColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            closedBuilder: (BuildContext context,
+                                VoidCallback openContainer) {
+                              return BusStopCard(
+                                openContainer: openContainer,
+                                busStopCode: _searchResult[index].busStopCode,
+                                description: _searchResult[index].description,
+                                roadName: _searchResult[index].roadName,
+                              );
+                            },
+                          )
+                        : OpenContainer(
+                            transitionType: ContainerTransitionType.fade,
+                            openBuilder:
+                                (BuildContext _, VoidCallback openContainer) {
+                              dismissFocus();
+                              return BusArrivalsScreen(
+                                busStopCode: busStops[index].busStopCode,
+                                description: busStops[index].description,
+                                roadName: busStops[index].roadName,
+                              );
+                            },
+                            tappable: false,
+                            closedShape: const RoundedRectangleBorder(),
+                            closedElevation: 0.0,
+                            openColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            closedColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            closedBuilder: (BuildContext context,
+                                VoidCallback openContainer) {
+                              return BusStopCard(
+                                openContainer: openContainer,
+                                busStopCode: busStops[index].busStopCode,
+                                description: busStops[index].description,
+                                roadName: busStops[index].roadName,
+                              );
+                            },
+                          );
                   },
                 );
               } else if (snapshot.hasError) {}
