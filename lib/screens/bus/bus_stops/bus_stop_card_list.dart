@@ -44,11 +44,7 @@ class _BusStopCardListState extends State<BusStopCardList> {
                   transitionType: ContainerTransitionType.fade,
                   openBuilder: (BuildContext _, VoidCallback openContainer) {
                     dismissFocus();
-                    return BusArrivalsScreen(
-                      busStopCode: busStops[index].busStopCode,
-                      description: busStops[index].description,
-                      roadName: busStops[index].roadName,
-                    );
+                    return BusArrivalsScreen(busStopModel: busStops[index]);
                   },
                   tappable: false,
                   closedShape: const RoundedRectangleBorder(),
@@ -59,9 +55,7 @@ class _BusStopCardListState extends State<BusStopCardList> {
                       (BuildContext context, VoidCallback openContainer) {
                     return BusStopCard(
                       openContainer: openContainer,
-                      busStopCode: busStops[index].busStopCode,
-                      description: busStops[index].description,
-                      roadName: busStops[index].roadName,
+                      busStopModel: busStops[index],
                     );
                   },
                 );

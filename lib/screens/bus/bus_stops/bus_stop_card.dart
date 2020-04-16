@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 
 class BusStopCard extends StatelessWidget {
   const BusStopCard({
     @required this.openContainer,
-    @required this.busStopCode,
-    @required this.description,
-    @required this.roadName,
+    @required this.busStopModel,
   });
 
   final Function() openContainer;
-  final String busStopCode;
-  final String description;
-  final String roadName;
+  final BusStopModel busStopModel;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +17,9 @@ class BusStopCard extends StatelessWidget {
       child: ListTile(
         leading: Icon(Icons.departure_board),
         onTap: openContainer,
-        title: Text('$busStopCode ($description)'),
-        subtitle: Text(roadName),
+        title:
+            Text('${busStopModel.busStopCode} (${busStopModel.description})'),
+        subtitle: Text(busStopModel.roadName),
         trailing: Icon(Icons.assignment),
       ),
     );

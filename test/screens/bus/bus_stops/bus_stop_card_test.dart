@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card.dart';
 
 void main() {
-  const String busStopCode = 'BusStopCode';
-  const String description = 'Description';
-  const String roadName = 'RoadName';
+  final BusStopModel busStopModel = BusStopModel(
+    'BusStopCode',
+    'RoadName',
+    'Description',
+    1.1,
+    1.2,
+  );
+
   final Function() openContainer = () {
     print('Callback called');
   };
@@ -14,9 +20,7 @@ void main() {
     return await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: BusStopCard(
-          busStopCode: busStopCode,
-          description: description,
-          roadName: roadName,
+          busStopModel: busStopModel,
           openContainer: openContainer,
         ),
       ),
@@ -27,14 +31,15 @@ void main() {
       (WidgetTester tester) async {
     await _pumpBusStopCard(tester);
 
-    final Finder labelFinder = find.text('$busStopCode ($description)');
+    final Finder labelFinder =
+        find.text('${busStopModel.busStopCode} (${busStopModel.description})');
     expect(labelFinder, findsOneWidget);
   });
 
   testWidgets('Card shows a Road Name', (WidgetTester tester) async {
     await _pumpBusStopCard(tester);
 
-    final Finder labelFinder = find.text(roadName);
+    final Finder labelFinder = find.text(busStopModel.roadName);
     expect(labelFinder, findsOneWidget);
   });
 
@@ -43,7 +48,7 @@ void main() {
     await _pumpBusStopCard(tester);
 
     expect(
-      () => tester.tap(find.text(roadName)),
+      () => tester.tap(find.text(busStopModel.roadName)),
       prints('Callback called\n'),
     );
   });

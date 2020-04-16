@@ -68,16 +68,7 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
                       final BusArrivalServiceModel currentBusService =
                           busServices[index];
                       return BusArrivalCard(
-                        serviceNo: currentBusService.serviceNo,
-                        nextBusLoad: currentBusService.nextBus.load,
-                        nextBusType: currentBusService.nextBus.type,
-                        nextBusFeature: currentBusService.nextBus.feature,
-                        nextBusEstimatedArrival:
-                            currentBusService.nextBus.estimatedArrival,
-                        nextBus2EstimatedArrival:
-                            currentBusService.nextBus2.estimatedArrival,
-                        nextBus3EstimatedArrival:
-                            currentBusService.nextBus3.estimatedArrival,
+                        busArrivalServiceModel: currentBusService,
                       );
                     },
                   ),

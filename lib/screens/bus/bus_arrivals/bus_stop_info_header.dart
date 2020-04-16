@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_header.dart';
 import 'package:lta_datamall_flutter/services/bus/favorites_service.dart';
 
 class BusStopInfoHeader extends StatefulWidget {
-  const BusStopInfoHeader({
-    @required this.busStopCode,
-    @required this.description,
-    @required this.roadName,
-  });
+  const BusStopInfoHeader({@required this.busStopModel});
 
-  final String busStopCode;
-  final String description;
-  final String roadName;
+  final BusStopModel busStopModel;
 
   @override
   _BusStopInfoHeaderState createState() => _BusStopInfoHeaderState();
@@ -24,7 +19,9 @@ class _BusStopInfoHeaderState extends State<BusStopInfoHeader> {
   void initState() {
     super.initState();
     final BusFavoritesService favoritesService = BusFavoritesService();
-    favoritesService.isFavoriteBusStop(widget.busStopCode).then((bool result) {
+    favoritesService
+        .isFavoriteBusStop(widget.busStopModel.busStopCode)
+        .then((bool result) {
       setState(() => isFavoriteBusStop = result);
     });
   }
@@ -57,14 +54,15 @@ class _BusStopInfoHeaderState extends State<BusStopInfoHeader> {
             child: ListTile(
               trailing: IconButton(
                 onPressed: () {
-                  _toggleFavoriteBusStop(widget.busStopCode);
+                  _toggleFavoriteBusStop(widget.busStopModel.busStopCode);
                 },
                 icon: isFavoriteBusStop
                     ? Icon(Icons.favorite)
                     : Icon(Icons.favorite_border),
               ),
-              title: Text('${widget.busStopCode} (${widget.description})'),
-              subtitle: Text(widget.roadName),
+              title: Text(
+                  '${widget.busStopModel.busStopCode} (${widget.busStopModel.description})'),
+              subtitle: Text(widget.busStopModel.roadName),
             ),
           ),
         ],

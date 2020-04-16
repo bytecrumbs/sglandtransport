@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/widgets/box_info.dart';
 
 class BusArrivalCard extends StatelessWidget {
-  const BusArrivalCard(
-      {@required this.serviceNo,
-      @required this.nextBusEstimatedArrival,
-      @required this.nextBus2EstimatedArrival,
-      @required this.nextBus3EstimatedArrival,
-      @required this.nextBusLoad,
-      @required this.nextBusType,
-      @required this.nextBusFeature});
+  const BusArrivalCard({
+    @required this.busArrivalServiceModel,
+  });
 
-  final String serviceNo;
-  final String nextBusEstimatedArrival;
-  final String nextBus2EstimatedArrival;
-  final String nextBus3EstimatedArrival;
-  final String nextBusLoad;
-  final String nextBusType;
-  final String nextBusFeature;
+  final BusArrivalServiceModel busArrivalServiceModel;
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +29,10 @@ class BusArrivalCard extends StatelessWidget {
     }
 
     final String estimatedArrivalNextTwoBus =
-        '${getTimeToBusStop(nextBus2EstimatedArrival)}, ${getTimeToBusStop(nextBus3EstimatedArrival)}';
+        '${getTimeToBusStop(busArrivalServiceModel.nextBus2.estimatedArrival)}, ${getTimeToBusStop(busArrivalServiceModel.nextBus3.estimatedArrival)}';
 
     final String nextBusTiming =
-        getTimeToBusStop(nextBusEstimatedArrival, true);
+        getTimeToBusStop(busArrivalServiceModel.nextBus.estimatedArrival, true);
 
     Widget _getBusFeature(dynamic wab) {
       if (wab != 'WAB') {
@@ -116,7 +106,7 @@ class BusArrivalCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          serviceNo,
+                          busArrivalServiceModel.serviceNo,
                           style: const TextStyle(
                             fontSize: 23,
                             color: Colors.white,
@@ -142,13 +132,15 @@ class BusArrivalCard extends StatelessWidget {
                                 bottom: 3,
                               ),
                               color: Theme.of(context).primaryColorLight,
-                              child: Text(_getBusLoad(nextBusLoad)),
+                              child: Text(_getBusLoad(
+                                  busArrivalServiceModel.nextBus.load)),
                             ),
-                            _getBusFeature(nextBusFeature),
+                            _getBusFeature(
+                                busArrivalServiceModel.nextBus.feature),
                           ],
                         ),
                         const SizedBox(height: 5),
-                        _getBusType(nextBusType),
+                        _getBusType(busArrivalServiceModel.nextBus.type),
                       ],
                     ),
                   )

@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card_list.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_stop_info_header.dart';
 
 class BusArrivalsScreen extends StatelessWidget {
-  const BusArrivalsScreen({
-    @required this.busStopCode,
-    @required this.description,
-    @required this.roadName,
-  });
+  const BusArrivalsScreen({@required this.busStopModel});
 
   static const String id = 'bus_arrivals_screen';
 
-  final String busStopCode;
-  final String description;
-  final String roadName;
+  final BusStopModel busStopModel;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +18,10 @@ class BusArrivalsScreen extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          BusStopInfoHeader(
-            busStopCode: busStopCode,
-            description: description,
-            roadName: roadName,
-          ),
+          BusStopInfoHeader(busStopModel: busStopModel),
           Expanded(
             child: BusArrivalCardList(
-              busStopCode: busStopCode,
+              busStopCode: busStopModel.busStopCode,
             ),
           )
         ],
