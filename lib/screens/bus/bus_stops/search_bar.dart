@@ -2,27 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SearchBar extends StatelessWidget {
+  const SearchBar({
+    Key key,
+    @required this.controller,
+    @required this.onSearchTextChanged,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final Function(String) onSearchTextChanged;
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _controller = TextEditingController();
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: TextField(
-        keyboardType: TextInputType.number,
-        inputFormatters: <TextInputFormatter>[
-          WhitelistingTextInputFormatter.digitsOnly,
-        ],
-        controller: _controller,
-        decoration: InputDecoration(
-          labelText: 'Enter a Bus Stop number',
-          prefixIcon: Icon(Icons.search),
-          suffixIcon: IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: () {
-              _controller.clear();
-            },
+    return Container(
+      color: Theme.of(context).primaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: ListTile(
+            leading: Icon(Icons.search),
+            title: TextField(
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                WhitelistingTextInputFormatter.digitsOnly,
+              ],
+              controller: controller,
+              decoration: InputDecoration(
+                  hintText: 'Enter a bus stop number',
+                  border: InputBorder.none),
+              onChanged: onSearchTextChanged,
+            ),
+            trailing: IconButton(
+              icon: Icon(Icons.cancel),
+              onPressed: () {
+                controller.clear();
+                onSearchTextChanged('');
+              },
+            ),
           ),
-          border: const OutlineInputBorder(),
         ),
       ),
     );

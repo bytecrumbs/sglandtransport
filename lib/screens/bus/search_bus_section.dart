@@ -1,14 +1,73 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/screens/bus/bus_stops/search_bar.dart';
+import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
+import 'package:http/io_client.dart' as http;
+import '../../api.dart';
+import 'bus_stops/bus_stop_card.dart';
+import 'bus_stops/search_bar.dart';
 
-class SearchBusStops extends StatelessWidget {
+class SearchBusStops extends StatefulWidget {
+  @override
+  _SearchBusStopsState createState() => _SearchBusStopsState();
+}
+
+class _SearchBusStopsState extends State<SearchBusStops> {
+  Future<List<BusStopModel>> _future;
+  final TextEditingController _controller = TextEditingController();
+  List<BusStopModel> _busStops = <BusStopModel>[];
+  final List<BusStopModel> _searchResult = <BusStopModel>[];
+
+  void onSearchTextChanged(String value) {
+    _searchResult.clear();
+    if (value.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    for (final BusStopModel busStop in _busStops) {
+      if (busStop.busStopCode.contains(value) == true)
+        _searchResult.add(busStop);
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _future = fetchBusStopList(http.IOClient());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SearchBar(),
+        SearchBar(
+          controller: _controller,
+          onSearchTextChanged: onSearchTextChanged,
+        ),
         Expanded(
-          child: Container(),
+          child: FutureBuilder<List<BusStopModel>>(
+            future: _future,
+            builder: (BuildContext context,
+                AsyncSnapshot<List<BusStopModel>> snapshot) {
+              if (snapshot.hasData) {
+                _busStops = snapshot.data;
+                return ListView.builder(
+                  itemCount: _searchResult.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _searchResult.isNotEmpty
+                        ? BusStopCard(
+                            openContainer: () {},
+                            busStopModel: _busStops[index],
+                          )
+                        : Container();
+                  },
+                );
+              } else if (snapshot.hasError) {}
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
         ),
       ],
     );

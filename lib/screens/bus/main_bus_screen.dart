@@ -31,7 +31,7 @@ class _MainBusScreenState extends State<MainBusScreen> {
   List<Widget> pageList = <Widget>[
     NearbyBusStops(),
     FavoriteBusStops(),
-    SearchBusStops(),
+    SearchBusStops()
   ];
 
   @override
