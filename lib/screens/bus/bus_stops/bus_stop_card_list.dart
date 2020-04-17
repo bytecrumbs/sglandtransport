@@ -1,38 +1,27 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:http/io_client.dart' as http;
-import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card.dart';
 
-class BusStopCardList extends StatefulWidget {
-  @override
-  _BusStopCardListState createState() => _BusStopCardListState();
-}
+class BusStopCardList extends StatelessWidget {
+  const BusStopCardList({@required this.busStopList});
 
-class _BusStopCardListState extends State<BusStopCardList> {
-  Future<List<BusStopModel>> _future;
+  final Future<List<BusStopModel>> busStopList;
 
-  @override
-  void initState() {
-    super.initState();
-    _future = fetchBusStopList(http.IOClient());
-  }
+  // void dismissFocus() {
+  //   final FocusScopeNode currentFocus = FocusScope.of(context);
 
-  void dismissFocus() {
-    final FocusScopeNode currentFocus = FocusScope.of(context);
-
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
-  }
+  //   if (!currentFocus.hasPrimaryFocus) {
+  //     currentFocus.unfocus();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: FutureBuilder<List<BusStopModel>>(
-        future: _future,
+        future: busStopList,
         builder:
             (BuildContext context, AsyncSnapshot<List<BusStopModel>> snapshot) {
           if (snapshot.hasData) {
@@ -43,7 +32,7 @@ class _BusStopCardListState extends State<BusStopCardList> {
                 return OpenContainer(
                   transitionType: ContainerTransitionType.fade,
                   openBuilder: (BuildContext _, VoidCallback openContainer) {
-                    dismissFocus();
+                    // dismissFocus();
                     return BusArrivalsScreen(busStopModel: busStops[index]);
                   },
                   tappable: false,

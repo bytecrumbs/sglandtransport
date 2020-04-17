@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/api.dart';
+import 'package:http/io_client.dart' as http;
 import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card_list.dart';
 
 class NearbyBusStops extends StatelessWidget {
@@ -16,7 +18,9 @@ class NearbyBusStops extends StatelessWidget {
             ),
           ),
         ),
-        BusStopCardList(),
+        BusStopCardList(
+          busStopList: fetchBusStopList(http.IOClient()),
+        ),
       ],
     );
   }
