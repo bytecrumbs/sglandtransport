@@ -41,7 +41,7 @@ class BusArrivalCard extends StatelessWidget {
 
       return Icon(
         Icons.accessible,
-        size: 25.0,
+        size: 22.0,
       );
     }
 
@@ -71,7 +71,7 @@ class BusArrivalCard extends StatelessWidget {
           bottom: 3,
         ),
         color: Theme.of(context).secondaryHeaderColor,
-        child: Text(_busType[type]),
+        child: Text(_busType[type], style: const TextStyle(fontSize: 11.5)),
       );
     }
 
@@ -121,26 +121,22 @@ class BusArrivalCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Container(
-                              margin: const EdgeInsets.only(right: 5),
-                              padding: const EdgeInsets.only(
-                                left: 5,
-                                right: 5,
-                                top: 3,
-                                bottom: 3,
-                              ),
-                              color: Theme.of(context).primaryColorLight,
-                              child: Text(_getBusLoad(
-                                  busArrivalServiceModel.nextBus.load)),
-                            ),
-                            _getBusFeature(
-                                busArrivalServiceModel.nextBus.feature),
-                          ],
+                        Container(
+                          margin: const EdgeInsets.only(right: 5),
+                          padding: const EdgeInsets.only(
+                            left: 5,
+                            right: 5,
+                            top: 3,
+                            bottom: 3,
+                          ),
+                          color: Theme.of(context).primaryColorLight,
+                          child: Text(
+                              _getBusLoad(busArrivalServiceModel.nextBus.load),
+                              style: const TextStyle(fontSize: 11.5)),
                         ),
                         const SizedBox(height: 5),
                         _getBusType(busArrivalServiceModel.nextBus.type),
+                        _getBusFeature(busArrivalServiceModel.nextBus.feature)
                       ],
                     ),
                   )

@@ -24,7 +24,7 @@ class BoxInfo extends StatelessWidget {
         ),
         color: color,
       ),
-      margin: const EdgeInsets.only(bottom: 17),
+      margin: const EdgeInsets.only(bottom: 25),
       padding: const EdgeInsets.all(10.0),
       child: child,
     );
