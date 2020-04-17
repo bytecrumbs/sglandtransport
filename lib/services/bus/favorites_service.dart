@@ -10,7 +10,7 @@ class BusFavoritesService {
 
   BusFavoritesService._internal();
 
-  final String favoriteBusStopsKey = 'favoriteBusStops';
+  final String favoriteBusStopsKey = 'favoriteBusStopModels';
   static final BusFavoritesService _busFavoritesService =
       BusFavoritesService._internal();
 
@@ -28,33 +28,40 @@ class BusFavoritesService {
     return result ?? <BusStopModel>[];
   }
 
-  Future<bool> isFavoriteBusStop(String busStopCode) async {
+  Future<bool> isFavoriteBusStop(BusStopModel busStopModel) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final String busStopModelString = jsonEncode(busStopModel);
 
     final List<String> currentFavorites =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    return currentFavorites.contains(busStopCode);
+    return currentFavorites.contains(busStopModelString);
   }
 
-  Future<void> addFavoriteBusStop(String busStopCode) async {
+  Future<void> addFavoriteBusStop(BusStopModel busStopModel) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final String busStopModelString = jsonEncode(busStopModel);
 
     final List<String> favoriteBusStops =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    favoriteBusStops.add(busStopCode);
+    favoriteBusStops.add(busStopModelString);
 
     await prefs.setStringList(favoriteBusStopsKey, favoriteBusStops);
   }
 
-  Future<List<BusStopModel>> removeFavoriteBusStop(String busStopCode) async {
+  Future<List<BusStopModel>> removeFavoriteBusStop(
+      BusStopModel busStopModel) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final List<String> favoriteBusStops =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    favoriteBusStops.remove(busStopCode);
+    final String busStopModelStringToBeRemoved = jsonEncode(busStopModel);
+
+    favoriteBusStops.remove(busStopModelStringToBeRemoved);
 
     await prefs.setStringList(favoriteBusStopsKey, favoriteBusStops);
 

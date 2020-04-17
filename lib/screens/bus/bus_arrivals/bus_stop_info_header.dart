@@ -19,20 +19,18 @@ class _BusStopInfoHeaderState extends State<BusStopInfoHeader> {
   void initState() {
     super.initState();
     final BusFavoritesService favoritesService = BusFavoritesService();
-    favoritesService
-        .isFavoriteBusStop(widget.busStopModel.busStopCode)
-        .then((bool result) {
+    favoritesService.isFavoriteBusStop(widget.busStopModel).then((bool result) {
       setState(() => isFavoriteBusStop = result);
     });
   }
 
-  Future<void> _toggleFavoriteBusStop(String busStopCode) async {
+  Future<void> _toggleFavoriteBusStop(BusStopModel busStopModel) async {
     final BusFavoritesService favoritesService = BusFavoritesService();
 
     if (isFavoriteBusStop) {
-      favoritesService.removeFavoriteBusStop(busStopCode);
+      favoritesService.removeFavoriteBusStop(busStopModel);
     } else {
-      favoritesService.addFavoriteBusStop(busStopCode);
+      favoritesService.addFavoriteBusStop(busStopModel);
     }
     setState(() {
       isFavoriteBusStop = !isFavoriteBusStop;
@@ -54,7 +52,7 @@ class _BusStopInfoHeaderState extends State<BusStopInfoHeader> {
             child: ListTile(
               trailing: IconButton(
                 onPressed: () {
-                  _toggleFavoriteBusStop(widget.busStopModel.busStopCode);
+                  _toggleFavoriteBusStop(widget.busStopModel);
                 },
                 icon: isFavoriteBusStop
                     ? Icon(Icons.favorite)
