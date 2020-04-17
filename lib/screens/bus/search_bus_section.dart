@@ -12,8 +12,8 @@ class SearchBusStops extends StatefulWidget {
 
 class _SearchBusStopsState extends State<SearchBusStops> {
   Future<List<BusStopModel>> _future;
-  TextEditingController controller = TextEditingController();
-  List<BusStopModel> busStops = <BusStopModel>[];
+  final TextEditingController _controller = TextEditingController();
+  List<BusStopModel> _busStops = <BusStopModel>[];
   final List<BusStopModel> _searchResult = <BusStopModel>[];
 
   void onSearchTextChanged(String value) {
@@ -23,7 +23,7 @@ class _SearchBusStopsState extends State<SearchBusStops> {
       return;
     }
 
-    for (final BusStopModel busStop in busStops) {
+    for (final BusStopModel busStop in _busStops) {
       if (busStop.busStopCode.contains(value) == true)
         _searchResult.add(busStop);
     }
@@ -41,7 +41,7 @@ class _SearchBusStopsState extends State<SearchBusStops> {
     return Column(
       children: <Widget>[
         SearchBar(
-          controller: controller,
+          controller: _controller,
           onSearchTextChanged: onSearchTextChanged,
         ),
         Expanded(
@@ -50,16 +50,16 @@ class _SearchBusStopsState extends State<SearchBusStops> {
             builder: (BuildContext context,
                 AsyncSnapshot<List<BusStopModel>> snapshot) {
               if (snapshot.hasData) {
-                busStops = snapshot.data;
+                _busStops = snapshot.data;
                 return ListView.builder(
                   itemCount: _searchResult.length,
                   itemBuilder: (BuildContext context, int index) {
                     return _searchResult.isNotEmpty
                         ? BusStopCard(
                             openContainer: () {},
-                            busStopCode: busStops[index].busStopCode,
-                            description: busStops[index].description,
-                            roadName: busStops[index].roadName,
+                            busStopCode: _busStops[index].busStopCode,
+                            description: _busStops[index].description,
+                            roadName: _busStops[index].roadName,
                           )
                         : Container();
                   },
