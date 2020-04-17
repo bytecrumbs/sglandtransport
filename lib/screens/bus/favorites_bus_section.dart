@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card_list.dart';
+import 'package:lta_datamall_flutter/services/bus/favorites_service.dart';
 
 class FavoriteBusStops extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final BusFavoritesService busFavoritesService = BusFavoritesService();
+
     return Column(
       children: <Widget>[
         const Padding(
@@ -15,8 +19,8 @@ class FavoriteBusStops extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(
-          child: Container(),
+        BusStopCardList(
+          busStopList: busFavoritesService.getFavoriteBusStops(),
         ),
       ],
     );
