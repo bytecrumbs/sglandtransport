@@ -6,7 +6,10 @@ void main() {
   Future<void> _pumpSearchBar(WidgetTester tester) async {
     return await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: SearchBar(),
+        body: SearchBar(
+          onSearchTextChanged: (String text) {},
+          controller: TextEditingController(),
+        ),
       ),
     ));
   }
@@ -36,7 +39,7 @@ void main() {
     expect(textFieldValueFinder, findsOneWidget);
 
     // clear the text field
-    await tester.tap(find.byIcon(Icons.clear));
+    await tester.tap(find.byIcon(Icons.cancel));
     await tester.pump();
 
     // confirm text is not there anymore
@@ -53,7 +56,7 @@ void main() {
     expect(validTextFieldValueFinder, findsOneWidget);
 
     // clear the text field
-    await tester.tap(find.byIcon(Icons.clear));
+    await tester.tap(find.byIcon(Icons.cancel));
     await tester.pump();
 
     const String invalidTextFieldValue = 'asdf';
