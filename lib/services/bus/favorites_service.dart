@@ -67,4 +67,10 @@ class BusFavoritesService {
 
     return getFavoriteBusStops();
   }
+
+  Future<void> clearBusStops() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.remove(favoriteBusStopsKey);
+  }
 }

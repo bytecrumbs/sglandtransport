@@ -1,7 +1,7 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/providers/settings_provider.dart';
 import 'package:lta_datamall_flutter/screens/widgets/app_drawer.dart';
+import 'package:lta_datamall_flutter/services/bus/favorites_service.dart';
 import 'package:provider/provider.dart';
 
 class MainSettingsScreen extends StatelessWidget {
@@ -25,21 +25,22 @@ class MainSettingsScreen extends StatelessWidget {
             secondary: Icon(Icons.brightness_6),
             title: const Text('Dark Mode'),
           ),
-          RaisedButton(
-              child: const Text('Tap to produce error (test crashlytics)'),
+          Builder(
+            builder: (BuildContext ctx) => RaisedButton(
               onPressed: () {
-                // Use Crashlytics to throw an error. Use this for
-                // confirmation that errors are being correctly reported.
-                Crashlytics.instance.crash();
-              }),
-          RaisedButton(
-              child: const Text(
-                  'Tap to produce uncaught error (test crashlytics)'),
-              onPressed: () {
-                // Example of thrown error, it will be caught and sent to
-                // Crashlytics.
-                throw StateError('Uncaught error thrown by app.');
-              }),
+                final BusFavoritesService busFavoritesService =
+                    BusFavoritesService();
+                busFavoritesService.clearBusStops();
+
+                Scaffold.of(ctx).showSnackBar(
+                  const SnackBar(
+                    content: Text('Favorites have been reset!'),
+                  ),
+                );
+              },
+              child: const Text('Reset Favorites'),
+            ),
+          ),
         ],
       ),
     );

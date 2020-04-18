@@ -193,5 +193,24 @@ void main() {
       // ensure it is removed from the return value of the remove function
       expect(updatedBuStopList.length, 0);
     });
+
+    test('It clears the bus stop favorites', () async {
+      SharedPreferences.setMockInitialValues(<String, dynamic>{
+        favoriteBusStopsKey: <String>[
+          testBusStopModel1String,
+          testBusStopModel2String,
+        ],
+      });
+      final SharedPreferences pref = await SharedPreferences.getInstance();
+
+      final BusFavoritesService favoritesService = BusFavoritesService();
+
+      await favoritesService.clearBusStops();
+
+      final List<String> favoriteBusStops =
+          pref.getStringList(favoriteBusStopsKey);
+
+      expect(favoriteBusStops, null);
+    });
   });
 }
