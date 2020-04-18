@@ -7,7 +7,7 @@ import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card.dart';
 class BusStopCardList extends StatelessWidget {
   const BusStopCardList({@required this.busStopList});
 
-  final Future<List<BusStopModel>> busStopList;
+  final List<BusStopModel> busStopList;
 
   // void dismissFocus() {
   //   final FocusScopeNode currentFocus = FocusScope.of(context);
@@ -20,39 +20,26 @@ class BusStopCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: FutureBuilder<List<BusStopModel>>(
-        future: busStopList,
-        builder:
-            (BuildContext context, AsyncSnapshot<List<BusStopModel>> snapshot) {
-          if (snapshot.hasData) {
-            final List<BusStopModel> busStops = snapshot.data;
-            return ListView.builder(
-              itemCount: busStops.length,
-              itemBuilder: (BuildContext context, int index) {
-                return OpenContainer(
-                  transitionType: ContainerTransitionType.fade,
-                  openBuilder: (BuildContext _, VoidCallback openContainer) {
-                    // dismissFocus();
-                    return BusArrivalsScreen(busStopModel: busStops[index]);
-                  },
-                  tappable: false,
-                  closedShape: const RoundedRectangleBorder(),
-                  closedElevation: 0.0,
-                  openColor: Theme.of(context).scaffoldBackgroundColor,
-                  closedColor: Theme.of(context).scaffoldBackgroundColor,
-                  closedBuilder:
-                      (BuildContext context, VoidCallback openContainer) {
-                    return BusStopCard(
-                      openContainer: openContainer,
-                      busStopModel: busStops[index],
-                    );
-                  },
-                );
-              },
-            );
-          } else if (snapshot.hasError) {}
-          return const Center(
-            child: CircularProgressIndicator(),
+      child: ListView.builder(
+        itemCount: busStopList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return OpenContainer(
+            transitionType: ContainerTransitionType.fade,
+            openBuilder: (BuildContext _, VoidCallback openContainer) {
+              // dismissFocus();
+              return BusArrivalsScreen(busStopModel: busStopList[index]);
+            },
+            tappable: false,
+            closedShape: const RoundedRectangleBorder(),
+            closedElevation: 0.0,
+            openColor: Theme.of(context).scaffoldBackgroundColor,
+            closedColor: Theme.of(context).scaffoldBackgroundColor,
+            closedBuilder: (BuildContext context, VoidCallback openContainer) {
+              return BusStopCard(
+                openContainer: openContainer,
+                busStopModel: busStopList[index],
+              );
+            },
           );
         },
       ),
