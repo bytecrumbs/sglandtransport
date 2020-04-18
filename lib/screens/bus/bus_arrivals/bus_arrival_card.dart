@@ -9,82 +9,134 @@ class BusArrivalCard extends StatelessWidget {
 
   final BusArrivalServiceModel busArrivalServiceModel;
 
-  @override
-  Widget build(BuildContext context) {
-    String getTimeToBusStop(String arrivalTime, [bool isSuffixShown]) {
-      if (arrivalTime == '') {
-        return 'n/a';
-      }
-
-      final String suffix = isSuffixShown != null && isSuffixShown ? 'min' : '';
-
-      final int arrivalInMinutes =
-          DateTime.parse(arrivalTime).difference(DateTime.now()).inMinutes;
-
-      if (arrivalInMinutes <= 2) {
-        return 'Arr';
-      } else {
-        return '${arrivalInMinutes.toString()}$suffix';
-      }
+  String getTimeToBusStop(String arrivalTime, [bool isSuffixShown]) {
+    if (arrivalTime == '') {
+      return 'n/a';
     }
 
-    final String estimatedArrivalNextTwoBus =
-        '${getTimeToBusStop(busArrivalServiceModel.nextBus2.estimatedArrival)}, ${getTimeToBusStop(busArrivalServiceModel.nextBus3.estimatedArrival)}';
+    final String suffix = isSuffixShown != null && isSuffixShown ? 'min' : '';
 
-    final String nextBusTiming =
-        getTimeToBusStop(busArrivalServiceModel.nextBus.estimatedArrival, true);
+    final int arrivalInMinutes =
+        DateTime.parse(arrivalTime).difference(DateTime.now()).inMinutes;
 
-    Widget _getBusFeature(dynamic wab) {
-      if (wab != 'WAB') {
-        return null;
-      }
-
-      return Icon(
-        Icons.accessible,
-        size: 22.0,
-      );
+    if (arrivalInMinutes <= 2) {
+      return 'Arr';
+    } else {
+      return '${arrivalInMinutes.toString()}$suffix';
     }
+  }
 
-    String _getBusLoad(dynamic load) {
-      final Map<String, String> _busLoad = <String, String>{
-        'SEA': 'Seats Available',
-        'SDA': 'Standing Available',
-        'LSD': 'Limited Standing',
-      };
+  String _getBusLoad(dynamic load) {
+    final Map<String, String> _busLoad = <String, String>{
+      'SEA': 'Seats Available',
+      'SDA': 'Standing Available',
+      'LSD': 'Limited Standing',
+    };
 
-      return load == '' ? '' : _busLoad[load];
-    }
+    return load == '' ? '' : _busLoad[load];
+  }
 
-    Widget _getBusType(dynamic type) {
-      final Map<String, String> _busType = <String, String>{
-        'SD': 'Single Deck',
-        'DD': 'Double Deck',
-        'BD': 'Bendy',
-      };
+  String _busTypes(dynamic type) {
+    final Map<String, String> _busType = <String, String>{
+      'SD': 'Single Deck',
+      'DD': 'Double Deck',
+      'BD': 'Bendy',
+    };
 
-      return Container(
-        margin: const EdgeInsets.only(right: 5),
-        padding: const EdgeInsets.only(
-          left: 5,
-          right: 5,
-          top: 3,
-          bottom: 3,
+    return _busType[type];
+  }
+
+  Widget _displayBusNumber() {
+    return Column(
+      children: <Widget>[
+        const Text(
+          'Bus',
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
-        color: Theme.of(context).secondaryHeaderColor,
-        child: Text(_busType[type], style: const TextStyle(fontSize: 11.5)),
-      );
+        Text(
+          busArrivalServiceModel.serviceNo,
+          style: const TextStyle(
+            fontSize: 23,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _displayBusLoad(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: 5),
+      padding: const EdgeInsets.only(
+        left: 5,
+        right: 5,
+        top: 3,
+        bottom: 3,
+      ),
+      color: Theme.of(context).primaryColorLight,
+      child: Text(_getBusLoad(busArrivalServiceModel.nextBus.load),
+          style: const TextStyle(fontSize: 11.5)),
+    );
+  }
+
+  Widget _displayBusType(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: 5),
+      padding: const EdgeInsets.only(
+        left: 5,
+        right: 5,
+        top: 3,
+        bottom: 3,
+      ),
+      color: Theme.of(context).secondaryHeaderColor,
+      child: Text(
+        _busTypes(busArrivalServiceModel.nextBus.type),
+        style: const TextStyle(fontSize: 11.5),
+      ),
+    );
+  }
+
+  Widget _displayBusFeature() {
+    if (busArrivalServiceModel.nextBus.feature != 'WAB') {
+      return null;
     }
 
-    Widget colorNextBusTiming(String nextBusTiming) {
-      return Text(
-        nextBusTiming,
+    return Icon(
+      Icons.accessible,
+      size: 22.0,
+    );
+  }
+
+  Widget _displayNextBusTiming() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 3),
+      child: Text(
+        getTimeToBusStop(busArrivalServiceModel.nextBus.estimatedArrival, true),
         style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 20,
         ),
-      );
-    }
+      ),
+    );
+  }
 
+  Widget _displayNextTwoBusTiming() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          '${getTimeToBusStop(busArrivalServiceModel.nextBus2.estimatedArrival)}, ${getTimeToBusStop(busArrivalServiceModel.nextBus3.estimatedArrival)}',
+          style: const TextStyle(fontSize: 15),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: Column(
@@ -97,46 +149,17 @@ class BusArrivalCard extends StatelessWidget {
                 children: <Widget>[
                   BoxInfo(
                     color: Theme.of(context).primaryColorDark,
-                    child: Column(
-                      children: <Widget>[
-                        const Text(
-                          'Bus',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          busArrivalServiceModel.serviceNo,
-                          style: const TextStyle(
-                            fontSize: 23,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    ),
+                    child: _displayBusNumber(),
                   ),
                   Container(
                     margin: const EdgeInsets.only(left: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.only(right: 5),
-                          padding: const EdgeInsets.only(
-                            left: 5,
-                            right: 5,
-                            top: 3,
-                            bottom: 3,
-                          ),
-                          color: Theme.of(context).primaryColorLight,
-                          child: Text(
-                              _getBusLoad(busArrivalServiceModel.nextBus.load),
-                              style: const TextStyle(fontSize: 11.5)),
-                        ),
+                        _displayBusLoad(context),
                         const SizedBox(height: 5),
-                        _getBusType(busArrivalServiceModel.nextBus.type),
-                        _getBusFeature(busArrivalServiceModel.nextBus.feature)
+                        _displayBusType(context),
+                        _displayBusFeature()
                       ],
                     ),
                   )
@@ -146,19 +169,8 @@ class BusArrivalCard extends StatelessWidget {
                 color: Theme.of(context).highlightColor,
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 3),
-                      child: colorNextBusTiming(nextBusTiming),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          estimatedArrivalNextTwoBus,
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ],
-                    )
+                    _displayNextBusTiming(),
+                    _displayNextTwoBusTiming()
                   ],
                 ),
               ),
