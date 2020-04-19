@@ -7,14 +7,6 @@ class BusStopCardList extends StatelessWidget {
 
   final List<BusStopModel> busStopList;
 
-  // void dismissFocus() {
-  //   final FocusScopeNode currentFocus = FocusScope.of(context);
-
-  //   if (!currentFocus.hasPrimaryFocus) {
-  //     currentFocus.unfocus();
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -23,7 +15,6 @@ class BusStopCardList extends StatelessWidget {
         // return OpenContainer(
         //   transitionType: ContainerTransitionType.fade,
         //   openBuilder: (BuildContext _, VoidCallback openContainer) {
-        //     // dismissFocus();
         //     return BusArrivalsScreen(busStopModel: busStopList[index]);
         //   },
         //   tappable: false,

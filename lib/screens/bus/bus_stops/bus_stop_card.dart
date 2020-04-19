@@ -10,6 +10,14 @@ class BusStopCard extends StatelessWidget {
 
   final BusStopModel busStopModel;
 
+  void dismissFocus(BuildContext context) {
+    final FocusScopeNode currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -20,6 +28,7 @@ class BusStopCard extends StatelessWidget {
         subtitle: Text(busStopModel.description),
         trailing: Icon(Icons.assignment),
         onTap: () {
+          dismissFocus(context);
           Navigator.pushNamed(
             context,
             BusArrivalsScreen.id,
