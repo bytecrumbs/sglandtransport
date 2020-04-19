@@ -12,27 +12,15 @@ class SearchBusStops extends StatefulWidget {
 class _SearchBusStopsState extends State<SearchBusStops> {
   static final BusStopListRepository _repo = BusStopListRepository();
   final TextEditingController _controller = TextEditingController();
-
-  Future<List<BusStopModel>> _future;
   List<BusStopModel> _searchResult = <BusStopModel>[];
 
   void onSearchTextChanged(String value) {
     _searchResult.clear();
-    if (value.isEmpty) {
-      setState(() {});
-      return;
-    }
     _repo
         .getBusStopListBySearchText(value)
         .then((List<BusStopModel> data) => setState(() {
               _searchResult = data;
             }));
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _future = _repo.getBusStopListBySearchText('');
   }
 
   @override
@@ -44,29 +32,11 @@ class _SearchBusStopsState extends State<SearchBusStops> {
           onSearchTextChanged: onSearchTextChanged,
         ),
         Expanded(
-          child: FutureBuilder<List<BusStopModel>>(
-            future: _future,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<BusStopModel>> snapshot) {
-              if (snapshot.hasData) {
-                _searchResult = snapshot.data;
-                return ListView.builder(
-                  itemCount: _searchResult.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return _searchResult.isNotEmpty
-                        ? BusStopCard(
-                            busStopModel: _searchResult[index],
-                          )
-                        : Container();
-                  },
-                );
-              } else if (snapshot.hasError) {}
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          ),
-        ),
+            child: ListView.builder(
+                itemCount: _searchResult.length,
+                itemBuilder: (BuildContext context, int index) => BusStopCard(
+                      busStopModel: _searchResult[index],
+                    ))),
       ],
     );
   }
