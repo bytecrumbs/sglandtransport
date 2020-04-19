@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/data/bus_stop_list_repository.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:http/io_client.dart' as http;
-import '../../api.dart';
 import 'bus_stops/bus_stop_card.dart';
 import 'bus_stops/search_bar.dart';
 
@@ -11,10 +10,11 @@ class SearchBusStops extends StatefulWidget {
 }
 
 class _SearchBusStopsState extends State<SearchBusStops> {
-  Future<List<BusStopModel>> _future;
+  static final BusStopListRepository _repo = BusStopListRepository();
   final TextEditingController _controller = TextEditingController();
-  List<BusStopModel> _busStops = <BusStopModel>[];
-  final List<BusStopModel> _searchResult = <BusStopModel>[];
+
+  Future<List<BusStopModel>> _future;
+  List<BusStopModel> _searchResult = <BusStopModel>[];
 
   void onSearchTextChanged(String value) {
     _searchResult.clear();
@@ -22,18 +22,17 @@ class _SearchBusStopsState extends State<SearchBusStops> {
       setState(() {});
       return;
     }
-
-    for (final BusStopModel busStop in _busStops) {
-      if (busStop.busStopCode.contains(value) == true)
-        _searchResult.add(busStop);
-    }
-    setState(() {});
+    _repo
+        .getBusStopListBySearchText(value)
+        .then((List<BusStopModel> data) => setState(() {
+              _searchResult = data;
+            }));
   }
 
   @override
   void initState() {
     super.initState();
-    _future = fetchBusStopList(http.IOClient());
+    _future = _repo.getBusStopListBySearchText('');
   }
 
   @override
@@ -50,7 +49,7 @@ class _SearchBusStopsState extends State<SearchBusStops> {
             builder: (BuildContext context,
                 AsyncSnapshot<List<BusStopModel>> snapshot) {
               if (snapshot.hasData) {
-                _busStops = snapshot.data;
+                _searchResult = snapshot.data;
                 return ListView.builder(
                   itemCount: _searchResult.length,
                   itemBuilder: (BuildContext context, int index) {
