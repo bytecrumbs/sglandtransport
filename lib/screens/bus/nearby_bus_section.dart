@@ -11,35 +11,21 @@ Future<List<BusStopModel>> _fetchBusStopList() {
 class NearbyBusStops extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            'Bus stops within xxx meters',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ),
-        FutureBuilder<List<BusStopModel>>(
-          future: _fetchBusStopList(),
-          builder: (BuildContext context,
-              AsyncSnapshot<List<BusStopModel>> snapshot) {
-            if (snapshot.hasData) {
-              return BusStopCardList(
-                busStopList: snapshot.data,
-              );
-            } else if (snapshot.hasError) {
-              // TODO(anyone): Do something here...
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        )
-      ],
+    return FutureBuilder<List<BusStopModel>>(
+      future: _fetchBusStopList(),
+      builder:
+          (BuildContext context, AsyncSnapshot<List<BusStopModel>> snapshot) {
+        if (snapshot.hasData) {
+          return BusStopCardList(
+            busStopList: snapshot.data,
+          );
+        } else if (snapshot.hasError) {
+          // TODO(anyone): Do something here...
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }
