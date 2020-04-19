@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen_arguments.dart';
 
 class BusStopCard extends StatelessWidget {
   const BusStopCard({
@@ -22,7 +23,9 @@ class BusStopCard extends StatelessWidget {
           Navigator.pushNamed(
             context,
             BusArrivalsScreen.id,
-            arguments: busStopModel,
+            arguments: BusArrivalsScreenArguments(
+              busStopModel: busStopModel,
+            ),
           );
         },
       ),

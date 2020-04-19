@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/providers/settings_provider.dart';
 import 'package:lta_datamall_flutter/screens/bicycle/main_bicycle_screen.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
 import 'package:lta_datamall_flutter/screens/bus/main_bus_screen.dart';
 import 'package:lta_datamall_flutter/screens/car/main_car_screen.dart';
 import 'package:lta_datamall_flutter/screens/settings/main_settings_screen.dart';
@@ -62,6 +63,8 @@ class MyApp extends StatelessWidget {
               MainTrafficScreen.id: (BuildContext context) =>
                   MainTrafficScreen(),
               MainTrainScreen.id: (BuildContext context) => MainTrainScreen(),
+              BusArrivalsScreen.id: (BuildContext context) =>
+                  BusArrivalsScreen(),
             },
           );
         },

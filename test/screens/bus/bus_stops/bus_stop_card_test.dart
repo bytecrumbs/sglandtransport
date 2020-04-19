@@ -37,14 +37,4 @@ void main() {
     final Finder labelFinder = find.text(busStopModel.description);
     expect(labelFinder, findsOneWidget);
   });
-
-  testWidgets('Callback is called when Card is clicked',
-      (WidgetTester tester) async {
-    await _pumpBusStopCard(tester);
-
-    expect(
-      () => tester.tap(find.text(busStopModel.description)),
-      prints('Callback called\n'),
-    );
-  });
 }
