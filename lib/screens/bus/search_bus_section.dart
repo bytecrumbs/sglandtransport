@@ -56,7 +56,6 @@ class _SearchBusStopsState extends State<SearchBusStops> {
                   itemBuilder: (BuildContext context, int index) {
                     return _searchResult.isNotEmpty
                         ? BusStopCard(
-                            openContainer: () {},
                             busStopModel: _searchResult[index],
                           )
                         : Container();

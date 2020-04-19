@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
 
 class BusStopCard extends StatelessWidget {
   const BusStopCard({
-    @required this.openContainer,
     @required this.busStopModel,
   });
 
-  final Function() openContainer;
   final BusStopModel busStopModel;
 
   @override
@@ -16,10 +15,16 @@ class BusStopCard extends StatelessWidget {
       margin: const EdgeInsets.all(6),
       child: ListTile(
         leading: Icon(Icons.departure_board),
-        onTap: openContainer,
         title: Text('${busStopModel.busStopCode} (${busStopModel.roadName})'),
         subtitle: Text(busStopModel.description),
         trailing: Icon(Icons.assignment),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            BusArrivalsScreen.id,
+            arguments: busStopModel,
+          );
+        },
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
@@ -41,20 +40,7 @@ class _MainBusScreenState extends State<MainBusScreen> {
         title: const Text('Buses'),
       ),
       drawer: AppDrawer(),
-      body: PageTransitionSwitcher(
-        transitionBuilder: (
-          Widget child,
-          Animation<double> animation,
-          Animation<double> secondaryAnimation,
-        ) {
-          return FadeThroughTransition(
-            animation: animation,
-            secondaryAnimation: secondaryAnimation,
-            child: child,
-          );
-        },
-        child: pageList[pageIndex],
-      ),
+      body: pageList[pageIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: pageIndex,
         onTap: (int newValue) {

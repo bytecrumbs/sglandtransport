@@ -12,16 +12,11 @@ void main() {
     1.2,
   );
 
-  final Function() openContainer = () {
-    print('Callback called');
-  };
-
   Future<void> _pumpBusStopCard(WidgetTester tester) async {
     return await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: BusStopCard(
           busStopModel: busStopModel,
-          openContainer: openContainer,
         ),
       ),
     ));
