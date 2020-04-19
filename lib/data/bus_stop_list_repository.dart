@@ -1,16 +1,14 @@
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:http/io_client.dart' as http;
-
 import '../api.dart';
 import 'repository.dart';
 
 class BusStopListRepository extends Repository {
-  List<BusStopModel> _busStops = <BusStopModel>[];
-  final List<BusStopModel> _searchResult = <BusStopModel>[];
-
-  Future<void> refreshAllData() async {
-    _busStops = await fetchBusStopList(http.IOClient());
+  BusStopListRepository() {
+    _busStops = <BusStopModel>[];
   }
+
+  List<BusStopModel> _busStops;
 
   @override
   Future<List<BusStopModel>> getBusStopListBySearchText(
@@ -18,18 +16,21 @@ class BusStopListRepository extends Repository {
     if (_busStops.isEmpty) {
       await refreshAllData();
     }
-
     if (searchText.isEmpty) {
-      return _searchResult;
+      return <BusStopModel>[];
     }
 
-    _searchResult.clear();
+    final List<BusStopModel> searchResult = <BusStopModel>[];
 
     for (final BusStopModel busStop in _busStops) {
       if (busStop.busStopCode.contains(searchText) == true)
-        _searchResult.add(busStop);
+        searchResult.add(busStop);
     }
 
-    return _searchResult;
+    return searchResult;
+  }
+
+  Future<void> refreshAllData() async {
+    _busStops = await fetchBusStopList(http.IOClient());
   }
 }
