@@ -9,6 +9,7 @@ import 'package:lta_datamall_flutter/providers/settings_provider.dart';
 import 'package:lta_datamall_flutter/route_generator.dart';
 import 'package:lta_datamall_flutter/screens/bus/main_bus_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
 void main() {
   Crashlytics.instance.enableInDevMode = true;
@@ -30,8 +31,12 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
     ]);
 
-    return ChangeNotifierProvider<SettingsProvider>(
-      create: (_) => SettingsProvider(),
+    return MultiProvider(
+      providers: <SingleChildWidget>[
+        ChangeNotifierProvider<SettingsProvider>(
+          create: (_) => SettingsProvider(),
+        ),
+      ],
       child: Consumer<SettingsProvider>(
         builder: (BuildContext context, SettingsProvider settings, _) {
           return MaterialApp(
