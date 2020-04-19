@@ -6,14 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/providers/settings_provider.dart';
-import 'package:lta_datamall_flutter/screens/bicycle/main_bicycle_screen.dart';
-import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
+import 'package:lta_datamall_flutter/route_generator.dart';
 import 'package:lta_datamall_flutter/screens/bus/main_bus_screen.dart';
-import 'package:lta_datamall_flutter/screens/car/main_car_screen.dart';
-import 'package:lta_datamall_flutter/screens/settings/main_settings_screen.dart';
-import 'package:lta_datamall_flutter/screens/taxi/main_taxi_screen.dart';
-import 'package:lta_datamall_flutter/screens/traffic/main_traffic_screen.dart';
-import 'package:lta_datamall_flutter/screens/train/main_train_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -49,23 +43,7 @@ class MyApp extends StatelessWidget {
             ),
             initialRoute: MainBusScreen.id,
             navigatorObservers: <NavigatorObserver>[observer],
-            routes: <String, WidgetBuilder>{
-              MainBusScreen.id: (BuildContext context) => MainBusScreen(
-                    analytics: analytics,
-                    observer: observer,
-                  ),
-              MainBicycleScreen.id: (BuildContext context) =>
-                  MainBicycleScreen(),
-              MainSettingsScreen.id: (BuildContext context) =>
-                  MainSettingsScreen(),
-              MainCarScreen.id: (BuildContext context) => MainCarScreen(),
-              MainTaxiScreen.id: (BuildContext context) => MainTaxiScreen(),
-              MainTrafficScreen.id: (BuildContext context) =>
-                  MainTrafficScreen(),
-              MainTrainScreen.id: (BuildContext context) => MainTrainScreen(),
-              BusArrivalsScreen.id: (BuildContext context) =>
-                  BusArrivalsScreen(),
-            },
+            onGenerateRoute: RouteGenerator.generateRoute,
           );
         },
       ),
