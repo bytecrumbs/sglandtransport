@@ -1,4 +1,3 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/screens/bus/favorites_bus_section.dart';
@@ -7,23 +6,18 @@ import 'package:lta_datamall_flutter/screens/bus/search_bus_section.dart';
 import 'package:lta_datamall_flutter/screens/widgets/app_drawer.dart';
 
 class MainBusScreen extends StatefulWidget {
-  const MainBusScreen({Key key, this.analytics, this.observer})
-      : super(key: key);
+  const MainBusScreen({Key key, this.observer}) : super(key: key);
 
-  final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
 
   static const String id = 'main_bus_screen';
 
   @override
-  _MainBusScreenState createState() => _MainBusScreenState(analytics, observer);
+  _MainBusScreenState createState() => _MainBusScreenState();
 }
 
 class _MainBusScreenState extends State<MainBusScreen> {
-  _MainBusScreenState(this.analytics, this.observer);
-
-  final FirebaseAnalyticsObserver observer;
-  final FirebaseAnalytics analytics;
+  _MainBusScreenState();
 
   int pageIndex = 0;
 
@@ -68,7 +62,7 @@ class _MainBusScreenState extends State<MainBusScreen> {
   }
 
   void _sendCurrentTabToAnalytics(String screenName) {
-    observer.analytics.setCurrentScreen(
+    widget.observer.analytics.setCurrentScreen(
       screenName: screenName,
     );
   }
