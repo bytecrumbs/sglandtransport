@@ -13,14 +13,25 @@ class _SearchBusStopsState extends State<SearchBusStops> {
   static final BusStopListRepository _repo = BusStopListRepository();
   final TextEditingController _controller = TextEditingController();
   List<BusStopModel> _searchResult = <BusStopModel>[];
+  bool isLoading = false;
+
+  void searchBusStopList(String value) {
+    _repo.getBusStopListBySearchText(value).then(
+          (List<BusStopModel> data) => setState(
+            () {
+              _searchResult = data;
+              isLoading = false;
+            },
+          ),
+        );
+  }
 
   void onSearchTextChanged(String value) {
     _searchResult.clear();
-    _repo
-        .getBusStopListBySearchText(value)
-        .then((List<BusStopModel> data) => setState(() {
-              _searchResult = data;
-            }));
+    setState(() {
+      isLoading = true;
+    });
+    searchBusStopList(value);
   }
 
   @override
@@ -31,13 +42,23 @@ class _SearchBusStopsState extends State<SearchBusStops> {
           controller: _controller,
           onSearchTextChanged: onSearchTextChanged,
         ),
-        Expanded(
-            child: ListView.builder(
-                itemCount: _searchResult.length,
-                itemBuilder: (BuildContext context, int index) => BusStopCard(
-                      busStopModel: _searchResult[index],
-                    ))),
+        _buildSearchResultList(),
       ],
+    );
+  }
+
+  Expanded _buildSearchResultList() {
+    return Expanded(
+      child: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: _searchResult.length,
+              itemBuilder: (BuildContext context, int index) => BusStopCard(
+                busStopModel: _searchResult[index],
+              ),
+            ),
     );
   }
 }
