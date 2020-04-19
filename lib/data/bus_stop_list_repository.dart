@@ -16,15 +16,13 @@ class BusStopListRepository extends Repository {
     if (_busStops.isEmpty) {
       await refreshAllData();
     }
-    if (searchText.isEmpty) {
-      return <BusStopModel>[];
-    }
 
     final List<BusStopModel> searchResult = <BusStopModel>[];
-
-    for (final BusStopModel busStop in _busStops) {
-      if (busStop.busStopCode.contains(searchText) == true)
-        searchResult.add(busStop);
+    if (searchText.isNotEmpty) {
+      for (final BusStopModel busStop in _busStops) {
+        if (busStop.busStopCode.startsWith(searchText) == true)
+          searchResult.add(busStop);
+      }
     }
 
     return searchResult;
