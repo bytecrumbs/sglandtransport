@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
@@ -16,11 +18,22 @@ class BusArrivalCardList extends StatefulWidget {
 
 class _BusArrivalCardListState extends State<BusArrivalCardList> {
   Future<BusArrivalModel> _future;
+  Timer timer;
 
   @override
   void initState() {
     super.initState();
     _future = fetchBusArrivalList(http.IOClient(), widget.busStopCode);
+    timer = Timer.periodic(
+      const Duration(minutes: 1),
+      (Timer t) => _refreshBusArrivals(),
+    );
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   Future<BusArrivalModel> _refreshBusArrivals() {
