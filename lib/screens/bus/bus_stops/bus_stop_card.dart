@@ -17,8 +17,9 @@ class BusStopCard extends StatelessWidget {
       margin: const EdgeInsets.all(6),
       child: ListTile(
         leading: Icon(Icons.departure_board),
-        title: Text('${busStopModel.busStopCode} (${busStopModel.roadName})'),
-        subtitle: Text(busStopModel.description),
+        title:
+            Text('${busStopModel.description} (${busStopModel.busStopCode})'),
+        subtitle: Text(busStopModel.roadName),
         trailing: Icon(Icons.assignment),
         onTap: () {
           Keyboard.dismiss(context);
