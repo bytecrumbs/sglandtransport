@@ -11,6 +11,22 @@ This app provides screens and functionality for APIs that are exposed by the LTA
 
 - Flutter (https://flutter.dev/docs/get-started/install)
 
+## Code Generation
+
+This project uses build runner to generate Models.
+
+### Generate once
+
+```
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+### Watch and generate on change
+
+```
+flutter pub run build_runner watch --delete-conflicting-outputs
+```
+
 ## Deployments
 
 This project is using Fastlane (https://fastlane.tools/) as its deployment pipeline.
