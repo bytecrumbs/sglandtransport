@@ -11,6 +11,14 @@ class SearchBar extends StatelessWidget {
   final TextEditingController controller;
   final Function(String) onSearchTextChanged;
 
+  void dismissFocus(BuildContext context) {
+    final FocusScopeNode currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,6 +43,7 @@ class SearchBar extends StatelessWidget {
               icon: Icon(Icons.cancel),
               onPressed: () {
                 controller.clear();
+                dismissFocus(context);
                 onSearchTextChanged('');
               },
             ),
