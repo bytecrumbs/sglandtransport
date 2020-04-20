@@ -27,14 +27,14 @@ void main() {
     await _pumpBusStopCard(tester);
 
     final Finder labelFinder =
-        find.text('${busStopModel.busStopCode} (${busStopModel.roadName})');
+        find.text('${busStopModel.description} (${busStopModel.busStopCode})');
     expect(labelFinder, findsOneWidget);
   });
 
   testWidgets('Card shows a description', (WidgetTester tester) async {
     await _pumpBusStopCard(tester);
 
-    final Finder labelFinder = find.text(busStopModel.description);
+    final Finder labelFinder = find.text(busStopModel.roadName);
     expect(labelFinder, findsOneWidget);
   });
 }
