@@ -19,7 +19,7 @@ class BusArrivalCard extends StatelessWidget {
     final int arrivalInMinutes =
         DateTime.parse(arrivalTime).difference(DateTime.now()).inMinutes;
 
-    if (arrivalInMinutes <= 2) {
+    if (arrivalInMinutes <= 0) {
       return 'Arr';
     } else {
       return '${arrivalInMinutes.toString()}$suffix';
