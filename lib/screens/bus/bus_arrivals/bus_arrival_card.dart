@@ -99,7 +99,7 @@ class BusArrivalCard extends StatelessWidget {
 
   Widget _displayBusFeature() {
     if (busArrivalServiceModel.nextBus.feature != 'WAB') {
-      return null;
+      return const Text('');
     }
 
     return Icon(
