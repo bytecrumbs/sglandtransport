@@ -1,5 +1,3 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/screens/bicycle/main_bicycle_screen.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
@@ -13,18 +11,13 @@ import 'package:lta_datamall_flutter/screens/train/main_train_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final FirebaseAnalytics analytics = FirebaseAnalytics();
-    final FirebaseAnalyticsObserver observer =
-        FirebaseAnalyticsObserver(analytics: analytics);
     // Getting arguments passed in while calling Navigator.pushNamed
     final Object args = settings.arguments;
 
     switch (settings.name) {
       case MainBusScreen.id:
         return MaterialPageRoute<MainBusScreen>(
-          builder: (_) => MainBusScreen(
-            observer: observer,
-          ),
+          builder: (_) => MainBusScreen(),
         );
       case MainBicycleScreen.id:
         return MaterialPageRoute<MainBicycleScreen>(

@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:lta_datamall_flutter/providers/observer_provider.dart';
 import 'package:lta_datamall_flutter/providers/settings_provider.dart';
 import 'package:lta_datamall_flutter/route_generator.dart';
 import 'package:lta_datamall_flutter/screens/bus/main_bus_screen.dart';
@@ -22,9 +21,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
@@ -36,9 +32,17 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SettingsProvider>(
           create: (_) => SettingsProvider(),
         ),
+        Provider<ObserverProvider>(
+          create: (_) => ObserverProvider(),
+        ),
       ],
-      child: Consumer<SettingsProvider>(
-        builder: (BuildContext context, SettingsProvider settings, _) {
+      child: Consumer2<SettingsProvider, ObserverProvider>(
+        builder: (
+          BuildContext context,
+          SettingsProvider settings,
+          ObserverProvider observer,
+          _,
+        ) {
           return MaterialApp(
             title: 'LTA Datamall App',
             darkTheme: ThemeData.dark(),
@@ -47,7 +51,9 @@ class MyApp extends StatelessWidget {
                   settings.isDarkMode ? Brightness.dark : Brightness.light,
             ),
             initialRoute: MainBusScreen.id,
-            navigatorObservers: <NavigatorObserver>[observer],
+            navigatorObservers: <NavigatorObserver>[
+              observer.getAnalyticsObserver(),
+            ],
             onGenerateRoute: RouteGenerator.generateRoute,
           );
         },
