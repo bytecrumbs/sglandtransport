@@ -22,14 +22,10 @@ class SearchBar extends StatelessWidget {
           child: ListTile(
             leading: Icon(Icons.search),
             title: TextField(
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                WhitelistingTextInputFormatter.digitsOnly,
-              ],
+              keyboardType: TextInputType.text,
               controller: controller,
               decoration: InputDecoration(
-                  hintText: 'Enter a bus stop number',
-                  border: InputBorder.none),
+                  hintText: 'Search bus stop', border: InputBorder.none),
               onChanged: onSearchTextChanged,
             ),
             trailing: IconButton(

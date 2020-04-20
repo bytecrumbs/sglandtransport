@@ -17,7 +17,7 @@ void main() {
   testWidgets('TextField has a label', (WidgetTester tester) async {
     await _pumpSearchBar(tester);
 
-    final Finder labelFinder = find.text('Enter a bus stop number');
+    final Finder labelFinder = find.text('Search bus stop');
     expect(labelFinder, findsOneWidget);
   });
 
@@ -44,24 +44,5 @@ void main() {
 
     // confirm text is not there anymore
     expect(textFieldValueFinder, findsNothing);
-  });
-
-  testWidgets('TextField allows only to enter numbers',
-      (WidgetTester tester) async {
-    await _pumpSearchBar(tester);
-    // write into the text field and confirm text is there
-    const String validTextFieldValue = '010101';
-    await tester.enterText(find.byType(TextField), validTextFieldValue);
-    final Finder validTextFieldValueFinder = find.text(validTextFieldValue);
-    expect(validTextFieldValueFinder, findsOneWidget);
-
-    // clear the text field
-    await tester.tap(find.byIcon(Icons.cancel));
-    await tester.pump();
-
-    const String invalidTextFieldValue = 'asdf';
-    await tester.enterText(find.byType(TextField), invalidTextFieldValue);
-    final Finder invalidTextFieldValueFinder = find.text(invalidTextFieldValue);
-    expect(invalidTextFieldValueFinder, findsNothing);
   });
 }

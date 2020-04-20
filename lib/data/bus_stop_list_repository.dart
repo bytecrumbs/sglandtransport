@@ -10,6 +10,13 @@ class BusStopListRepository extends Repository {
 
   List<BusStopModel> _busStops;
 
+  bool containsSearchText(String value, String searchText) {
+    value = value.toLowerCase();
+    searchText = searchText.toLowerCase();
+
+    return value.contains(searchText);
+  }
+
   @override
   Future<List<BusStopModel>> getBusStopListBySearchText(String searchText,
       {bool forceRefresh = false}) async {
@@ -20,8 +27,14 @@ class BusStopListRepository extends Repository {
     final List<BusStopModel> searchResult = <BusStopModel>[];
     if (searchText.isNotEmpty) {
       for (final BusStopModel busStop in _busStops) {
-        if (busStop.busStopCode.startsWith(searchText) == true)
+        final bool isTextMatching =
+            containsSearchText(busStop.busStopCode, searchText) ||
+                containsSearchText(busStop.description, searchText) ||
+                containsSearchText(busStop.roadName, searchText);
+
+        if (isTextMatching == true) {
           searchResult.add(busStop);
+        }
       }
     }
 
