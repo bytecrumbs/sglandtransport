@@ -9,21 +9,19 @@ class BusArrivalCard extends StatelessWidget {
 
   final BusArrivalServiceModel busArrivalServiceModel;
 
-  String getTimeToBusStop(String arrivalTime, [bool isSuffixShown]) {
+  String getTimeToBusStop(String arrivalTime, [bool isSuffixShown = false]) {
     if (arrivalTime == '') {
       return 'n/a';
     }
 
-    final String suffix = isSuffixShown != null && isSuffixShown ? 'min' : '';
+    final String suffix = isSuffixShown && isSuffixShown ? 'min' : '';
 
     final int arrivalInMinutes =
         DateTime.parse(arrivalTime).difference(DateTime.now()).inMinutes;
 
-    if (arrivalInMinutes <= 0) {
-      return 'Arr';
-    } else {
-      return '${arrivalInMinutes.toString()}$suffix';
-    }
+    return arrivalInMinutes <= 0
+        ? 'Arr'
+        : '${arrivalInMinutes.toString()}$suffix';
   }
 
   String _getBusLoad(dynamic load) {
