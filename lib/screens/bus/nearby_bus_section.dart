@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/api.dart';
-import 'package:http/io_client.dart' as http;
+
+import 'package:lta_datamall_flutter/data/bus_stop_list_repository.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card_list.dart';
 
-Future<List<BusStopModel>> _fetchBusStopList() {
-  return fetchBusStopList(http.IOClient());
-}
-
 class NearbyBusStops extends StatelessWidget {
+  static final BusStopListRepository _repo = BusStopListRepository();
+
+  Future<List<BusStopModel>> _fetchBusStopList() {
+    return _repo.getBusStopList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<BusStopModel>>(

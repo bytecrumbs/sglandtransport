@@ -6,21 +6,18 @@ import 'repository.dart';
 class BusStopListRepository extends Repository {
   BusStopListRepository() {
     _busStops = <BusStopModel>[];
+    _cacheValidDuration = const Duration(hours: 1);
+    _lastFetchTime = DateTime.fromMillisecondsSinceEpoch(0);
   }
 
+  Duration _cacheValidDuration;
+  DateTime _lastFetchTime;
   List<BusStopModel> _busStops;
-
-  bool containsSearchText(String value, String searchText) {
-    value = value.toLowerCase();
-    searchText = searchText.toLowerCase();
-
-    return value.contains(searchText);
-  }
 
   @override
   Future<List<BusStopModel>> getBusStopListBySearchText(String searchText,
       {bool forceRefresh = false}) async {
-    if (_busStops.isEmpty || forceRefresh) {
+    if (shouldRefresh(forceRefresh)) {
       await refreshAllData();
     }
 
@@ -41,7 +38,28 @@ class BusStopListRepository extends Repository {
     return searchResult;
   }
 
+  @override
+  Future<List<BusStopModel>> getBusStopList({bool forceRefresh = false}) async {
+    if (shouldRefresh(forceRefresh)) {
+      await refreshAllData();
+    }
+    return _busStops;
+  }
+
+  bool containsSearchText(String value, String searchText) {
+    value = value.toLowerCase();
+    searchText = searchText.toLowerCase();
+    return value.contains(searchText);
+  }
+
+  bool shouldRefresh(bool forceRefresh) {
+    return _busStops.isEmpty ||
+        _lastFetchTime.isBefore(DateTime.now().subtract(_cacheValidDuration)) ||
+        forceRefresh;
+  }
+
   Future<void> refreshAllData() async {
+    _lastFetchTime = DateTime.now();
     _busStops = await fetchBusStopList(http.IOClient());
   }
 }
