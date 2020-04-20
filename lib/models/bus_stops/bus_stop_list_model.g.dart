@@ -10,7 +10,7 @@ BusStopListModel _$BusStopListModelFromJson(Map<String, dynamic> json) {
   return BusStopListModel(
     json['odata.metadata'] as String,
     (json['value'] as List)
-        ?.map((dynamic e) =>
+        ?.map((e) =>
             e == null ? null : BusStopModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
