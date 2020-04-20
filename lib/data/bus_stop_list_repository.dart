@@ -11,9 +11,9 @@ class BusStopListRepository extends Repository {
   List<BusStopModel> _busStops;
 
   @override
-  Future<List<BusStopModel>> getBusStopListBySearchText(
-      String searchText) async {
-    if (_busStops.isEmpty) {
+  Future<List<BusStopModel>> getBusStopListBySearchText(String searchText,
+      {bool forceRefresh = false}) async {
+    if (_busStops.isEmpty || forceRefresh) {
       await refreshAllData();
     }
 
