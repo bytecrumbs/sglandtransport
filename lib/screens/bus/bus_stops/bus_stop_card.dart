@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen_arguments.dart';
+import 'package:lta_datamall_flutter/utils/keyboard.dart';
 
 class BusStopCard extends StatelessWidget {
   const BusStopCard({
@@ -9,14 +10,6 @@ class BusStopCard extends StatelessWidget {
   });
 
   final BusStopModel busStopModel;
-
-  void dismissFocus(BuildContext context) {
-    final FocusScopeNode currentFocus = FocusScope.of(context);
-
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +21,7 @@ class BusStopCard extends StatelessWidget {
         subtitle: Text(busStopModel.description),
         trailing: Icon(Icons.assignment),
         onTap: () {
-          dismissFocus(context);
+          Keyboard.dismiss(context);
           Navigator.pushNamed(
             context,
             BusArrivalsScreen.id,

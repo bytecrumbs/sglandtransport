@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lta_datamall_flutter/utils/keyboard.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
@@ -10,14 +11,6 @@ class SearchBar extends StatelessWidget {
 
   final TextEditingController controller;
   final Function(String) onSearchTextChanged;
-
-  void dismissFocus(BuildContext context) {
-    final FocusScopeNode currentFocus = FocusScope.of(context);
-
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +36,7 @@ class SearchBar extends StatelessWidget {
               icon: Icon(Icons.cancel),
               onPressed: () {
                 controller.clear();
-                dismissFocus(context);
+                Keyboard.dismiss(context);
                 onSearchTextChanged('');
               },
             ),
