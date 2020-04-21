@@ -37,6 +37,9 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.8.1
   json_serializable: ^3.3.0
+  flutter_driver:
+    sdk: flutter
+  test: any
   mockito: ^4.1.1
   auto_route_generator: ^0.4.5
 

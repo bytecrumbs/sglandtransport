@@ -47,7 +47,8 @@ class _MainBusScreenState extends State<MainBusScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            title: const Text('Favorites'),
+            title: const Text('Favorites',
+                key: ValueKey<String>('favoriteScreen')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),

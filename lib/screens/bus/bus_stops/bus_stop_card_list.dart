@@ -30,6 +30,7 @@ class BusStopCardList extends StatelessWidget {
         //   },
         // );
         return BusStopCard(
+          key: ValueKey<String>('busStopCard-$index'),
           busStopModel: busStopList[index],
         );
       },

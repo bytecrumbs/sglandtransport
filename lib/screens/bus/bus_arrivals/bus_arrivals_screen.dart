@@ -49,12 +49,19 @@ class _BusArrivalsScreenState extends State<BusArrivalsScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: IconButton(
+              key: const ValueKey<String>('favoriteIconButton'),
               onPressed: () {
                 _toggleFavoriteBusStop(widget.busStopModel);
               },
               icon: isFavoriteBusStop
-                  ? Icon(Icons.favorite)
-                  : Icon(Icons.favorite_border),
+                  ? Icon(
+                      Icons.favorite,
+                      key: const ValueKey<String>('favoriteIconSelected'),
+                    )
+                  : Icon(
+                      Icons.favorite_border,
+                      key: const ValueKey<String>('favoriteIconUnselected'),
+                    ),
             ),
           ),
         ],

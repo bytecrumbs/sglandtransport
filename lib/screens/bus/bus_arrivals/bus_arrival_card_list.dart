@@ -61,6 +61,7 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
                 final BusArrivalServiceModel currentBusService =
                     busServices[index];
                 return BusArrivalCard(
+                  key: ValueKey<String>('busArrivalCard-$index'),
                   busArrivalServiceModel: currentBusService,
                 );
               },

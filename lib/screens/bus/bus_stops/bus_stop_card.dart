@@ -6,8 +6,9 @@ import 'package:lta_datamall_flutter/utils/keyboard.dart';
 
 class BusStopCard extends StatelessWidget {
   const BusStopCard({
+    Key key,
     @required this.busStopModel,
-  });
+  }) : super(key: key);
 
   final BusStopModel busStopModel;
 
