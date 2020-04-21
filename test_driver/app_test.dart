@@ -50,14 +50,14 @@ void main() {
         expect(await isRendered(busStopCard, driver), true);
       });
 
-      test(
-          'Checks that bus stop is not present when bus stop is removed from favorites',
-          () async {
-        await driver.tap(busStopCard);
-        await driver.tap(favoriteIconButton);
-        await driver.tap(find.pageBack());
-        expect(await isRendered(busStopCard, driver), false);
-      });
+      // test(
+      //     'Checks that bus stop is not present when bus stop is removed from favorites',
+      //     () async {
+      //   await driver.tap(busStopCard);
+      //   await driver.tap(favoriteIconButton);
+      //   await driver.tap(find.pageBack());
+      //   expect(await isRendered(busStopCard, driver), false);
+      // });
     });
   });
 }
