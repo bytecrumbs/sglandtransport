@@ -22,7 +22,6 @@ platform :ios do
     Dir.chdir "../.." do
       sh("flutter", "analyze")
       sh("flutter", "test")
-      sh("flutter", "drive", "--target=test_driver/app.dart")
     end
   end
   
