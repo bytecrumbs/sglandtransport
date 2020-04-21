@@ -13,7 +13,7 @@ This app provides screens and functionality for APIs that are exposed by the LTA
 
 ## Code Generation
 
-This project uses build runner to generate Models.
+This project uses build runner to generate Models (lib/models) and Routes (lib/routes).
 
 ### Generate once
 

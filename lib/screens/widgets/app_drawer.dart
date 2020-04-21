@@ -1,11 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/screens/bicycle/main_bicycle_screen.dart';
-import 'package:lta_datamall_flutter/screens/bus/main_bus_screen.dart';
-import 'package:lta_datamall_flutter/screens/car/main_car_screen.dart';
-import 'package:lta_datamall_flutter/screens/settings/main_settings_screen.dart';
-import 'package:lta_datamall_flutter/screens/taxi/main_taxi_screen.dart';
-import 'package:lta_datamall_flutter/screens/traffic/main_traffic_screen.dart';
-import 'package:lta_datamall_flutter/screens/train/main_train_screen.dart';
+import 'package:lta_datamall_flutter/routes/router.gr.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -31,49 +26,56 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.directions_bus),
             title: const Text('Buses'),
             onTap: () {
-              Navigator.pushNamed(context, MainBusScreen.id);
+              ExtendedNavigator.of(context)
+                  .pushNamed(Routes.mainBusScreenRoute);
             },
           ),
           ListTile(
             leading: Icon(Icons.train),
             title: const Text('Trains'),
             onTap: () {
-              Navigator.pushNamed(context, MainTrainScreen.id);
+              ExtendedNavigator.of(context)
+                  .pushNamed(Routes.mainTrainScreenRoute);
             },
           ),
           ListTile(
             leading: Icon(Icons.directions_bike),
             title: const Text('Bicycles'),
             onTap: () {
-              Navigator.pushNamed(context, MainBicycleScreen.id);
+              ExtendedNavigator.of(context)
+                  .pushNamed(Routes.mainBicycleScreenRoute);
             },
           ),
           ListTile(
             leading: Icon(Icons.directions_car),
             title: const Text('Cars'),
             onTap: () {
-              Navigator.pushNamed(context, MainCarScreen.id);
+              ExtendedNavigator.of(context)
+                  .pushNamed(Routes.mainCarScreenRoute);
             },
           ),
           ListTile(
             leading: Icon(Icons.local_taxi),
             title: const Text('Taxis'),
             onTap: () {
-              Navigator.pushNamed(context, MainTaxiScreen.id);
+              ExtendedNavigator.of(context)
+                  .pushNamed(Routes.mainTaxiScreenRoute);
             },
           ),
           ListTile(
             leading: Icon(Icons.traffic),
             title: const Text('Traffic'),
             onTap: () {
-              Navigator.pushNamed(context, MainTrafficScreen.id);
+              ExtendedNavigator.of(context)
+                  .pushNamed(Routes.mainTrafficScreenRoute);
             },
           ),
           ListTile(
             leading: Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
-              Navigator.pushNamed(context, MainSettingsScreen.id);
+              ExtendedNavigator.of(context)
+                  .pushNamed(Routes.mainSettingsScreenRoute);
             },
           ),
         ],

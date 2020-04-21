@@ -1,7 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
-import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen_arguments.dart';
+import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:lta_datamall_flutter/utils/keyboard.dart';
 
 class BusStopCard extends StatelessWidget {
@@ -23,9 +23,8 @@ class BusStopCard extends StatelessWidget {
         trailing: Icon(Icons.assignment),
         onTap: () {
           Keyboard.dismiss(context);
-          Navigator.pushNamed(
-            context,
-            BusArrivalsScreen.id,
+          ExtendedNavigator.of(context).pushNamed(
+            Routes.busArrivalsScreenRoute,
             arguments: BusArrivalsScreenArguments(
               busStopModel: busStopModel,
             ),
