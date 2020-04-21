@@ -4,8 +4,9 @@ import 'package:lta_datamall_flutter/widgets/box_info.dart';
 
 class BusArrivalCard extends StatelessWidget {
   const BusArrivalCard({
+    Key key,
     @required this.busArrivalServiceModel,
-  });
+  }) : super(key: key);
 
   final BusArrivalServiceModel busArrivalServiceModel;
 
