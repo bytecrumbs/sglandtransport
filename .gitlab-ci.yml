@@ -9,6 +9,8 @@ before_script:
   - pwd
 
 unit_test:
+  before_script:
+    - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
   stage: test
   tags:
     - unit_test
@@ -17,6 +19,7 @@ unit_test:
     - flutter test --coverage
     - lcov --list coverage/lcov.info
     - genhtml coverage/lcov.info --output=coverage
+    - flutter drive --target=test_driver/app.dart
   artifacts:
     paths:
       - coverage
