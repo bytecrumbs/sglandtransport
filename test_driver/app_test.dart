@@ -2,6 +2,11 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import 'utils.dart';
 
+dynamic searchForText(String searchText, dynamic driver) async {
+  await driver.tap(find.byValueKey('searchInput'));
+  await driver.enterText(searchText);
+}
+
 void main() {
   group('LTA App', () {
     final SerializableFinder unselectedFavoriteIcon =
@@ -58,6 +63,34 @@ void main() {
       //   await driver.tap(find.pageBack());
       //   expect(await isRendered(busStopCard, driver), false);
       // });
+    });
+
+    group('Search', () {
+      test('Checks that bus stop can be searched by description', () async {
+        await driver.tap(find.byValueKey('searchScreen'));
+        searchForText('Opp Holiday Inn', driver);
+        await driver.waitFor(busStopCard);
+        expect(await isRendered(busStopCard, driver), true);
+      });
+
+      test('Checks that bus stop can be searched by bus code', () async {
+        await driver.tap(find.byValueKey('searchInput'));
+        searchForText('01012', driver);
+        await driver.waitFor(busStopCard);
+        expect(await isRendered(busStopCard, driver), true);
+      });
+
+      test('Checks that bus stop can be searched by road name', () async {
+        await driver.tap(find.byValueKey('searchInput'));
+        searchForText('Victoria St', driver);
+        await driver.waitFor(busStopCard);
+        expect(await isRendered(busStopCard, driver), true);
+      });
+
+      test('Checks that input text can be cleared', () async {
+        await driver.tap(find.byValueKey('clearSearchInput'));
+        expect(await isRendered(busStopCard, driver), false);
+      });
     });
   });
 }
