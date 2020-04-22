@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/auto_route_annotations.dart';
 import 'package:lta_datamall_flutter/screens/bicycle/main_bicycle_screen.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
@@ -20,5 +21,9 @@ class $Router {
   MainTaxiScreen mainTaxiScreenRoute;
   MainTrafficScreen mainTrafficScreenRoute;
   MainTrainScreen mainTrainScreenRoute;
+  @CustomRoute(
+    transitionsBuilder: TransitionsBuilders.zoomIn,
+    durationInMilliseconds: 200,
+  )
   BusArrivalsScreen busArrivalsScreenRoute;
 }

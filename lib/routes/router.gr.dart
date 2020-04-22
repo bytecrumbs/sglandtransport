@@ -79,10 +79,12 @@ class Router extends RouterBase {
           return misTypedArgsRoute<BusArrivalsScreenArguments>(args);
         }
         final typedArgs = args as BusArrivalsScreenArguments;
-        return MaterialPageRoute<dynamic>(
-          builder: (_) =>
+        return PageRouteBuilder<dynamic>(
+          pageBuilder: (ctx, animation, secondaryAnimation) =>
               BusArrivalsScreen(busStopModel: typedArgs.busStopModel),
           settings: settings,
+          transitionsBuilder: TransitionsBuilders.zoomIn,
+          transitionDuration: const Duration(milliseconds: 200),
         );
       default:
         return unknownRoutePage(settings.name);
