@@ -56,6 +56,7 @@ class _SearchBusStopsState extends State<SearchBusStops> {
           : ListView.builder(
               itemCount: _searchResult.length,
               itemBuilder: (BuildContext context, int index) => BusStopCard(
+                key: ValueKey<String>('busStopCard-$index'),
                 busStopModel: _searchResult[index],
               ),
             ),
