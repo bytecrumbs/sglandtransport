@@ -109,3 +109,8 @@ brew install lcov
 flutter test --coverage
 genhtml coverage/lcov.info -o coverage/html
 ```
+
+### Run automation
+```
+flutter drive --target=test_driver/app.dart
+```
