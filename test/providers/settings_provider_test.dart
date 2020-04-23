@@ -3,7 +3,7 @@ import 'package:lta_datamall_flutter/providers/settings_provider.dart';
 
 void main() {
   test('toggle dark mode sets isDarkMode', () {
-    final SettingsProvider provider = SettingsProvider();
+    final SettingsServiceProvider provider = SettingsServiceProvider();
     expect(provider.isDarkMode, false);
     provider.toggleDarkMode(true);
     expect(provider.isDarkMode, true);
@@ -11,7 +11,7 @@ void main() {
 
   test('toggle dark mode notifies listeners', () {
     int listenerCallCount = 0;
-    final SettingsProvider provider = SettingsProvider()
+    final SettingsServiceProvider provider = SettingsServiceProvider()
       ..addListener(() {
         listenerCallCount += 1;
       });

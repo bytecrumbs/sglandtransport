@@ -18,10 +18,10 @@ class MainSettingsScreen extends StatelessWidget {
         children: <Widget>[
           SwitchListTile.adaptive(
             onChanged: (bool value) {
-              Provider.of<SettingsProvider>(context, listen: false)
+              Provider.of<SettingsServiceProvider>(context, listen: false)
                   .toggleDarkMode(value);
             },
-            value: Provider.of<SettingsProvider>(context).isDarkMode,
+            value: Provider.of<SettingsServiceProvider>(context).isDarkMode,
             secondary: Icon(Icons.brightness_6),
             title: const Text('Dark Mode'),
           ),

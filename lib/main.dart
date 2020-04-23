@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: <SingleChildWidget>[
-        ChangeNotifierProvider<SettingsProvider>(
-          create: (_) => SettingsProvider(),
+        ChangeNotifierProvider<SettingsServiceProvider>(
+          create: (_) => SettingsServiceProvider(),
         ),
         Provider<ObserverServiceProvider>(
           create: (_) => ObserverServiceProvider(),
@@ -40,10 +40,10 @@ class MyApp extends StatelessWidget {
           create: (_) => BusFavoritesServiceProvider(),
         ),
       ],
-      child: Consumer2<SettingsProvider, ObserverServiceProvider>(
+      child: Consumer2<SettingsServiceProvider, ObserverServiceProvider>(
         builder: (
           BuildContext context,
-          SettingsProvider settings,
+          SettingsServiceProvider settings,
           ObserverServiceProvider observer,
           _,
         ) {

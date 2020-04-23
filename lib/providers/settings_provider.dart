@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SettingsProvider extends ChangeNotifier {
+class SettingsServiceProvider extends ChangeNotifier {
   bool isDarkMode = false;
 
   void toggleDarkMode(bool value) {
