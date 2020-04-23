@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/services/bus/favorites_service.dart';
+import 'package:lta_datamall_flutter/services/bus/bus_favorites_service_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
