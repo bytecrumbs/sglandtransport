@@ -22,6 +22,7 @@ class SearchBar extends StatelessWidget {
           child: ListTile(
             leading: Icon(Icons.search),
             title: TextField(
+              key: const ValueKey<String>('searchInput'),
               keyboardType: TextInputType.text,
               controller: controller,
               decoration: InputDecoration(
@@ -29,6 +30,7 @@ class SearchBar extends StatelessWidget {
               onChanged: onSearchTextChanged,
             ),
             trailing: IconButton(
+              key: const ValueKey<String>('clearSearchInput'),
               icon: Icon(Icons.cancel),
               onPressed: () {
                 controller.clear();

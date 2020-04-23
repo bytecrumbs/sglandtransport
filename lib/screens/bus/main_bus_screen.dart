@@ -52,7 +52,7 @@ class _MainBusScreenState extends State<MainBusScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            title: const Text('Search'),
+            title: const Text('Search', key: ValueKey<String>('searchScreen')),
           ),
         ],
       ),
