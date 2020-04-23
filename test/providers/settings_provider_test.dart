@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lta_datamall_flutter/providers/settings_provider.dart';
+import 'package:lta_datamall_flutter/services/settings_service_provider.dart';
 
 void main() {
   test('toggle dark mode sets isDarkMode', () {
