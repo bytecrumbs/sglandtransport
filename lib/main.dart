@@ -7,6 +7,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/providers/observer_provider.dart';
 import 'package:lta_datamall_flutter/providers/settings_provider.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
+import 'package:lta_datamall_flutter/services/bus/favorites_service.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         ),
         Provider<ObserverProvider>(
           create: (_) => ObserverProvider(),
+        ),
+        ChangeNotifierProvider<BusFavoritesService>(
+          create: (_) => BusFavoritesService(),
         ),
       ],
       child: Consumer2<SettingsProvider, ObserverProvider>(

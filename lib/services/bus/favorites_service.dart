@@ -1,34 +1,37 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class BusFavoritesService {
-  factory BusFavoritesService() {
-    return _busFavoritesService;
+class BusFavoritesService with ChangeNotifier {
+  BusFavoritesService() {
+    fetchFavoriteBusStops();
   }
 
-  BusFavoritesService._internal();
+  List<BusStopModel> _favoriteBusStops = <BusStopModel>[];
+  List<BusStopModel> get favoriteBusStops => _favoriteBusStops;
+
+  bool _isFavoriteBusStop = false;
+  bool get isFavoriteBusStop => _isFavoriteBusStop;
 
   final String favoriteBusStopsKey = 'favoriteBusStopModels';
-  static final BusFavoritesService _busFavoritesService =
-      BusFavoritesService._internal();
 
-  Future<List<BusStopModel>> getFavoriteBusStops() async {
+  Future<void> fetchFavoriteBusStops() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final List<String> favoriteBusStopsValue =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    final List<BusStopModel> result = favoriteBusStopsValue
+    _favoriteBusStops = favoriteBusStopsValue
         // ignore: argument_type_not_assignable
         .map((String val) => BusStopModel.fromJson(jsonDecode(val)))
         .toList();
 
-    return result ?? <BusStopModel>[];
+    notifyListeners();
   }
 
-  Future<bool> isFavoriteBusStop(BusStopModel busStopModel) async {
+  Future<void> setIsFavoriteBusStop(BusStopModel busStopModel) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final String busStopModelString = jsonEncode(busStopModel);
@@ -36,10 +39,21 @@ class BusFavoritesService {
     final List<String> currentFavorites =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    return currentFavorites.contains(busStopModelString);
+    _isFavoriteBusStop = currentFavorites.contains(busStopModelString);
+    notifyListeners();
   }
 
-  Future<void> addFavoriteBusStop(BusStopModel busStopModel) async {
+  Future<void> toggleFavoriteBusStop(BusStopModel busStopModel) async {
+    if (isFavoriteBusStop) {
+      print('removing');
+      await _removeFavoriteBusStop(busStopModel);
+    } else {
+      print('adding');
+      await _addFavoriteBusStop(busStopModel);
+    }
+  }
+
+  Future<void> _addFavoriteBusStop(BusStopModel busStopModel) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final String busStopModelString = jsonEncode(busStopModel);
@@ -50,10 +64,11 @@ class BusFavoritesService {
     favoriteBusStops.add(busStopModelString);
 
     await prefs.setStringList(favoriteBusStopsKey, favoriteBusStops);
+    await fetchFavoriteBusStops();
+    notifyListeners();
   }
 
-  Future<List<BusStopModel>> removeFavoriteBusStop(
-      BusStopModel busStopModel) async {
+  Future<void> _removeFavoriteBusStop(BusStopModel busStopModel) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final List<String> favoriteBusStops =
@@ -65,12 +80,15 @@ class BusFavoritesService {
 
     await prefs.setStringList(favoriteBusStopsKey, favoriteBusStops);
 
-    return getFavoriteBusStops();
+    await fetchFavoriteBusStops();
+    notifyListeners();
   }
 
   Future<void> clearBusStops() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.remove(favoriteBusStopsKey);
+    _favoriteBusStops.clear();
+    notifyListeners();
   }
 }

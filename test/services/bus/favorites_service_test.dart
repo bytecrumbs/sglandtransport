@@ -43,10 +43,10 @@ void main() {
           <String, dynamic>{favoriteBusStopsKey: busStops});
 
       final BusFavoritesService favoritesService = BusFavoritesService();
-      final List<BusStopModel> favoriteBusStops =
-          await favoritesService.getFavoriteBusStops();
 
-      expect(favoriteBusStops.length, busStops.length);
+      await favoritesService.fetchFavoriteBusStops();
+
+      expect(favoritesService.favoriteBusStops.length, busStops.length);
     });
 
     test('It tells if a given bus stop is already stored as a Favorite',
@@ -61,23 +61,20 @@ void main() {
 
       final BusFavoritesService favoritesService = BusFavoritesService();
 
-      bool isFavoriteBusStop =
-          await favoritesService.isFavoriteBusStop(testBusStopModel1);
-      expect(isFavoriteBusStop, true);
+      await favoritesService.setIsFavoriteBusStop(testBusStopModel1);
+      expect(favoritesService.isFavoriteBusStop, true);
 
-      isFavoriteBusStop =
-          await favoritesService.isFavoriteBusStop(testBusStopModel3);
-      expect(isFavoriteBusStop, false);
+      await favoritesService.setIsFavoriteBusStop(testBusStopModel3);
+      expect(favoritesService.isFavoriteBusStop, false);
     });
 
     test('It returns empty list when no favorites are stored', () async {
       SharedPreferences.setMockInitialValues(<String, dynamic>{});
 
       final BusFavoritesService favoritesService = BusFavoritesService();
-      final List<BusStopModel> favoriteBusStops =
-          await favoritesService.getFavoriteBusStops();
+      await favoritesService.fetchFavoriteBusStops();
 
-      expect(favoriteBusStops.length, 0);
+      expect(favoritesService.favoriteBusStops.length, 0);
     });
 
     test('It stores a bus stop on an empty list', () async {
@@ -87,19 +84,24 @@ void main() {
       ];
 
       SharedPreferences.setMockInitialValues(<String, dynamic>{});
+      final SharedPreferences pref = await SharedPreferences.getInstance();
 
       final BusFavoritesService favoritesService = BusFavoritesService();
-      await favoritesService.addFavoriteBusStop(
+      await favoritesService.toggleFavoriteBusStop(
         busStops[0],
       );
-      await favoritesService.addFavoriteBusStop(
+      await favoritesService.toggleFavoriteBusStop(
         busStops[1],
       );
 
-      final List<BusStopModel> favoriteBusStops =
-          await favoritesService.getFavoriteBusStops();
+      final List<String> favoriteBusStops =
+          pref.getStringList(favoriteBusStopsKey);
 
       expect(favoriteBusStops.length, busStops.length);
+
+      await favoritesService.fetchFavoriteBusStops();
+
+      expect(favoritesService.favoriteBusStops.length, busStops.length);
     });
 
     test('It stores a bus stop on an existing list', () async {
@@ -115,10 +117,10 @@ void main() {
       final SharedPreferences pref = await SharedPreferences.getInstance();
 
       final BusFavoritesService favoritesService = BusFavoritesService();
-      await favoritesService.addFavoriteBusStop(
+      await favoritesService.toggleFavoriteBusStop(
         busStops[1],
       );
-      await favoritesService.addFavoriteBusStop(
+      await favoritesService.toggleFavoriteBusStop(
         busStops[2],
       );
 
@@ -126,11 +128,13 @@ void main() {
           pref.getStringList(favoriteBusStopsKey);
 
       expect(favoriteBusStops.length, busStops.length);
+
+      await favoritesService.fetchFavoriteBusStops();
+
+      expect(favoritesService.favoriteBusStops.length, busStops.length);
     });
 
-    test(
-        'It removes a bus stop from an existing list and returns the remaining list',
-        () async {
+    test('It removes a bus stop from an existing list', () async {
       final List<String> busStops = <String>[
         testBusStopModel1String,
         testBusStopModel2String,
@@ -145,21 +149,20 @@ void main() {
       final SharedPreferences pref = await SharedPreferences.getInstance();
 
       final BusFavoritesService favoritesService = BusFavoritesService();
-      final List<BusStopModel> updatedBuStopList =
-          await favoritesService.removeFavoriteBusStop(
+      await favoritesService.setIsFavoriteBusStop(busStopModelToBeRemoved);
+      await favoritesService.toggleFavoriteBusStop(
         busStopModelToBeRemoved,
       );
 
       busStops.remove(busStopStringToBeRemoved);
 
+      // ensure it is removed in Shared Preferences
       final List<String> favoriteBusStops =
           pref.getStringList(favoriteBusStopsKey);
-
-      // ensure it is removed in Shared Preferences
       expect(favoriteBusStops, busStops);
 
-      // ensure it is removed from the return value of the remove function
-      expect(updatedBuStopList.length, busStops.length);
+      // ensure it is removed from the provider list
+      expect(favoritesService.favoriteBusStops.length, busStops.length);
     });
 
     test(
@@ -172,26 +175,26 @@ void main() {
       final BusStopModel busStopModelToBeRemoved = testBusStopModel1;
 
       SharedPreferences.setMockInitialValues(<String, dynamic>{
-        'favoriteBusStops': busStops,
+        favoriteBusStopsKey: busStops,
       });
       final SharedPreferences pref = await SharedPreferences.getInstance();
 
       final BusFavoritesService favoritesService = BusFavoritesService();
-      final List<BusStopModel> updatedBuStopList =
-          await favoritesService.removeFavoriteBusStop(
+      await favoritesService.setIsFavoriteBusStop(busStopModelToBeRemoved);
+      await favoritesService.toggleFavoriteBusStop(
         busStopModelToBeRemoved,
       );
 
       busStops.remove(busStopStringToBeRemoved);
 
       final List<String> favoriteBusStops =
-          pref.getStringList('favoriteBusStops');
+          pref.getStringList(favoriteBusStopsKey);
 
       // ensure it is removed in Shared Preferences
-      expect(favoriteBusStops, busStops);
+      expect(favoriteBusStops.length, 0);
 
       // ensure it is removed from the return value of the remove function
-      expect(updatedBuStopList.length, 0);
+      expect(favoritesService.favoriteBusStops.length, busStops.length);
     });
 
     test('It clears the bus stop favorites', () async {
@@ -211,6 +214,7 @@ void main() {
           pref.getStringList(favoriteBusStopsKey);
 
       expect(favoriteBusStops, null);
+      expect(favoritesService.favoriteBusStops.length, 0);
     });
   });
 }
