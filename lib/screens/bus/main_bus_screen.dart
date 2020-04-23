@@ -7,8 +7,6 @@ import 'package:lta_datamall_flutter/screens/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 
 class MainBusScreen extends StatefulWidget {
-  static const String id = 'main_bus_screen';
-
   @override
   _MainBusScreenState createState() => _MainBusScreenState();
 }

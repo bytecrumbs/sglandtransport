@@ -5,8 +5,6 @@ import 'package:lta_datamall_flutter/services/bus/bus_favorites_service_provider
 import 'package:provider/provider.dart';
 
 class MainSettingsScreen extends StatelessWidget {
-  static const String id = 'main_settings_screen';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

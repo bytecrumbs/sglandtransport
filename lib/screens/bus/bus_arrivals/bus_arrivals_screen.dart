@@ -7,8 +7,6 @@ import 'package:provider/provider.dart';
 class BusArrivalsScreen extends StatelessWidget {
   const BusArrivalsScreen({@required this.busStopModel});
 
-  static const String id = 'bus_arrivals_screen';
-
   final BusStopModel busStopModel;
 
   Future<void> _isFavoriteBusStop(
