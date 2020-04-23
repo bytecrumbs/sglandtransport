@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class BusFavoritesService with ChangeNotifier {
-  BusFavoritesService() {
+class BusFavoritesServiceProvider with ChangeNotifier {
+  BusFavoritesServiceProvider() {
     fetchFavoriteBusStops();
   }
 
@@ -45,10 +45,8 @@ class BusFavoritesService with ChangeNotifier {
 
   Future<void> toggleFavoriteBusStop(BusStopModel busStopModel) async {
     if (isFavoriteBusStop) {
-      print('removing');
       await _removeFavoriteBusStop(busStopModel);
     } else {
-      print('adding');
       await _addFavoriteBusStop(busStopModel);
     }
   }

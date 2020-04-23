@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
         Provider<ObserverProvider>(
           create: (_) => ObserverProvider(),
         ),
-        ChangeNotifierProvider<BusFavoritesService>(
-          create: (_) => BusFavoritesService(),
+        ChangeNotifierProvider<BusFavoritesServiceProvider>(
+          create: (_) => BusFavoritesServiceProvider(),
         ),
       ],
       child: Consumer2<SettingsProvider, ObserverProvider>(

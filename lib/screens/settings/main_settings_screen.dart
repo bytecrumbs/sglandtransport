@@ -28,7 +28,7 @@ class MainSettingsScreen extends StatelessWidget {
           Builder(
             builder: (BuildContext ctx) => RaisedButton(
               onPressed: () {
-                Provider.of<BusFavoritesService>(context, listen: false)
+                Provider.of<BusFavoritesServiceProvider>(context, listen: false)
                     .clearBusStops();
 
                 Scaffold.of(ctx).showSnackBar(

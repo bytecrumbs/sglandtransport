@@ -13,7 +13,7 @@ class BusArrivalsScreen extends StatelessWidget {
 
   Future<void> _isFavoriteBusStop(
       BuildContext context, BusStopModel busStopModel) async {
-    await Provider.of<BusFavoritesService>(context, listen: false)
+    await Provider.of<BusFavoritesServiceProvider>(context, listen: false)
         .setIsFavoriteBusStop(busStopModel);
   }
 
@@ -29,10 +29,11 @@ class BusArrivalsScreen extends StatelessWidget {
             child: IconButton(
               key: const ValueKey<String>('favoriteIconButton'),
               onPressed: () {
-                Provider.of<BusFavoritesService>(context, listen: false)
+                Provider.of<BusFavoritesServiceProvider>(context, listen: false)
                     .toggleFavoriteBusStop(busStopModel);
               },
-              icon: Provider.of<BusFavoritesService>(context).isFavoriteBusStop
+              icon: Provider.of<BusFavoritesServiceProvider>(context)
+                      .isFavoriteBusStop
                   ? Icon(
                       Icons.favorite,
                       key: const ValueKey<String>('favoriteIconSelected'),
