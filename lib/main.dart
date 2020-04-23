@@ -33,18 +33,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SettingsProvider>(
           create: (_) => SettingsProvider(),
         ),
-        Provider<ObserverProvider>(
-          create: (_) => ObserverProvider(),
+        Provider<ObserverServiceProvider>(
+          create: (_) => ObserverServiceProvider(),
         ),
         ChangeNotifierProvider<BusFavoritesServiceProvider>(
           create: (_) => BusFavoritesServiceProvider(),
         ),
       ],
-      child: Consumer2<SettingsProvider, ObserverProvider>(
+      child: Consumer2<SettingsProvider, ObserverServiceProvider>(
         builder: (
           BuildContext context,
           SettingsProvider settings,
-          ObserverProvider observer,
+          ObserverServiceProvider observer,
           _,
         ) {
           return MaterialApp(
