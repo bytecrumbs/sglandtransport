@@ -31,14 +31,20 @@ void main() {
       }
     });
 
-    test('Clicks on a given bus stop and see a list of bus arrivals', () async {
-      await driver.tap(busStopCard);
+    group('Search', () {
+      test('Checks that bus stop can be searched by description', () async {
+        await driver.tap(find.byValueKey('searchScreen'));
+        searchForText('Opp Holiday Inn', driver);
+        await driver.waitFor(busStopCard);
+        expect(await isRendered(busStopCard, driver), true);
+      });
 
-      expect(
-          await isRendered(find.byValueKey('busArrivalCard-0'), driver), true);
-    });
+      test('Clicks on bus stop to see a list of bus arrivals', () async {
+        await driver.tap(busStopCard);
+        expect(await isRendered(find.byValueKey('busArrivalCard-0'), driver),
+            true);
+      });
 
-    group('Favorites', () {
       test('Checks that favorite bus can be added and removed', () async {
         expect(await isRendered(unselectedFavoriteIcon, driver), true);
         expect(await isRendered(selectedFavoriteIcon, driver), false);
@@ -47,30 +53,8 @@ void main() {
 
         expect(await isRendered(unselectedFavoriteIcon, driver), false);
         expect(await isRendered(selectedFavoriteIcon, driver), true);
-      });
 
-      test('Checks that bus stop is present in favorite screen', () async {
         await driver.tap(find.pageBack());
-        await driver.tap(find.byValueKey('favoriteScreen'));
-        expect(await isRendered(busStopCard, driver), true);
-      });
-
-      test(
-          'Checks that bus stop is not present when bus stop is removed from favorites',
-          () async {
-        await driver.tap(busStopCard);
-        await driver.tap(favoriteIconButton);
-        await driver.tap(find.pageBack());
-        expect(await isRendered(busStopCard, driver), false);
-      });
-    });
-
-    group('Search', () {
-      test('Checks that bus stop can be searched by description', () async {
-        await driver.tap(find.byValueKey('searchScreen'));
-        searchForText('Opp Holiday Inn', driver);
-        await driver.waitFor(busStopCard);
-        expect(await isRendered(busStopCard, driver), true);
       });
 
       test('Checks that bus stop can be searched by bus code', () async {
@@ -89,6 +73,22 @@ void main() {
 
       test('Checks that input text can be cleared', () async {
         await driver.tap(find.byValueKey('clearSearchInput'));
+        expect(await isRendered(busStopCard, driver), false);
+      });
+    });
+
+    group('Favorites', () {
+      test('Checks that bus stop is present in favorite screen', () async {
+        await driver.tap(find.byValueKey('favoriteScreen'));
+        expect(await isRendered(busStopCard, driver), true);
+      });
+
+      test(
+          'Checks that bus stop is not present when bus stop is removed from favorites',
+          () async {
+        await driver.tap(busStopCard);
+        await driver.tap(favoriteIconButton);
+        await driver.tap(find.pageBack());
         expect(await isRendered(busStopCard, driver), false);
       });
     });
