@@ -9,9 +9,6 @@ before_script:
   - pwd
 
 unit_test:
-  before_script:
-    - flutter emulators --launch apple_ios_simulator
-    - sleep 20
   stage: test
   tags:
     - unit_test
@@ -20,9 +17,8 @@ unit_test:
     - flutter test --coverage
     - lcov --list coverage/lcov.info
     - genhtml coverage/lcov.info --output=coverage
-    - flutter drive --target=test_driver/app.dart
-  after_script:
-    - killall Simulator
+    - cd ../../../
+    - ./execute_ui_tests.sh
   artifacts:
     paths:
       - coverage

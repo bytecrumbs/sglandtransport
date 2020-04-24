@@ -1,7 +1,7 @@
+import 'package:lta_datamall_flutter/api.dart';
+import 'package:lta_datamall_flutter/data/repository.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:http/io_client.dart' as http;
-import '../api.dart';
-import 'repository.dart';
 
 class BusStopListRepository extends Repository {
   BusStopListRepository() {
@@ -29,7 +29,7 @@ class BusStopListRepository extends Repository {
                 containsSearchText(busStop.description, searchText) ||
                 containsSearchText(busStop.roadName, searchText);
 
-        if (isTextMatching == true) {
+        if (isTextMatching) {
           searchResult.add(busStop);
         }
       }

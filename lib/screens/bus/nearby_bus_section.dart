@@ -1,33 +1,56 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-import 'package:lta_datamall_flutter/data/bus_stop_list_repository.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card_list.dart';
+import 'package:lta_datamall_flutter/services/bus/bus_stops_service_provider.dart';
+import 'package:provider/provider.dart';
 
-class NearbyBusStops extends StatelessWidget {
-  static final BusStopListRepository _repo = BusStopListRepository();
+class NearbyBusStops extends StatefulWidget {
+  @override
+  _NearbyBusStopsState createState() => _NearbyBusStopsState();
+}
 
-  Future<List<BusStopModel>> _fetchBusStopList() {
-    return _repo.getBusStopList();
+class _NearbyBusStopsState extends State<NearbyBusStops> {
+  StreamSubscription<Position> positionStream;
+  List<BusStopModel> busStopList = <BusStopModel>[];
+  final Geolocator geolocator = Geolocator();
+  final LocationOptions locationOptions = LocationOptions(
+    accuracy: LocationAccuracy.high,
+    distanceFilter: 10,
+  );
+
+  @override
+  void initState() {
+    positionStream = geolocator.getPositionStream(locationOptions).listen(
+      (Position position) {
+        Provider.of<BusStopsServiceProvider>(context, listen: false)
+            .setNearbyBusStop(position);
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    positionStream.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<BusStopModel>>(
-      future: _fetchBusStopList(),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<BusStopModel>> snapshot) {
-        if (snapshot.hasData) {
-          return BusStopCardList(
-            busStopList: snapshot.data,
-          );
-        } else if (snapshot.hasError) {
-          // TODO(anyone): Do something here...
-        }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    final List<BusStopModel> busStopList =
+        Provider.of<BusStopsServiceProvider>(context).nearbyBusStops;
+    if (busStopList.isNotEmpty) {
+      return BusStopCardList(
+        busStopList: busStopList,
+      );
+    } else {
+      return const Center(
+        child: Text('Looking for nearby Bus Stops...'),
+      );
+    }
   }
 }
