@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:lta_datamall_flutter/services/bus/bus_stops_service_provider.dart';
 import 'package:lta_datamall_flutter/services/observer_service_provider.dart';
 import 'package:lta_datamall_flutter/services/settings_service_provider.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<BusFavoritesServiceProvider>(
           create: (_) => BusFavoritesServiceProvider(),
+        ),
+        ChangeNotifierProvider<BusStopsServiceProvider>(
+          create: (_) => BusStopsServiceProvider(),
         ),
       ],
       child: Consumer2<SettingsServiceProvider, ObserverServiceProvider>(

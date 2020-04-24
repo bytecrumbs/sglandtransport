@@ -1,4 +1,3 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/data/repository.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
@@ -33,30 +32,6 @@ class BusStopListRepository extends Repository {
         if (isTextMatching) {
           searchResult.add(busStop);
         }
-      }
-    }
-
-    return searchResult;
-  }
-
-  @override
-  Future<List<BusStopModel>> getBusStopListByPosition(Position position,
-      {bool forceRefresh = false}) async {
-    if (shouldRefresh(forceRefresh)) {
-      await refreshAllData();
-    }
-
-    final List<BusStopModel> searchResult = <BusStopModel>[];
-    for (final BusStopModel busStop in _busStops) {
-      final bool isNearby = await Geolocator().distanceBetween(
-              position.latitude,
-              position.longitude,
-              busStop.latitude,
-              busStop.longitude) <=
-          100;
-
-      if (isNearby) {
-        searchResult.add(busStop);
       }
     }
 
