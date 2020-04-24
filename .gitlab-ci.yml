@@ -13,10 +13,10 @@ unit_test:
   tags:
     - unit_test
   script:
-    # - flutter analyze
-    # - flutter test --coverage
-    # - lcov --list coverage/lcov.info
-    # - genhtml coverage/lcov.info --output=coverage
+    - flutter analyze
+    - flutter test --coverage
+    - lcov --list coverage/lcov.info
+    - genhtml coverage/lcov.info --output=coverage
     - cd ../../../
     - ./execute_ui_tests.sh
   artifacts:
