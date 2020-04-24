@@ -18,7 +18,7 @@ class BusStopsServiceProvider with ChangeNotifier {
               position.longitude,
               busStop.latitude,
               busStop.longitude) <=
-          100;
+          200;
 
       if (isNearby) {
         searchResult.add(busStop);
