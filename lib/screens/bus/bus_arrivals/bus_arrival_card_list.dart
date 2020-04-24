@@ -44,6 +44,12 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
     return _future;
   }
 
+  void _sortBusServicesList(List<BusArrivalServiceModel> busServices) {
+    busServices.sort((BusArrivalServiceModel a, BusArrivalServiceModel b) =>
+        int.parse(a.serviceNo.replaceAll(RegExp('\\D'), ''))
+            .compareTo(int.parse(b.serviceNo.replaceAll(RegExp('\\D'), ''))));
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<BusArrivalModel>(
@@ -52,6 +58,7 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
         if (snapshot.hasData) {
           final List<BusArrivalServiceModel> busServices =
               snapshot.data.services;
+          _sortBusServicesList(busServices);
           return RefreshIndicator(
             onRefresh: _refreshBusArrivals,
             child: ListView.builder(
