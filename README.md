@@ -111,11 +111,14 @@ genhtml coverage/lcov.info -o coverage/html
 ```
 
 ### Run automation
+
 1. Install AppleSimulatorUtils
+
 - `brew tap wix/brew`
 - `brew install applesimutils`
 
-2. Run tests. From root: 
+2. Run tests. From root:
+
 ```
-./execute_tests.sh
+./execute_ui_tests.sh
 ```
