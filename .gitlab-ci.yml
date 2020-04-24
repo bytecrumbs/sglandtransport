@@ -19,6 +19,9 @@ unit_test:
     - genhtml coverage/lcov.info --output=coverage
     - cd ../../../
     - ./execute_ui_tests.sh
+  after_script:
+    - echo "Delete simulator"
+    - xcrun simctl delete iOS13TestDevice
   artifacts:
     paths:
       - coverage
