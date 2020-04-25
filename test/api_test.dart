@@ -22,7 +22,8 @@ dynamic main() {
       when(client.get(
         'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=01012',
         headers: requestHeaders,
-      )).thenAnswer((_) async => http.Response('{"title": "Test"}', 200));
+      )).thenAnswer((_) async =>
+          http.Response('{"Services": [{"ServiceNo": "15"}]}', 200));
 
       expect(await fetchBusArrivalList(client, '01012'),
           isInstanceOf<BusArrivalModel>());
