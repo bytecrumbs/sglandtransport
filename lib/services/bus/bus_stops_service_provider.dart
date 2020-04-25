@@ -13,14 +13,15 @@ class BusStopsServiceProvider with ChangeNotifier {
     await _fetchAllBusStops();
     final List<BusStopModel> searchResult = <BusStopModel>[];
     for (final BusStopModel busStop in _allBusStops) {
-      final bool isNearby = await Geolocator().distanceBetween(
-              position.latitude,
-              position.longitude,
-              busStop.latitude,
-              busStop.longitude) <=
-          200;
+      final double distanceInMeters = await Geolocator().distanceBetween(
+          position.latitude,
+          position.longitude,
+          busStop.latitude,
+          busStop.longitude);
+      final bool isNearby = distanceInMeters <= 200;
 
       if (isNearby) {
+        busStop.distanceInMeters = distanceInMeters.round();
         searchResult.add(busStop);
       }
     }
