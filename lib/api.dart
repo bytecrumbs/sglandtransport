@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
+import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_list_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 
@@ -68,8 +69,14 @@ Future<BusArrivalModel> fetchBusArrivalList(
   if (response.statusCode == 200) {
     // If the call to the server was successful, parse the JSON.
     // TODO(sascha): resolve the below excluded linting problem
-    // ignore: argument_type_not_assignable
-    return BusArrivalModel.fromJson(jsonDecode(response.body));
+    final BusArrivalModel busArrivalModel =
+        // ignore: argument_type_not_assignable
+        BusArrivalModel.fromJson(jsonDecode(response.body));
+    busArrivalModel.services.sort((BusArrivalServiceModel a,
+            BusArrivalServiceModel b) =>
+        int.parse(a.serviceNo.replaceAll(RegExp('\\D'), ''))
+            .compareTo(int.parse(b.serviceNo.replaceAll(RegExp('\\D'), ''))));
+    return busArrivalModel;
   } else {
     // If that call was not successful, throw an error.
     throw Exception('Failed to load post');
