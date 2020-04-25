@@ -23,9 +23,9 @@ class BusStopsServiceProvider with ChangeNotifier {
       if (isNearby) {
         searchResult.add(busStop);
       }
-      _nearbyBusStops = searchResult;
-      notifyListeners();
     }
+    _nearbyBusStops = searchResult;
+    notifyListeners();
   }
 
   Future<void> _fetchAllBusStops() async {
