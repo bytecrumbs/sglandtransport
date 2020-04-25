@@ -27,6 +27,7 @@ class BusStopModel {
   final double latitude;
   @JsonKey(name: 'Longitude')
   final double longitude;
+  int distanceInMeters;
 
   Map<String, dynamic> toJson() => _$BusStopModelToJson(this);
 }

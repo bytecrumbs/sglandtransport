@@ -13,7 +13,7 @@ BusStopModel _$BusStopModelFromJson(Map<String, dynamic> json) {
     json['Description'] as String,
     (json['Latitude'] as num)?.toDouble(),
     (json['Longitude'] as num)?.toDouble(),
-  );
+  )..distanceInMeters = json['distanceInMeters'] as int;
 }
 
 Map<String, dynamic> _$BusStopModelToJson(BusStopModel instance) =>
@@ -23,4 +23,5 @@ Map<String, dynamic> _$BusStopModelToJson(BusStopModel instance) =>
       'Description': instance.description,
       'Latitude': instance.latitude,
       'Longitude': instance.longitude,
+      'distanceInMeters': instance.distanceInMeters,
     };
