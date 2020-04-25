@@ -41,6 +41,7 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
 
   @override
   Widget build(BuildContext context) {
+    print('NearbyBusStops');
     final List<BusStopModel> busStopList =
         Provider.of<BusStopsServiceProvider>(context).nearbyBusStops;
     if (busStopList.isNotEmpty) {
