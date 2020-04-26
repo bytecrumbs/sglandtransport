@@ -18,7 +18,7 @@ class BusStopsServiceProvider with ChangeNotifier {
           position.longitude,
           busStop.latitude,
           busStop.longitude);
-      final bool isNearby = distanceInMeters <= 200;
+      final bool isNearby = distanceInMeters <= 500;
 
       if (isNearby) {
         busStop.distanceInMeters = distanceInMeters.round();
@@ -26,6 +26,8 @@ class BusStopsServiceProvider with ChangeNotifier {
       }
     }
     _nearbyBusStops = searchResult;
+    _nearbyBusStops.sort((BusStopModel a, BusStopModel b) =>
+        a.distanceInMeters.compareTo(b.distanceInMeters));
     notifyListeners();
   }
 
