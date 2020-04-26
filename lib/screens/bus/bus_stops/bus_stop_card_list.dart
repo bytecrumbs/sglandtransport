@@ -9,7 +9,6 @@ class BusStopCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('BusStopCardList');
     return ListView.builder(
       itemCount: busStopList.length,
       itemBuilder: (BuildContext context, int index) {
