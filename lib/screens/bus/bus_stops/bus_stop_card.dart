@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:lta_datamall_flutter/utils/keyboard.dart';
+import 'package:lta_datamall_flutter/widgets/box_info.dart';
 
 class BusStopCard extends StatelessWidget {
   const BusStopCard({
@@ -21,7 +22,9 @@ class BusStopCard extends StatelessWidget {
         title:
             Text('${busStopModel.description} (${busStopModel.busStopCode})'),
         subtitle: Text(busStopModel.roadName),
-        trailing: Icon(Icons.assignment),
+        trailing: TrailingWidget(
+          distanceInMeters: busStopModel.distanceInMeters,
+        ),
         onTap: () {
           Keyboard.dismiss(context);
           ExtendedNavigator.of(context).pushNamed(
@@ -33,5 +36,35 @@ class BusStopCard extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class TrailingWidget extends StatelessWidget {
+  const TrailingWidget({
+    Key key,
+    @required this.distanceInMeters,
+  }) : super(key: key);
+
+  final int distanceInMeters;
+
+  @override
+  Widget build(BuildContext context) {
+    final int myDistanceInMeters = distanceInMeters ?? -1;
+    if (myDistanceInMeters > 0)
+      return BoxInfo(
+        color: Theme.of(context).highlightColor,
+        child: Column(
+          children: <Widget>[
+            Text(
+              myDistanceInMeters.toString(),
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const Text('meters'),
+          ],
+        ),
+      );
+    else {
+      return Icon(Icons.assignment);
+    }
   }
 }
