@@ -12,9 +12,6 @@ unit_test:
   stage: test
   tags:
     - unit_test
-  before_script:
-    - echo "Delete simulator"
-    - xcrun simctl delete iOS13TestDevice
   script:
     - flutter analyze
     - flutter test --coverage
