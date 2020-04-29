@@ -12,9 +12,6 @@ class BusFavoritesServiceProvider with ChangeNotifier {
   List<BusStopModel> _favoriteBusStops = <BusStopModel>[];
   List<BusStopModel> get favoriteBusStops => _favoriteBusStops;
 
-  bool _isFavoriteBusStop = false;
-  bool get isFavoriteBusStop => _isFavoriteBusStop;
-
   final String favoriteBusStopsKey = 'favoriteBusStopModels';
 
   Future<void> fetchFavoriteBusStops() async {
@@ -31,7 +28,7 @@ class BusFavoritesServiceProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setIsFavoriteBusStop(BusStopModel busStopModel) async {
+  Future<bool> isFavoriteBusStop(BusStopModel busStopModel) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final String busStopModelString = jsonEncode(busStopModel);
@@ -39,12 +36,11 @@ class BusFavoritesServiceProvider with ChangeNotifier {
     final List<String> currentFavorites =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    _isFavoriteBusStop = currentFavorites.contains(busStopModelString);
-    notifyListeners();
+    return currentFavorites.contains(busStopModelString);
   }
 
   Future<void> toggleFavoriteBusStop(BusStopModel busStopModel) async {
-    if (isFavoriteBusStop) {
+    if (await isFavoriteBusStop(busStopModel)) {
       await _removeFavoriteBusStop(busStopModel);
     } else {
       await _addFavoriteBusStop(busStopModel);

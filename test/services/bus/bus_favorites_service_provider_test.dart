@@ -63,11 +63,13 @@ void main() {
       final BusFavoritesServiceProvider favoritesService =
           BusFavoritesServiceProvider();
 
-      await favoritesService.setIsFavoriteBusStop(testBusStopModel1);
-      expect(favoritesService.isFavoriteBusStop, true);
+      final bool trueResult =
+          await favoritesService.isFavoriteBusStop(testBusStopModel1);
+      expect(trueResult, true);
 
-      await favoritesService.setIsFavoriteBusStop(testBusStopModel3);
-      expect(favoritesService.isFavoriteBusStop, false);
+      final bool falseResult =
+          await favoritesService.isFavoriteBusStop(testBusStopModel3);
+      expect(falseResult, false);
     });
 
     test('It returns empty list when no favorites are stored', () async {
@@ -155,7 +157,7 @@ void main() {
 
       final BusFavoritesServiceProvider favoritesService =
           BusFavoritesServiceProvider();
-      await favoritesService.setIsFavoriteBusStop(busStopModelToBeRemoved);
+      await favoritesService.isFavoriteBusStop(busStopModelToBeRemoved);
       await favoritesService.toggleFavoriteBusStop(
         busStopModelToBeRemoved,
       );
@@ -187,7 +189,7 @@ void main() {
 
       final BusFavoritesServiceProvider favoritesService =
           BusFavoritesServiceProvider();
-      await favoritesService.setIsFavoriteBusStop(busStopModelToBeRemoved);
+      await favoritesService.isFavoriteBusStop(busStopModelToBeRemoved);
       await favoritesService.toggleFavoriteBusStop(
         busStopModelToBeRemoved,
       );

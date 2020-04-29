@@ -1,46 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card_list.dart';
-import 'package:lta_datamall_flutter/services/bus/bus_favorites_service_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/favorite_button.dart';
 
 class BusArrivalsScreen extends StatelessWidget {
   const BusArrivalsScreen({@required this.busStopModel});
 
   final BusStopModel busStopModel;
 
-  Future<void> _isFavoriteBusStop(
-      BuildContext context, BusStopModel busStopModel) async {
-    await Provider.of<BusFavoritesServiceProvider>(context, listen: false)
-        .setIsFavoriteBusStop(busStopModel);
-  }
-
   @override
   Widget build(BuildContext context) {
-    _isFavoriteBusStop(context, busStopModel);
+    print('BusArrivalsScreen');
+
     return Scaffold(
       appBar: AppBar(
         title: Text('${busStopModel.busStopCode} (${busStopModel.roadName})'),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
-            child: IconButton(
-              key: const ValueKey<String>('favoriteIconButton'),
-              onPressed: () {
-                Provider.of<BusFavoritesServiceProvider>(context, listen: false)
-                    .toggleFavoriteBusStop(busStopModel);
-              },
-              icon: Provider.of<BusFavoritesServiceProvider>(context)
-                      .isFavoriteBusStop
-                  ? Icon(
-                      Icons.favorite,
-                      key: const ValueKey<String>('favoriteIconSelected'),
-                    )
-                  : Icon(
-                      Icons.favorite_border,
-                      key: const ValueKey<String>('favoriteIconUnselected'),
-                    ),
-            ),
+            child: FavoriteButton(busStopModel: busStopModel),
           ),
         ],
       ),
