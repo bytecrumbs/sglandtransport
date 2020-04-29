@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/services/bus/bus_favorites_service_provider.dart';
+import 'package:lta_datamall_flutter/services/bus/bus_stops_service_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -42,8 +42,8 @@ void main() {
       SharedPreferences.setMockInitialValues(
           <String, dynamic>{favoriteBusStopsKey: busStops});
 
-      final BusFavoritesServiceProvider favoritesService =
-          BusFavoritesServiceProvider();
+      final BusStopsServiceProvider favoritesService =
+          BusStopsServiceProvider();
 
       await favoritesService.fetchFavoriteBusStops();
 
@@ -60,8 +60,8 @@ void main() {
       SharedPreferences.setMockInitialValues(
           <String, dynamic>{favoriteBusStopsKey: busStops});
 
-      final BusFavoritesServiceProvider favoritesService =
-          BusFavoritesServiceProvider();
+      final BusStopsServiceProvider favoritesService =
+          BusStopsServiceProvider();
 
       final bool trueResult =
           await favoritesService.isFavoriteBusStop(testBusStopModel1);
@@ -75,8 +75,8 @@ void main() {
     test('It returns empty list when no favorites are stored', () async {
       SharedPreferences.setMockInitialValues(<String, dynamic>{});
 
-      final BusFavoritesServiceProvider favoritesService =
-          BusFavoritesServiceProvider();
+      final BusStopsServiceProvider favoritesService =
+          BusStopsServiceProvider();
       await favoritesService.fetchFavoriteBusStops();
 
       expect(favoritesService.favoriteBusStops.length, 0);
@@ -91,8 +91,8 @@ void main() {
       SharedPreferences.setMockInitialValues(<String, dynamic>{});
       final SharedPreferences pref = await SharedPreferences.getInstance();
 
-      final BusFavoritesServiceProvider favoritesService =
-          BusFavoritesServiceProvider();
+      final BusStopsServiceProvider favoritesService =
+          BusStopsServiceProvider();
       await favoritesService.toggleFavoriteBusStop(
         busStops[0],
       );
@@ -122,8 +122,8 @@ void main() {
       });
       final SharedPreferences pref = await SharedPreferences.getInstance();
 
-      final BusFavoritesServiceProvider favoritesService =
-          BusFavoritesServiceProvider();
+      final BusStopsServiceProvider favoritesService =
+          BusStopsServiceProvider();
       await favoritesService.toggleFavoriteBusStop(
         busStops[1],
       );
@@ -155,8 +155,8 @@ void main() {
       });
       final SharedPreferences pref = await SharedPreferences.getInstance();
 
-      final BusFavoritesServiceProvider favoritesService =
-          BusFavoritesServiceProvider();
+      final BusStopsServiceProvider favoritesService =
+          BusStopsServiceProvider();
       await favoritesService.isFavoriteBusStop(busStopModelToBeRemoved);
       await favoritesService.toggleFavoriteBusStop(
         busStopModelToBeRemoved,
@@ -187,8 +187,8 @@ void main() {
       });
       final SharedPreferences pref = await SharedPreferences.getInstance();
 
-      final BusFavoritesServiceProvider favoritesService =
-          BusFavoritesServiceProvider();
+      final BusStopsServiceProvider favoritesService =
+          BusStopsServiceProvider();
       await favoritesService.isFavoriteBusStop(busStopModelToBeRemoved);
       await favoritesService.toggleFavoriteBusStop(
         busStopModelToBeRemoved,
@@ -215,8 +215,8 @@ void main() {
       });
       final SharedPreferences pref = await SharedPreferences.getInstance();
 
-      final BusFavoritesServiceProvider favoritesService =
-          BusFavoritesServiceProvider();
+      final BusStopsServiceProvider favoritesService =
+          BusStopsServiceProvider();
 
       await favoritesService.clearBusStops();
 

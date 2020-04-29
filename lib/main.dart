@@ -8,7 +8,6 @@ import 'package:lta_datamall_flutter/services/bus/bus_stops_service_provider.dar
 import 'package:lta_datamall_flutter/services/observer_service_provider.dart';
 import 'package:lta_datamall_flutter/services/settings_service_provider.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
-import 'package:lta_datamall_flutter/services/bus/bus_favorites_service_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -36,9 +35,6 @@ class MyApp extends StatelessWidget {
         ),
         Provider<ObserverServiceProvider>(
           create: (_) => ObserverServiceProvider(),
-        ),
-        ChangeNotifierProvider<BusFavoritesServiceProvider>(
-          create: (_) => BusFavoritesServiceProvider(),
         ),
         ChangeNotifierProvider<BusStopsServiceProvider>(
           create: (_) => BusStopsServiceProvider(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/services/bus/bus_stops_service_provider.dart';
 import 'package:lta_datamall_flutter/services/settings_service_provider.dart';
 import 'package:lta_datamall_flutter/screens/widgets/app_drawer.dart';
-import 'package:lta_datamall_flutter/services/bus/bus_favorites_service_provider.dart';
 import 'package:provider/provider.dart';
 
 class MainSettingsScreen extends StatelessWidget {
@@ -26,7 +26,7 @@ class MainSettingsScreen extends StatelessWidget {
           Builder(
             builder: (BuildContext ctx) => RaisedButton(
               onPressed: () {
-                Provider.of<BusFavoritesServiceProvider>(context, listen: false)
+                Provider.of<BusStopsServiceProvider>(context, listen: false)
                     .clearBusStops();
 
                 Scaffold.of(ctx).showSnackBar(

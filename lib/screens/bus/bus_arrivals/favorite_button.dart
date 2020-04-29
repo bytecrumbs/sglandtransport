@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/services/bus/bus_favorites_service_provider.dart';
+import 'package:lta_datamall_flutter/services/bus/bus_stops_service_provider.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteButton extends StatelessWidget {
@@ -12,8 +12,7 @@ class FavoriteButton extends StatelessWidget {
 
   Future<bool> _isFavoriteBusStop(
       BuildContext context, BusStopModel busStopModel) async {
-    return await Provider.of<BusFavoritesServiceProvider>(context,
-            listen: false)
+    return await Provider.of<BusStopsServiceProvider>(context, listen: false)
         .isFavoriteBusStop(busStopModel);
   }
 
@@ -23,7 +22,7 @@ class FavoriteButton extends StatelessWidget {
     return IconButton(
       key: const ValueKey<String>('favoriteIconButton'),
       onPressed: () async {
-        await Provider.of<BusFavoritesServiceProvider>(context, listen: false)
+        await Provider.of<BusStopsServiceProvider>(context, listen: false)
             .toggleFavoriteBusStop(busStopModel);
       },
       icon: FutureBuilder<bool>(
