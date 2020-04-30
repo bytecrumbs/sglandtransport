@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lta_datamall_flutter/api.dart';
@@ -11,7 +9,8 @@ class BusStopsServiceProvider with ChangeNotifier {
   BusStopsServiceProvider() {
     fetchFavoriteBusStops();
   }
-  List<BusStopModel> _allBusStops = <BusStopModel>[];
+  List<BusStopModel> _allBusStopsNearby = <BusStopModel>[];
+  List<BusStopModel> _allBusStopsFavorites = <BusStopModel>[];
 
   List<BusStopModel> _nearbyBusStops = <BusStopModel>[];
   List<BusStopModel> get nearbyBusStops => _nearbyBusStops;
@@ -19,66 +18,63 @@ class BusStopsServiceProvider with ChangeNotifier {
   List<BusStopModel> _favoriteBusStops = <BusStopModel>[];
   List<BusStopModel> get favoriteBusStops => _favoriteBusStops;
 
+  List<String> _favoriteBusStopCodes = <String>[];
+
   final String favoriteBusStopsKey = 'favoriteBusStopModels';
 
   Future<void> fetchFavoriteBusStops() async {
-    await _fetchAllBusStops();
+    await _fetchAllBusStopsForFavorites();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final List<String> favoriteBusStopsValue =
+    _favoriteBusStopCodes =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    _favoriteBusStops = favoriteBusStopsValue
-        // ignore: argument_type_not_assignable
-        .map((String val) => BusStopModel.fromJson(jsonDecode(val)))
+    final List<BusStopModel> tempFavoriteBusStops = _allBusStopsFavorites
+        .where(
+            (BusStopModel i) => _favoriteBusStopCodes.contains(i.busStopCode))
         .toList();
+
+    _favoriteBusStops = tempFavoriteBusStops.map((BusStopModel item) {
+      item.distanceInMeters = null;
+      return item;
+    }).toList();
 
     notifyListeners();
   }
 
-  Future<bool> isFavoriteBusStop(BusStopModel busStopModel) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    final String busStopModelString = jsonEncode(busStopModel);
-
-    final List<String> currentFavorites =
-        prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
-
-    return currentFavorites.contains(busStopModelString);
+  bool isFavoriteBusStop(String busStopCode) {
+    return _favoriteBusStopCodes.contains(busStopCode);
   }
 
-  Future<void> toggleFavoriteBusStop(BusStopModel busStopModel) async {
-    if (await isFavoriteBusStop(busStopModel)) {
-      await _removeFavoriteBusStop(busStopModel);
+  Future<void> toggleFavoriteBusStop(
+      String busStopCode, bool isFavoriteBusStop) async {
+    if (isFavoriteBusStop) {
+      await _removeFavoriteBusStop(busStopCode);
     } else {
-      await _addFavoriteBusStop(busStopModel);
+      await _addFavoriteBusStop(busStopCode);
     }
   }
 
-  Future<void> _addFavoriteBusStop(BusStopModel busStopModel) async {
+  Future<void> _addFavoriteBusStop(String busStopCode) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    final String busStopModelString = jsonEncode(busStopModel);
 
     final List<String> favoriteBusStops =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    favoriteBusStops.add(busStopModelString);
+    favoriteBusStops.add(busStopCode);
 
     await prefs.setStringList(favoriteBusStopsKey, favoriteBusStops);
     await fetchFavoriteBusStops();
     notifyListeners();
   }
 
-  Future<void> _removeFavoriteBusStop(BusStopModel busStopModel) async {
+  Future<void> _removeFavoriteBusStop(String busStopCode) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final List<String> favoriteBusStops =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    final String busStopModelStringToBeRemoved = jsonEncode(busStopModel);
-
-    favoriteBusStops.remove(busStopModelStringToBeRemoved);
+    favoriteBusStops.remove(busStopCode);
 
     await prefs.setStringList(favoriteBusStopsKey, favoriteBusStops);
 
@@ -95,9 +91,9 @@ class BusStopsServiceProvider with ChangeNotifier {
   }
 
   Future<void> setNearbyBusStop(Position position) async {
-    await _fetchAllBusStops();
-    final List<BusStopModel> searchResult = <BusStopModel>[];
-    for (final BusStopModel busStop in _allBusStops) {
+    await _fetchAllBusStopsForNearby();
+    _nearbyBusStops = <BusStopModel>[];
+    for (final BusStopModel busStop in _allBusStopsNearby) {
       final double distanceInMeters = await Geolocator().distanceBetween(
           position.latitude,
           position.longitude,
@@ -107,18 +103,23 @@ class BusStopsServiceProvider with ChangeNotifier {
 
       if (isNearby) {
         busStop.distanceInMeters = distanceInMeters.round();
-        searchResult.add(busStop);
+        _nearbyBusStops.add(busStop);
       }
     }
-    _nearbyBusStops = searchResult;
     _nearbyBusStops.sort((BusStopModel a, BusStopModel b) =>
         a.distanceInMeters.compareTo(b.distanceInMeters));
     notifyListeners();
   }
 
-  Future<void> _fetchAllBusStops() async {
-    if (_allBusStops.isEmpty) {
-      _allBusStops = await fetchBusStopList(http.IOClient());
+  Future<void> _fetchAllBusStopsForNearby() async {
+    if (_allBusStopsNearby.isEmpty) {
+      _allBusStopsNearby = await fetchBusStopList(http.IOClient());
+    }
+  }
+
+  Future<void> _fetchAllBusStopsForFavorites() async {
+    if (_allBusStopsFavorites.isEmpty) {
+      _allBusStopsFavorites = await fetchBusStopList(http.IOClient());
     }
   }
 }

@@ -18,7 +18,7 @@ class BusArrivalsScreen extends StatelessWidget {
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
-            child: FavoriteButton(busStopModel: busStopModel),
+            child: FavoriteButton(busStopCode: busStopModel.busStopCode),
           ),
         ],
       ),

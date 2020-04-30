@@ -1,51 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/services/bus/bus_stops_service_provider.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteButton extends StatelessWidget {
   const FavoriteButton({
-    @required this.busStopModel,
+    @required this.busStopCode,
   });
 
-  final BusStopModel busStopModel;
-
-  Future<bool> _isFavoriteBusStop(
-      BuildContext context, BusStopModel busStopModel) async {
-    return await Provider.of<BusStopsServiceProvider>(context, listen: false)
-        .isFavoriteBusStop(busStopModel);
-  }
+  final String busStopCode;
 
   @override
   Widget build(BuildContext context) {
-    print('FavoriteButton');
+    final bool isFavoriteBusStop = Provider.of<BusStopsServiceProvider>(context)
+        .isFavoriteBusStop(busStopCode);
     return IconButton(
       key: const ValueKey<String>('favoriteIconButton'),
       onPressed: () async {
         await Provider.of<BusStopsServiceProvider>(context, listen: false)
-            .toggleFavoriteBusStop(busStopModel);
+            .toggleFavoriteBusStop(busStopCode, isFavoriteBusStop);
       },
-      icon: FutureBuilder<bool>(
-        future: _isFavoriteBusStop(context, busStopModel),
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          if (snapshot.hasData) {
-            return snapshot.data
-                ? Icon(
-                    Icons.favorite,
-                    key: const ValueKey<String>('favoriteIconSelected'),
-                  )
-                : Icon(
-                    Icons.favorite_border,
-                    key: const ValueKey<String>('favoriteIconUnselected'),
-                  );
-          } else {
-            return Icon(
+      icon: isFavoriteBusStop
+          ? Icon(
+              Icons.favorite,
+              key: const ValueKey<String>('favoriteIconSelected'),
+            )
+          : Icon(
               Icons.favorite_border,
               key: const ValueKey<String>('favoriteIconUnselected'),
-            );
-          }
-        },
-      ),
+            ),
     );
   }
 }
