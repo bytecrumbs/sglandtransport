@@ -10,15 +10,13 @@ class BusArrivalsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('BusArrivalsScreen');
-
     return Scaffold(
       appBar: AppBar(
         title: Text('${busStopModel.busStopCode} (${busStopModel.roadName})'),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
-            child: FavoriteButton(busStopModel: busStopModel),
+            child: FavoriteButton(busStopCode: busStopModel.busStopCode),
           ),
         ],
       ),

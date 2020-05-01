@@ -4,14 +4,15 @@ import 'package:lta_datamall_flutter/api.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 
-class BusStopsServiceProvider with ChangeNotifier {
+class NearbyBusStopsServiceProvider with ChangeNotifier {
   List<BusStopModel> _allBusStops = <BusStopModel>[];
+
   List<BusStopModel> _nearbyBusStops = <BusStopModel>[];
   List<BusStopModel> get nearbyBusStops => _nearbyBusStops;
 
   Future<void> setNearbyBusStop(Position position) async {
     await _fetchAllBusStops();
-    final List<BusStopModel> searchResult = <BusStopModel>[];
+    _nearbyBusStops = <BusStopModel>[];
     for (final BusStopModel busStop in _allBusStops) {
       final double distanceInMeters = await Geolocator().distanceBetween(
           position.latitude,
@@ -22,10 +23,9 @@ class BusStopsServiceProvider with ChangeNotifier {
 
       if (isNearby) {
         busStop.distanceInMeters = distanceInMeters.round();
-        searchResult.add(busStop);
+        _nearbyBusStops.add(busStop);
       }
     }
-    _nearbyBusStops = searchResult;
     _nearbyBusStops.sort((BusStopModel a, BusStopModel b) =>
         a.distanceInMeters.compareTo(b.distanceInMeters));
     notifyListeners();

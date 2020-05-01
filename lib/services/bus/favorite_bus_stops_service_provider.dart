@@ -1,76 +1,75 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/api.dart';
+import 'package:http/io_client.dart' as http;
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class BusFavoritesServiceProvider with ChangeNotifier {
-  BusFavoritesServiceProvider() {
+class FavoriteBusStopsServiceProvider with ChangeNotifier {
+  FavoriteBusStopsServiceProvider() {
     fetchFavoriteBusStops();
   }
+  List<BusStopModel> _allBusStops = <BusStopModel>[];
 
   List<BusStopModel> _favoriteBusStops = <BusStopModel>[];
   List<BusStopModel> get favoriteBusStops => _favoriteBusStops;
 
+  List<String> _favoriteBusStopCodes = <String>[];
+
   final String favoriteBusStopsKey = 'favoriteBusStopModels';
 
   Future<void> fetchFavoriteBusStops() async {
+    await _fetchAllBusStops();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final List<String> favoriteBusStopsValue =
+    _favoriteBusStopCodes =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    _favoriteBusStops = favoriteBusStopsValue
-        // ignore: argument_type_not_assignable
-        .map((String val) => BusStopModel.fromJson(jsonDecode(val)))
+    final List<BusStopModel> tempFavoriteBusStops = _allBusStops
+        .where(
+            (BusStopModel i) => _favoriteBusStopCodes.contains(i.busStopCode))
         .toList();
+
+    _favoriteBusStops = tempFavoriteBusStops.map((BusStopModel item) {
+      item.distanceInMeters = null;
+      return item;
+    }).toList();
 
     notifyListeners();
   }
 
-  Future<bool> isFavoriteBusStop(BusStopModel busStopModel) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    final String busStopModelString = jsonEncode(busStopModel);
-
-    final List<String> currentFavorites =
-        prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
-
-    return currentFavorites.contains(busStopModelString);
+  bool isFavoriteBusStop(String busStopCode) {
+    return _favoriteBusStopCodes.contains(busStopCode);
   }
 
-  Future<void> toggleFavoriteBusStop(BusStopModel busStopModel) async {
-    if (await isFavoriteBusStop(busStopModel)) {
-      await _removeFavoriteBusStop(busStopModel);
+  Future<void> toggleFavoriteBusStop(
+      String busStopCode, bool isFavoriteBusStop) async {
+    if (isFavoriteBusStop) {
+      await _removeFavoriteBusStop(busStopCode);
     } else {
-      await _addFavoriteBusStop(busStopModel);
+      await _addFavoriteBusStop(busStopCode);
     }
   }
 
-  Future<void> _addFavoriteBusStop(BusStopModel busStopModel) async {
+  Future<void> _addFavoriteBusStop(String busStopCode) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    final String busStopModelString = jsonEncode(busStopModel);
 
     final List<String> favoriteBusStops =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    favoriteBusStops.add(busStopModelString);
+    favoriteBusStops.add(busStopCode);
 
     await prefs.setStringList(favoriteBusStopsKey, favoriteBusStops);
     await fetchFavoriteBusStops();
     notifyListeners();
   }
 
-  Future<void> _removeFavoriteBusStop(BusStopModel busStopModel) async {
+  Future<void> _removeFavoriteBusStop(String busStopCode) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final List<String> favoriteBusStops =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    final String busStopModelStringToBeRemoved = jsonEncode(busStopModel);
-
-    favoriteBusStops.remove(busStopModelStringToBeRemoved);
+    favoriteBusStops.remove(busStopCode);
 
     await prefs.setStringList(favoriteBusStopsKey, favoriteBusStops);
 
@@ -84,5 +83,11 @@ class BusFavoritesServiceProvider with ChangeNotifier {
     prefs.remove(favoriteBusStopsKey);
     _favoriteBusStops.clear();
     notifyListeners();
+  }
+
+  Future<void> _fetchAllBusStops() async {
+    if (_allBusStops.isEmpty) {
+      _allBusStops = await fetchBusStopList(http.IOClient());
+    }
   }
 }
