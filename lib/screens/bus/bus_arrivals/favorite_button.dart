@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/services/bus/bus_stops_service_provider.dart';
+import 'package:lta_datamall_flutter/services/bus/favorite_bus_stops_service_provider.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteButton extends StatelessWidget {
@@ -11,12 +11,14 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isFavoriteBusStop = Provider.of<BusStopsServiceProvider>(context)
-        .isFavoriteBusStop(busStopCode);
+    final bool isFavoriteBusStop =
+        Provider.of<FavoriteBusStopsServiceProvider>(context)
+            .isFavoriteBusStop(busStopCode);
     return IconButton(
       key: const ValueKey<String>('favoriteIconButton'),
       onPressed: () async {
-        await Provider.of<BusStopsServiceProvider>(context, listen: false)
+        await Provider.of<FavoriteBusStopsServiceProvider>(context,
+                listen: false)
             .toggleFavoriteBusStop(busStopCode, isFavoriteBusStop);
       },
       icon: isFavoriteBusStop

@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card_list.dart';
-import 'package:lta_datamall_flutter/services/bus/bus_stops_service_provider.dart';
+import 'package:lta_datamall_flutter/services/bus/nearby_bus_stops_service_provider.dart';
 import 'package:provider/provider.dart';
 
 class NearbyBusStops extends StatefulWidget {
@@ -26,7 +26,7 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
   void initState() {
     positionStream = geolocator.getPositionStream(locationOptions).listen(
       (Position position) {
-        Provider.of<BusStopsServiceProvider>(context, listen: false)
+        Provider.of<NearbyBusStopsServiceProvider>(context, listen: false)
             .setNearbyBusStop(position);
       },
     );
@@ -42,7 +42,7 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
   @override
   Widget build(BuildContext context) {
     final List<BusStopModel> busStopList =
-        Provider.of<BusStopsServiceProvider>(context).nearbyBusStops;
+        Provider.of<NearbyBusStopsServiceProvider>(context).nearbyBusStops;
     if (busStopList.isNotEmpty) {
       return BusStopCardList(
         busStopList: busStopList,

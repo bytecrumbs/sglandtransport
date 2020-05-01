@@ -10,8 +10,6 @@ class BusArrivalsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('BusArrivalsScreen');
-
     return Scaffold(
       appBar: AppBar(
         title: Text('${busStopModel.busStopCode} (${busStopModel.roadName})'),
