@@ -11,25 +11,30 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isFavoriteBusStop =
-        Provider.of<FavoriteBusStopsServiceProvider>(context)
-            .isFavoriteBusStop(busStopCode);
-    return IconButton(
-      key: const ValueKey<String>('favoriteIconButton'),
-      onPressed: () async {
-        await Provider.of<FavoriteBusStopsServiceProvider>(context,
-                listen: false)
-            .toggleFavoriteBusStop(busStopCode, isFavoriteBusStop);
+    return Consumer<FavoriteBusStopsServiceProvider>(
+      builder: (
+        BuildContext context,
+        FavoriteBusStopsServiceProvider provider,
+        _,
+      ) {
+        final bool isFavoriteBusStop = provider.isFavoriteBusStop(busStopCode);
+        return IconButton(
+          key: const ValueKey<String>('favoriteIconButton'),
+          onPressed: () async {
+            await provider.toggleFavoriteBusStop(
+                busStopCode, isFavoriteBusStop);
+          },
+          icon: isFavoriteBusStop
+              ? Icon(
+                  Icons.favorite,
+                  key: const ValueKey<String>('favoriteIconSelected'),
+                )
+              : Icon(
+                  Icons.favorite_border,
+                  key: const ValueKey<String>('favoriteIconUnselected'),
+                ),
+        );
       },
-      icon: isFavoriteBusStop
-          ? Icon(
-              Icons.favorite,
-              key: const ValueKey<String>('favoriteIconSelected'),
-            )
-          : Icon(
-              Icons.favorite_border,
-              key: const ValueKey<String>('favoriteIconUnselected'),
-            ),
     );
   }
 }
