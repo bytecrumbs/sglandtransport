@@ -48,9 +48,7 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
         busStopList: busStopList,
       );
     } else {
-      return const Center(
-        child: Text('Looking for nearby Bus Stops...'),
-      );
+      return Container();
     }
   }
 }

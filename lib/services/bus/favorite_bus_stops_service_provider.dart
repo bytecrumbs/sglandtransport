@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/api.dart';
-import 'package:http/io_client.dart' as http;
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteBusStopsServiceProvider with ChangeNotifier {
-  FavoriteBusStopsServiceProvider() {
+  FavoriteBusStopsServiceProvider({@required this.allBusStops}) {
     fetchFavoriteBusStops();
   }
-  List<BusStopModel> _allBusStops = <BusStopModel>[];
+  final List<BusStopModel> allBusStops;
 
   List<BusStopModel> _favoriteBusStops = <BusStopModel>[];
   List<BusStopModel> get favoriteBusStops => _favoriteBusStops;
@@ -18,21 +16,15 @@ class FavoriteBusStopsServiceProvider with ChangeNotifier {
   final String favoriteBusStopsKey = 'favoriteBusStopModels';
 
   Future<void> fetchFavoriteBusStops() async {
-    await _fetchAllBusStops();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     _favoriteBusStopCodes =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
-    final List<BusStopModel> tempFavoriteBusStops = _allBusStops
+    _favoriteBusStops = allBusStops
         .where(
             (BusStopModel i) => _favoriteBusStopCodes.contains(i.busStopCode))
         .toList();
-
-    _favoriteBusStops = tempFavoriteBusStops.map((BusStopModel item) {
-      item.distanceInMeters = null;
-      return item;
-    }).toList();
 
     notifyListeners();
   }
@@ -83,11 +75,5 @@ class FavoriteBusStopsServiceProvider with ChangeNotifier {
     prefs.remove(favoriteBusStopsKey);
     _favoriteBusStops.clear();
     notifyListeners();
-  }
-
-  Future<void> _fetchAllBusStops() async {
-    if (_allBusStops.isEmpty) {
-      _allBusStops = await fetchBusStopList(http.IOClient());
-    }
   }
 }
