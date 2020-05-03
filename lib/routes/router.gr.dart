@@ -16,6 +16,7 @@ import 'package:lta_datamall_flutter/screens/traffic/main_traffic_screen.dart';
 import 'package:lta_datamall_flutter/screens/train/main_train_screen.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/screens/about/main_about_screen.dart';
 
 abstract class Routes {
   static const mainBusScreenRoute = '/';
@@ -26,6 +27,7 @@ abstract class Routes {
   static const mainTrafficScreenRoute = '/main-traffic-screen-route';
   static const mainTrainScreenRoute = '/main-train-screen-route';
   static const busArrivalsScreenRoute = '/bus-arrivals-screen-route';
+  static const aboutScreenRoute = '/about-screen-route';
 }
 
 class Router extends RouterBase {
@@ -85,6 +87,11 @@ class Router extends RouterBase {
           settings: settings,
           transitionsBuilder: TransitionsBuilders.zoomIn,
           transitionDuration: const Duration(milliseconds: 200),
+        );
+      case Routes.aboutScreenRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => MainAboutScreen(),
+          settings: settings,
         );
       default:
         return unknownRoutePage(settings.name);

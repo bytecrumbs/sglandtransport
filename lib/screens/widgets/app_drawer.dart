@@ -78,6 +78,13 @@ class AppDrawer extends StatelessWidget {
                   .pushNamed(Routes.mainSettingsScreenRoute);
             },
           ),
+          ListTile(
+            leading: Icon(Icons.info_outline),
+            title: const Text('About'),
+            onTap: () {
+              ExtendedNavigator.of(context).pushNamed(Routes.aboutScreenRoute);
+            },
+          ),
         ],
       ),
     );
