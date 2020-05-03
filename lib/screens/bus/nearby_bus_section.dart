@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geohash/geohash.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
@@ -14,7 +15,8 @@ class NearbyBusStops extends StatefulWidget {
 }
 
 class _NearbyBusStopsState extends State<NearbyBusStops> {
-  StreamSubscription<Position> positionStream;
+  StreamSubscription<Position> _positionStreamSubscription;
+  String _geoHashCoordinates = '';
   List<BusStopModel> busStopList = <BusStopModel>[];
   final Geolocator geolocator = Geolocator();
   final LocationOptions locationOptions = LocationOptions(
@@ -24,10 +26,18 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
 
   @override
   void initState() {
-    positionStream = geolocator.getPositionStream(locationOptions).listen(
+    _positionStreamSubscription =
+        geolocator.getPositionStream(locationOptions).listen(
       (Position position) {
-        Provider.of<NearbyBusStopsServiceProvider>(context, listen: false)
-            .setNearbyBusStop(position);
+        final String newGeoHashCoordinates =
+            Geohash.encode(position.latitude, position.longitude)
+                .substring(0, 8);
+        if (newGeoHashCoordinates != _geoHashCoordinates) {
+          print('calling.......');
+          Provider.of<NearbyBusStopsServiceProvider>(context, listen: false)
+              .setNearbyBusStop(position);
+          _geoHashCoordinates = newGeoHashCoordinates;
+        }
       },
     );
     super.initState();
@@ -35,7 +45,11 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
 
   @override
   void dispose() {
-    positionStream.cancel();
+    if (_positionStreamSubscription != null) {
+      print('calling.......cancel');
+      _positionStreamSubscription.cancel();
+      _positionStreamSubscription = null;
+    }
     super.dispose();
   }
 
