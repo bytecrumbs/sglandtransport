@@ -11,7 +11,6 @@ import 'package:lta_datamall_flutter/services/bus/favorite_bus_stops_service_pro
 import 'package:lta_datamall_flutter/services/bus/nearby_bus_stops_service_provider.dart';
 import 'package:lta_datamall_flutter/services/bus/search_bus_stops_service_provider.dart';
 import 'package:lta_datamall_flutter/services/observer_service_provider.dart';
-import 'package:lta_datamall_flutter/services/settings_service_provider.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -105,9 +104,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: <SingleChildWidget>[
-        ChangeNotifierProvider<SettingsServiceProvider>(
-          create: (_) => SettingsServiceProvider(),
-        ),
         Provider<ObserverServiceProvider>(
           create: (_) => ObserverServiceProvider(),
         ),
@@ -124,10 +120,9 @@ class MainApp extends StatelessWidget {
               allBusStops: busStopModelListForFavorites),
         ),
       ],
-      child: Consumer2<SettingsServiceProvider, ObserverServiceProvider>(
+      child: Consumer<ObserverServiceProvider>(
         builder: (
           BuildContext context,
-          SettingsServiceProvider settings,
           ObserverServiceProvider observer,
           _,
         ) {
@@ -141,10 +136,7 @@ class MainApp extends StatelessWidget {
             ),
             title: 'LTA Datamall App',
             darkTheme: ThemeData.dark(),
-            theme: ThemeData(
-              brightness:
-                  settings.isDarkMode ? Brightness.dark : Brightness.light,
-            ),
+            theme: ThemeData.light(),
           );
         },
       ),

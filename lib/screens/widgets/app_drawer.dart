@@ -71,14 +71,6 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () {
-              ExtendedNavigator.of(context)
-                  .pushNamed(Routes.mainSettingsScreenRoute);
-            },
-          ),
-          ListTile(
             leading: Icon(Icons.info_outline),
             title: const Text('About'),
             onTap: () {
