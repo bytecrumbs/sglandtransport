@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/data/bus_stop_list_repository.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/services/bus/search_bus_stops_service_provider.dart';
+import 'package:provider/provider.dart';
 import 'bus_stops/bus_stop_card.dart';
 import 'bus_stops/search_bar.dart';
 
@@ -10,56 +11,37 @@ class SearchBusStops extends StatefulWidget {
 }
 
 class _SearchBusStopsState extends State<SearchBusStops> {
-  static final BusStopListRepository _repo = BusStopListRepository();
   final TextEditingController _controller = TextEditingController();
-  List<BusStopModel> _searchResult = <BusStopModel>[];
-  bool isLoading = false;
-
-  void searchBusStopList(String value) {
-    _repo.getBusStopListBySearchText(value).then(
-          (List<BusStopModel> data) => setState(
-            () {
-              _searchResult = data;
-              isLoading = false;
-            },
-          ),
-        );
-  }
 
   void onSearchTextChanged(String value) {
-    _searchResult.clear();
-    setState(() {
-      isLoading = true;
-    });
-    searchBusStopList(value);
+    Provider.of<SearchBusStopsServiceProvider>(context, listen: false)
+        .findBusStops(value);
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<BusStopModel> busStopList =
+        Provider.of<SearchBusStopsServiceProvider>(context).busStopSearchList;
     return Column(
       children: <Widget>[
         SearchBar(
           controller: _controller,
           onSearchTextChanged: onSearchTextChanged,
         ),
-        _buildSearchResultList(),
+        _buildSearchResultList(busStopList),
       ],
     );
   }
 
-  Expanded _buildSearchResultList() {
+  Expanded _buildSearchResultList(List<BusStopModel> busStopList) {
     return Expanded(
-      child: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: _searchResult.length,
-              itemBuilder: (BuildContext context, int index) => BusStopCard(
-                key: ValueKey<String>('busStopCard-$index'),
-                busStopModel: _searchResult[index],
-              ),
-            ),
+      child: ListView.builder(
+        itemCount: busStopList.length,
+        itemBuilder: (BuildContext context, int index) => BusStopCard(
+          key: ValueKey<String>('busStopCard-$index'),
+          busStopModel: busStopList[index],
+        ),
+      ),
     );
   }
 }

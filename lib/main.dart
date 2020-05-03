@@ -9,6 +9,7 @@ import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/services/bus/favorite_bus_stops_service_provider.dart';
 import 'package:lta_datamall_flutter/services/bus/nearby_bus_stops_service_provider.dart';
+import 'package:lta_datamall_flutter/services/bus/search_bus_stops_service_provider.dart';
 import 'package:lta_datamall_flutter/services/observer_service_provider.dart';
 import 'package:lta_datamall_flutter/services/settings_service_provider.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
@@ -116,6 +117,10 @@ class MainApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<FavoriteBusStopsServiceProvider>(
           create: (_) => FavoriteBusStopsServiceProvider(
+              allBusStops: busStopModelListForFavorites),
+        ),
+        ChangeNotifierProvider<SearchBusStopsServiceProvider>(
+          create: (_) => SearchBusStopsServiceProvider(
               allBusStops: busStopModelListForFavorites),
         ),
       ],
