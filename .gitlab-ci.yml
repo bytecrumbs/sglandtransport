@@ -1,5 +1,6 @@
 stages:
-  - test
+  - unittest
+  - uitest
 
 variables:
   LC_ALL: "en_US.UTF-8"
@@ -9,7 +10,7 @@ before_script:
   - pwd
 
 unit_test:
-  stage: test
+  stage: unittest
   tags:
     - unit_test
   script:
@@ -17,13 +18,25 @@ unit_test:
     - flutter test --coverage
     - lcov --list coverage/lcov.info
     - genhtml coverage/lcov.info --output=coverage
-    - ./execute_ui_tests.sh
   after_script:
     - echo "Delete simulator"
     - xcrun simctl delete iOS13TestDevice
   artifacts:
     paths:
       - coverage
+  only:
+    - development
+    - feature/*
+
+ui_test:
+  stage: uitest
+  tags:
+    - ui_test
+  script:
+    - ./execute_ui_tests.sh
+  after_script:
+    - echo "Delete simulator"
+    - xcrun simctl delete iOS13TestDevice
   only:
     - development
     - feature/*
