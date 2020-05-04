@@ -33,7 +33,6 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
             Geohash.encode(position.latitude, position.longitude)
                 .substring(0, 8);
         if (newGeoHashCoordinates != _geoHashCoordinates) {
-          print('calling.......');
           Provider.of<NearbyBusStopsServiceProvider>(context, listen: false)
               .setNearbyBusStop(position);
           _geoHashCoordinates = newGeoHashCoordinates;
@@ -46,7 +45,6 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
   @override
   void dispose() {
     if (_positionStreamSubscription != null) {
-      print('calling.......cancel');
       _positionStreamSubscription.cancel();
       _positionStreamSubscription = null;
     }

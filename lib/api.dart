@@ -9,7 +9,6 @@ import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 Future<List<BusStopModel>> fetchBusStopList(
   http.Client client,
 ) async {
-  print('fetchbusStops');
   // TODO(sascha): Store this header value somewhere more central and reusable
   final Map<String, String> requestHeaders = <String, String>{
     'AccountKey': 'xNTAqVxgQiOwp9MQa9y0tQ==',
