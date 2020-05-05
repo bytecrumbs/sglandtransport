@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
-import 'package:lta_datamall_flutter/constants.dart';
+import 'package:lta_datamall_flutter/secret_lta_api_key.dart';
 
 class MockClient extends Mock implements http.Client {}
 

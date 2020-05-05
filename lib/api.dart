@@ -5,7 +5,7 @@ import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_list_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'constants.dart';
+import 'package:lta_datamall_flutter/secret_lta_api_key.dart';
 
 Future<List<BusStopModel>> fetchBusStopList(
   http.Client client,
