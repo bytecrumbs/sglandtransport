@@ -5,13 +5,14 @@ import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_list_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
+import 'constants.dart';
 
 Future<List<BusStopModel>> fetchBusStopList(
   http.Client client,
 ) async {
   // TODO(sascha): Store this header value somewhere more central and reusable
   final Map<String, String> requestHeaders = <String, String>{
-    'AccountKey': 'xNTAqVxgQiOwp9MQa9y0tQ==',
+    'AccountKey': ltaDatamallKey,
   };
 
   final List<int> skip = <int>[
@@ -58,7 +59,7 @@ Future<BusArrivalModel> fetchBusArrivalList(
 ) async {
   // TODO(sascha): Store this header value somewhere more central and reusable
   final Map<String, String> requestHeaders = <String, String>{
-    'AccountKey': 'xNTAqVxgQiOwp9MQa9y0tQ==',
+    'AccountKey': ltaDatamallKey,
   };
 
   final http.Response response = await client.get(
