@@ -19,6 +19,10 @@ This app provides screens and functionality for APIs that are exposed by the LTA
 const String ltaDatamallKey = '1234asdf3dfaasdf';
 ```
 
+#### Google Firebase
+
+Follow the instructions on https://firebase.google.com/docs/flutter/setup?platform=ios (as well as for Android) to add the necessary files related to Google Firebase services.
+
 ## Code Generation
 
 This project uses build runner to generate Models (lib/models) and Routes (lib/routes).
