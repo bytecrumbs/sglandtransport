@@ -12,9 +12,8 @@ dynamic main() {
   group('fetchBusArrivalList', () {
     test('returns a BusArrivalList if the http call completes successfully',
         () async {
-      final MockClient client = MockClient();
-      // TODO(sascha): Store this header value somewhere more central and reusable
-      final Map<String, String> requestHeaders = <String, String>{
+      final client = MockClient();
+      final requestHeaders = {
         'AccountKey': ltaDatamallKey,
       };
 
@@ -31,8 +30,8 @@ dynamic main() {
     });
 
     test('throws an exception if the http call completes with an error', () {
-      final MockClient client = MockClient();
-      final Map<String, String> requestHeaders = <String, String>{
+      final client = MockClient();
+      final requestHeaders = {
         'AccountKey': ltaDatamallKey,
       };
 
@@ -51,13 +50,12 @@ dynamic main() {
     test(
         'returns a List of BusStopModels if the http calls complete successfully',
         () async {
-      final MockClient client = MockClient();
-      // TODO(sascha): Store this header value somewhere more central and reusable
-      final Map<String, String> requestHeaders = <String, String>{
+      final client = MockClient();
+      final requestHeaders = {
         'AccountKey': ltaDatamallKey,
       };
 
-      final List<int> skip = <int>[
+      final skip = [
         0,
         500,
         1000,
@@ -71,7 +69,7 @@ dynamic main() {
         5000,
       ];
 
-      for (final int currentSkip in skip) {
+      for (final currentSkip in skip) {
         // Use Mockito to return a successful response when it calls the
         // provided http.Client.
         when(client.get(
@@ -81,8 +79,7 @@ dynamic main() {
             http.Response('{"value": [{"BusStopCode": "010201"}]}', 200));
       }
 
-      final List<BusStopModel> busStopModelList =
-          await fetchBusStopList(client);
+      final busStopModelList = await fetchBusStopList(client);
 
       expect(busStopModelList, isInstanceOf<List<BusStopModel>>());
       expect(busStopModelList.length, equals(skip.length));
@@ -90,12 +87,12 @@ dynamic main() {
 
     test('throws an exception if any of the http calls complete with an error',
         () {
-      final MockClient client = MockClient();
-      final Map<String, String> requestHeaders = <String, String>{
+      final client = MockClient();
+      final requestHeaders = {
         'AccountKey': ltaDatamallKey,
       };
 
-      final List<int> skip = <int>[
+      final skip = [
         0,
         500,
         1000,
@@ -109,7 +106,7 @@ dynamic main() {
         5000,
       ];
 
-      for (final int currentSkip in skip) {
+      for (final currentSkip in skip) {
         // Use Mockito to return a successful response when it calls the
         // provided http.Client.
         when(client.get(

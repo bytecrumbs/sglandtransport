@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
-import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card.dart';
 import 'package:http/io_client.dart' as http;
 
@@ -50,16 +49,14 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
       future: _future,
       builder: (BuildContext context, AsyncSnapshot<BusArrivalModel> snapshot) {
         if (snapshot.hasData) {
-          final List<BusArrivalServiceModel> busServices =
-              snapshot.data.services;
+          final busServices = snapshot.data.services;
           return RefreshIndicator(
             onRefresh: _refreshBusArrivals,
             child: ListView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
               itemCount: busServices.length,
               itemBuilder: (BuildContext context, int index) {
-                final BusArrivalServiceModel currentBusService =
-                    busServices[index];
+                final currentBusService = busServices[index];
                 return BusArrivalCard(
                   key: ValueKey<String>('busArrivalCard-$index'),
                   busArrivalServiceModel: currentBusService,
@@ -68,7 +65,7 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
             ),
           );
         } else if (snapshot.hasError) {
-          // TODO(sascha): do something here
+          print(snapshot.error);
         }
         return const Center(
           child: CircularProgressIndicator(),

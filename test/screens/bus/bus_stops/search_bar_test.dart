@@ -17,15 +17,15 @@ void main() {
   testWidgets('TextField has a label', (WidgetTester tester) async {
     await _pumpSearchBar(tester);
 
-    final Finder labelFinder = find.text('Search bus stop');
+    final labelFinder = find.text('Search bus stop');
     expect(labelFinder, findsOneWidget);
   });
 
   testWidgets('TextField allows text input', (WidgetTester tester) async {
     await _pumpSearchBar(tester);
-    const String textFieldValue = '010101';
+    const textFieldValue = '010101';
     await tester.enterText(find.byType(TextField), textFieldValue);
-    final Finder textFieldValueFinder = find.text(textFieldValue);
+    final textFieldValueFinder = find.text(textFieldValue);
     expect(textFieldValueFinder, findsOneWidget);
   });
 
@@ -33,9 +33,9 @@ void main() {
       (WidgetTester tester) async {
     await _pumpSearchBar(tester);
     // write into the text field and confirm text is there
-    const String textFieldValue = '010101';
+    const textFieldValue = '010101';
     await tester.enterText(find.byType(TextField), textFieldValue);
-    final Finder textFieldValueFinder = find.text(textFieldValue);
+    final textFieldValueFinder = find.text(textFieldValue);
     expect(textFieldValueFinder, findsOneWidget);
 
     // clear the text field

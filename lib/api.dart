@@ -10,12 +10,11 @@ import 'package:lta_datamall_flutter/secret_lta_api_key.dart';
 Future<List<BusStopModel>> fetchBusStopList(
   http.Client client,
 ) async {
-  // TODO(sascha): Store this header value somewhere more central and reusable
-  final Map<String, String> requestHeaders = <String, String>{
+  final requestHeaders = <String, String>{
     'AccountKey': ltaDatamallKey,
   };
 
-  final List<int> skip = <int>[
+  final skip = [
     0,
     500,
     1000,
@@ -29,19 +28,17 @@ Future<List<BusStopModel>> fetchBusStopList(
     5000,
   ];
 
-  List<BusStopModel> result = <BusStopModel>[];
+  List result = <BusStopModel>[];
 
-  for (final int currentSkip in skip) {
-    final http.Response response = await client.get(
+  for (final currentSkip in skip) {
+    final response = await client.get(
       'http://datamall2.mytransport.sg/ltaodataservice/BusStops?\$skip=$currentSkip',
       headers: requestHeaders,
     );
 
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
-      // TODO(sascha): resolve the below excluded linting problem
-      final BusStopListModel busStopListModel =
-          // ignore: argument_type_not_assignable
+      final busStopListModel =
           BusStopListModel.fromJson(jsonDecode(response.body));
       result = result + busStopListModel.value;
     } else {
@@ -57,22 +54,18 @@ Future<BusArrivalModel> fetchBusArrivalList(
   final http.Client client,
   final String busStopCode,
 ) async {
-  // TODO(sascha): Store this header value somewhere more central and reusable
-  final Map<String, String> requestHeaders = <String, String>{
+  final requestHeaders = {
     'AccountKey': ltaDatamallKey,
   };
 
-  final http.Response response = await client.get(
+  final response = await client.get(
     'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=$busStopCode',
     headers: requestHeaders,
   );
 
   if (response.statusCode == 200) {
     // If the call to the server was successful, parse the JSON.
-    // TODO(sascha): resolve the below excluded linting problem
-    final BusArrivalModel busArrivalModel =
-        // ignore: argument_type_not_assignable
-        BusArrivalModel.fromJson(jsonDecode(response.body));
+    final busArrivalModel = BusArrivalModel.fromJson(jsonDecode(response.body));
     busArrivalModel.services.sort((BusArrivalServiceModel a,
             BusArrivalServiceModel b) =>
         int.parse(a.serviceNo.replaceAll(RegExp('\\D'), ''))

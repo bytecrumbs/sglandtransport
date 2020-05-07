@@ -5,7 +5,7 @@ import 'package:lta_datamall_flutter/models/bus_arrival/next_bus_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card.dart';
 
 void main() {
-  final NextBusModel nextBusModel = NextBusModel(
+  final nextBusModel = NextBusModel(
     load: 'SEA',
     estimatedArrival: '2020-02-12T14:09:11+08:00',
     destinationCode: 'destinationCode',
@@ -17,7 +17,7 @@ void main() {
     visitNumber: 'visitNumber',
   );
 
-  final BusArrivalServiceModel busArrivalServiceModel = BusArrivalServiceModel(
+  final busArrivalServiceModel = BusArrivalServiceModel(
     serviceNo: '100',
     busOperator: 'busOperator',
     nextBus: nextBusModel,

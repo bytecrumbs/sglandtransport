@@ -29,7 +29,7 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
     _positionStreamSubscription =
         geolocator.getPositionStream(locationOptions).listen(
       (Position position) {
-        final String newGeoHashCoordinates =
+        final newGeoHashCoordinates =
             Geohash.encode(position.latitude, position.longitude)
                 .substring(0, 8);
         if (newGeoHashCoordinates != _geoHashCoordinates) {
@@ -54,7 +54,7 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
 
   @override
   Widget build(BuildContext context) {
-    final List<BusStopModel> busStopList =
+    final busStopList =
         context.watch<NearbyBusStopsServiceProvider>().nearbyBusStops;
     if (busStopList.isNotEmpty) {
       return BusStopCardList(

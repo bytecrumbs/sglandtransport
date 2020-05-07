@@ -17,7 +17,7 @@ class FavoriteButton extends StatelessWidget {
         FavoriteBusStopsServiceProvider provider,
         _,
       ) {
-        final bool isFavoriteBusStop = provider.isFavoriteBusStop(busStopCode);
+        final isFavoriteBusStop = provider.isFavoriteBusStop(busStopCode);
         return IconButton(
           key: const ValueKey<String>('favoriteIconButton'),
           onPressed: () async {

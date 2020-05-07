@@ -16,7 +16,7 @@ class FavoriteBusStopsServiceProvider with ChangeNotifier {
   final String favoriteBusStopsKey = 'favoriteBusStopModels';
 
   Future<void> fetchFavoriteBusStops() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
     _favoriteBusStopCodes =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
@@ -43,9 +43,9 @@ class FavoriteBusStopsServiceProvider with ChangeNotifier {
   }
 
   Future<void> _addFavoriteBusStop(String busStopCode) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
-    final List<String> favoriteBusStops =
+    final favoriteBusStops =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
     favoriteBusStops.add(busStopCode);
@@ -56,9 +56,9 @@ class FavoriteBusStopsServiceProvider with ChangeNotifier {
   }
 
   Future<void> _removeFavoriteBusStop(String busStopCode) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
-    final List<String> favoriteBusStops =
+    final favoriteBusStops =
         prefs.getStringList(favoriteBusStopsKey) ?? <String>[];
 
     favoriteBusStops.remove(busStopCode);
@@ -70,9 +70,9 @@ class FavoriteBusStopsServiceProvider with ChangeNotifier {
   }
 
   Future<void> clearBusStops() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
-    prefs.remove(favoriteBusStopsKey);
+    await prefs.remove(favoriteBusStopsKey);
     _favoriteBusStops.clear();
     notifyListeners();
   }

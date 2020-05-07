@@ -12,13 +12,13 @@ class NearbyBusStopsServiceProvider with ChangeNotifier {
 
   Future<void> setNearbyBusStop(Position position) async {
     _nearbyBusStops = <BusStopModel>[];
-    for (final BusStopModel busStop in allBusStops) {
-      final double distanceInMeters = await Geolocator().distanceBetween(
+    for (final busStop in allBusStops) {
+      final distanceInMeters = await Geolocator().distanceBetween(
           position.latitude,
           position.longitude,
           busStop.latitude,
           busStop.longitude);
-      final bool isNearby = distanceInMeters <= 500;
+      final isNearby = distanceInMeters <= 500;
 
       if (isNearby) {
         busStop.distanceInMeters = distanceInMeters.round();

@@ -13,8 +13,8 @@ class SearchBusStopsServiceProvider with ChangeNotifier {
   ) async {
     _busStopSearchList = <BusStopModel>[];
     if (searchText.isNotEmpty) {
-      for (final BusStopModel busStop in allBusStops) {
-        final bool isTextMatching =
+      for (final busStop in allBusStops) {
+        final isTextMatching =
             containsSearchText(busStop.busStopCode, searchText) ||
                 containsSearchText(busStop.description, searchText) ||
                 containsSearchText(busStop.roadName, searchText);

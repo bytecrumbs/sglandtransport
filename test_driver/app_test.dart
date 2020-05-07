@@ -9,13 +9,10 @@ dynamic searchForText(String searchText, dynamic driver) async {
 
 void main() {
   group('LTA App', () {
-    final SerializableFinder unselectedFavoriteIcon =
-        find.byValueKey('favoriteIconUnselected');
-    final SerializableFinder selectedFavoriteIcon =
-        find.byValueKey('favoriteIconSelected');
-    final SerializableFinder busStopCard = find.byValueKey('busStopCard-0');
-    final SerializableFinder favoriteIconButton =
-        find.byValueKey('favoriteIconButton');
+    final unselectedFavoriteIcon = find.byValueKey('favoriteIconUnselected');
+    final selectedFavoriteIcon = find.byValueKey('favoriteIconSelected');
+    final busStopCard = find.byValueKey('busStopCard-0');
+    final favoriteIconButton = find.byValueKey('favoriteIconButton');
 
     FlutterDriver driver;
 
@@ -27,7 +24,7 @@ void main() {
     // Close the connection to the driver after the tests have completed.
     tearDownAll(() async {
       if (driver != null) {
-        driver.close();
+        await driver.close();
       }
     });
 

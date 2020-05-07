@@ -19,7 +19,7 @@ class _SearchBusStopsState extends State<SearchBusStops> {
 
   @override
   Widget build(BuildContext context) {
-    final List<BusStopModel> busStopList =
+    final busStopList =
         context.watch<SearchBusStopsServiceProvider>().busStopSearchList;
     return Column(
       children: <Widget>[

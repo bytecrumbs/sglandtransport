@@ -15,9 +15,9 @@ class BusArrivalCard extends StatelessWidget {
       return 'n/a';
     }
 
-    final String suffix = isSuffixShown && isSuffixShown ? 'min' : '';
+    final suffix = isSuffixShown && isSuffixShown ? 'min' : '';
 
-    final int arrivalInMinutes =
+    final arrivalInMinutes =
         DateTime.parse(arrivalTime).difference(DateTime.now()).inMinutes;
 
     return arrivalInMinutes <= 0
@@ -26,7 +26,7 @@ class BusArrivalCard extends StatelessWidget {
   }
 
   String _getBusLoad(dynamic load) {
-    final Map<String, String> _busLoad = <String, String>{
+    final _busLoad = {
       'SEA': 'Seats Available',
       'SDA': 'Standing Available',
       'LSD': 'Limited Standing',
@@ -36,7 +36,7 @@ class BusArrivalCard extends StatelessWidget {
   }
 
   String _busTypes(dynamic type) {
-    final Map<String, String> _busType = <String, String>{
+    final _busType = {
       'SD': 'Single Deck',
       'DD': 'Double Deck',
       'BD': 'Bendy',

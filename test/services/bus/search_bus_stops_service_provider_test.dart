@@ -3,7 +3,7 @@ import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/services/bus/search_bus_stops_service_provider.dart';
 
 void main() {
-  final List<BusStopModel> busStopList = <BusStopModel>[
+  final busStopList = [
     BusStopModel(
       '01013',
       'roadName1',
@@ -37,7 +37,7 @@ void main() {
   group('Search', () {
     test('Should returns list of bus stops if user inputs bus stop code',
         () async {
-      final SearchBusStopsServiceProvider searchBusStopsService =
+      final searchBusStopsService =
           SearchBusStopsServiceProvider(allBusStops: busStopList);
       await searchBusStopsService.findBusStops('010');
 
@@ -45,10 +45,8 @@ void main() {
     });
 
     test('Should returns list of bus stops if user enters road name', () async {
-      final List<BusStopModel> expectedResultList = <BusStopModel>[
-        busStopList[2]
-      ];
-      final SearchBusStopsServiceProvider searchBusStopsService =
+      final expectedResultList = [busStopList[2]];
+      final searchBusStopsService =
           SearchBusStopsServiceProvider(allBusStops: busStopList);
       await searchBusStopsService.findBusStops('roadName3');
 

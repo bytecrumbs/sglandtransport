@@ -4,8 +4,8 @@ import 'package:lta_datamall_flutter/services/bus/favorite_bus_stops_service_pro
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  const String favoriteBusStopsKey = 'favoriteBusStopModels';
-  final List<BusStopModel> busStopModelList = <BusStopModel>[
+  const favoriteBusStopsKey = 'favoriteBusStopModels';
+  final busStopModelList = [
     BusStopModel(
       '01013',
       'roadName1',
@@ -30,7 +30,7 @@ void main() {
   ];
   group('Shared Preferences', () {
     test('It returns favorite bus stops', () async {
-      final List<String> busStops = <String>[
+      final busStops = [
         busStopModelList[0].busStopCode,
         busStopModelList[1].busStopCode,
       ];
@@ -38,7 +38,7 @@ void main() {
       SharedPreferences.setMockInitialValues(
           <String, dynamic>{favoriteBusStopsKey: busStops});
 
-      final FavoriteBusStopsServiceProvider favoritesService =
+      final favoritesService =
           FavoriteBusStopsServiceProvider(allBusStops: busStopModelList);
 
       await favoritesService.fetchFavoriteBusStops();
@@ -48,7 +48,7 @@ void main() {
 
     test('It tells if a given bus stop is already stored as a Favorite',
         () async {
-      final List<String> busStops = <String>[
+      final busStops = [
         busStopModelList[0].busStopCode,
         busStopModelList[1].busStopCode,
       ];
@@ -56,7 +56,7 @@ void main() {
       SharedPreferences.setMockInitialValues(
           <String, dynamic>{favoriteBusStopsKey: busStops});
 
-      final FavoriteBusStopsServiceProvider favoritesService =
+      final favoritesService =
           FavoriteBusStopsServiceProvider(allBusStops: busStopModelList);
 
       await favoritesService.fetchFavoriteBusStops();
@@ -73,7 +73,7 @@ void main() {
     test('It returns empty list when no favorites are stored', () async {
       SharedPreferences.setMockInitialValues(<String, dynamic>{});
 
-      final FavoriteBusStopsServiceProvider favoritesService =
+      final favoritesService =
           FavoriteBusStopsServiceProvider(allBusStops: busStopModelList);
       await favoritesService.fetchFavoriteBusStops();
 
@@ -81,15 +81,15 @@ void main() {
     });
 
     test('It stores a bus stop on an empty list', () async {
-      final List<String> busStops = <String>[
+      final busStops = [
         busStopModelList[0].busStopCode,
         busStopModelList[1].busStopCode,
       ];
 
       SharedPreferences.setMockInitialValues(<String, dynamic>{});
-      final SharedPreferences pref = await SharedPreferences.getInstance();
+      final pref = await SharedPreferences.getInstance();
 
-      final FavoriteBusStopsServiceProvider favoritesService =
+      final favoritesService =
           FavoriteBusStopsServiceProvider(allBusStops: busStopModelList);
       await favoritesService.toggleFavoriteBusStop(
         busStops[0],
@@ -100,8 +100,7 @@ void main() {
         false,
       );
 
-      final List<String> favoriteBusStops =
-          pref.getStringList(favoriteBusStopsKey);
+      final favoriteBusStops = pref.getStringList(favoriteBusStopsKey);
 
       expect(favoriteBusStops.length, busStops.length);
 
@@ -111,7 +110,7 @@ void main() {
     });
 
     test('It stores a bus stop on an existing list', () async {
-      final List<String> busStops = <String>[
+      final busStops = [
         busStopModelList[0].busStopCode,
         busStopModelList[1].busStopCode,
         busStopModelList[2].busStopCode,
@@ -120,9 +119,9 @@ void main() {
       SharedPreferences.setMockInitialValues(<String, dynamic>{
         favoriteBusStopsKey: <String>[busStops[0]],
       });
-      final SharedPreferences pref = await SharedPreferences.getInstance();
+      final pref = await SharedPreferences.getInstance();
 
-      final FavoriteBusStopsServiceProvider favoritesService =
+      final favoritesService =
           FavoriteBusStopsServiceProvider(allBusStops: busStopModelList);
       await favoritesService.toggleFavoriteBusStop(
         busStops[1],
@@ -133,8 +132,7 @@ void main() {
         false,
       );
 
-      final List<String> favoriteBusStops =
-          pref.getStringList(favoriteBusStopsKey);
+      final favoriteBusStops = pref.getStringList(favoriteBusStopsKey);
 
       expect(favoriteBusStops.length, busStops.length);
 
@@ -144,19 +142,19 @@ void main() {
     });
 
     test('It removes a bus stop from an existing list', () async {
-      final List<String> busStops = <String>[
+      final busStops = [
         busStopModelList[0].busStopCode,
         busStopModelList[1].busStopCode,
         busStopModelList[2].busStopCode,
       ];
-      final String busStopStringToBeRemoved = busStops[1];
+      final busStopStringToBeRemoved = busStops[1];
 
       SharedPreferences.setMockInitialValues(<String, dynamic>{
         favoriteBusStopsKey: busStops,
       });
-      final SharedPreferences pref = await SharedPreferences.getInstance();
+      final pref = await SharedPreferences.getInstance();
 
-      final FavoriteBusStopsServiceProvider favoritesService =
+      final favoritesService =
           FavoriteBusStopsServiceProvider(allBusStops: busStopModelList);
       await favoritesService.toggleFavoriteBusStop(
         busStopStringToBeRemoved,
@@ -166,8 +164,7 @@ void main() {
       busStops.remove(busStopStringToBeRemoved);
 
       // ensure it is removed in Shared Preferences
-      final List<String> favoriteBusStops =
-          pref.getStringList(favoriteBusStopsKey);
+      final favoriteBusStops = pref.getStringList(favoriteBusStopsKey);
       expect(favoriteBusStops, busStops);
 
       // ensure it is removed from the provider list
@@ -177,17 +174,17 @@ void main() {
     test(
         'It returns empty list when a bus stop is removed and no more bus stops are stored',
         () async {
-      final List<String> busStops = <String>[
+      final busStops = <String>[
         busStopModelList[0].busStopCode,
       ];
-      final String busStopStringToBeRemoved = busStops[0];
+      final busStopStringToBeRemoved = busStops[0];
 
       SharedPreferences.setMockInitialValues(<String, dynamic>{
         favoriteBusStopsKey: busStops,
       });
-      final SharedPreferences pref = await SharedPreferences.getInstance();
+      final pref = await SharedPreferences.getInstance();
 
-      final FavoriteBusStopsServiceProvider favoritesService =
+      final favoritesService =
           FavoriteBusStopsServiceProvider(allBusStops: busStopModelList);
       await favoritesService.toggleFavoriteBusStop(
         busStopStringToBeRemoved,
@@ -196,8 +193,7 @@ void main() {
 
       busStops.remove(busStopStringToBeRemoved);
 
-      final List<String> favoriteBusStops =
-          pref.getStringList(favoriteBusStopsKey);
+      final favoriteBusStops = pref.getStringList(favoriteBusStopsKey);
 
       // ensure it is removed in Shared Preferences
       expect(favoriteBusStops.length, 0);
@@ -213,15 +209,14 @@ void main() {
           busStopModelList[1].busStopCode,
         ],
       });
-      final SharedPreferences pref = await SharedPreferences.getInstance();
+      final pref = await SharedPreferences.getInstance();
 
-      final FavoriteBusStopsServiceProvider favoritesService =
+      final favoritesService =
           FavoriteBusStopsServiceProvider(allBusStops: busStopModelList);
 
       await favoritesService.clearBusStops();
 
-      final List<String> favoriteBusStops =
-          pref.getStringList(favoriteBusStopsKey);
+      final favoriteBusStops = pref.getStringList(favoriteBusStopsKey);
 
       expect(favoriteBusStops, null);
       expect(favoritesService.favoriteBusStops.length, 0);

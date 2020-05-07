@@ -49,8 +49,8 @@ class TrailingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int myDistanceInMeters = distanceInMeters ?? -1;
-    if (myDistanceInMeters > 0)
+    final myDistanceInMeters = distanceInMeters ?? -1;
+    if (myDistanceInMeters > 0) {
       return BoxInfo(
         color: Theme.of(context).highlightColor,
         child: Column(
@@ -63,7 +63,7 @@ class TrailingWidget extends StatelessWidget {
           ],
         ),
       );
-    else {
+    } else {
       return Icon(Icons.assignment);
     }
   }

@@ -4,7 +4,7 @@ import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card.dart';
 
 void main() {
-  final BusStopModel busStopModel = BusStopModel(
+  final busStopModel = BusStopModel(
     'BusStopCode',
     'RoadName',
     'Description',
@@ -26,7 +26,7 @@ void main() {
       (WidgetTester tester) async {
     await _pumpBusStopCard(tester);
 
-    final Finder labelFinder =
+    final labelFinder =
         find.text('${busStopModel.description} (${busStopModel.busStopCode})');
     expect(labelFinder, findsOneWidget);
   });
@@ -34,7 +34,7 @@ void main() {
   testWidgets('Card shows a description', (WidgetTester tester) async {
     await _pumpBusStopCard(tester);
 
-    final Finder labelFinder = find.text(busStopModel.roadName);
+    final labelFinder = find.text(busStopModel.roadName);
     expect(labelFinder, findsOneWidget);
   });
 }

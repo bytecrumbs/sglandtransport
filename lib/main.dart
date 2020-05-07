@@ -48,10 +48,9 @@ class MyApp extends StatelessWidget {
           AsyncSnapshot<List<List<BusStopModel>>> snapshot) {
         if (snapshot.hasData) {
           // full bus stop list for nearby screen
-          final List<BusStopModel> busStopModelListForNearby = snapshot.data[0];
+          final busStopModelListForNearby = snapshot.data[0];
           // create a deep copy of the bus list for favorites screen
-          final List<BusStopModel> busStopModelListForFavorites =
-              List<BusStopModel>.generate(
+          final busStopModelListForFavorites = List<BusStopModel>.generate(
             busStopModelListForNearby.length,
             (int i) =>
                 BusStopModel.fromJson(busStopModelListForNearby[i].toJson()),
