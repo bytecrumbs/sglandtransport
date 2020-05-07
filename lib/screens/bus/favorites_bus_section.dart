@@ -7,8 +7,7 @@ class FavoriteBusStops extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BusStopCardList(
-      busStopList: Provider.of<FavoriteBusStopsServiceProvider>(context)
-          .favoriteBusStops,
-    );
+        busStopList:
+            context.watch<FavoriteBusStopsServiceProvider>().favoriteBusStops);
   }
 }

@@ -14,14 +14,13 @@ class _SearchBusStopsState extends State<SearchBusStops> {
   final TextEditingController _controller = TextEditingController();
 
   void onSearchTextChanged(String value) {
-    Provider.of<SearchBusStopsServiceProvider>(context, listen: false)
-        .findBusStops(value);
+    context.read<SearchBusStopsServiceProvider>().findBusStops(value);
   }
 
   @override
   Widget build(BuildContext context) {
     final List<BusStopModel> busStopList =
-        Provider.of<SearchBusStopsServiceProvider>(context).busStopSearchList;
+        context.watch<SearchBusStopsServiceProvider>().busStopSearchList;
     return Column(
       children: <Widget>[
         SearchBar(

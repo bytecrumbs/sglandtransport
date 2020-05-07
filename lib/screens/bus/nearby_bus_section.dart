@@ -33,7 +33,8 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
             Geohash.encode(position.latitude, position.longitude)
                 .substring(0, 8);
         if (newGeoHashCoordinates != _geoHashCoordinates) {
-          Provider.of<NearbyBusStopsServiceProvider>(context, listen: false)
+          context
+              .read<NearbyBusStopsServiceProvider>()
               .setNearbyBusStop(position);
           _geoHashCoordinates = newGeoHashCoordinates;
         }
@@ -54,7 +55,7 @@ class _NearbyBusStopsState extends State<NearbyBusStops> {
   @override
   Widget build(BuildContext context) {
     final List<BusStopModel> busStopList =
-        Provider.of<NearbyBusStopsServiceProvider>(context).nearbyBusStops;
+        context.watch<NearbyBusStopsServiceProvider>().nearbyBusStops;
     if (busStopList.isNotEmpty) {
       return BusStopCardList(
         busStopList: busStopList,

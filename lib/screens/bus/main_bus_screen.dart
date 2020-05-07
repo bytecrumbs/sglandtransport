@@ -58,7 +58,8 @@ class _MainBusScreenState extends State<MainBusScreen> {
   }
 
   void _sendCurrentTabToAnalytics(String screenName) {
-    Provider.of<ObserverServiceProvider>(context, listen: false)
+    context
+        .read<ObserverServiceProvider>()
         .getAnalyticsObserver()
         .analytics
         .setCurrentScreen(
