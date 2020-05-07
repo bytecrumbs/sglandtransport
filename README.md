@@ -2,6 +2,14 @@
 
 This app provides screens and functionality for APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
 
+## Contributing
+
+Refer to the [Contributing Guidelines](CONTRIBUTING.md).
+
+## Code of Conduct
+
+Our code of conduct is based on the [Contributor Covenant](CODE_OF_CONDUCT.md).
+
 ## Prerequisites
 
 ### Flutter
