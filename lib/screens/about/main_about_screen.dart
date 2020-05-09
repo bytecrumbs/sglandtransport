@@ -21,6 +21,8 @@ class MainAboutScreen extends StatelessWidget {
                 fontSize: 16.0,
               ),
             ),
+            Text(
+                'The best app on the market, to consume and display information/data made available by the "LTA Datamall".'),
             Text('- 100% free'),
             Text('- 100% add free'),
             Text('- 100% open-source'),
@@ -34,23 +36,21 @@ class MainAboutScreen extends StatelessWidget {
                 fontSize: 16.0,
               ),
             ),
-            Text(
-                'The best app on the market, to consume and display information/data made available by the "LTA Datamall"'),
             SizedBox(
               height: 20.0,
             ),
             Text(
-              'Support',
+              'Support us',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16.0,
               ),
             ),
             Text('- Review on App Store'),
-            Text('- Tweet @lta-datamall-app'),
-            Text('- Share on Facebook'),
-            Text('- Github stars'),
-            Text('- Donate'),
+            Text('- Tweet about @sglandtransport'),
+            Text('- Like our Facebook page'),
+            Text('- Star our public GitHub repo'),
+            Text('- Buy us a coffee'),
             SizedBox(
               height: 20.0,
             ),
@@ -61,7 +61,7 @@ class MainAboutScreen extends StatelessWidget {
                 fontSize: 16.0,
               ),
             ),
-            Text('I think we need a privacy policy?'),
+            Text('Link to our Privacy Policy...'),
           ],
         ),
       ),
