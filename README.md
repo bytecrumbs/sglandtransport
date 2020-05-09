@@ -1,5 +1,7 @@
 # LTA Datamall app
 
+[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
+
 This app provides screens and functionality for APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
 
 ## Contributing
@@ -97,4 +99,29 @@ genhtml coverage/lcov.info -o coverage/html
 
 ```
 ./execute_ui_tests.sh
+```
+
+## Screenshot Commandline utility
+
+1. Installation
+
+```
+brew update && brew install imagemagick
+pub global activate screenshots
+```
+
+Note:
+
+```
+If pub is not found, add to PATH using:
+
+On macOS:
+
+export PATH="<path to flutter installation directory>/bin/cache/dart-sdk/bin:$PATH"
+```
+
+2. Usage
+
+```
+screenshots
 ```
