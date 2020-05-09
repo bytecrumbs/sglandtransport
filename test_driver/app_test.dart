@@ -1,6 +1,7 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import 'utils.dart';
+import 'package:screenshots/screenshots.dart';
 
 dynamic searchForText(String searchText, dynamic driver) async {
   await driver.tap(find.byValueKey('searchInput'));
@@ -15,7 +16,7 @@ void main() {
     final favoriteIconButton = find.byValueKey('favoriteIconButton');
 
     FlutterDriver driver;
-
+    final config = Config();
     // Connect to the Flutter driver before running any tests.
     setUpAll(() async {
       driver = await FlutterDriver.connect();
@@ -33,6 +34,7 @@ void main() {
         await driver.tap(find.byValueKey('searchScreen'));
         searchForText('Opp Holiday Inn', driver);
         await driver.waitFor(busStopCard);
+        await screenshot(driver, config, 'SearchScreen');
         expect(await isRendered(busStopCard, driver), true);
       });
 

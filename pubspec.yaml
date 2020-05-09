@@ -47,6 +47,7 @@ dev_dependencies:
   mockito: ^4.1.1
   auto_route_generator: ^0.4.8
   pedantic: ^1.9.0
+  screenshots: 2.1.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
