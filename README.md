@@ -98,7 +98,3 @@ genhtml coverage/lcov.info -o coverage/html
 ```
 ./execute_ui_tests.sh
 ```
-
-### Generate screenshots
-
-TBD
