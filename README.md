@@ -98,3 +98,26 @@ genhtml coverage/lcov.info -o coverage/html
 ```
 ./execute_ui_tests.sh
 ```
+
+## Screenshot Commandline utility
+
+1. Installation
+```
+brew update && brew install imagemagick
+pub global activate screenshots
+```
+
+Note:
+
+```
+If pub is not found, add to PATH using:
+
+On macOS:
+
+export PATH="<path to flutter installation directory>/bin/cache/dart-sdk/bin:$PATH"
+```
+
+2. Usage
+```
+screenshots
+```
