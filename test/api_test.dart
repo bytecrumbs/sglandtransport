@@ -1,20 +1,24 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
-import 'package:lta_datamall_flutter/secret_lta_api_key.dart';
 
 class MockClient extends Mock implements http.Client {}
 
 dynamic main() {
+  setUpAll(() {
+    DotEnv().env = {'LTA_DATAMALL_KEY': 'fakeKey'};
+  });
+
   group('fetchBusArrivalList', () {
     test('returns a BusArrivalList if the http call completes successfully',
         () async {
       final client = MockClient();
       final requestHeaders = {
-        'AccountKey': ltaDatamallKey,
+        'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
       };
 
       // Use Mockito to return a successful response when it calls the
@@ -32,7 +36,7 @@ dynamic main() {
     test('throws an exception if the http call completes with an error', () {
       final client = MockClient();
       final requestHeaders = {
-        'AccountKey': ltaDatamallKey,
+        'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
       };
 
       // Use Mockito to return an unsuccessful response when it calls the
@@ -52,7 +56,7 @@ dynamic main() {
         () async {
       final client = MockClient();
       final requestHeaders = {
-        'AccountKey': ltaDatamallKey,
+        'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
       };
 
       final skip = [
@@ -89,7 +93,7 @@ dynamic main() {
         () {
       final client = MockClient();
       final requestHeaders = {
-        'AccountKey': ltaDatamallKey,
+        'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
       };
 
       final skip = [

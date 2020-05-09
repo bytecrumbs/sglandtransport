@@ -10,26 +10,29 @@ Refer to the [Contributing Guidelines](CONTRIBUTING.md).
 
 Our code of conduct is based on the [Contributor Covenant](CODE_OF_CONDUCT.md).
 
+## Setup
+
+### Secret keys
+
+This project reads keys from environment variables. For local development, we are using package https://pub.dev/packages/flutter_dotenv. To set this up:
+
+1. Create a .env file in the root folder of your project
+2. Generate a key following the guidelines of https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html
+3. Update your .env file to something like this:
+
+```
+LTA_DATAMALL_KEY=<the secret key you received from above step 2>
+```
+
+### Google Firebase
+
+Follow the instructions on https://firebase.google.com/docs/flutter/setup?platform=ios (as well as for Android) to add the necessary files related to Google Firebase services.
+
 ## Prerequisites
 
 ### Flutter
 
 - Flutter (https://flutter.dev/docs/get-started/install)
-
-### API Keys
-
-#### LTA Datamall
-
-1. Generate a key following the guidelines of https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html
-2. Update the constant "ltaDatamallKey" in file lib/constants.dart with the key you have generated above. For example:
-
-```
-const String ltaDatamallKey = '1234asdf3dfaasdf';
-```
-
-#### Google Firebase
-
-Follow the instructions on https://firebase.google.com/docs/flutter/setup?platform=ios (as well as for Android) to add the necessary files related to Google Firebase services.
 
 ## Code Generation
 

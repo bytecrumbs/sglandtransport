@@ -1,17 +1,17 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_list_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/secret_lta_api_key.dart';
 
 Future<List<BusStopModel>> fetchBusStopList(
   http.Client client,
 ) async {
   final requestHeaders = <String, String>{
-    'AccountKey': ltaDatamallKey,
+    'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
   };
 
   final skip = [
@@ -55,7 +55,7 @@ Future<BusArrivalModel> fetchBusArrivalList(
   final String busStopCode,
 ) async {
   final requestHeaders = {
-    'AccountKey': ltaDatamallKey,
+    'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
   };
 
   final response = await client.get(

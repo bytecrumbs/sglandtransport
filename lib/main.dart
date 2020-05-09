@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/services/bus/favorite_bus_stops_service_provider.dart';
@@ -15,7 +16,9 @@ import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-void main() {
+Future<void> main() async {
+  await DotEnv().load('.env');
+
   Crashlytics.instance.enableInDevMode = true;
 
   // Pass all uncaught errors from the framework to Crashlytics.
