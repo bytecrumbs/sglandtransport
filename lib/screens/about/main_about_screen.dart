@@ -16,33 +16,51 @@ class MainAboutScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'LTA Datamall App',
-              style: Theme.of(context).textTheme.headline6,
+            AboutHeader(
+              headerText: 'SG Land Transport',
             ),
-            Text(
-                'The best app on the market, to consume and display information/data made available by the "LTA Datamall".'),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'An open-source project using ',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  TextSpan(
+                    text: 'LTA Data Mall',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        const url =
+                            'https://www.mytransport.sg/content/mytransport/home/dataMall.html';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                  ),
+                  TextSpan(
+                    text:
+                        ' to facilitate usage of public and private transport in Singapore.',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ],
+              ),
+            ),
             Text('- 100% free'),
             Text('- 100% add free'),
             Text('- 100% open-source'),
-            SizedBox(
-              height: 20.0,
-            ),
-            Text(
-              'Support us',
-              style: Theme.of(context).textTheme.headline6,
+            AboutHeader(
+              headerText: 'Support us',
             ),
             Text('- Review on App Store'),
             Text('- Tweet about @sglandtransport'),
             Text('- Like our Facebook page'),
             Text('- Star our public GitHub repo'),
             Text('- Buy us a coffee'),
-            SizedBox(
-              height: 20.0,
-            ),
-            Text(
-              'Privacy Policy',
-              style: Theme.of(context).textTheme.headline6,
+            AboutHeader(
+              headerText: 'Privacy Policy',
             ),
             RichText(
               text: TextSpan(
@@ -70,6 +88,23 @@ class MainAboutScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class AboutHeader extends StatelessWidget {
+  AboutHeader({@required this.headerText});
+
+  final headerText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 5.0),
+      child: Text(
+        headerText,
+        style: Theme.of(context).textTheme.headline6,
       ),
     );
   }
