@@ -4,7 +4,7 @@ container:
 test_task:
   create_env_script:
     - touch .env
-    - echo "LTA_DATAMALL_KEY=xNTAqVxgQiOwp9MQa9y0tQ==" > .env
+    - echo "LTA_DATAMALL_KEY=dummyKey123" > .env
   pub_cache:
     folder: ~/.pub-cache
   test_script: flutter test
