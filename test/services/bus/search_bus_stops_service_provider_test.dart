@@ -35,7 +35,7 @@ void main() {
   ];
 
   group('Search', () {
-    test('Should returns list of bus stops if user inputs bus stop code',
+    test('Should return list of bus stops if user inputs bus stop code',
         () async {
       final searchBusStopsService =
           SearchBusStopsServiceProvider(allBusStops: busStopList);
