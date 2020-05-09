@@ -45,3 +45,6 @@ builds/dcinDi7y/0/sascha.derungs/lta-datamall-flutter.tmp/git-template/config
 lib/secret_lta_api_key.dart
 ios/Runner/GoogleService-Info.plist
 android/app/google-services.json
+
+# environment variables for local development
+/.env
