@@ -21,6 +21,8 @@ ui_test_task:
     - touch .env
     - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
   only_if: $BRANCH == "master"
+  osx_instance:
+    image: catalina-xcode-11.4.1-flutter
   script:
     - ./execute_ui_tests.sh
   after_script:
