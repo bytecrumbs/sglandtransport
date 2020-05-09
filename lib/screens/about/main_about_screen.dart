@@ -157,7 +157,7 @@ class MainAboutScreen extends StatelessWidget {
                       },
                   ),
                   TextSpan(
-                    text: ' to report a Bug or a Feature request',
+                    text: ' to report a Bug or raise a Feature request',
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ],
