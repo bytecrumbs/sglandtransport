@@ -55,10 +55,114 @@ class MainAboutScreen extends StatelessWidget {
               headerText: 'Support us',
             ),
             Text('- Review on App Store'),
-            Text('- Tweet about @sglandtransport'),
-            Text('- Like our Facebook page'),
-            Text('- Star our public GitHub repo'),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '- ',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  TextSpan(
+                    text: 'Tweet ',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        const url =
+                            'https://twitter.com/intent/tweet?screen_name=sgltapp&text=is+awesome!';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                  ),
+                  TextSpan(
+                    text: 'about us',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ],
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '- Like and Share our ',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  TextSpan(
+                    text: 'Facebook page',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        const url =
+                            'https://www.facebook.com/sglandtransportapp';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                  ),
+                ],
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '- Star our public ',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  TextSpan(
+                    text: 'GitHub repo',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        const url =
+                            'https://github.com/sderungs99/sglandtransport';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                  ),
+                ],
+              ),
+            ),
             Text('- Buy us a coffee'),
+            AboutHeader(
+              headerText: 'Feedback',
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '- Create an ',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  TextSpan(
+                    text: 'Issue on GitHub',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        const url =
+                            'https://github.com/sderungs99/sglandtransport/issues';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                  ),
+                  TextSpan(
+                    text: ' to report a Bug or a Feature request',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ],
+              ),
+            ),
             AboutHeader(
               headerText: 'Privacy Policy',
             ),
