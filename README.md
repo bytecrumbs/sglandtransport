@@ -1,6 +1,5 @@
 # LTA Datamall app
 
-
 [![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
 
 This app provides screens and functionality for APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
