@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/screens/widgets/app_drawer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainAboutScreen extends StatelessWidget {
   @override
@@ -13,13 +15,10 @@ class MainAboutScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
+          children: <Widget>[
             Text(
               'LTA Datamall App',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
-              ),
+              style: Theme.of(context).textTheme.headline6,
             ),
             Text(
                 'The best app on the market, to consume and display information/data made available by the "LTA Datamall".'),
@@ -30,21 +29,8 @@ class MainAboutScreen extends StatelessWidget {
               height: 20.0,
             ),
             Text(
-              'Vision',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Text(
               'Support us',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
-              ),
+              style: Theme.of(context).textTheme.headline6,
             ),
             Text('- Review on App Store'),
             Text('- Tweet about @sglandtransport'),
@@ -56,12 +42,32 @@ class MainAboutScreen extends StatelessWidget {
             ),
             Text(
               'Privacy Policy',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Please refer to ',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  TextSpan(
+                    text: 'https://sglandtransport.app/privacy-policy',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        const url =
+                            'https://sglandtransport.app/privacy-policy';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                  ),
+                ],
               ),
             ),
-            Text('Link to our Privacy Policy...'),
           ],
         ),
       ),
