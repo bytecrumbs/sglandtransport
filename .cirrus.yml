@@ -5,12 +5,13 @@ unit_test_task:
   container:
     image: cirrusci/flutter:latest
   setup_script:
-    - flutter upgrade
+    - which flutter
     - touch .env
     - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
   pub_cache:
     folder: ~/.pub-cache
   test_script:
+    - flutter upgrade
     - flutter analyze
     - flutter test --coverage
     - lcov --list coverage/lcov.info
