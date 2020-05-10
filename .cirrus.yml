@@ -1,17 +1,21 @@
 env:
   AUTH_TOKEN: ENCRYPTED[96e726ee10df063efb5cdd500da0ee8c0088e031eb8305a1b16239f791ab0758b7bc85b9661d7348493ee47e43c21392]
 
+flutter_path_task:
+  folder: /home/cirrus/sdks/flutter
+  setup_script:
+    - git remote add origin https://github.com/flutter/flutter
+    - flutter upgrade
+
 unit_test_task:
   container:
     image: cirrusci/flutter:latest
   setup_script:
-    - which flutter
     - touch .env
     - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
   pub_cache:
     folder: ~/.pub-cache
   test_script:
-    - flutter upgrade
     - flutter analyze
     - flutter test --coverage
     - lcov --list coverage/lcov.info
@@ -21,7 +25,6 @@ ui_test_task:
   osx_instance:
     image: catalina-xcode-11.4.1-flutter
   setup_script:
-    - flutter upgrade
     - touch .env
     - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
   script:
