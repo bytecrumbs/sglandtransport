@@ -7,19 +7,30 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: const Text(
-              'Welcome to the LTA Datamall App',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+            margin: EdgeInsets.zero,
+            padding: EdgeInsets.zero,
+            child: Stack(children: <Widget>[
+              Positioned(
+                bottom: 12.0,
+                left: 20.0,
+                child: Text(
+                  'Welcome to the LTA Datamall App',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
-            ),
+            ]),
             decoration: BoxDecoration(
-              color: Theme.of(context).highlightColor,
+              image: DecorationImage(
+                image: AssetImage('images/icon.jpg'),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           ListTile(
