@@ -1,9 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:geohash/geohash.dart';
-import 'package:geolocator/geolocator.dart';
-
+import 'package:location/location.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_stops/bus_stop_card_list.dart';
 import 'package:lta_datamall_flutter/services/bus/nearby_bus_stops_service_provider.dart';
@@ -15,31 +12,23 @@ class NearbyBusStops extends StatefulWidget {
 }
 
 class _NearbyBusStopsState extends State<NearbyBusStops> {
-  StreamSubscription<Position> _positionStreamSubscription;
-  String _geoHashCoordinates = '';
+  StreamSubscription _positionStreamSubscription;
   List<BusStopModel> busStopList = <BusStopModel>[];
-  final Geolocator geolocator = Geolocator();
-  final LocationOptions locationOptions = LocationOptions(
-    accuracy: LocationAccuracy.high,
-    distanceFilter: 10,
-  );
+  Location location = Location();
 
   @override
   void initState() {
-    _positionStreamSubscription =
-        geolocator.getPositionStream(locationOptions).listen(
-      (Position position) {
-        final newGeoHashCoordinates =
-            Geohash.encode(position.latitude, position.longitude)
-                .substring(0, 8);
-        if (newGeoHashCoordinates != _geoHashCoordinates) {
+    location.requestPermission().then((granted) {
+      if (granted != null) {
+        _positionStreamSubscription =
+            location.onLocationChanged.listen((LocationData currentLocation) {
           context
               .read<NearbyBusStopsServiceProvider>()
-              .setNearbyBusStop(position);
-          _geoHashCoordinates = newGeoHashCoordinates;
-        }
-      },
-    );
+              .setNearbyBusStop(currentLocation);
+        });
+      }
+    });
+
     super.initState();
   }
 
