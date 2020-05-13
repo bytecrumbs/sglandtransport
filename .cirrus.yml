@@ -1,10 +1,12 @@
-container:
-  image: cirrusci/flutter:latest
+osx_instance:
+  image: catalina-xcode-11.4.1-flutter
 
 env:
   AUTH_TOKEN: ENCRYPTED[96e726ee10df063efb5cdd500da0ee8c0088e031eb8305a1b16239f791ab0758b7bc85b9661d7348493ee47e43c21392]
 
 unit_test_task:
+  flutter_version_check_script:
+    - flutter --version
   create_env_script:
     - touch .env
     - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
@@ -21,8 +23,6 @@ ui_test_task:
     - touch .env
     - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
   only_if: $BRANCH == "master"
-  osx_instance:
-    image: catalina-xcode-11.4.1-flutter
   script:
     - ./execute_ui_tests.sh
   after_script:
