@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:latlong/latlong.dart';
+import 'package:location/location.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 
 class NearbyBusStopsServiceProvider with ChangeNotifier {
@@ -9,15 +10,16 @@ class NearbyBusStopsServiceProvider with ChangeNotifier {
 
   List<BusStopModel> _nearbyBusStops = <BusStopModel>[];
   List<BusStopModel> get nearbyBusStops => _nearbyBusStops;
+  var distance = Distance();
 
-  Future<void> setNearbyBusStop(Position position) async {
+  Future<void> setNearbyBusStop(LocationData currentLocation) async {
     _nearbyBusStops = <BusStopModel>[];
     for (final busStop in allBusStops) {
-      final distanceInMeters = await Geolocator().distanceBetween(
-          position.latitude,
-          position.longitude,
-          busStop.latitude,
-          busStop.longitude);
+      final distanceInMeters = distance(
+        LatLng(currentLocation.latitude, currentLocation.longitude),
+        LatLng(busStop.latitude, busStop.longitude),
+      );
+
       final isNearby = distanceInMeters <= 500;
 
       if (isNearby) {

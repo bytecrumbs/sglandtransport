@@ -54,7 +54,6 @@ class MainAboutScreen extends StatelessWidget {
             AboutHeader(
               headerText: 'Support us',
             ),
-            Text('- Review on App Store'),
             RichText(
               text: TextSpan(
                 children: [
@@ -131,7 +130,6 @@ class MainAboutScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Text('- Buy us a coffee'),
             AboutHeader(
               headerText: 'Feedback',
             ),
@@ -174,12 +172,11 @@ class MainAboutScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                   TextSpan(
-                    text: 'https://sglandtransport.app/privacy-policy',
+                    text: 'https://sglandtransport.app/about',
                     style: TextStyle(color: Colors.blue),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () async {
-                        const url =
-                            'https://sglandtransport.app/privacy-policy';
+                        const url = 'https://sglandtransport.app/about';
                         if (await canLaunch(url)) {
                           await launch(url);
                         } else {

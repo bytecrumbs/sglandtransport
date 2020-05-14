@@ -125,3 +125,8 @@ export PATH="<path to flutter installation directory>/bin/cache/dart-sdk/bin:$PA
 ```
 screenshots
 ```
+
+## Generate new set of app icon
+
+1. Place your icon `app-icon.png` image in `images/` folder
+2. Run the following command `flutter pub run flutter_launcher_icons:main`
