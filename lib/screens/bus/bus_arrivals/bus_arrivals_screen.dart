@@ -12,7 +12,7 @@ class BusArrivalsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${busStopModel.busStopCode} (${busStopModel.roadName})'),
+        title: Text(busStopModel.description),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 10.0),

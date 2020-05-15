@@ -22,19 +22,19 @@ void main() {
     ));
   }
 
-  testWidgets('Card shows a Bus Stop Code with the Bus Stop Name',
+  testWidgets('Card shows a Bus Stop Code with the Road name',
       (WidgetTester tester) async {
     await _pumpBusStopCard(tester);
 
     final labelFinder =
-        find.text('${busStopModel.description} (${busStopModel.busStopCode})');
+        find.text('${busStopModel.busStopCode} | ${busStopModel.roadName}');
     expect(labelFinder, findsOneWidget);
   });
 
   testWidgets('Card shows a description', (WidgetTester tester) async {
     await _pumpBusStopCard(tester);
 
-    final labelFinder = find.text(busStopModel.roadName);
+    final labelFinder = find.text(busStopModel.description);
     expect(labelFinder, findsOneWidget);
   });
 }
