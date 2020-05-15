@@ -19,7 +19,7 @@ class AppDrawer extends StatelessWidget {
                 bottom: 12.0,
                 left: 20.0,
                 child: Text(
-                  'Welcome to the SG Land Transport',
+                  'Welcome to SG Land Transport',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17.0,
