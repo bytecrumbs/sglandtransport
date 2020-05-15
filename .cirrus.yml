@@ -1,11 +1,9 @@
-osx_instance:
-  image: catalina-flutter
-
 env:
   AUTH_TOKEN: ENCRYPTED[96e726ee10df063efb5cdd500da0ee8c0088e031eb8305a1b16239f791ab0758b7bc85b9661d7348493ee47e43c21392]
 
 unit_test_task:
-  flutter_version_script:
+  container:
+    image: cirrusci/flutter:latest
   create_env_script:
     - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
   pub_cache:
@@ -17,6 +15,8 @@ unit_test_task:
     - genhtml coverage/lcov.info --output=coverage
 
 ui_test_task:
+  osx_instance:
+    image: catalina-flutter
   only_if: $BRANCH == "master"
   create_env_script:
     - touch .env
