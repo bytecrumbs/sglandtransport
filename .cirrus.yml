@@ -7,15 +7,15 @@ env:
 unit_test_task:
   add_lcov_script:
     - brew install lcov
-  # create_env_script:
-  #   - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
-  # pub_cache:
-  #   folder: ~/.pub-cache
-  # test_script:
-  #   - flutter analyze
-  #   - flutter test --coverage
-  #   - lcov --list coverage/lcov.info
-  #   - genhtml coverage/lcov.info --output=coverage
+  create_env_script:
+    - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
+  pub_cache:
+    folder: ~/.pub-cache
+  test_script:
+    - flutter analyze
+    - flutter test --coverage
+    - lcov --list coverage/lcov.info
+    - genhtml coverage/lcov.info --output=coverage
 
 ui_test_task:
   only_if: $BRANCH == "master"
