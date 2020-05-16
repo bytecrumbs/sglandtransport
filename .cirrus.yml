@@ -19,8 +19,10 @@ unit_test_task:
 
 ui_test_task:
   only_if: $BRANCH == "master"
+  add_applesimutils_script:
+    - brew tap wix/brew
+    - brew install applesimutils
   create_env_script:
-    - touch .env
     - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
   script:
     - ./execute_ui_tests.sh
