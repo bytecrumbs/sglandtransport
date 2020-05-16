@@ -41,7 +41,10 @@ class _MainBusScreenState extends State<MainBusScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.location_searching),
-            title: const Text('Nearby'),
+            title: const Text(
+              'Nearby',
+              key: ValueKey<String>('NearbyScreen'),
+            ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
