@@ -29,6 +29,14 @@ void main() {
       }
     });
 
+    group('Nearby', () {
+      test('Checks that bus stop is present in favorite screen', () async {
+        await driver.tap(find.byValueKey('NearbyScreen'));
+        await screenshot(driver, config, 'NearbyScreen');
+        expect(await isRendered(busStopCard, driver), true);
+      });
+    });
+
     group('Search', () {
       test('Checks that bus stop can be searched by description', () async {
         await driver.tap(find.byValueKey('searchScreen'));
@@ -40,6 +48,7 @@ void main() {
 
       test('Clicks on bus stop to see a list of bus arrivals', () async {
         await driver.tap(busStopCard);
+        await screenshot(driver, config, 'BusArrivalCard');
         expect(await isRendered(find.byValueKey('busArrivalCard-0'), driver),
             true);
       });
@@ -49,6 +58,7 @@ void main() {
         expect(await isRendered(selectedFavoriteIcon, driver), false);
 
         await driver.tap(favoriteIconButton);
+        await screenshot(driver, config, 'Favoritebus');
 
         expect(await isRendered(unselectedFavoriteIcon, driver), false);
         expect(await isRendered(selectedFavoriteIcon, driver), true);
@@ -79,6 +89,7 @@ void main() {
     group('Favorites', () {
       test('Checks that bus stop is present in favorite screen', () async {
         await driver.tap(find.byValueKey('favoriteScreen'));
+        await screenshot(driver, config, 'Favoritescreen');
         expect(await isRendered(busStopCard, driver), true);
       });
 
