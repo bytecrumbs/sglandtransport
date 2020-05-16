@@ -15,5 +15,9 @@ devices:
     iPhone Xs Max:
     iPhone X:
     iPad Pro (12.9-inch) (2nd generation):
+  android:
+    Nexus 5X:
+    Nexus 6P:
+    Nexus 9:
 # Frame screenshots
 frame: true
