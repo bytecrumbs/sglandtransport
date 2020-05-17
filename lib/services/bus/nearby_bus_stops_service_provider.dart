@@ -10,10 +10,10 @@ class NearbyBusStopsServiceProvider with ChangeNotifier {
 
   List<BusStopModel> _nearbyBusStops = <BusStopModel>[];
   List<BusStopModel> get nearbyBusStops => _nearbyBusStops;
-  var distance = Distance();
 
   Future<void> setNearbyBusStop(LocationData currentLocation) async {
     _nearbyBusStops = <BusStopModel>[];
+    final distance = Distance();
     for (final busStop in allBusStops) {
       final distanceInMeters = distance(
         LatLng(currentLocation.latitude, currentLocation.longitude),
