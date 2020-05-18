@@ -2,7 +2,7 @@ osx_instance:
   image: catalina-flutter
 
 env:
-  AUTH_TOKEN: ENCRYPTED[96e726ee10df063efb5cdd500da0ee8c0088e031eb8305a1b16239f791ab0758b7bc85b9661d7348493ee47e43c21392]
+  AUTH_TOKEN: ENCRYPTED[7c5c36fa21b1913320ef471077914da5f765a3a7b902e1d5224ade79635c6ee9b1842b2c677295a4094253a6587cb27b]
 
 unit_test_task:
   add_lcov_script:
