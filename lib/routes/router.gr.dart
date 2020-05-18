@@ -8,29 +8,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:lta_datamall_flutter/screens/bus/main_bus_screen.dart';
-import 'package:lta_datamall_flutter/screens/bicycle/main_bicycle_screen.dart';
-import 'package:lta_datamall_flutter/screens/car/main_car_screen.dart';
-import 'package:lta_datamall_flutter/screens/taxi/main_taxi_screen.dart';
-import 'package:lta_datamall_flutter/screens/traffic/main_traffic_screen.dart';
-import 'package:lta_datamall_flutter/screens/train/main_train_screen.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrivals_screen.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/screens/about/main_about_screen.dart';
 
 abstract class Routes {
   static const mainBusScreenRoute = '/';
-  static const mainBicycleScreenRoute = '/main-bicycle-screen-route';
-  static const mainCarScreenRoute = '/main-car-screen-route';
-  static const mainTaxiScreenRoute = '/main-taxi-screen-route';
-  static const mainTrafficScreenRoute = '/main-traffic-screen-route';
-  static const mainTrainScreenRoute = '/main-train-screen-route';
   static const busArrivalsScreenRoute = '/bus-arrivals-screen-route';
   static const aboutScreenRoute = '/about-screen-route';
+  static const all = {
+    mainBusScreenRoute,
+    busArrivalsScreenRoute,
+    aboutScreenRoute,
+  };
 }
 
 class Router extends RouterBase {
-  //This will probably be removed in future versions
-  //you should call ExtendedNavigator.ofRouter<Router>() directly
+  @override
+  Set<String> get allRoutes => Routes.all;
+
+  @Deprecated('call ExtendedNavigator.ofRouter<Router>() directly')
   static ExtendedNavigatorState get navigator =>
       ExtendedNavigator.ofRouter<Router>();
 
@@ -40,32 +37,7 @@ class Router extends RouterBase {
     switch (settings.name) {
       case Routes.mainBusScreenRoute:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => MainBusScreen(),
-          settings: settings,
-        );
-      case Routes.mainBicycleScreenRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (_) => MainBicycleScreen(),
-          settings: settings,
-        );
-      case Routes.mainCarScreenRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (_) => MainCarScreen(),
-          settings: settings,
-        );
-      case Routes.mainTaxiScreenRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (_) => MainTaxiScreen(),
-          settings: settings,
-        );
-      case Routes.mainTrafficScreenRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (_) => MainTrafficScreen(),
-          settings: settings,
-        );
-      case Routes.mainTrainScreenRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (_) => MainTrainScreen(),
+          builder: (context) => MainBusScreen(),
           settings: settings,
         );
       case Routes.busArrivalsScreenRoute:
@@ -75,7 +47,7 @@ class Router extends RouterBase {
         }
         final typedArgs = args as BusArrivalsScreenArguments;
         return PageRouteBuilder<dynamic>(
-          pageBuilder: (ctx, animation, secondaryAnimation) =>
+          pageBuilder: (context, animation, secondaryAnimation) =>
               BusArrivalsScreen(busStopModel: typedArgs.busStopModel),
           settings: settings,
           transitionsBuilder: TransitionsBuilders.zoomIn,
@@ -83,7 +55,7 @@ class Router extends RouterBase {
         );
       case Routes.aboutScreenRoute:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => MainAboutScreen(),
+          builder: (context) => MainAboutScreen(),
           settings: settings,
         );
       default:
@@ -92,9 +64,9 @@ class Router extends RouterBase {
   }
 }
 
-//**************************************************************************
+// *************************************************************************
 // Arguments holder classes
-//***************************************************************************
+// **************************************************************************
 
 //BusArrivalsScreen arguments holder class
 class BusArrivalsScreenArguments {

@@ -22,11 +22,6 @@ class Features {
 
 const List<Feature> DevFeatures = [
   busesFeature,
-  trainsFeature,
-  bicyclesFeature,
-  carsFeature,
-  taxisFeature,
-  trafficFeature,
   aboutFeature,
 ];
 
@@ -39,36 +34,6 @@ const Feature busesFeature = Feature(
   title: 'Buses',
   routeName: Routes.mainBusScreenRoute,
   icon: Icon(Icons.directions_bus),
-);
-
-const Feature trainsFeature = Feature(
-  title: 'Trains',
-  routeName: Routes.mainTrainScreenRoute,
-  icon: Icon(Icons.directions_railway),
-);
-
-const Feature bicyclesFeature = Feature(
-  title: 'Bicycles',
-  routeName: Routes.mainBicycleScreenRoute,
-  icon: Icon(Icons.directions_bike),
-);
-
-const Feature carsFeature = Feature(
-  title: 'Cars',
-  routeName: Routes.mainCarScreenRoute,
-  icon: Icon(Icons.directions_car),
-);
-
-const Feature taxisFeature = Feature(
-  title: 'Taxis',
-  routeName: Routes.mainTaxiScreenRoute,
-  icon: Icon(Icons.local_taxi),
-);
-
-const Feature trafficFeature = Feature(
-  title: 'Traffic',
-  routeName: Routes.mainTrafficScreenRoute,
-  icon: Icon(Icons.traffic),
 );
 
 const Feature aboutFeature = Feature(
