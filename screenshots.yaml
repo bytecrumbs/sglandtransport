@@ -5,6 +5,8 @@ tests:
 # Interim location of screenshots from tests
 staging: /tmp/screenshots
 
+recording: /tmp/screenshots_record
+
 # A list of locales supported by the app
 locales:
   - en-US

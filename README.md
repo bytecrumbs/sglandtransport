@@ -123,7 +123,7 @@ export PATH="<path to flutter installation directory>/bin/cache/dart-sdk/bin:$PA
 2. Usage
 
 ```
-screenshots
+screenshots -m recording
 ```
 
 ## Generate new set of app icon
