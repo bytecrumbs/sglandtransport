@@ -52,6 +52,34 @@ flutter pub run build_runner build --delete-conflicting-outputs
 flutter pub run build_runner watch --delete-conflicting-outputs
 ```
 
+## Running tests
+
+### Installing dependences
+
+```
+brew install lcov
+```
+
+### Run tests, generate coverage files and convert to HTML
+
+```
+flutter test --coverage
+genhtml coverage/lcov.info -o coverage/html
+```
+
+### Run Integration (UI) Tests
+
+1. Install dependencies
+
+- `brew tap wix/brew`
+- `brew install applesimutils`
+
+2. Run tests (from project root):
+
+```
+./execute_ui_tests.sh
+```
+
 ## Deployments
 
 This project is using Fastlane (https://fastlane.tools/) as its deployment pipeline.
@@ -73,37 +101,9 @@ TBD
 
 TBD
 
-## Run test, generate coverage and convert to HTML
-
-### Installing dependency
-
-```
-brew install lcov
-```
-
-### Run tests, generate coverage files and convert to HTML
-
-```
-flutter test --coverage
-genhtml coverage/lcov.info -o coverage/html
-```
-
-### Run automation
-
-1. Install AppleSimulatorUtils
-
-- `brew tap wix/brew`
-- `brew install applesimutils`
-
-2. Run tests. From root:
-
-```
-./execute_ui_tests.sh
-```
-
 ## Screenshot Commandline utility
 
-### Installation
+### Installing dependencies
 
 ```
 brew update && brew install imagemagick
