@@ -103,24 +103,22 @@ genhtml coverage/lcov.info -o coverage/html
 
 ## Screenshot Commandline utility
 
-1. Installation
+### Installation
 
 ```
 brew update && brew install imagemagick
 pub global activate screenshots
 ```
 
-Note:
-
-```
-If pub is not found, add to PATH using:
+Note: If pub is not found, add to PATH using:
 
 On macOS:
 
+```
 export PATH="<path to flutter installation directory>/bin/cache/dart-sdk/bin:$PATH"
 ```
 
-2. Usage
+### Usage
 
 ```
 screenshots -m recording
@@ -130,3 +128,9 @@ screenshots -m recording
 
 1. Place your icon `app-icon.png` image in `images/` folder
 2. Run the following command `flutter pub run flutter_launcher_icons:main`
+
+## Maintainers
+
+<a href="https://github.com/ameego"><img width="60" height="60" src="https://github.com/ameego.png?size=500"/></a>
+<a href="https://github.com/bobrenji"><img width="60" height="60" src="https://github.com/bobrenji.png?size=500"/></a>
+<a href="https://github.com/sderungs99"><img width="60" height="60" src="https://github.com/sderungs99.png?size=500"/></a>
