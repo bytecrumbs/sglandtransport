@@ -5,6 +5,8 @@ env:
   AUTH_TOKEN: ENCRYPTED[7c5c36fa21b1913320ef471077914da5f765a3a7b902e1d5224ade79635c6ee9b1842b2c677295a4094253a6587cb27b]
 
 analyze_task:
+  create_env_script:
+    - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
   analyze_script:
     - flutter analyze
 
