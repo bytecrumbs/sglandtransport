@@ -1,16 +1,9 @@
 # LTA Datamall app
 
 ![MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-
-'master' Branch:
-[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?branch=master)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
-[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?branch=master&task=analyze)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
-[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?branch=master&task=unit_test)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
-
-'develop' Branch:
-[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?branch=develop)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
-[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?branch=develop&task=analyze)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
-[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?branch=develop&task=unit_test)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
+[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
+[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?task=analyze)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
+[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?task=unit_test)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
 
 This app provides screens and functionality for APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
 
