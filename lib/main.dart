@@ -15,6 +15,7 @@ import 'package:lta_datamall_flutter/services/observer_service_provider.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:lta_datamall_flutter/widgets/loader.dart';
 
 Future<void> main() async {
   await DotEnv().load('.env');
@@ -75,16 +76,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'LTA Datamall App',
       darkTheme: ThemeData.dark(),
       home: Scaffold(
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
-              Text('Initializing data...'),
-              SizedBox(height: 10),
-              CircularProgressIndicator(),
+            children: <Widget>[
+              Loader(size: 200),
             ],
           ),
         ),
