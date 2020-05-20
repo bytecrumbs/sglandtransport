@@ -12,8 +12,6 @@ analyze_task:
 unit_test_task:
   container:
     image: cirrusci/flutter:latest
-  add_lcov_script:
-    - brew install lcov
   create_env_script:
     - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
   pub_cache:
