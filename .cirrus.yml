@@ -4,6 +4,10 @@ osx_instance:
 env:
   AUTH_TOKEN: ENCRYPTED[7c5c36fa21b1913320ef471077914da5f765a3a7b902e1d5224ade79635c6ee9b1842b2c677295a4094253a6587cb27b]
 
+analyze_task:
+  analyze_script:
+    - flutter analyze
+
 unit_test_task:
   add_lcov_script:
     - brew install lcov
@@ -12,10 +16,9 @@ unit_test_task:
   pub_cache:
     folder: ~/.pub-cache
   test_script:
-    - flutter analyze
     - flutter test --coverage
     - lcov --list coverage/lcov.info
-    - genhtml coverage/lcov.info --output=coverage
+    # - genhtml coverage/lcov.info --output=coverage
 # ui_test_task:
 #   only_if: $BRANCH == "master"
 #   add_applesimutils_script:
