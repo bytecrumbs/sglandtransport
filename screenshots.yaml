@@ -5,6 +5,8 @@ tests:
 # Interim location of screenshots from tests
 staging: /tmp/screenshots
 
+recording: /tmp/screenshots_record
+
 # A list of locales supported by the app
 locales:
   - en-US
@@ -14,6 +16,7 @@ devices:
   ios:
     iPhone Xs Max:
     iPhone X:
+    iPhone 7 Plus:
     iPad Pro (12.9-inch) (2nd generation):
   android:
     Nexus 5X:

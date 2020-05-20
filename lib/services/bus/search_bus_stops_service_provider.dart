@@ -15,9 +15,9 @@ class SearchBusStopsServiceProvider with ChangeNotifier {
     if (searchText.isNotEmpty) {
       for (final busStop in allBusStops) {
         final isTextMatching =
-            containsSearchText(busStop.busStopCode, searchText) ||
-                containsSearchText(busStop.description, searchText) ||
-                containsSearchText(busStop.roadName, searchText);
+            _containsSearchText(busStop.busStopCode, searchText) ||
+                _containsSearchText(busStop.description, searchText) ||
+                _containsSearchText(busStop.roadName, searchText);
 
         if (isTextMatching) {
           _busStopSearchList.add(busStop);
@@ -27,7 +27,7 @@ class SearchBusStopsServiceProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool containsSearchText(String value, String searchText) {
+  bool _containsSearchText(String value, String searchText) {
     value = value.toLowerCase();
     searchText = searchText.toLowerCase();
     return value.contains(searchText);
