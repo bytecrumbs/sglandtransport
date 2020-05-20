@@ -1,9 +1,10 @@
 # LTA Datamall app
 
 ![MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
-[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?task=analyze)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
-[![Build Status](https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?task=unit_test)](https://cirrus-ci.com/github/sderungs99/sglandtransport)
+[![Build Status - Cirrus][]][build status]
+[![Build Status - Cirrus analyze][]][build status]
+[![Build Status - Cirrus unit_test][]][build status]
+[![Twitter handle][]][twitter badge]
 
 This app provides screens and functionality for APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
 
@@ -146,3 +147,10 @@ screenshots -m recording
 <a href="https://github.com/ameego"><img width="60" height="60" src="https://github.com/ameego.png?size=500"/></a>
 <a href="https://github.com/bobrenji"><img width="60" height="60" src="https://github.com/bobrenji.png?size=500"/></a>
 <a href="https://github.com/sderungs99"><img width="60" height="60" src="https://github.com/sderungs99.png?size=500"/></a>
+
+[twitter handle]: https://img.shields.io/twitter/follow/sgltapp.svg?style=social&label=Follow
+[twitter badge]: https://twitter.com/intent/follow?screen_name=sgltapp
+[build status - cirrus]: https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg
+[build status - cirrus analyze]: https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?task=analyze
+[build status - cirrus unit_test]: https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?task=unit_test
+[build status]: https://cirrus-ci.com/github/sderungs99/sglandtransport/master
