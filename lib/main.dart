@@ -82,7 +82,7 @@ class Splash extends StatelessWidget {
         startAnimation: 'Bus-intro',
         loopAnimation: 'Bus',
         next: (context) => MyApp(),
-        until: () => Future.delayed(Duration(seconds: 1)),
+        until: () => Future.delayed(Duration(milliseconds: 1300)),
       ),
     );
   }
