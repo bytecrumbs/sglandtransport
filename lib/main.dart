@@ -79,7 +79,7 @@ class Splash extends StatelessWidget {
     return MaterialApp(
       home: SplashScreen.navigate(
         name: 'images/bus.flr',
-        startAnimation: 'Bus',
+        startAnimation: 'Bus-intro',
         loopAnimation: 'Bus',
         next: (context) => MyApp(),
         until: () => Future.delayed(Duration(seconds: 1)),
