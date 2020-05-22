@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:lta_datamall_flutter/widgets/loader.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 
 Future<void> main() async {
   await DotEnv().load('.env');
@@ -31,14 +32,62 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final RateMyApp _rateMyApp = RateMyApp(
+    minDays: 3,
+    preferencesPrefix: 'rateMySGLandTransportApp_',
+    minLaunches: 10,
+    remindDays: 5,
+    remindLaunches: 10,
+  );
+
   Future<List<BusStopModel>> _initAllBusStops() async {
     return await fetchBusStopList(http.IOClient());
   }
 
-  Future<List<List<BusStopModel>>> _initApp() async {
+  Future<List<List<BusStopModel>>> _initApp(BuildContext context) async {
+    await initRateMyApp(context);
     return Future.wait(<Future<List<BusStopModel>>>[
       _initAllBusStops(),
     ]);
+  }
+
+  Future initRateMyApp(BuildContext context) async {
+    await _rateMyApp.init().then(
+          (_) => {
+            if (_rateMyApp.shouldOpenDialog)
+              {
+                _rateMyApp.showStarRateDialog(
+                  context,
+                  title: 'Enjoying SG Land Transport?',
+                  message: 'Tap a star to rate it',
+                  actionsBuilder: (context, stars) {
+                    return [
+                      FlatButton(
+                        child: Text('Ok'),
+                        onPressed: () async {
+                          (stars == null ? '0' : _rateMyApp.launchStore());
+                          await _rateMyApp
+                              .callEvent(RateMyAppEventType.rateButtonPressed);
+                          Navigator.pop<RateMyAppDialogButton>(
+                              context, RateMyAppDialogButton.rate);
+                        },
+                      )
+                    ];
+                  },
+                  ignoreIOS: false,
+                  dialogStyle: DialogStyle(
+                    titleAlign: TextAlign.center,
+                    messageAlign: TextAlign.center,
+                    messagePadding: EdgeInsets.only(bottom: 20),
+                  ),
+                  starRatingOptions: StarRatingOptions(),
+                  onDismissed: () => _rateMyApp.callEvent(
+                    RateMyAppEventType.laterButtonPressed,
+                  ),
+                )
+              }
+          },
+        );
   }
 
   @override
@@ -48,7 +97,7 @@ class MyApp extends StatelessWidget {
     ]);
 
     return FutureBuilder<List<List<BusStopModel>>>(
-      future: _initApp(),
+      future: _initApp(context),
       builder: (BuildContext context,
           AsyncSnapshot<List<List<BusStopModel>>> snapshot) {
         if (snapshot.hasData) {
