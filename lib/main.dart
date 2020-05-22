@@ -16,7 +16,7 @@ import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:lta_datamall_flutter/widgets/loader.dart';
-import 'package:flare_splash_screen/flare_splash_screen.dart';
+import 'package:lta_datamall_flutter/widgets/splash.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
 Future<void> main() async {
@@ -27,7 +27,7 @@ Future<void> main() async {
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runZoned(() {
-    runApp(Splash());
+    runApp(Splash(nextAction: MyApp()));
   }, onError: Crashlytics.instance.recordError);
 }
 
@@ -118,24 +118,6 @@ class MyApp extends StatelessWidget {
         }
         return Loader();
       },
-    );
-  }
-}
-
-class Splash extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        decoration: BoxDecoration(color: Colors.white),
-        child: SplashScreen.navigate(
-          name: 'images/bus.flr',
-          startAnimation: 'Bus-intro',
-          loopAnimation: 'Bus',
-          next: (context) => MyApp(),
-          until: () => Future.delayed(Duration(milliseconds: 1300)),
-        ),
-      ),
     );
   }
 }
