@@ -39,6 +39,7 @@ dependencies:
   flare_flutter: ^2.0.3
   flare_splash_screen: ^3.0.1
   rate_my_app: ^0.6.1+2
+  convex_bottom_bar: ^2.2.0
 
 dev_dependencies:
   flutter_test:
