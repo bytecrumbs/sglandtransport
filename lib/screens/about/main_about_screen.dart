@@ -49,7 +49,7 @@ class MainAboutScreen extends StatelessWidget {
               ),
             ),
             Text('- 100% free'),
-            Text('- 100% add free'),
+            Text('- 100% ad-free'),
             Text('- 100% open-source'),
             AboutHeader(
               headerText: 'Support us',
