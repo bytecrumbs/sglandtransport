@@ -21,9 +21,9 @@ or alternatively using `brew cask install fastlane`
 fastlane android test
 ```
 Runs all the tests
-### android deploy
+### android deploy_internal
 ```
-fastlane android deploy
+fastlane android deploy_internal
 ```
 Deploy a new version to the Google Play
 
