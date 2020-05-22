@@ -126,12 +126,15 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SplashScreen.navigate(
-        name: 'images/bus.flr',
-        startAnimation: 'Bus-intro',
-        loopAnimation: 'Bus',
-        next: (context) => MyApp(),
-        until: () => Future.delayed(Duration(milliseconds: 1300)),
+      home: Container(
+        decoration: BoxDecoration(color: Colors.white),
+        child: SplashScreen.navigate(
+          name: 'images/bus.flr',
+          startAnimation: 'Bus-intro',
+          loopAnimation: 'Bus',
+          next: (context) => MyApp(),
+          until: () => Future.delayed(Duration(milliseconds: 1300)),
+        ),
       ),
     );
   }
