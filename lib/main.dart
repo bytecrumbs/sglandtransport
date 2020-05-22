@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
                 _rateMyApp.showStarRateDialog(
                   context,
                   title: 'Enjoying SG Land Transport?',
-                  message: 'Tap a star to rate it',
+                  message: 'Let us know what you think',
                   actionsBuilder: (context, stars) {
                     return [
                       FlatButton(
