@@ -4,8 +4,6 @@ import 'package:location/location.dart';
 import 'package:lta_datamall_flutter/models/user_location.dart';
 
 class LocationServiceProvider {
-  // Keep track of current Location
-  UserLocation _currentLocation;
   Location location = Location();
   // Continuously emit location updates
   final StreamController<UserLocation> _locationController =
@@ -22,25 +20,20 @@ class LocationServiceProvider {
               UserLocation(
                 latitude: locationData.latitude,
                 longitude: locationData.longitude,
+                permissionGranted: true,
               ),
             );
           }
         });
+      } else {
+        _locationController.add(
+          UserLocation(
+            latitude: null,
+            longitude: null,
+            permissionGranted: false,
+          ),
+        );
       }
     });
-  }
-
-  Future<UserLocation> getLocation() async {
-    try {
-      var userLocation = await location.getLocation();
-      _currentLocation = UserLocation(
-        latitude: userLocation.latitude,
-        longitude: userLocation.longitude,
-      );
-    } catch (e) {
-      print('Could not get the location: $e');
-    }
-
-    return _currentLocation;
   }
 }
