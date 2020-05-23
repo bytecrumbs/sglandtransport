@@ -165,7 +165,7 @@ class MainApp extends StatelessWidget {
                 observer.getAnalyticsObserver(),
               ],
             ),
-            title: 'LTA Datamall App',
+            title: 'SG Land Transport',
             darkTheme: ThemeData.dark(),
             theme: ThemeData.light(),
           );
