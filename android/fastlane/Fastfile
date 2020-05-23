@@ -26,12 +26,12 @@ platform :android do
   end
 
   desc "Deploy a new version to the Google Play"
-  lane :deploy do
+  lane :deploy_internal do
     Dir.chdir "../.." do
       sh("flutter", "analyze")
       sh("flutter", "test")
       sh("flutter", "build", "appbundle")
     end
-    upload_to_play_store(aab: "../build/app/outputs/bundle/release/app-release.aab")
+    upload_to_play_store(track: "internal", aab: "../build/app/outputs/bundle/release/app-release.aab")
   end
 end

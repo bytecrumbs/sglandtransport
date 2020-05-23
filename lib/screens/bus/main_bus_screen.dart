@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/services/observer_service_provider.dart';
 import 'package:lta_datamall_flutter/screens/bus/favorites_bus_section.dart';
@@ -30,30 +31,31 @@ class _MainBusScreenState extends State<MainBusScreen> {
       ),
       drawer: AppDrawer(),
       body: pageList[pageIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: pageIndex,
+      bottomNavigationBar: ConvexAppBar(
+        color: Colors.grey,
+        activeColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).bottomAppBarColor,
+        top: -25.0,
+        style: TabStyle.react,
+        initialActiveIndex: pageIndex,
         onTap: (int newValue) {
           setState(() {
             pageIndex = newValue;
             _sendCurrentTabToAnalytics(pageList[pageIndex].toString());
           });
         },
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_searching),
-            title: const Text(
-              'Nearby',
-              key: ValueKey<String>('NearbyScreen'),
-            ),
+        items: [
+          TabItem(
+            icon: Icons.location_searching,
+            title: 'Nearby',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            title: const Text('Favorites',
-                key: ValueKey<String>('favoriteScreen')),
+          TabItem(
+            icon: Icons.favorite,
+            title: 'Favorites',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            title: const Text('Search', key: ValueKey<String>('searchScreen')),
+          TabItem(
+            icon: Icons.search,
+            title: 'Search',
           ),
         ],
       ),

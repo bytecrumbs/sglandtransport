@@ -99,16 +99,19 @@ This project is using Fastlane (https://fastlane.tools/) as its deployment pipel
 
 ### Beta deployments
 
-#### To deploy to iOS TestFlight from local:
+#### iOS TestFlight:
 
 ```
 cd ios
 bundle exec fastlane beta
 ```
 
-#### To deploy to Android beta from local:
+#### Android internal test track:
 
-TBD
+```
+cd android
+bundle exec fastlane deploy_internal
+```
 
 ## Production deployments
 
