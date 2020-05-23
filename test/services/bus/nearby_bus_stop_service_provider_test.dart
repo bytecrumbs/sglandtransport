@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:location/location.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/models/user_location.dart';
 import 'package:lta_datamall_flutter/services/bus/nearby_bus_stops_service_provider.dart';
 
 void main() {
@@ -38,20 +38,19 @@ void main() {
 
   group('Nearby Bus Stops', () {
     test('Should return Nearby Bus Stops', () async {
-      final searchBusStopsService =
+      final nearbyBusStopsService =
           NearbyBusStopsServiceProvider(allBusStops: busStopList);
 
-      final locationMap = {
-        'latitude': 1.29785,
-        'longitude': 103.853,
-      };
-      final currentLocation = LocationData.fromMap(locationMap);
+      final userLocation = UserLocation(
+        latitude: 1.29785,
+        longitude: 103.853,
+      );
 
-      await searchBusStopsService.setNearbyBusStop(currentLocation);
+      final nearbyBusStops =
+          nearbyBusStopsService.getNearbyBusStops(userLocation);
 
-      expect(searchBusStopsService.nearbyBusStops.length, 1);
-      expect(searchBusStopsService.nearbyBusStops[0].busStopCode,
-          busStopList[0].busStopCode);
+      expect(nearbyBusStops.length, 1);
+      expect(nearbyBusStops[0].busStopCode, busStopList[0].busStopCode);
     });
   });
 }

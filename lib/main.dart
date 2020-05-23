@@ -8,9 +8,11 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lta_datamall_flutter/api.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/models/user_location.dart';
 import 'package:lta_datamall_flutter/services/bus/favorite_bus_stops_service_provider.dart';
 import 'package:lta_datamall_flutter/services/bus/nearby_bus_stops_service_provider.dart';
 import 'package:lta_datamall_flutter/services/bus/search_bus_stops_service_provider.dart';
+import 'package:lta_datamall_flutter/services/location_service_provider.dart';
 import 'package:lta_datamall_flutter/services/observer_service_provider.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:provider/provider.dart';
@@ -150,6 +152,9 @@ class MainApp extends StatelessWidget {
           create: (_) => SearchBusStopsServiceProvider(
               allBusStops: busStopModelListForFavorites),
         ),
+        StreamProvider<UserLocation>(
+          create: (_) => LocationServiceProvider().locationStream,
+        )
       ],
       child: Consumer<ObserverServiceProvider>(
         builder: (
