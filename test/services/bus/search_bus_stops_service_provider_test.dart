@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/services/bus/search_bus_stops_service_provider.dart';
+import 'package:lta_datamall_flutter/providers/bus/search_bus_stops_provider.dart';
 
 void main() {
   final busStopList = [
@@ -38,7 +38,7 @@ void main() {
     test('Should return list of bus stops if user inputs bus stop code',
         () async {
       final searchBusStopsService =
-          SearchBusStopsServiceProvider(allBusStops: busStopList);
+          SearchBusStopsProvider(allBusStops: busStopList);
       await searchBusStopsService.findBusStops('010');
 
       expect(searchBusStopsService.busStopSearchList.length, 3);
@@ -47,7 +47,7 @@ void main() {
     test('Should returns list of bus stops if user enters road name', () async {
       final expectedResultList = [busStopList[2]];
       final searchBusStopsService =
-          SearchBusStopsServiceProvider(allBusStops: busStopList);
+          SearchBusStopsProvider(allBusStops: busStopList);
       await searchBusStopsService.findBusStops('roadName3');
 
       expect(searchBusStopsService.busStopSearchList[0].busStopCode,

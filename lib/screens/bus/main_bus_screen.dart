@@ -1,6 +1,6 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/services/observer_service_provider.dart';
+import 'package:lta_datamall_flutter/providers/observer_provider.dart';
 import 'package:lta_datamall_flutter/screens/bus/favorites_bus_section.dart';
 import 'package:lta_datamall_flutter/screens/bus/nearby_bus_section.dart';
 import 'package:lta_datamall_flutter/screens/bus/search_bus_section.dart';
@@ -64,7 +64,7 @@ class _MainBusScreenState extends State<MainBusScreen> {
 
   void _sendCurrentTabToAnalytics(String screenName) {
     context
-        .read<ObserverServiceProvider>()
+        .read<ObserverProvider>()
         .getAnalyticsObserver()
         .analytics
         .setCurrentScreen(

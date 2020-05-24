@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/services/bus/favorite_bus_stops_service_provider.dart';
+import 'package:lta_datamall_flutter/providers/bus/favorite_bus_stops_provider.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteButton extends StatelessWidget {
@@ -11,10 +11,10 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FavoriteBusStopsServiceProvider>(
+    return Consumer<FavoriteBusStopsProvider>(
       builder: (
         BuildContext context,
-        FavoriteBusStopsServiceProvider provider,
+        FavoriteBusStopsProvider provider,
         _,
       ) {
         final isFavoriteBusStop = provider.isFavoriteBusStop(busStopCode);
