@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FavoriteBusStopsServiceProvider with ChangeNotifier {
-  FavoriteBusStopsServiceProvider({@required this.allBusStops}) {
+class FavoriteBusStopsProvider with ChangeNotifier {
+  FavoriteBusStopsProvider({@required this.allBusStops}) {
     fetchFavoriteBusStops();
   }
   final List<BusStopModel> allBusStops;

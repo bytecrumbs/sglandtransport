@@ -3,8 +3,8 @@ import 'package:latlong/latlong.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/models/user_location.dart';
 
-class NearbyBusStopsServiceProvider with ChangeNotifier {
-  NearbyBusStopsServiceProvider({@required this.allBusStops});
+class NearbyBusStopsProvider with ChangeNotifier {
+  NearbyBusStopsProvider({@required this.allBusStops});
 
   final List<BusStopModel> allBusStops;
 

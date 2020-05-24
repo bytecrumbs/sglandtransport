@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/models/user_location.dart';
-import 'package:lta_datamall_flutter/services/bus/nearby_bus_stops_service_provider.dart';
+import 'package:lta_datamall_flutter/providers/bus/nearby_bus_stops_provider.dart';
 
 void main() {
   final busStopList = [
@@ -39,7 +39,7 @@ void main() {
   group('Nearby Bus Stops', () {
     test('Should return Nearby Bus Stops', () async {
       final nearbyBusStopsService =
-          NearbyBusStopsServiceProvider(allBusStops: busStopList);
+          NearbyBusStopsProvider(allBusStops: busStopList);
 
       final userLocation = UserLocation(
         latitude: 1.29785,

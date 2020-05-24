@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/services/bus/search_bus_stops_service_provider.dart';
+import 'package:lta_datamall_flutter/providers/bus/search_bus_stops_provider.dart';
 import 'package:provider/provider.dart';
 import 'bus_stops/bus_stop_card.dart';
 import 'bus_stops/search_bar.dart';
@@ -14,13 +14,13 @@ class _SearchBusStopsState extends State<SearchBusStops> {
   final TextEditingController _controller = TextEditingController();
 
   void onSearchTextChanged(String value) {
-    context.read<SearchBusStopsServiceProvider>().findBusStops(value);
+    context.read<SearchBusStopsProvider>().findBusStops(value);
   }
 
   @override
   Widget build(BuildContext context) {
     final busStopList =
-        context.watch<SearchBusStopsServiceProvider>().busStopSearchList;
+        context.watch<SearchBusStopsProvider>().busStopSearchList;
     return Column(
       children: <Widget>[
         SearchBar(

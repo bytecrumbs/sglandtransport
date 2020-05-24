@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:location/location.dart';
 import 'package:lta_datamall_flutter/models/user_location.dart';
 
-class LocationServiceProvider {
+class LocationProvider {
   Location location = Location();
   // Continuously emit location updates
   final StreamController<UserLocation> _locationController =
@@ -11,7 +11,7 @@ class LocationServiceProvider {
 
   Stream<UserLocation> get locationStream => _locationController.stream;
 
-  LocationServiceProvider() {
+  LocationProvider() {
     location.requestPermission().then((ps) {
       if (ps == PermissionStatus.granted) {
         location.onLocationChanged.listen((locationData) {

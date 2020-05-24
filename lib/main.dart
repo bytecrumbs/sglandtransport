@@ -6,15 +6,15 @@ import 'package:flutter/services.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:lta_datamall_flutter/api.dart';
+import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/apprater.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/models/user_location.dart';
-import 'package:lta_datamall_flutter/services/bus/favorite_bus_stops_service_provider.dart';
-import 'package:lta_datamall_flutter/services/bus/nearby_bus_stops_service_provider.dart';
-import 'package:lta_datamall_flutter/services/bus/search_bus_stops_service_provider.dart';
-import 'package:lta_datamall_flutter/services/location_service_provider.dart';
-import 'package:lta_datamall_flutter/services/observer_service_provider.dart';
+import 'package:lta_datamall_flutter/providers/bus/favorite_bus_stops_provider.dart';
+import 'package:lta_datamall_flutter/providers/bus/nearby_bus_stops_provider.dart';
+import 'package:lta_datamall_flutter/providers/bus/search_bus_stops_provider.dart';
+import 'package:lta_datamall_flutter/providers/location_provider.dart';
+import 'package:lta_datamall_flutter/providers/observer_provider.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -92,29 +92,29 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: <SingleChildWidget>[
-        Provider<ObserverServiceProvider>(
-          create: (_) => ObserverServiceProvider(),
+        Provider<ObserverProvider>(
+          create: (_) => ObserverProvider(),
         ),
-        ChangeNotifierProvider<NearbyBusStopsServiceProvider>(
-          create: (_) => NearbyBusStopsServiceProvider(
+        ChangeNotifierProvider<NearbyBusStopsProvider>(
+          create: (_) => NearbyBusStopsProvider(
               allBusStops: busStopModelListForNearby),
         ),
-        ChangeNotifierProvider<FavoriteBusStopsServiceProvider>(
-          create: (_) => FavoriteBusStopsServiceProvider(
+        ChangeNotifierProvider<FavoriteBusStopsProvider>(
+          create: (_) => FavoriteBusStopsProvider(
               allBusStops: busStopModelListForFavorites),
         ),
-        ChangeNotifierProvider<SearchBusStopsServiceProvider>(
-          create: (_) => SearchBusStopsServiceProvider(
+        ChangeNotifierProvider<SearchBusStopsProvider>(
+          create: (_) => SearchBusStopsProvider(
               allBusStops: busStopModelListForFavorites),
         ),
         StreamProvider<UserLocation>(
-          create: (_) => LocationServiceProvider().locationStream,
+          create: (_) => LocationProvider().locationStream,
         )
       ],
-      child: Consumer<ObserverServiceProvider>(
+      child: Consumer<ObserverProvider>(
         builder: (
           BuildContext context,
-          ObserverServiceProvider observer,
+          ObserverProvider observer,
           _,
         ) {
           return MaterialApp(

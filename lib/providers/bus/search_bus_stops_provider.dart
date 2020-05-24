@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 
-class SearchBusStopsServiceProvider with ChangeNotifier {
-  SearchBusStopsServiceProvider({@required this.allBusStops});
+class SearchBusStopsProvider with ChangeNotifier {
+  SearchBusStopsProvider({@required this.allBusStops});
 
   final List<BusStopModel> allBusStops;
   List<BusStopModel> _busStopSearchList = <BusStopModel>[];

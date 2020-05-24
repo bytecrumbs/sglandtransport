@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/api.dart';
+import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card.dart';
 import 'package:http/io_client.dart' as http;
