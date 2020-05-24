@@ -1,29 +1,19 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:lta_datamall_flutter/main_app.dart';
 import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/apprater.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/models/user_location.dart';
-import 'package:lta_datamall_flutter/providers/bus/favorite_bus_stops_provider.dart';
-import 'package:lta_datamall_flutter/providers/bus/nearby_bus_stops_provider.dart';
-import 'package:lta_datamall_flutter/providers/bus/search_bus_stops_provider.dart';
-import 'package:lta_datamall_flutter/providers/location_provider.dart';
-import 'package:lta_datamall_flutter/providers/observer_provider.dart';
-import 'package:lta_datamall_flutter/routes/router.gr.dart';
-import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
 import 'package:lta_datamall_flutter/widgets/loader.dart';
 import 'package:lta_datamall_flutter/widgets/splash.dart';
 
 Future<void> main() async {
   await DotEnv().load('.env');
-
   Crashlytics.instance.enableInDevMode = true;
 
   // Pass all uncaught errors from the framework to Crashlytics.
@@ -58,69 +48,14 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context,
           AsyncSnapshot<List<List<BusStopModel>>> snapshot) {
         if (snapshot.hasData) {
-          // full bus stop list for nearby screen
-          final busStopModelList = snapshot.data[0];
-
           return MainApp(
-            busStopModelList: busStopModelList,
+            busStopModelList: snapshot.data[0],
           );
         } else if (snapshot.hasError) {
           // do something on error
         }
         return Loader();
       },
-    );
-  }
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({
-    @required this.busStopModelList,
-  });
-
-  final List<BusStopModel> busStopModelList;
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: <SingleChildWidget>[
-        Provider<ObserverProvider>(
-          create: (_) => ObserverProvider(),
-        ),
-        ChangeNotifierProvider<NearbyBusStopsProvider>(
-          create: (_) => NearbyBusStopsProvider(allBusStops: busStopModelList),
-        ),
-        ChangeNotifierProvider<FavoriteBusStopsProvider>(
-          create: (_) =>
-              FavoriteBusStopsProvider(allBusStops: busStopModelList),
-        ),
-        ChangeNotifierProvider<SearchBusStopsProvider>(
-          create: (_) => SearchBusStopsProvider(allBusStops: busStopModelList),
-        ),
-        StreamProvider<UserLocation>(
-          create: (_) => LocationProvider().locationStream,
-        )
-      ],
-      child: Consumer<ObserverProvider>(
-        builder: (
-          BuildContext context,
-          ObserverProvider observer,
-          _,
-        ) {
-          return MaterialApp(
-            builder: ExtendedNavigator<Router>(
-              initialRoute: Routes.mainBusScreenRoute,
-              router: Router(),
-              observers: <NavigatorObserver>[
-                observer.getAnalyticsObserver(),
-              ],
-            ),
-            title: 'SG Land Transport',
-            darkTheme: ThemeData.dark(),
-            theme: ThemeData.light(),
-          );
-        },
-      ),
     );
   }
 }
