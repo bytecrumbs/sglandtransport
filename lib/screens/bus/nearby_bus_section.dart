@@ -9,21 +9,23 @@ class NearbyBusStops extends StatelessWidget {
   Widget build(BuildContext context) {
     final userLocation = Provider.of<UserLocation>(context);
 
-    if (userLocation != null && userLocation.permissionGranted) {
-      final busStopList =
-          Provider.of<NearbyBusStopsServiceProvider>(context, listen: false)
-              .getNearbyBusStops(userLocation);
-      return BusStopCardList(
-        busStopList: busStopList,
-      );
-    } else if (userLocation != null && !userLocation.permissionGranted) {
-      return Center(
-        child: Container(
-          padding: const EdgeInsets.all(25.0),
-          child: Text(
-              'Please enable location services, so that we can show you nearby bus stops!'),
-        ),
-      );
+    if (userLocation != null) {
+      if (userLocation.permissionGranted) {
+        final busStopList =
+            Provider.of<NearbyBusStopsServiceProvider>(context, listen: false)
+                .getNearbyBusStops(userLocation);
+        return BusStopCardList(
+          busStopList: busStopList,
+        );
+      } else {
+        return Center(
+          child: Container(
+            padding: const EdgeInsets.all(25.0),
+            child: Text(
+                'Please enable location services, so that we can show you nearby bus stops!'),
+          ),
+        );
+      }
     } else {
       return Container();
     }
