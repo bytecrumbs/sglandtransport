@@ -20,8 +20,9 @@ class NearbyBusStopsProvider with ChangeNotifier {
       final isNearby = distanceInMeters <= 500;
 
       if (isNearby) {
-        busStop.distanceInMeters = distanceInMeters.round();
-        nearbyBusStops.add(busStop);
+        final deepCopyBusStop = BusStopModel.fromJson(busStop.toJson());
+        deepCopyBusStop.distanceInMeters = distanceInMeters.round();
+        nearbyBusStops.add(deepCopyBusStop);
       }
     }
     nearbyBusStops.sort((BusStopModel a, BusStopModel b) =>

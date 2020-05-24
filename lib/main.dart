@@ -59,16 +59,10 @@ class MyApp extends StatelessWidget {
           AsyncSnapshot<List<List<BusStopModel>>> snapshot) {
         if (snapshot.hasData) {
           // full bus stop list for nearby screen
-          final busStopModelListForNearby = snapshot.data[0];
-          // create a deep copy of the bus list for favorites screen
-          final busStopModelListForFavorites = List<BusStopModel>.generate(
-            busStopModelListForNearby.length,
-            (int i) =>
-                BusStopModel.fromJson(busStopModelListForNearby[i].toJson()),
-          );
+          final busStopModelList = snapshot.data[0];
+
           return MainApp(
-            busStopModelListForNearby: busStopModelListForNearby,
-            busStopModelListForFavorites: busStopModelListForFavorites,
+            busStopModelList: busStopModelList,
           );
         } else if (snapshot.hasError) {
           // do something on error
@@ -81,12 +75,10 @@ class MyApp extends StatelessWidget {
 
 class MainApp extends StatelessWidget {
   const MainApp({
-    @required this.busStopModelListForNearby,
-    @required this.busStopModelListForFavorites,
+    @required this.busStopModelList,
   });
 
-  final List<BusStopModel> busStopModelListForNearby;
-  final List<BusStopModel> busStopModelListForFavorites;
+  final List<BusStopModel> busStopModelList;
 
   @override
   Widget build(BuildContext context) {
@@ -96,16 +88,14 @@ class MainApp extends StatelessWidget {
           create: (_) => ObserverProvider(),
         ),
         ChangeNotifierProvider<NearbyBusStopsProvider>(
-          create: (_) => NearbyBusStopsProvider(
-              allBusStops: busStopModelListForNearby),
+          create: (_) => NearbyBusStopsProvider(allBusStops: busStopModelList),
         ),
         ChangeNotifierProvider<FavoriteBusStopsProvider>(
-          create: (_) => FavoriteBusStopsProvider(
-              allBusStops: busStopModelListForFavorites),
+          create: (_) =>
+              FavoriteBusStopsProvider(allBusStops: busStopModelList),
         ),
         ChangeNotifierProvider<SearchBusStopsProvider>(
-          create: (_) => SearchBusStopsProvider(
-              allBusStops: busStopModelListForFavorites),
+          create: (_) => SearchBusStopsProvider(allBusStops: busStopModelList),
         ),
         StreamProvider<UserLocation>(
           create: (_) => LocationProvider().locationStream,
