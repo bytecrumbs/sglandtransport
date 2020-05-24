@@ -47,14 +47,15 @@ class MyApp extends StatelessWidget {
       future: _initApp(context),
       builder: (BuildContext context,
           AsyncSnapshot<List<List<BusStopModel>>> snapshot) {
-        if (snapshot.hasData) {
-          return MainApp(
-            busStopModelList: snapshot.data[0],
-          );
-        } else if (snapshot.hasError) {
-          // do something on error
+        if (snapshot.connectionState != ConnectionState.done) {
+          return Loader();
+        } else {
+          return snapshot.hasError
+              ? Text(snapshot.error.toString())
+              : snapshot.hasData
+                  ? MainApp(busStopModelList: snapshot.data[0])
+                  : Text('No Data');
         }
-        return Loader();
       },
     );
   }
