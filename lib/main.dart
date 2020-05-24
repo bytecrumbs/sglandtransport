@@ -7,6 +7,7 @@ import 'package:http/io_client.dart' as http;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lta_datamall_flutter/api.dart';
+import 'package:lta_datamall_flutter/apprater.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/models/user_location.dart';
 import 'package:lta_datamall_flutter/services/bus/favorite_bus_stops_service_provider.dart';
@@ -19,7 +20,6 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:lta_datamall_flutter/widgets/loader.dart';
 import 'package:lta_datamall_flutter/widgets/splash.dart';
-import 'package:rate_my_app/rate_my_app.dart';
 
 Future<void> main() async {
   await DotEnv().load('.env');
@@ -34,62 +34,17 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final RateMyApp _rateMyApp = RateMyApp(
-    minDays: 3,
-    preferencesPrefix: 'rateMySGLandTransportApp_',
-    minLaunches: 10,
-    remindDays: 5,
-    remindLaunches: 10,
-  );
+  final AppRater appRater = AppRater();
 
   Future<List<BusStopModel>> _initAllBusStops() async {
     return await fetchBusStopList(http.IOClient());
   }
 
   Future<List<List<BusStopModel>>> _initApp(BuildContext context) async {
-    await initRateMyApp(context);
+    appRater.showRateMyApp(context);
     return Future.wait(<Future<List<BusStopModel>>>[
       _initAllBusStops(),
     ]);
-  }
-
-  Future initRateMyApp(BuildContext context) async {
-    await _rateMyApp.init().then(
-          (_) => {
-            if (_rateMyApp.shouldOpenDialog)
-              {
-                _rateMyApp.showStarRateDialog(
-                  context,
-                  title: 'Enjoying SG Land Transport?',
-                  message: 'Let us know what you think',
-                  actionsBuilder: (context, stars) {
-                    return [
-                      FlatButton(
-                        child: Text('Ok'),
-                        onPressed: () async {
-                          (stars == null ? '0' : _rateMyApp.launchStore());
-                          await _rateMyApp
-                              .callEvent(RateMyAppEventType.rateButtonPressed);
-                          Navigator.pop<RateMyAppDialogButton>(
-                              context, RateMyAppDialogButton.rate);
-                        },
-                      )
-                    ];
-                  },
-                  ignoreIOS: false,
-                  dialogStyle: DialogStyle(
-                    titleAlign: TextAlign.center,
-                    messageAlign: TextAlign.center,
-                    messagePadding: EdgeInsets.only(bottom: 20),
-                  ),
-                  starRatingOptions: StarRatingOptions(),
-                  onDismissed: () => _rateMyApp.callEvent(
-                    RateMyAppEventType.laterButtonPressed,
-                  ),
-                )
-              }
-          },
-        );
   }
 
   @override
