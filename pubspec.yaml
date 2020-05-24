@@ -35,7 +35,7 @@ dependencies:
   latlong: ^0.6.1
   geohash: ^0.2.1
   flutter_dotenv: ^2.1.0
-  url_launcher: ^5.4.7
+  url_launcher: ^5.4.10
   flare_flutter: ^2.0.3
   flare_splash_screen: ^3.0.1
   rate_my_app: ^0.6.1+2
@@ -52,7 +52,7 @@ dev_dependencies:
   mockito: ^4.1.1
   auto_route_generator: ^0.5.0
   pedantic: ^1.9.0
-  screenshots: 2.1.1
+  screenshots: ^2.1.1
   flutter_launcher_icons: ^0.7.5
 
 flutter_icons:
