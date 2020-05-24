@@ -14,10 +14,10 @@ unit_test_task:
     image: cirrusci/flutter:latest
   create_env_script:
     - echo "LTA_DATAMALL_KEY="${AUTH_TOKEN} > .env
+    - ./prepare_test_coverage.sh lta_datamall_flutter
   pub_cache:
     folder: ~/.pub-cache
   test_script:
-    - ./prepare_test_coverage.sh lta_datamall_flutter
     - flutter test --coverage
     - lcov --list coverage/lcov.info
     # - genhtml coverage/lcov.info --output=coverage
