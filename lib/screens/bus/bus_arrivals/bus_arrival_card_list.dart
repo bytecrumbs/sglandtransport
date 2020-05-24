@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card.dart';
@@ -48,27 +49,32 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
     return FutureBuilder<BusArrivalModel>(
       future: _future,
       builder: (BuildContext context, AsyncSnapshot<BusArrivalModel> snapshot) {
-        if (snapshot.hasData) {
-          final busServices = snapshot.data.services;
-          return RefreshIndicator(
-            onRefresh: _refreshBusArrivals,
-            child: ListView.builder(
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: busServices.length,
-              itemBuilder: (BuildContext context, int index) {
-                final currentBusService = busServices[index];
-                return BusArrivalCard(
-                  key: ValueKey<String>('busArrivalCard-$index'),
-                  busArrivalServiceModel: currentBusService,
-                );
-              },
-            ),
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        } else if (snapshot.hasError) {
-          print(snapshot.error);
+        } else {
+          return snapshot.hasError
+              ? Text(snapshot.error.toString())
+              : snapshot.hasData
+                  ? RefreshIndicator(
+                      onRefresh: _refreshBusArrivals,
+                      child: _buildListView(snapshot.data.services))
+                  : Text('No Data');
         }
-        return const Center(
-          child: CircularProgressIndicator(),
+      },
+    );
+  }
+
+  ListView _buildListView(List<BusArrivalServiceModel> busServices) {
+    return ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(),
+      itemCount: busServices.length,
+      itemBuilder: (BuildContext context, int index) {
+        final currentBusService = busServices[index];
+        return BusArrivalCard(
+          key: ValueKey<String>('busArrivalCard-$index'),
+          busArrivalServiceModel: currentBusService,
         );
       },
     );
