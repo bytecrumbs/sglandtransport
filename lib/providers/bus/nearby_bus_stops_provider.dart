@@ -17,9 +17,7 @@ class NearbyBusStopsProvider with ChangeNotifier {
         LatLng(busStop.latitude, busStop.longitude),
       );
 
-      final isNearby = distanceInMeters <= 500;
-
-      if (isNearby) {
+      if (distanceInMeters <= 500) {
         final deepCopyBusStop = BusStopModel.fromJson(busStop.toJson());
         deepCopyBusStop.distanceInMeters = distanceInMeters.round();
         nearbyBusStops.add(deepCopyBusStop);
