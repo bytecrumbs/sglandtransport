@@ -48,3 +48,6 @@ android/app/google-services.json
 
 # environment variables for local development
 /.env
+
+# generated file for test coverage
+test/coverage_helper_test.dart

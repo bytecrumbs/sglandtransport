@@ -76,6 +76,7 @@ brew install lcov
 ### Run tests, generate coverage files and convert to HTML
 
 ```
+./prepare_test_coverage.sh lta_datamall_flutter
 flutter test --coverage
 lcov --list coverage/lcov.info
 genhtml coverage/lcov.info --output=coverage
