@@ -77,7 +77,8 @@ brew install lcov
 
 ```
 flutter test --coverage
-genhtml coverage/lcov.info -o coverage/html
+lcov --list coverage/lcov.info
+genhtml coverage/lcov.info --output=coverage
 ```
 
 ### Run Integration (UI) Tests
