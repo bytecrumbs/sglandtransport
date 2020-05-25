@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 class MainAboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var bodyText22 = Theme.of(context).textTheme.bodyText2;
     return Scaffold(
       appBar: AppBar(
         title: const Text('About'),
@@ -24,26 +25,16 @@ class MainAboutScreen extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: 'An open-source project using ',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: bodyText22,
                   ),
-                  TextSpan(
-                    text: 'LTA Data Mall',
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        const url =
-                            'https://www.mytransport.sg/content/mytransport/home/dataMall.html';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      },
+                  _buildTextSpanWithTapGesture(
+                    'LTA Data Mall',
+                    'https://www.mytransport.sg/content/mytransport/home/dataMall.html',
                   ),
                   TextSpan(
                     text:
                         ' to facilitate usage of public and private transport in Singapore.',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: bodyText22,
                   ),
                 ],
               ),
@@ -59,25 +50,15 @@ class MainAboutScreen extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: '- ',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: bodyText22,
                   ),
-                  TextSpan(
-                    text: 'Tweet ',
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        const url =
-                            'https://twitter.com/intent/tweet?screen_name=sgltapp&text=is+awesome!';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      },
+                  _buildTextSpanWithTapGesture(
+                    'Tweet ',
+                    'https://twitter.com/intent/tweet?screen_name=sgltapp&text=is+awesome!',
                   ),
                   TextSpan(
                     text: 'about us',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: bodyText22,
                   ),
                 ],
               ),
@@ -87,21 +68,11 @@ class MainAboutScreen extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: '- Like and Share our ',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: bodyText22,
                   ),
-                  TextSpan(
-                    text: 'Facebook page',
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        const url =
-                            'https://www.facebook.com/sglandtransportapp';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      },
+                  _buildTextSpanWithTapGesture(
+                    'Facebook page',
+                    'https://www.facebook.com/sglandtransportapp',
                   ),
                 ],
               ),
@@ -111,21 +82,11 @@ class MainAboutScreen extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: '- Star our public ',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: bodyText22,
                   ),
-                  TextSpan(
-                    text: 'GitHub repo',
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        const url =
-                            'https://github.com/sderungs99/sglandtransport';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      },
+                  _buildTextSpanWithTapGesture(
+                    'GitHub repo',
+                    'https://github.com/sderungs99/sglandtransport',
                   ),
                 ],
               ),
@@ -138,25 +99,15 @@ class MainAboutScreen extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: '- Create an ',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: bodyText22,
                   ),
-                  TextSpan(
-                    text: 'Issue on GitHub',
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        const url =
-                            'https://github.com/sderungs99/sglandtransport/issues';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      },
+                  _buildTextSpanWithTapGesture(
+                    'Issue on GitHub',
+                    'https://github.com/sderungs99/sglandtransport/issues',
                   ),
                   TextSpan(
                     text: ' to report a Bug or raise a Feature request',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: bodyText22,
                   ),
                 ],
               ),
@@ -169,20 +120,11 @@ class MainAboutScreen extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: 'Please refer to ',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: bodyText22,
                   ),
-                  TextSpan(
-                    text: 'https://sglandtransport.app/about',
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        const url = 'https://sglandtransport.app/about';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      },
+                  _buildTextSpanWithTapGesture(
+                    'https://sglandtransport.app/about',
+                    'https://sglandtransport.app/about',
                   ),
                 ],
               ),
@@ -190,6 +132,21 @@ class MainAboutScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  TextSpan _buildTextSpanWithTapGesture(String title, String url) {
+    return TextSpan(
+      text: title,
+      style: TextStyle(color: Colors.blue),
+      recognizer: TapGestureRecognizer()
+        ..onTap = () async {
+          if (await canLaunch(url)) {
+            await launch(url);
+          } else {
+            throw 'Could not launch $url';
+          }
+        },
     );
   }
 }
