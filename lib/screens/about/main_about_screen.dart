@@ -13,7 +13,7 @@ class MainAboutScreen extends StatelessWidget {
       ),
       drawer: AppDrawer(),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -159,7 +159,7 @@ class AboutHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       child: Text(
         headerText,
         style: Theme.of(context).textTheme.headline6,
