@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
@@ -5,15 +7,46 @@ import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card.d
 import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:http/io_client.dart' as http;
 
-class BusArrivalCardList extends StatelessWidget {
+class BusArrivalCardList extends StatefulWidget {
   const BusArrivalCardList({@required this.busStopCode});
 
   final String busStopCode;
 
   @override
+  _BusArrivalCardListState createState() => _BusArrivalCardListState();
+}
+
+class _BusArrivalCardListState extends State<BusArrivalCardList> {
+  Future<BusArrivalModel> _busArrivalModel;
+  Timer timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _busArrivalModel = fetchBusArrivalList(http.IOClient(), widget.busStopCode);
+    timer = Timer.periodic(
+      const Duration(minutes: 1),
+      (Timer t) => _refresh(),
+    );
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  void _refresh() {
+    setState(() {
+      _busArrivalModel =
+          fetchBusArrivalList(http.IOClient(), widget.busStopCode);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchBusArrivalList(http.IOClient(), busStopCode),
+      future: _busArrivalModel,
       builder: (context, AsyncSnapshot<BusArrivalModel> snapshot) {
         if (snapshot.hasData) {
           return _buildListView(snapshot.data.services);
