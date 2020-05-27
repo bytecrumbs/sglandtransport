@@ -105,12 +105,13 @@ class DatabaseProvider {
   }
 
   Future<void> _initDatabase(Database database) async {
-    print('inserting data...');
+    print('starting to insert data...');
     final busRoutes = await fetchBusRoutes(http.IOClient());
     var batch = database.batch();
     busRoutes.forEach((busRoute) async {
       batch.insert(tableBusRoutes, busRoute.toJson());
     });
     await batch.commit(noResult: true);
+    print('inserting data complete...');
   }
 }
