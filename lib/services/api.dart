@@ -113,21 +113,41 @@ Future<List<BusRouteModel>> fetchBusRoutes(http.Client client) async {
 
   var result = <BusRouteModel>[];
 
-  for (var i = 0; i <= 26000; i = i + 500) {
-    final response = await client.get(
-      'http://datamall2.mytransport.sg/ltaodataservice/BusRoutes?\$skip=$i',
-      headers: requestHeaders,
-    );
+  for (var i = 0; i <= 26000; i = i + 2000) {
+    var secondSkip = i + 500;
+    var thirdSkip = i + 1000;
+    var fourthSkip = i + 1500;
+    var fetchURL = 'http://datamall2.mytransport.sg/ltaodataservice/BusRoutes';
+    var parallelFetch = await Future.wait([
+      client.get(
+        '$fetchURL?\$skip=$i',
+        headers: requestHeaders,
+      ),
+      client.get(
+        '$fetchURL?\$skip=$secondSkip',
+        headers: requestHeaders,
+      ),
+      client.get(
+        '$fetchURL?\$skip=$thirdSkip',
+        headers: requestHeaders,
+      ),
+      client.get(
+        '$fetchURL?\$skip=$fourthSkip',
+        headers: requestHeaders,
+      ),
+    ]);
 
-    if (response.statusCode == 200) {
-      // If the call to the server was successful, parse the JSON.
-      final busRouteListModel =
-          BusRouteListModel.fromJson(jsonDecode(response.body));
-      result = result + busRouteListModel.value;
-    } else {
-      // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
-    }
+    parallelFetch.forEach((response) {
+      if (response.statusCode == 200) {
+        // If the call to the server was successful, parse the JSON.
+        final busRouteListModel =
+            BusRouteListModel.fromJson(jsonDecode(response.body));
+        result = result + busRouteListModel.value;
+      } else {
+        // If that call was not successful, throw an error.
+        throw Exception('Failed to load post');
+      }
+    });
   }
 
   return result;

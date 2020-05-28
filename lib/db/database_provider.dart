@@ -112,6 +112,6 @@ class DatabaseProvider {
       batch.insert(tableBusRoutes, busRoute.toJson());
     });
     await batch.commit(noResult: true);
-    print('inserting data complete...');
+    print('inserting ${busRoutes.length} records complete...');
   }
 }
