@@ -37,12 +37,14 @@ class DatabaseProvider {
   }
 
   Future<Database> _createDatabase() async {
-    print('creating database...');
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'busRoutesDB.db');
 
+    print('deleting database...');
     await deleteDatabase(path);
+    print('database deletion complete...');
 
+    print('opening database...');
     return await openDatabase(
       path,
       version: 1,
@@ -108,7 +110,7 @@ class DatabaseProvider {
     print('starting to insert data...');
     final busRoutes = await fetchBusRoutes(http.IOClient());
     var batch = database.batch();
-    busRoutes.forEach((busRoute) async {
+    busRoutes.forEach((busRoute) {
       batch.insert(tableBusRoutes, busRoute.toJson());
     });
     await batch.commit(noResult: true);
