@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:lta_datamall_flutter/db/database_provider.dart';
 import 'package:lta_datamall_flutter/main_app.dart';
 import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/apprater.dart';
@@ -32,7 +34,9 @@ class MyApp extends StatelessWidget {
 
   Future<List<List<BusStopModel>>> _initApp(BuildContext context) async {
     appRater.showRateMyApp(context);
-    return Future.wait(<Future<List<BusStopModel>>>[
+    // initialize DB
+    unawaited(DatabaseProvider.db.database);
+    return Future.wait([
       _initAllBusStops(),
     ]);
   }

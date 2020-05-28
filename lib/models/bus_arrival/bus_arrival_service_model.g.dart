@@ -20,6 +20,7 @@ BusArrivalServiceModel _$BusArrivalServiceModelFromJson(
     nextBus3: json['NextBus3'] == null
         ? null
         : NextBusModel.fromJson(json['NextBus3'] as Map<String, dynamic>),
+    inService: json['inService'] as bool,
   );
 }
 
@@ -31,4 +32,5 @@ Map<String, dynamic> _$BusArrivalServiceModelToJson(
       'NextBus': instance.nextBus,
       'NextBus2': instance.nextBus2,
       'NextBus3': instance.nextBus3,
+      'inService': instance.inService,
     };
