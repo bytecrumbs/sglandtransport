@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:lta_datamall_flutter/app.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lta_datamall_flutter/db/database_provider.dart';
-import 'package:lta_datamall_flutter/main_app.dart';
 import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/widgets/loader.dart';
@@ -25,32 +24,23 @@ Future<void> main() async {
   }, onError: Crashlytics.instance.recordError);
 }
 
-class MyApp extends StatelessWidget {
-  Future<List<BusStopModel>> _initAllBusStops() async {
-    return await fetchBusStopList(http.IOClient());
-  }
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-  Future<List<List<BusStopModel>>> _initApp(BuildContext context) async {
-    // initialize DB
-    return Future.wait([
-      _initAllBusStops(),
-    ]);
-  }
+class _MyAppState extends State<MyApp> {
+  final Future<List<BusStopModel>> _busStopList =
+      fetchBusStopList(http.IOClient());
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations(<DeviceOrientation>[
-      DeviceOrientation.portraitUp,
-    ]);
-
-    return FutureBuilder<List<List<BusStopModel>>>(
-      future: _initApp(context),
-      builder: (BuildContext context,
-          AsyncSnapshot<List<List<BusStopModel>>> snapshot) {
+    return FutureBuilder<List<BusStopModel>>(
+      future: _busStopList,
+      builder:
+          (BuildContext context, AsyncSnapshot<List<BusStopModel>> snapshot) {
         if (snapshot.hasData) {
-          return MainApp(
-            busStopModelList: snapshot.data[0],
-          );
+          return App(busStopList: snapshot.data);
         } else if (snapshot.hasError) {
           Text(snapshot.error.toString());
         }
