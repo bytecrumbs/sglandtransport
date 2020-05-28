@@ -74,8 +74,6 @@ Future<BusArrivalModel> fetchBusArrivalList(
 
     // add bus services that are not currently operating
     if (busArrivalModel.services.length < busRouteModelList.length) {
-      print('must add bus services not in operation...');
-
       final busRouteModelServiceNos =
           busRouteModelList.map((e) => e.serviceNo).toList();
       final busArrivalServiceNoss =

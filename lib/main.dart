@@ -9,7 +9,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lta_datamall_flutter/db/database_provider.dart';
 import 'package:lta_datamall_flutter/main_app.dart';
 import 'package:lta_datamall_flutter/services/api.dart';
-import 'package:lta_datamall_flutter/apprater.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/widgets/loader.dart';
 import 'package:lta_datamall_flutter/widgets/splash.dart';
@@ -21,21 +20,18 @@ Future<void> main() async {
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runZoned(() {
+    unawaited(DatabaseProvider.db.database);
     runApp(Splash(nextAction: MyApp()));
   }, onError: Crashlytics.instance.recordError);
 }
 
 class MyApp extends StatelessWidget {
-  final AppRater appRater = AppRater();
-
   Future<List<BusStopModel>> _initAllBusStops() async {
     return await fetchBusStopList(http.IOClient());
   }
 
   Future<List<List<BusStopModel>>> _initApp(BuildContext context) async {
-    appRater.showRateMyApp(context);
     // initialize DB
-    unawaited(DatabaseProvider.db.database);
     return Future.wait([
       _initAllBusStops(),
     ]);
