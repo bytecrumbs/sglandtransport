@@ -10,7 +10,7 @@ class Loader extends StatelessWidget {
         'images/bus.flr',
         alignment: Alignment.center,
         fit: BoxFit.fitHeight,
-        animation: 'Bus-end',
+        animation: 'Bus',
       ),
     );
   }
