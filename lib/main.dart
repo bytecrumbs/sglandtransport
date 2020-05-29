@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/app.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:http/io_client.dart' as http;
@@ -14,8 +15,11 @@ import 'package:lta_datamall_flutter/widgets/splash.dart';
 
 Future<void> main() async {
   await DotEnv().load('.env');
+  Logger.root.onRecord.listen((record) {
+    print(
+        '[${record.loggerName}]: ${record.level.name}: ${record.time}: ${record.message}');
+  });
   Crashlytics.instance.enableInDevMode = true;
-
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runZoned(() {
