@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/app.dart';
@@ -15,6 +16,15 @@ import 'package:lta_datamall_flutter/widgets/splash.dart';
 
 Future<void> main() async {
   await DotEnv().load('.env');
+
+  Level logLevel;
+  if (foundation.kReleaseMode) {
+    logLevel = Level.WARNING;
+  } else {
+    logLevel = Level.ALL;
+  }
+
+  Logger.root.level = logLevel;
   Logger.root.onRecord.listen((record) {
     print(
         '[${record.loggerName}]: ${record.level.name}: ${record.time}: ${record.message}');
