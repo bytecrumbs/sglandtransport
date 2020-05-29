@@ -1,3 +1,4 @@
+import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/models/bus_routes/bus_route_model.dart';
 import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:path/path.dart';
@@ -6,6 +7,8 @@ import 'package:sqflite/sqlite_api.dart';
 import 'package:http/io_client.dart' as http;
 
 class DatabaseProvider {
+  static final _log = Logger('DatabaseProvider');
+
   static const String tableBusRoutes = 'busRoutes';
   static const String columnServiceNo = 'ServiceNo';
   static const String columnOperator = 'Operator';
@@ -25,7 +28,7 @@ class DatabaseProvider {
 
   Database _database;
   Future<Database> get database async {
-    print('database getter called...');
+    _log.info('database getter called...');
 
     if (_database != null) return _database;
 
@@ -40,11 +43,11 @@ class DatabaseProvider {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'busRoutesDB.db');
 
-    print('deleting database...');
+    _log.info('deleting database...');
     await deleteDatabase(path);
-    print('database deletion complete...');
+    _log.info('database deletion complete...');
 
-    print('opening database...');
+    _log.info('opening database...');
     return await openDatabase(
       path,
       version: 1,
@@ -53,7 +56,7 @@ class DatabaseProvider {
   }
 
   Future<void> _onCreate(Database database, int version) async {
-    print('creating busRoutes table...');
+    _log.info('creating busRoutes table...');
     await database.execute(
       'CREATE TABLE $tableBusRoutes ('
       '$columnServiceNo TEXT,'
@@ -73,7 +76,7 @@ class DatabaseProvider {
   }
 
   Future<List<BusRouteModel>> getBusRoutes(String busStopCode) async {
-    print('getting bus routes...');
+    _log.info('getting bus routes...');
     final db = await database;
 
     var busRoutes = await db.query(
@@ -107,13 +110,13 @@ class DatabaseProvider {
   }
 
   Future<void> _initDatabase(Database database) async {
-    print('starting to insert data...');
+    _log.info('starting to insert data...');
     final busRoutes = await fetchBusRoutes(http.IOClient());
     var batch = database.batch();
     busRoutes.forEach((busRoute) {
       batch.insert(tableBusRoutes, busRoute.toJson());
     });
     await batch.commit(noResult: true);
-    print('inserting ${busRoutes.length} records complete...');
+    _log.info('inserting ${busRoutes.length} records complete...');
   }
 }
