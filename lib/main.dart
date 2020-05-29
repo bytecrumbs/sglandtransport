@@ -23,12 +23,12 @@ Future<void> main() async {
   } else {
     logLevel = Level.ALL;
   }
-
   Logger.root.level = logLevel;
   Logger.root.onRecord.listen((record) {
     print(
         '[${record.loggerName}]: ${record.level.name}: ${record.time}: ${record.message}');
   });
+
   Crashlytics.instance.enableInDevMode = true;
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;

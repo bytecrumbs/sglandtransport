@@ -9,6 +9,9 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'SG Land Transport',
+      darkTheme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: Container(
         decoration: BoxDecoration(color: Colors.white),
         child: SplashScreen.navigate(

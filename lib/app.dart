@@ -46,17 +46,12 @@ class App extends StatelessWidget {
           ObserverProvider observer,
           _,
         ) {
-          return MaterialApp(
-            builder: ExtendedNavigator<Router>(
-              initialRoute: Routes.mainBusScreenRoute,
-              router: Router(),
-              observers: <NavigatorObserver>[
-                observer.getAnalyticsObserver(),
-              ],
-            ),
-            title: 'SG Land Transport',
-            darkTheme: ThemeData.dark(),
-            theme: ThemeData.light(),
+          return ExtendedNavigator<Router>(
+            initialRoute: Routes.mainBusScreenRoute,
+            router: Router(),
+            observers: <NavigatorObserver>[
+              observer.getAnalyticsObserver(),
+            ],
           );
         },
       ),
