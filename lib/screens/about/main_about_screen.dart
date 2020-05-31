@@ -55,7 +55,7 @@ class MainAboutScreen extends StatelessWidget {
               ),
               _buildTextSpanWithTapGesture(
                 '@sgltapp',
-                'https://twitter.com/intent/tweet?screen_name=sgltapp&text=is+awesome!',
+                'https://twitter.com/sgltapp',
               ),
             ],
           ),
