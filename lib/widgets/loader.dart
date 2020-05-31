@@ -6,6 +6,7 @@ class Loader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Platform.isDarkMode(context);
+    final darkModeSuffix = isDarkMode ? '-dark' : '';
 
     return Container(
       decoration:
@@ -14,7 +15,7 @@ class Loader extends StatelessWidget {
         'images/bus.flr',
         alignment: Alignment.center,
         fit: BoxFit.fitHeight,
-        animation: isDarkMode ? 'Bus-dark' : 'Bus',
+        animation: 'Bus' + darkModeSuffix,
       ),
     );
   }
