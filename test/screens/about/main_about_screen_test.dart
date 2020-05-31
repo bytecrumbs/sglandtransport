@@ -11,9 +11,9 @@ void main() {
     );
   }
 
-  testWidgets('Shows an App Bar Header', (WidgetTester tester) async {
+  testWidgets('Shows an Official Links header', (WidgetTester tester) async {
     await _pumpMainAboutScreen(tester);
-    final labelFinder = find.text('About');
+    final labelFinder = find.text('Official Links');
     expect(labelFinder, findsOneWidget);
   });
 }

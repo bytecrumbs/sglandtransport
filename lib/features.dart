@@ -22,24 +22,16 @@ class Features {
 
 const List<Feature> DevFeatures = [
   busesFeature,
-  aboutFeature,
 ];
 
 const List<Feature> ReleaseFeatures = [
   busesFeature,
-  aboutFeature,
 ];
 
 const Feature busesFeature = Feature(
   title: 'Buses',
   routeName: Routes.mainBusScreenRoute,
   icon: Icon(Icons.directions_bus),
-);
-
-const Feature aboutFeature = Feature(
-  title: 'About',
-  routeName: Routes.aboutScreenRoute,
-  icon: Icon(Icons.info_outline),
 );
 
 class Feature {
