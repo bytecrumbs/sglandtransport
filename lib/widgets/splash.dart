@@ -18,7 +18,7 @@ class Splash extends StatelessWidget {
       child: SplashScreen.navigate(
         name: 'images/bus.flr',
         startAnimation: 'Bus-intro' + darkModeSuffix,
-        loopAnimation: 'Bus-dark' + darkModeSuffix,
+        loopAnimation: 'Bus' + darkModeSuffix,
         next: (context) => nextAction,
         until: () => Future.delayed(Duration(milliseconds: 1300)),
       ),
