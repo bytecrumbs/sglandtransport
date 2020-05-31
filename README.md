@@ -1,4 +1,4 @@
-# LTA Datamall app
+# SG Land Transport
 
 ![GitHub][license badge]
 [![Build Status - Cirrus][]][build status]
@@ -97,9 +97,9 @@ genhtml coverage/lcov.info --output=coverage
 
 ## Deployments
 
-This project is using Fastlane (https://fastlane.tools/) as its deployment pipeline.
-
 ### Beta deployments
+
+Deployments can be run from your local machine
 
 #### iOS TestFlight:
 
