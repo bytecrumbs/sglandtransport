@@ -62,7 +62,7 @@ Future<BusArrivalModel> fetchBusArrivalList(
       'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=$busStopCode',
       headers: requestHeaders,
     ),
-    DatabaseProvider.db.getBusRoutes(busStopCode)
+    DatabaseProvider.dbProvider.getBusRoutes(busStopCode)
   ]);
 
   final http.Response response = futureResult[0];

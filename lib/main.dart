@@ -30,7 +30,7 @@ Future<void> main() async {
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runZoned(() {
-    unawaited(DatabaseProvider.db.database);
+    unawaited(DatabaseProvider.dbProvider.database);
     runApp(MyApp());
   }, onError: Crashlytics.instance.recordError);
 }
