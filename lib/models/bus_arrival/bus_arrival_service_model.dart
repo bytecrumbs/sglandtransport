@@ -11,6 +11,7 @@ class BusArrivalServiceModel {
     this.nextBus,
     this.nextBus2,
     this.nextBus3,
+    this.inService,
   });
 
   factory BusArrivalServiceModel.fromJson(Map<String, dynamic> json) =>
@@ -26,6 +27,7 @@ class BusArrivalServiceModel {
   final NextBusModel nextBus2;
   @JsonKey(name: 'NextBus3')
   final NextBusModel nextBus3;
+  final bool inService;
 
   Map<String, dynamic> toJson() => _$BusArrivalServiceModelToJson(this);
 }

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-
-import '../../features.dart';
+import 'package:lta_datamall_flutter/features.dart';
+import 'package:lta_datamall_flutter/screens/about/main_about_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -43,6 +43,14 @@ class AppDrawer extends StatelessWidget {
                 ExtendedNavigator.of(context).pushNamed(item.routeName);
               },
             ),
+          AboutListTile(
+            icon: Icon(Icons.info_outline),
+            applicationName: 'SG Land Transport',
+            applicationVersion: '1.0.1',
+            applicationLegalese: 'free | ad-free | open-source',
+            applicationIcon: Icon(Icons.info_outline),
+            aboutBoxChildren: <Widget>[MainAboutScreen()],
+          ),
         ],
       ),
     );

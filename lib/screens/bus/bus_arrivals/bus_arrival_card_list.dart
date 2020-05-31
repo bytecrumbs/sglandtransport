@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
+import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card.dart';
+import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:http/io_client.dart' as http;
 
 class BusArrivalCardList extends StatefulWidget {
@@ -16,16 +17,16 @@ class BusArrivalCardList extends StatefulWidget {
 }
 
 class _BusArrivalCardListState extends State<BusArrivalCardList> {
-  Future<BusArrivalModel> _future;
+  Future<BusArrivalModel> _busArrivalModel;
   Timer timer;
 
   @override
   void initState() {
     super.initState();
-    _future = fetchBusArrivalList(http.IOClient(), widget.busStopCode);
+    _busArrivalModel = fetchBusArrivalList(http.IOClient(), widget.busStopCode);
     timer = Timer.periodic(
       const Duration(minutes: 1),
-      (Timer t) => _refreshBusArrivals(),
+      (Timer t) => _refresh(),
     );
   }
 
@@ -35,40 +36,37 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
     super.dispose();
   }
 
-  Future<BusArrivalModel> _refreshBusArrivals() {
+  void _refresh() {
     setState(() {
-      _future = fetchBusArrivalList(http.IOClient(), widget.busStopCode);
+      _busArrivalModel =
+          fetchBusArrivalList(http.IOClient(), widget.busStopCode);
     });
-
-    return _future;
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<BusArrivalModel>(
-      future: _future,
-      builder: (BuildContext context, AsyncSnapshot<BusArrivalModel> snapshot) {
+    return FutureBuilder(
+      future: _busArrivalModel,
+      builder: (context, AsyncSnapshot<BusArrivalModel> snapshot) {
         if (snapshot.hasData) {
-          final busServices = snapshot.data.services;
-          return RefreshIndicator(
-            onRefresh: _refreshBusArrivals,
-            child: ListView.builder(
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: busServices.length,
-              itemBuilder: (BuildContext context, int index) {
-                final currentBusService = busServices[index];
-                return BusArrivalCard(
-                  key: ValueKey<String>('busArrivalCard-$index'),
-                  busArrivalServiceModel: currentBusService,
-                );
-              },
-            ),
-          );
-        } else if (snapshot.hasError) {
-          print(snapshot.error);
+          return _buildListView(snapshot.data.services);
         }
         return const Center(
           child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  ListView _buildListView(List<BusArrivalServiceModel> busServices) {
+    return ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(),
+      itemCount: busServices.length,
+      itemBuilder: (BuildContext context, int index) {
+        final currentBusService = busServices[index];
+        return BusArrivalCard(
+          key: ValueKey<String>('busArrivalCard-$index'),
+          busArrivalServiceModel: currentBusService,
         );
       },
     );

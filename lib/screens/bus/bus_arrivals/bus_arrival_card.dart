@@ -122,6 +122,18 @@ class BusArrivalCard extends StatelessWidget {
     );
   }
 
+  Widget _displayNotInOperation() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 3),
+      child: Text(
+        'Not In\nOperation',
+        style: const TextStyle(
+          fontSize: 11.5,
+        ),
+      ),
+    );
+  }
+
   Widget _displayNextTwoBusTiming() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -150,28 +162,36 @@ class BusArrivalCard extends StatelessWidget {
                     color: Theme.of(context).primaryColorDark,
                     child: _displayBusNumber(),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        _displayBusLoad(context),
-                        const SizedBox(height: 5),
-                        _displayBusType(context),
-                        _displayBusFeature()
-                      ],
-                    ),
-                  )
+                  busArrivalServiceModel.inService ?? true
+                      ? Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              _displayBusLoad(context),
+                              const SizedBox(height: 5),
+                              _displayBusType(context),
+                              _displayBusFeature()
+                            ],
+                          ),
+                        )
+                      : Container()
                 ],
               ),
               BoxInfo(
                 color: Theme.of(context).highlightColor,
-                child: Column(
-                  children: <Widget>[
-                    _displayNextBusTiming(),
-                    _displayNextTwoBusTiming()
-                  ],
-                ),
+                child: busArrivalServiceModel.inService ?? true
+                    ? Column(
+                        children: <Widget>[
+                          _displayNextBusTiming(),
+                          _displayNextTwoBusTiming()
+                        ],
+                      )
+                    : Center(
+                        child: Container(
+                          child: _displayNotInOperation(),
+                        ),
+                      ),
               ),
             ],
           ),
