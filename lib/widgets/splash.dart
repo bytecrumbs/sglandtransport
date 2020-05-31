@@ -10,14 +10,15 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Platform.isDarkMode(context);
+    final darkModeSuffix = isDarkMode ? '-dark' : '';
 
     return Container(
       decoration:
           BoxDecoration(color: isDarkMode ? Color(0xFF212121) : Colors.white),
       child: SplashScreen.navigate(
         name: 'images/bus.flr',
-        startAnimation: isDarkMode ? 'Bus-intro-dark' : 'Bus-intro',
-        loopAnimation: isDarkMode ? 'Bus-dark' : 'Bus',
+        startAnimation: 'Bus-intro' + darkModeSuffix,
+        loopAnimation: 'Bus-dark' + darkModeSuffix,
         next: (context) => nextAction,
         until: () => Future.delayed(Duration(milliseconds: 1300)),
       ),
