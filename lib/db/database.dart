@@ -41,10 +41,14 @@ class BusRoutesDatabase {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'busRoutesDB.db');
 
-    await deleteDatabase(path);
-
-    _log.info('opening database...');
-    _database = await openDatabase(path, version: 1, onCreate: _onCreate);
+    final exists = await databaseExists(path);
+    if (!exists) {
+      _log.info('creating and opening database...');
+      _database = await openDatabase(path, version: 1, onCreate: _onCreate);
+    } else {
+      _log.info('Opening existing database');
+      _database = await openDatabase(path);
+    }
     didInit = true;
   }
 
