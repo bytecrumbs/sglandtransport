@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/db/database_provider.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card.dart';
@@ -23,7 +24,9 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
   @override
   void initState() {
     super.initState();
-    _busArrivalModel = fetchBusArrivalList(http.IOClient(), widget.busStopCode);
+    _busArrivalModel =
+        DatabaseProvider.dbProvider.getBusArrivalList(widget.busStopCode);
+    // _busArrivalModel = fetchBusArrivalList(http.IOClient(), widget.busStopCode);
     timer = Timer.periodic(
       const Duration(minutes: 1),
       (Timer t) => _refresh(),
@@ -38,8 +41,10 @@ class _BusArrivalCardListState extends State<BusArrivalCardList> {
 
   void _refresh() {
     setState(() {
+      // _busArrivalModel =
+      //     fetchBusArrivalList(http.IOClient(), widget.busStopCode);
       _busArrivalModel =
-          fetchBusArrivalList(http.IOClient(), widget.busStopCode);
+          DatabaseProvider.dbProvider.getBusArrivalList(widget.busStopCode);
     });
   }
 
