@@ -96,6 +96,7 @@ class BusRoutesDatabase {
       batch.insert(tableName, busRoute.toJson());
     });
     await batch.commit(noResult: true);
+    _log.info('inserting ${busRoutes.length} records complete...');
   }
 
   Future close() async {
