@@ -8,7 +8,7 @@ class BusRoutesDatabase {
 
   static final BusRoutesDatabase _busRoutesDB = BusRoutesDatabase._internal();
 
-  final String tableName = 'busRoutes';
+  static const String tableName = 'busRoutes';
   static const String columnServiceNo = 'ServiceNo';
   static const String columnOperator = 'Operator';
   static const String columnDirection = 'Direction';
@@ -92,5 +92,10 @@ class BusRoutesDatabase {
       batch.insert(tableName, busRoute.toJson());
     });
     await batch.commit(noResult: true);
+  }
+
+  Future close() async {
+    var db = await _getDb();
+    return db.close();
   }
 }
