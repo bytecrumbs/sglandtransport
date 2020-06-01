@@ -28,10 +28,6 @@ class DatabaseProvider {
     return _db;
   }
 
-  Future<List<BusRouteModel>> getBusRoutes(String busStopCode) async {
-    return _db.getBusRoutes(busStopCode);
-  }
-
   Future<BusArrivalModel> getBusArrivalList(final String busStopCode) async {
     _log.info('getBusArrivalList called...');
 

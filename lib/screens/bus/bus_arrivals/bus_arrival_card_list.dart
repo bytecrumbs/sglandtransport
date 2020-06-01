@@ -5,8 +5,6 @@ import 'package:lta_datamall_flutter/db/database_provider.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/screens/bus/bus_arrivals/bus_arrival_card.dart';
-import 'package:lta_datamall_flutter/services/api.dart';
-import 'package:http/io_client.dart' as http;
 
 class BusArrivalCardList extends StatefulWidget {
   const BusArrivalCardList({@required this.busStopCode});
