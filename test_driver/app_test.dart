@@ -31,7 +31,9 @@ void main() {
 
     group('Nearby', () {
       test('Checks that bus stop is present in favorite screen', () async {
-        await driver.tap(find.byValueKey('NearbyScreen'));
+        await driver.waitFor(find.byValueKey('BottomBar'));
+        await driver.tap(find.text('Nearby'));
+        print('clicked on Nearby');
         await screenshot(driver, config, 'NearbyScreen');
         expect(await isRendered(busStopCard, driver), true);
       });
@@ -39,7 +41,9 @@ void main() {
 
     group('Search', () {
       test('Checks that bus stop can be searched by description', () async {
-        await driver.tap(find.byValueKey('searchScreen'));
+        await driver.waitFor(find.byValueKey('BottomBar'));
+        await driver.tap(find.text('Search'));
+        print('clicked on Search');
         searchForText('Opp Holiday Inn', driver);
         await driver.waitFor(busStopCard);
         await screenshot(driver, config, 'SearchScreen');
@@ -88,7 +92,9 @@ void main() {
 
     group('Favorites', () {
       test('Checks that bus stop is present in favorite screen', () async {
-        await driver.tap(find.byValueKey('favoriteScreen'));
+        await driver.waitFor(find.byValueKey('BottomBar'));
+        await driver.tap(find.text('Favorites'));
+        print('clicked on Favorites');
         await screenshot(driver, config, 'Favoritescreen');
         expect(await isRendered(busStopCard, driver), true);
       });

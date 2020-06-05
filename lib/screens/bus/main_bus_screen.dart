@@ -32,6 +32,7 @@ class _MainBusScreenState extends State<MainBusScreen> {
       drawer: AppDrawer(),
       body: pageList[pageIndex],
       bottomNavigationBar: ConvexAppBar(
+        key: Key('BottomBar'),
         color: Colors.grey,
         activeColor: Theme.of(context).accentColor,
         backgroundColor: Theme.of(context).bottomAppBarColor,
