@@ -46,9 +46,7 @@ class MyApp extends StatelessWidget {
       title: 'SG Land Transport',
       darkTheme: ThemeData.dark(),
       theme: ThemeData.light(),
-      home: Splash(
-        nextAction: App(),
-      ),
+      home: App(),
     );
   }
 }
