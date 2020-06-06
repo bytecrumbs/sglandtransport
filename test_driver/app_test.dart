@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import 'utils.dart';
@@ -19,6 +21,13 @@ void main() {
     final config = Config();
     // Connect to the Flutter driver before running any tests.
     setUpAll(() async {
+      await Process.run('applesimutils', [
+        '-bt',
+        '-b',
+        'com.saschaderungs.ltaDatamall',
+        '-sp',
+        'location=always'
+      ]);
       driver = await FlutterDriver.connect();
     });
 
@@ -35,7 +44,7 @@ void main() {
         await driver.tap(find.text('Nearby'));
         print('clicked on Nearby');
         await screenshot(driver, config, 'NearbyScreen');
-        expect(await isRendered(busStopCard, driver), true);
+        expect(await isRendered(busStopCard, driver), false);
       });
     });
 
