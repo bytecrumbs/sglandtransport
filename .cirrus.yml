@@ -13,8 +13,8 @@ unit_test_task:
   <<: *PREPARE_ENV_TASK
   container:
     image: cirrusci/flutter:latest
-    prepare_test_coverage_script:
-      - ./prepare_test_coverage.sh lta_datamall_flutter
+  prepare_test_coverage_script:
+    - ./prepare_test_coverage.sh lta_datamall_flutter
   pub_cache:
     folder: ~/.pub-cache
   test_script:
