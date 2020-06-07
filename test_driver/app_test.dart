@@ -16,18 +16,28 @@ void main() {
     final selectedFavoriteIcon = find.byValueKey('favoriteIconSelected');
     final busStopCard = find.byValueKey('busStopCard-0');
     final favoriteIconButton = find.byValueKey('favoriteIconButton');
+    final bundle = 'com.saschaderungs.ltaDatamall';
 
     FlutterDriver driver;
     final config = Config();
     // Connect to the Flutter driver before running any tests.
     setUpAll(() async {
-      await Process.run('applesimutils', [
-        '-bt',
-        '-b',
-        'com.saschaderungs.ltaDatamall',
-        '-sp',
-        'location=always'
-      ]);
+      final screenshotsEnv = await config.screenshotsEnv;
+
+      if (screenshotsEnv['device_type'] == 'ios') {
+        await Process.run(
+            'applesimutils', ['-bt', '-b', bundle, '-sp', 'location=always']);
+      } else {
+        final envVars = Platform.environment;
+        final adbPath = envVars['ANDROID_HOME'] + '/platform-tools/adb';
+        await Process.run(adbPath, [
+          'shell',
+          'pm',
+          'grant',
+          'com.saschaderungs.ltaDatamall',
+          'android.permission.ACCESS_FINE_LOCATION'
+        ]);
+      }
       driver = await FlutterDriver.connect();
     });
 
