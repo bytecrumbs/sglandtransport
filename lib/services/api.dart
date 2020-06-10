@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:lta_datamall_flutter/db/database_provider.dart';
 import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_model.dart';
-import 'package:lta_datamall_flutter/models/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/models/bus_routes/bus_route_list_model.dart';
 import 'package:lta_datamall_flutter/models/bus_routes/bus_route_model.dart';
 import 'package:lta_datamall_flutter/models/bus_stops/bus_stop_list_model.dart';
@@ -57,49 +55,14 @@ Future<BusArrivalModel> fetchBusArrivalList(
     'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
   };
 
-  var futureResult = await Future.wait([
-    client.get(
-      'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=$busStopCode',
-      headers: requestHeaders,
-    ),
-    DatabaseProvider.db.getBusRoutes(busStopCode)
-  ]);
+  final response1 = await client.get(
+    'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=$busStopCode',
+    headers: requestHeaders,
+  );
 
-  final http.Response response = futureResult[0];
-  final List<BusRouteModel> busRouteModelList = futureResult[1];
-
-  if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON.
-    final busArrivalModel = BusArrivalModel.fromJson(jsonDecode(response.body));
-
-    // add bus services that are not currently operating
-    if (busArrivalModel.services.length < busRouteModelList.length) {
-      final busRouteModelServiceNos =
-          busRouteModelList.map((e) => e.serviceNo).toList();
-      final busArrivalServiceNoss =
-          busArrivalModel.services.map((e) => e.serviceNo).toList();
-
-      final busNoDifferences = busRouteModelServiceNos
-          .toSet()
-          .difference(busArrivalServiceNoss.toSet())
-          .toList();
-      busNoDifferences.forEach((element) {
-        final missingBusArrivalServiceModel = BusArrivalServiceModel(
-          serviceNo: element,
-          inService: false,
-        );
-        busArrivalModel.services.add(missingBusArrivalServiceModel);
-      });
-    }
-    ;
-
-    busArrivalModel.services.sort((BusArrivalServiceModel a,
-            BusArrivalServiceModel b) =>
-        int.parse(a.serviceNo.replaceAll(RegExp('\\D'), ''))
-            .compareTo(int.parse(b.serviceNo.replaceAll(RegExp('\\D'), ''))));
-    return busArrivalModel;
+  if (response1.statusCode == 200) {
+    return BusArrivalModel.fromJson(jsonDecode(response1.body));
   } else {
-    // If that call was not successful, throw an error.
     throw Exception('Failed to load post');
   }
 }

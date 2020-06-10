@@ -13,7 +13,6 @@ import 'package:lta_datamall_flutter/widgets/splash.dart';
 
 Future<void> main() async {
   await DotEnv().load('.env');
-
   Level logLevel;
   if (foundation.kReleaseMode) {
     logLevel = Level.WARNING;
@@ -30,7 +29,8 @@ Future<void> main() async {
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runZoned(() {
-    unawaited(DatabaseProvider.db.database);
+    WidgetsFlutterBinding.ensureInitialized();
+    unawaited(DatabaseProvider.dbProvider.database);
     runApp(MyApp());
   }, onError: Crashlytics.instance.recordError);
 }
