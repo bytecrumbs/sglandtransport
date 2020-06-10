@@ -138,8 +138,22 @@ export PATH="<path to flutter installation directory>/bin/cache/dart-sdk/bin:$PA
 
 ### Usage
 
+For uploading screenshots via fastlane, run following command without any mode.
+
+```
+screenshots
+```
+
+If mode is recording, screenshots will be saved for later comparison
+
 ```
 screenshots -m recording
+```
+
+If mode is archive, screenshots will be archived (and cannot be uploaded via fastlane).
+
+```
+screenshots -m archive
 ```
 
 ## Generate new set of app icon
