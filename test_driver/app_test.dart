@@ -28,9 +28,7 @@ void main() {
         await Process.run(
             'applesimutils', ['-bt', '-b', bundle, '-sp', 'location=always']);
       } else {
-        final envVars = Platform.environment;
-        final adbPath = envVars['ANDROID_HOME'] + '/platform-tools/adb';
-        await Process.run(adbPath, [
+        await Process.run('adb', [
           'shell',
           'pm',
           'grant',
