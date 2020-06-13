@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:lta_datamall_flutter/ui/views/bus/bus_view.dart';
 
 Future<void> main() async {
@@ -41,6 +42,8 @@ class MyApp extends StatelessWidget {
       title: 'SG Land Transport',
       darkTheme: ThemeData.dark(),
       theme: ThemeData.light(),
+      initialRoute: Routes.busViewRoute,
+      onGenerateRoute: Router().onGenerateRoute,
       home: BusView(),
     );
   }
