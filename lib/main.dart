@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,9 +43,10 @@ class MyApp extends StatelessWidget {
       title: 'SG Land Transport',
       darkTheme: ThemeData.dark(),
       theme: ThemeData.light(),
-      initialRoute: Routes.busViewRoute,
-      onGenerateRoute: Router().onGenerateRoute,
-      home: BusView(),
+      builder: ExtendedNavigator<Router>(
+        router: Router(),
+        initialRoute: Routes.busViewRoute,
+      ),
     );
   }
 }
