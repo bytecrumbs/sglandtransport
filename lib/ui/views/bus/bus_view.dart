@@ -1,5 +1,6 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/widgets/app_drawer.dart';
 import 'package:stacked/stacked.dart';
 
 import 'bus_favourites_view.dart';
@@ -21,6 +22,7 @@ class BusView extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Buses'),
         ),
+        drawer: AppDrawer(),
         body: _pageList[model.currentIndex],
         bottomNavigationBar: ConvexAppBar(
           key: Key('BottomBar'),
