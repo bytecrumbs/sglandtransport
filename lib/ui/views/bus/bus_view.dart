@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/ui/views/app_drawer/app_drawer_view.dart';
 import 'package:stacked/stacked.dart';
 
-import 'bus_favourites_view.dart';
-import 'bus_nearby_view.dart';
-import 'bus_search_view.dart';
+import 'bus_favourites/bus_favourites_view.dart';
+import 'bus_nearby/bus_nearby_view.dart';
+import 'bus_search/bus_search_view.dart';
 import 'bus_viewmodel.dart';
 
 class BusView extends StatelessWidget {
