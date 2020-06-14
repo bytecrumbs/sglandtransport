@@ -17,7 +17,7 @@ class AppDrawerView extends StatelessWidget {
                 leading: item.icon,
                 title: Text(item.title),
                 onTap: () {
-                  Navigator.pushNamed(context, item.routeName);
+                  model.navigateToBusHome();
                 },
               ),
             AboutListTile(

@@ -7,6 +7,7 @@ import 'package:logging/logging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
   Level logLevel;
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       initialRoute: Routes.busViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
+      navigatorKey: locator<NavigationService>().navigatorKey,
     );
   }
 }
