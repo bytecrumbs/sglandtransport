@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
 
 Future<void> main() async {
@@ -27,6 +28,7 @@ Future<void> main() async {
   runZoned(() {
     WidgetsFlutterBinding.ensureInitialized();
     // unawaited(DatabaseProvider.dbProvider.database);
+    setupLocator();
     runApp(MyApp());
   }, onError: Crashlytics.instance.recordError);
 }

@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:lta_datamall_flutter/ui/views/about/about_view.dart';
 import 'package:lta_datamall_flutter/ui/views/app_drawer/app_drawer_viewmodel.dart';
 import 'package:stacked/stacked.dart';
@@ -14,13 +13,14 @@ class AppDrawerView extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             _buildDrawerHeader(),
-            ListTile(
-              leading: Icon(Icons.directions_bus),
-              title: Text('Buses'),
-              onTap: () {
-                ExtendedNavigator.of(context).pushNamed(Routes.busViewRoute);
-              },
-            ),
+            for (var item in model.getActiveFeatures())
+              ListTile(
+                leading: item.icon,
+                title: Text(item.title),
+                onTap: () {
+                  ExtendedNavigator.of(context).pushNamed(item.routeName);
+                },
+              ),
             AboutListTile(
               icon: Icon(Icons.info_outline),
               applicationName: 'SG Land Transport',
