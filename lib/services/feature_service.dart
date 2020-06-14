@@ -6,16 +6,16 @@ import 'package:lta_datamall_flutter/routes/router.gr.dart';
 
 @lazySingleton
 class FeatureService {
-  static final _busesFeature = Feature(
+  static final _busFeature = Feature(
     title: 'Buses',
     routeName: Routes.busViewRoute,
     icon: Icon(Icons.directions_bus),
   );
 
-  final _devFeatures = [_busesFeature];
+  final _devFeatures = [_busFeature];
   List<Feature> get devFeatures => _devFeatures;
 
-  final _releaseFeatures = [_busesFeature];
+  final _releaseFeatures = [_busFeature];
   List<Feature> get releaseFeatures => _releaseFeatures;
 
   List<Feature> getListOfFeatures() {
