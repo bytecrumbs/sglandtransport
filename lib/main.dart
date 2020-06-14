@@ -7,7 +7,6 @@ import 'package:logging/logging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
-import 'package:lta_datamall_flutter/ui/views/bus/bus_view.dart';
 
 Future<void> main() async {
   Level logLevel;
