@@ -18,7 +18,7 @@ class AppDrawerView extends StatelessWidget {
                 leading: item.icon,
                 title: Text(item.title),
                 onTap: () {
-                  ExtendedNavigator.of(context).pushNamed(item.routeName);
+                  Navigator.pushNamed(context, item.routeName);
                 },
               ),
             AboutListTile(

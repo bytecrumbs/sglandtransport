@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +7,7 @@ import 'package:logging/logging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
+import 'package:lta_datamall_flutter/ui/views/bus/bus_view.dart';
 
 Future<void> main() async {
   Level logLevel;
@@ -27,8 +27,8 @@ Future<void> main() async {
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runZoned(() {
     WidgetsFlutterBinding.ensureInitialized();
-    // unawaited(DatabaseProvider.dbProvider.database);
     setupLocator();
+    // unawaited(DatabaseProvider.dbProvider.database);
     runApp(MyApp());
   }, onError: Crashlytics.instance.recordError);
 }
@@ -44,10 +44,8 @@ class MyApp extends StatelessWidget {
       title: 'SG Land Transport',
       darkTheme: ThemeData.dark(),
       theme: ThemeData.light(),
-      builder: ExtendedNavigator<Router>(
-        router: Router(),
-        initialRoute: Routes.busViewRoute,
-      ),
+      initialRoute: Routes.busViewRoute,
+      onGenerateRoute: Router().onGenerateRoute,
     );
   }
 }
