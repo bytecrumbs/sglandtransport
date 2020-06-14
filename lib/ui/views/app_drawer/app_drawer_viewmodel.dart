@@ -1,6 +1,5 @@
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/datamodels/feature.dart';
-import 'package:lta_datamall_flutter/routes/router.gr.dart';
 import 'package:lta_datamall_flutter/services/feature_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -16,7 +15,7 @@ class AppDrawerViewModel extends BaseViewModel {
     return _featureService.getListOfFeatures();
   }
 
-  Future navigateToBusHome() async {
-    await _navigationService.navigateTo(Routes.busViewRoute);
+  Future navigateTo(String routeName) async {
+    await _navigationService.navigateTo(routeName);
   }
 }
