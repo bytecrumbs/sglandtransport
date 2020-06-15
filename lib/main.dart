@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
-import 'package:lta_datamall_flutter/routes/router.gr.dart';
+import 'package:lta_datamall_flutter/app/router.gr.dart';
 import 'package:lta_datamall_flutter/services/firebase_analytics_observer_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 
