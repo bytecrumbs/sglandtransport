@@ -35,8 +35,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final _analyticsObserver = locator<FirebaseAnalyticsObserverService>();
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
@@ -50,7 +48,9 @@ class MyApp extends StatelessWidget {
       initialRoute: Routes.busViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
-      navigatorObservers: [_analyticsObserver.getAnalyticsObserver()],
+      navigatorObservers: [
+        locator<FirebaseAnalyticsObserverService>().getAnalyticsObserver()
+      ],
     );
   }
 }
