@@ -7,6 +7,7 @@ import 'package:logging/logging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/routes/router.gr.dart';
+import 'package:lta_datamall_flutter/services/firebase_analytics_observer_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
@@ -34,6 +35,8 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final _analyticsObserver = locator<FirebaseAnalyticsObserverService>();
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
@@ -47,6 +50,7 @@ class MyApp extends StatelessWidget {
       initialRoute: Routes.busViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
+      navigatorObservers: [_analyticsObserver.getAnalyticsObserver()],
     );
   }
 }
