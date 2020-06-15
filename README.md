@@ -51,7 +51,7 @@ Follow the instructions on https://firebase.google.com/docs/flutter/setup?platfo
 
 ## Code Generation
 
-This project uses build runner to generate Models (lib/models) and Routes (lib/routes).
+This project uses build runner to generate Models, Routes and other things.
 
 ### Generate once
 
