@@ -6,7 +6,7 @@ import 'package:lta_datamall_flutter/datamodels/user_location.dart';
 
 @lazySingleton
 class LocationService {
-  Location location = Location();
+  final Location _location = Location();
   // Continuously emit location updates
   final StreamController<UserLocation> _locationController =
       StreamController<UserLocation>.broadcast();
@@ -14,9 +14,9 @@ class LocationService {
   Stream<UserLocation> get locationStream => _locationController.stream;
 
   LocationService() {
-    location.requestPermission().then((ps) {
+    _location.requestPermission().then((ps) {
       if (ps == PermissionStatus.granted) {
-        location.onLocationChanged.listen((locationData) {
+        _location.onLocationChanged.listen((locationData) {
           if (locationData != null) {
             _locationController.add(
               UserLocation(
