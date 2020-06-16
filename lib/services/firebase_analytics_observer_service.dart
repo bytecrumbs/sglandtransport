@@ -4,8 +4,7 @@ import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class FirebaseAnalyticsObserverService {
-  final FirebaseAnalytics _analytics = FirebaseAnalytics();
-
-  FirebaseAnalyticsObserver getAnalyticsObserver() =>
-      FirebaseAnalyticsObserver(analytics: _analytics);
+  final FirebaseAnalyticsObserver _analyticsObserver =
+      FirebaseAnalyticsObserver(analytics: FirebaseAnalytics());
+  FirebaseAnalyticsObserver get analyticsObserver => _analyticsObserver;
 }

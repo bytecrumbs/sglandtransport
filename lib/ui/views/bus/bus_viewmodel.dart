@@ -5,7 +5,8 @@ import 'package:lta_datamall_flutter/services/firebase_analytics_observer_servic
 import 'package:stacked/stacked.dart';
 
 class BusViewModel extends BaseViewModel {
-  final _analyticsObserver = locator<FirebaseAnalyticsObserverService>();
+  final _analyticsObserver =
+      locator<FirebaseAnalyticsObserverService>().analyticsObserver;
 
   int _currentIndex = 0;
 
@@ -35,9 +36,6 @@ class BusViewModel extends BaseViewModel {
   }
 
   void _sendCurrentTabToAnalytics(String screenName) {
-    _analyticsObserver
-        .getAnalyticsObserver()
-        .analytics
-        .setCurrentScreen(screenName: screenName);
+    _analyticsObserver.analytics.setCurrentScreen(screenName: screenName);
   }
 }

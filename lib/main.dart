@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: Router().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
       navigatorObservers: [
-        locator<FirebaseAnalyticsObserverService>().getAnalyticsObserver()
+        locator<FirebaseAnalyticsObserverService>().analyticsObserver,
       ],
     );
   }
