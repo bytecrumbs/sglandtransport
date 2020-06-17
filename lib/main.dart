@@ -10,7 +10,6 @@ import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/app/router.gr.dart';
 import 'package:lta_datamall_flutter/services/database_service.dart';
 import 'package:lta_datamall_flutter/services/firebase_analytics_observer_service.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
@@ -33,7 +32,7 @@ Future<void> main() async {
   runZoned(() {
     WidgetsFlutterBinding.ensureInitialized();
     setupLocator();
-    unawaited(locator<DatabaseService>().database);
+    locator<DatabaseService>().database;
     runApp(MyApp());
   }, onError: Crashlytics.instance.recordError);
 }
