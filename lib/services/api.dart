@@ -18,37 +18,48 @@ class Api {
       'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
     };
 
-    final skip = [
-      0,
-      500,
-      1000,
-      1500,
-      2000,
-      2500,
-      3000,
-      3500,
-      4000,
-      4500,
-      5000,
-    ];
-
     var result = <BusStopModel>[];
 
-    for (final currentSkip in skip) {
-      final response = await client.get(
-        '$endPoint/ltaodataservice/BusStops?\$skip=$currentSkip',
-        headers: requestHeaders,
-      );
+    var fetchURL = '$endPoint/ltaodataservice/BusStops';
+    for (var i = 0; i <= 5000; i = i + 2500) {
+      var secondSkip = i + 500;
+      var thirdSkip = i + 1000;
+      var fourthSkip = i + 1500;
+      var fifthSkip = i + 2000;
+      var parallelFetch = await Future.wait([
+        client.get(
+          '$fetchURL?\$skip=$i',
+          headers: requestHeaders,
+        ),
+        client.get(
+          '$fetchURL?\$skip=$secondSkip',
+          headers: requestHeaders,
+        ),
+        client.get(
+          '$fetchURL?\$skip=$thirdSkip',
+          headers: requestHeaders,
+        ),
+        client.get(
+          '$fetchURL?\$skip=$fourthSkip',
+          headers: requestHeaders,
+        ),
+        client.get(
+          '$fetchURL?\$skip=$fifthSkip',
+          headers: requestHeaders,
+        ),
+      ]);
 
-      if (response.statusCode == 200) {
-        // If the call to the server was successful, parse the JSON.
-        final busStopListModel =
-            BusStopListModel.fromJson(jsonDecode(response.body));
-        result = result + busStopListModel.value;
-      } else {
-        // If that call was not successful, throw an error.
-        throw Exception('Failed to load post');
-      }
+      parallelFetch.forEach((response) {
+        if (response.statusCode == 200) {
+          // If the call to the server was successful, parse the JSON.
+          final busStopListModel =
+              BusStopListModel.fromJson(jsonDecode(response.body));
+          result = result + busStopListModel.value;
+        } else {
+          // If that call was not successful, throw an error.
+          throw Exception('Failed to load post');
+        }
+      });
     }
 
     return result;
@@ -79,11 +90,13 @@ class Api {
 
     var result = <BusRouteModel>[];
 
-    for (var i = 0; i <= 26000; i = i + 2000) {
+    var fetchURL = '$endPoint/ltaodataservice/BusRoutes';
+    for (var i = 0; i <= 26000; i = i + 3000) {
       var secondSkip = i + 500;
       var thirdSkip = i + 1000;
       var fourthSkip = i + 1500;
-      var fetchURL = '$endPoint/ltaodataservice/BusRoutes';
+      var fifthSkip = i + 2000;
+      var sixthSkip = i + 2500;
       var parallelFetch = await Future.wait([
         client.get(
           '$fetchURL?\$skip=$i',
@@ -99,6 +112,14 @@ class Api {
         ),
         client.get(
           '$fetchURL?\$skip=$fourthSkip',
+          headers: requestHeaders,
+        ),
+        client.get(
+          '$fetchURL?\$skip=$fifthSkip',
+          headers: requestHeaders,
+        ),
+        client.get(
+          '$fetchURL?\$skip=$sixthSkip',
           headers: requestHeaders,
         ),
       ]);
