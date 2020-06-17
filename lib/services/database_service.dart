@@ -1,6 +1,8 @@
 import 'package:injectable/injectable.dart';
+import 'package:latlong/latlong.dart';
 import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
+import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:http/io_client.dart' as http;
@@ -105,5 +107,28 @@ class DatabaseService {
     await batch.commit(noResult: true);
     _log.info(
         'inserting ${listToInsert.length} records into table $tableName complete...');
+  }
+
+  Future<List<BusStopModel>> getBusStopsByLocation(
+      double userLatitude, double userLongitude) async {
+    _log.info('getting bus routes');
+    final db = await database;
+
+    final distance = Distance();
+
+    var busStops =
+        await db.rawQuery('SELECT * FROM $busStopsTableName WHERE ${distance(
+      LatLng(userLatitude, userLongitude),
+      LatLng(userLatitude, userLongitude),
+    )} = 0');
+
+    var busStopList = <BusStopModel>[];
+
+    busStops.forEach((currentBusRoute) {
+      var busStopModel = BusStopModel.fromJson(currentBusRoute);
+      busStopList.add(busStopModel);
+    });
+
+    return busStopList;
   }
 }

@@ -32,7 +32,8 @@ Future<void> main() async {
   runZoned(() {
     WidgetsFlutterBinding.ensureInitialized();
     setupLocator();
-    locator<DatabaseService>().database;
+    // initiate the DB
+    // locator<DatabaseService>().database;
     runApp(MyApp());
   }, onError: Crashlytics.instance.recordError);
 }
