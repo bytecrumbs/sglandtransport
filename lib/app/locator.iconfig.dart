@@ -7,6 +7,7 @@
 import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/services/bus_service.dart';
 import 'package:lta_datamall_flutter/services/database_service.dart';
+import 'package:lta_datamall_flutter/services/favourites_service.dart';
 import 'package:lta_datamall_flutter/services/feature_service.dart';
 import 'package:lta_datamall_flutter/services/firebase_analytics_observer_service.dart';
 import 'package:lta_datamall_flutter/services/location_service.dart';
@@ -19,6 +20,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerLazySingleton<Api>(() => Api());
   g.registerLazySingleton<BusService>(() => BusService());
   g.registerLazySingleton<DatabaseService>(() => DatabaseService());
+  g.registerLazySingleton<FavouritesService>(() => FavouritesService());
   g.registerLazySingleton<FeatureService>(() => FeatureService());
   g.registerLazySingleton<FirebaseAnalyticsObserverService>(
       () => FirebaseAnalyticsObserverService());
