@@ -28,7 +28,7 @@ class BusService {
 
   Future<List<BusStopModel>> _fetchBusStopsFromServer() async {
     final busStops = await _api.fetchBusStopList(http.IOClient());
-    _databaseService.updateBusStopsByLocation(busStops);
+    _databaseService.insertBusStops(busStops);
     return busStops;
   }
 }

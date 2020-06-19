@@ -122,7 +122,7 @@ class DatabaseService {
     return busStopList;
   }
 
-  void updateBusStopsByLocation(List<BusStopModel> busStops) {
+  void insertBusStops(List<BusStopModel> busStops) {
     _insertList(busStopsTableName, busStops);
   }
 }
