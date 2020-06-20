@@ -4,11 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @lazySingleton
 class FavouritesService {
-  static final _log = Logger('BusService');
+  static final _log = Logger('FavouritesService');
   static const favouriteBusStopsKey = 'favouriteBusStopsKey';
 
   Future<bool> isFavouriteBusStop(String busStopCode) async {
-    _log.info('isFavouriteBusStop');
+    _log.info('checking if $busStopCode is marked as favourite bus stop');
     final prefs = await SharedPreferences.getInstance();
 
     final favouriteBusStops =
