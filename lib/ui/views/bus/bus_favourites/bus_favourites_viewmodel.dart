@@ -7,7 +7,15 @@ class BusFavouritesViewModel extends FutureViewModel<List<String>> {
   final String _title = 'Favourites';
   String get title => _title;
 
+  // Future<List<String>> get favouriteBusStops => futureToRun();
+
   @override
   Future<List<String>> futureToRun() =>
       _favouritesService.getFavouriteBusStops();
+
+  Future<List<String>> addBusStop(String busStopCode) =>
+      _favouritesService.addBusStop(busStopCode);
+
+  Future<List<String>> removeBusStop(String busStopCode) =>
+      _favouritesService.removeBusStop(busStopCode);
 }
