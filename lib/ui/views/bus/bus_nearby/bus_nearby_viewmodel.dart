@@ -12,7 +12,6 @@ class BusNearbyViewModel extends BaseViewModel {
 
   List<BusStopModel> get nearByBusStops {
     _log.info('Get nearByBusStops');
-
     return _busService.nearbyBusStops;
   }
 
