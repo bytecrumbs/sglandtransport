@@ -13,30 +13,33 @@ import 'package:http/io_client.dart' as http;
 class BusService {
   static final _log = Logger('BusService');
   final _databaseService = locator<DatabaseService>();
+  var _nearbyBusStops = <BusStopModel>[];
   final _api = locator<Api>();
 
-  Future<List<BusStopModel>> getNearbyBusStopsByLocation(
-      UserLocation userLocation) async {
+  List<BusStopModel> get nearbyBusStops => _nearbyBusStops;
+
+  void nearbyBusStopsByLocation(UserLocation userLocation) async {
     _log.info('getting bus stops');
-    final nearbyBusStops = <BusStopModel>[];
-    final distance = Distance();
+    _nearbyBusStops = [];
 
-    var allBusStops = await _getBusStopsByLocation();
+    if (userLocation != null && userLocation.permissionGranted) {
+      final distance = Distance();
+      var allBusStops = await _getBusStopsByLocation();
 
-    allBusStops.forEach((busStop) {
-      final distanceInMeters = distance(
-        LatLng(userLocation.latitude, userLocation.longitude),
-        LatLng(busStop.latitude, busStop.longitude),
-      );
-      if (distanceInMeters <= 500) {
-        busStop.distanceInMeters = distanceInMeters.round();
-        nearbyBusStops.add(busStop);
-      }
-    });
+      allBusStops.forEach((busStop) {
+        final distanceInMeters = distance(
+          LatLng(userLocation.latitude, userLocation.longitude),
+          LatLng(busStop.latitude, busStop.longitude),
+        );
+        if (distanceInMeters <= 500) {
+          busStop.distanceInMeters = distanceInMeters.round();
+          _nearbyBusStops.add(busStop);
+        }
+      });
 
-    nearbyBusStops.sort((BusStopModel a, BusStopModel b) =>
-        a.distanceInMeters.compareTo(b.distanceInMeters));
-    return nearbyBusStops;
+      _nearbyBusStops.sort((BusStopModel a, BusStopModel b) =>
+          a.distanceInMeters.compareTo(b.distanceInMeters));
+    }
   }
 
   Future<List<BusArrivalServiceModel>> getBusArrivalServices(

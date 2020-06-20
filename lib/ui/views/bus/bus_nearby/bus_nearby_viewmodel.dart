@@ -1,16 +1,19 @@
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/datamodels/user_location.dart';
 import 'package:lta_datamall_flutter/services/bus_service.dart';
+import 'package:lta_datamall_flutter/services/location_service.dart';
 import 'package:stacked/stacked.dart';
 
-class BusNearbyViewModel extends FutureViewModel<List<BusStopModel>> {
+class BusNearbyViewModel extends BaseViewModel {
   final _busService = locator<BusService>();
-  final String _title = 'Nearby';
-  String get title => _title;
-  final userLocation = UserLocation(latitude: 1.29785, longitude: 103.853);
+  final _locationService = locator<LocationService>();
 
-  @override
-  Future<List<BusStopModel>> futureToRun() =>
-      _busService.getNearbyBusStopsByLocation(userLocation);
+  List<BusStopModel> get nearByBusStops => _busService.nearbyBusStops;
+
+  Future<void> initialize() async {
+    _locationService.locationStream.listen((userLocation) async {
+      await _busService.nearbyBusStopsByLocation(userLocation);
+      notifyListeners();
+    });
+  }
 }
