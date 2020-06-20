@@ -29,6 +29,7 @@ class Router extends RouterBase {
 
   @override
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    final args = settings.arguments;
     switch (settings.name) {
       case Routes.busViewRoute:
         return MaterialPageRoute<dynamic>(
@@ -36,12 +37,27 @@ class Router extends RouterBase {
           settings: settings,
         );
       case Routes.busArrivalView:
+        if (hasInvalidArgs<BusArrivalViewArguments>(args, isRequired: true)) {
+          return misTypedArgsRoute<BusArrivalViewArguments>(args);
+        }
+        final typedArgs = args as BusArrivalViewArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (context) => BusArrivalView(),
+          builder: (context) =>
+              BusArrivalView(busStopCode: typedArgs.busStopCode),
           settings: settings,
         );
       default:
         return unknownRoutePage(settings.name);
     }
   }
+}
+
+// *************************************************************************
+// Arguments holder classes
+// **************************************************************************
+
+//BusArrivalView arguments holder class
+class BusArrivalViewArguments {
+  final String busStopCode;
+  BusArrivalViewArguments({@required this.busStopCode});
 }

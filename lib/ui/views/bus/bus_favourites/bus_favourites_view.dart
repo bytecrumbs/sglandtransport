@@ -23,7 +23,8 @@ class BusFavouritesView extends StatelessWidget {
                           itemBuilder: (context, index) => Card(
                             child: ListTile(
                               title: Text(model.data[index]),
-                              onTap: () => model.navigateToBusArrival(),
+                              onTap: () =>
+                                  model.navigateToBusArrival(model.data[index]),
                             ),
                           ),
                           itemCount: model.data.length,

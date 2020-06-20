@@ -3,6 +3,8 @@ import 'package:lta_datamall_flutter/ui/views/bus/bus_arrival/bus_arrival_viewmo
 import 'package:stacked/stacked.dart';
 
 class BusArrivalView extends StatelessWidget {
+  BusArrivalView({@required this.busStopCode});
+  final String busStopCode;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusArrivalViewModel>.reactive(
@@ -11,7 +13,7 @@ class BusArrivalView extends StatelessWidget {
           title: Text('Bus Arrival'),
         ),
         body: Center(
-          child: Text('Bus Arrival'),
+          child: Text(busStopCode),
         ),
       ),
       viewModelBuilder: () => BusArrivalViewModel(),

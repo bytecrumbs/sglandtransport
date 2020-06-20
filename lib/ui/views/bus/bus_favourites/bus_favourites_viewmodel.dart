@@ -22,7 +22,10 @@ class BusFavouritesViewModel extends FutureViewModel<List<String>> {
   Future<List<String>> removeBusStop(String busStopCode) =>
       _favouritesService.removeBusStop(busStopCode);
 
-  Future navigateToBusArrival() async {
-    await _navigationService.navigateTo(Routes.busArrivalView);
+  Future navigateToBusArrival(String busStopCode) async {
+    await _navigationService.navigateTo(Routes.busArrivalView,
+        arguments: BusArrivalViewArguments(
+          busStopCode: busStopCode,
+        ));
   }
 }
