@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:latlong/latlong.dart';
 import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
+import 'package:lta_datamall_flutter/datamodels/bus/bus_arrival/bus_arrival_service_model.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/datamodels/user_location.dart';
 import 'package:lta_datamall_flutter/services/api.dart';
@@ -36,6 +37,12 @@ class BusService {
     nearbyBusStops.sort((BusStopModel a, BusStopModel b) =>
         a.distanceInMeters.compareTo(b.distanceInMeters));
     return nearbyBusStops;
+  }
+
+  Future<List<BusArrivalServiceModel>> getBusArrivalServices(
+      String busStopCode) async {
+    var result = await _api.fetchBusArrivalList(http.IOClient(), busStopCode);
+    return result.services;
   }
 
   Future<List<BusStopModel>> _getBusStopsByLocation() async {
