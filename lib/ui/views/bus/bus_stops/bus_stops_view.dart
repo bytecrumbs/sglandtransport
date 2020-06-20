@@ -27,7 +27,10 @@ class BusStopsView extends StatelessWidget {
               );
             }),
       ),
-      viewModelBuilder: () => BusStopsViewModel(busStopList),
+      onModelReady: (model) async {
+        await model.initialize(busStopList);
+      },
+      viewModelBuilder: () => BusStopsViewModel(),
     );
   }
 }
