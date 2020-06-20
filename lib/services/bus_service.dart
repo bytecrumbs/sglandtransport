@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:latlong/latlong.dart';
 import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
@@ -13,16 +14,32 @@ class BusService {
   final _databaseService = locator<DatabaseService>();
   final _api = locator<Api>();
 
-  Future<List<BusStopModel>> getNearbyBusStops() {
+  Future<List<BusStopModel>> getNearbyBusStopsByLocation(
+      UserLocation userLocation) async {
     _log.info('getting bus stops');
-    final userLocation = UserLocation(latitude: 1.29785, longitude: 103.853);
-    return _getBusStopsByLocation(userLocation.latitude, userLocation.latitude);
+    final nearbyBusStops = <BusStopModel>[];
+    final distance = Distance();
+
+    var allBusStops = await _getBusStopsByLocation();
+
+    allBusStops.forEach((busStop) {
+      final distanceInMeters = distance(
+        LatLng(userLocation.latitude, userLocation.longitude),
+        LatLng(busStop.latitude, busStop.longitude),
+      );
+      if (distanceInMeters <= 500) {
+        busStop.distanceInMeters = distanceInMeters.round();
+        nearbyBusStops.add(busStop);
+      }
+    });
+
+    nearbyBusStops.sort((BusStopModel a, BusStopModel b) =>
+        a.distanceInMeters.compareTo(b.distanceInMeters));
+    return nearbyBusStops;
   }
 
-  Future<List<BusStopModel>> _getBusStopsByLocation(
-      double userLatitude, double userLongitude) async {
-    var data = await _databaseService.getBusStopsByLocation(
-        userLatitude, userLongitude);
+  Future<List<BusStopModel>> _getBusStopsByLocation() async {
+    var data = await _databaseService.getBusStopsByLocation();
     return data.isNotEmpty ? data : _fetchBusStopsFromServer();
   }
 

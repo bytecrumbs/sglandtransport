@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-import 'package:latlong/latlong.dart';
 import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
 import 'package:path/path.dart';
@@ -99,20 +98,11 @@ class DatabaseService {
         'inserting ${listToInsert.length} records into table $tableName complete...');
   }
 
-  Future<List<BusStopModel>> getBusStopsByLocation(
-      double userLatitude, double userLongitude) async {
+  Future<List<BusStopModel>> getBusStopsByLocation() async {
     _log.info('getting bus routes');
-    final db = await database;
-
-    final distance = Distance();
-
-    var busStops =
-        await db.rawQuery('SELECT * FROM $busStopsTableName WHERE ${distance(
-      LatLng(userLatitude, userLongitude),
-      LatLng(userLatitude, userLongitude),
-    )} = 0');
-
     var busStopList = <BusStopModel>[];
+    final db = await database;
+    var busStops = await db.rawQuery('SELECT * FROM $busStopsTableName');
 
     busStops.forEach((currentBusRoute) {
       var busStopModel = BusStopModel.fromJson(currentBusRoute);
