@@ -56,17 +56,17 @@ class AddRemoveFavourites extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Text('010101'),
+            Text('78129'),
             FavouritesIconView(
-              busStopCode: '010101',
+              busStopCode: '78129',
             ),
           ],
         ),
         Row(
           children: <Widget>[
-            Text('020202'),
+            Text('78111'),
             FavouritesIconView(
-              busStopCode: '020202',
+              busStopCode: '78111',
             ),
           ],
         ),

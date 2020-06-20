@@ -41,6 +41,7 @@ class BusService {
 
   Future<List<BusArrivalServiceModel>> getBusArrivalServices(
       String busStopCode) async {
+    _log.info('getting bus arrival list for bus stop $busStopCode');
     var result = await _api.fetchBusArrivalList(http.IOClient(), busStopCode);
     return result.services;
   }

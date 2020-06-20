@@ -20,10 +20,12 @@ class BusArrivalView extends StatelessWidget {
           ],
         ),
         body: Center(
-          child: Text(busStopCode),
+          child: model.isBusy
+              ? CircularProgressIndicator()
+              : Text(model.data.length.toString()),
         ),
       ),
-      viewModelBuilder: () => BusArrivalViewModel(),
+      viewModelBuilder: () => BusArrivalViewModel(busStopCode),
     );
   }
 }
