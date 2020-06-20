@@ -8,7 +8,10 @@ class BusFavouritesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusFavouritesViewModel>.reactive(
       builder: (context, model, child) => Center(
-        child: Text(model.title),
+        // model will indicate busy until the future is fetched
+        child: model.isBusy
+            ? CircularProgressIndicator()
+            : Text(model.data.length.toString()),
       ),
       viewModelBuilder: () => BusFavouritesViewModel(),
     );
