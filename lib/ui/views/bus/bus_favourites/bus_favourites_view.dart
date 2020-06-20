@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/ui/views/shared/favourites_icon/favourites_icon_view.dart';
 import 'package:stacked/stacked.dart';
 
 import 'bus_favourites_viewmodel.dart';
@@ -50,38 +51,18 @@ class AddRemoveFavourites extends StatelessWidget {
     return Column(
       children: <Widget>[
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text('010101'),
-            RaisedButton(
-              child: Text('Add'),
-              onPressed: () {
-                model.addBusStop('010101');
-              },
-            ),
-            RaisedButton(
-              child: Text('Remove'),
-              onPressed: () {
-                model.removeBusStop('010101');
-              },
+            FavouritesIconView(
+              busStopCode: '010101',
             ),
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text('020202'),
-            RaisedButton(
-              child: Text('Add'),
-              onPressed: () {
-                model.addBusStop('020202');
-              },
-            ),
-            RaisedButton(
-              child: Text('Remove'),
-              onPressed: () {
-                model.removeBusStop('020202');
-              },
+            FavouritesIconView(
+              busStopCode: '020202',
             ),
           ],
         ),
