@@ -3,7 +3,6 @@ import 'package:stacked/stacked.dart';
 
 class BusStopsViewModel extends BaseViewModel {
   List<BusStopModel> _busStopList;
-
   List<BusStopModel> get busStopList => _busStopList;
 
   Future<void> initialize(List<BusStopModel> busStopList) async {
