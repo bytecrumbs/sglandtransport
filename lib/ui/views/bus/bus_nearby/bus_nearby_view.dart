@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/ui/views/bus/bus_stops/bus_stops_view.dart';
 import 'package:stacked/stacked.dart';
 
 import 'bus_nearby_viewmodel.dart';
@@ -11,7 +12,7 @@ class BusNearbyView extends StatelessWidget {
               // model will indicate busy until the future is fetched
               child: model.isBusy
                   ? CircularProgressIndicator()
-                  : Text(model.userLocation.permissionGranted.toString()),
+                  : BusStopsView(userLocation: model.userLocation),
             ),
         viewModelBuilder: () => BusNearbyViewModel(),
         // createNewModelOnInsert: true,

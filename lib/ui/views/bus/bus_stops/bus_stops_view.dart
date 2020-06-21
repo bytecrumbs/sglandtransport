@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/datamodels/user_location.dart';
 import 'package:stacked/stacked.dart';
 import 'bus_stop_view.dart';
 import 'bus_stops_viewmodel.dart';
 
 class BusStopsView extends StatelessWidget {
-  final List<BusStopModel> busStopList;
-  static final _log = Logger('BusService');
+  final UserLocation userLocation;
+  static final _log = Logger('BusStopsView');
 
-  BusStopsView({@required this.busStopList});
+  BusStopsView({@required this.userLocation});
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusStopsViewModel>.reactive(
       builder: (context, model, child) => Container(
-        child: ListView.builder(
-            itemCount: model.busStopList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return BusStopView(
-                busStopModel: model.busStopList[index],
-                key: ValueKey<String>('busStopCard-$index'),
-              );
-            }),
+        child: model.isBusy
+            ? CircularProgressIndicator()
+            : ListView.builder(
+                itemCount: model.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return BusStopView(
+                    busStopModel: model.data[index],
+                    key: ValueKey<String>('busStopCard-$index'),
+                  );
+                }),
       ),
-      onModelReady: (model) async {
-        _log.info('::BusStopsView - onModelReady');
-        await model.initialize(busStopList);
-      },
-      viewModelBuilder: () => BusStopsViewModel(),
+      viewModelBuilder: () => BusStopsViewModel(userLocation),
     );
   }
 }
