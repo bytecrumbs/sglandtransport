@@ -137,4 +137,11 @@ class DatabaseService {
   void insertBusRoutes(List<BusRouteModel> busRoutes) {
     _insertList(busRoutesTableName, busRoutes);
   }
+
+  Future<int> getBusRoutesCount() async {
+    final db = await database;
+    return Sqflite.firstIntValue(
+      await db.rawQuery('SELECT COUNT(*) FROM $busRoutesTableName'),
+    );
+  }
 }

@@ -45,8 +45,23 @@ class BusService {
   Future<List<BusArrivalServiceModel>> getBusArrivalServices(
       String busStopCode) async {
     _log.info('getting bus arrival list for bus stop $busStopCode');
-    var result = await _api.fetchBusArrivalList(http.IOClient(), busStopCode);
-    return result.services;
+    var busArrivalServiceListModel =
+        await _api.fetchBusArrivalList(http.IOClient(), busStopCode);
+    _log.info('getting all bus services for $busStopCode from bus routes DB');
+    var allBusServices = await _databaseService.getBusRoutes(busStopCode);
+    // add services not in use to the original api result
+    return busArrivalServiceListModel.services;
+  }
+
+  Future<void> addBusRoutesToDb() async {
+    _log.info('checking if table is empty');
+    var count = await _databaseService.getBusRoutesCount();
+    if (count == 0) {
+      _log.info('fetching bus routes from server');
+      var busRoutes = await _api.fetchBusRoutes(http.IOClient());
+      _log.info('adding bus routes information into DB');
+      _databaseService.insertBusRoutes(busRoutes);
+    }
   }
 
   Future<List<BusStopModel>> _getBusStopsByLocation() async {
