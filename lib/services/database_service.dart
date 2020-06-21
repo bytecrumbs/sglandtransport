@@ -114,9 +114,9 @@ class DatabaseService {
   }
 
   Future<List<BusRouteModel>> getBusRoutes(String busStopCode) async {
-    _log.info('getting bus routes');
     var busRouteList = <BusRouteModel>[];
     final db = await database;
+    _log.info('getting bus routes');
     var busRoutes = await db.rawQuery(
       'SELECT * FROM $busRoutesTableName WHERE BusStopCode = ?',
       [busStopCode],
