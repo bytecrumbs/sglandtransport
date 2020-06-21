@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/datamodels/user_location.dart';
 import 'package:stacked/stacked.dart';
 import 'bus_stop_view.dart';
@@ -7,7 +6,6 @@ import 'bus_stops_viewmodel.dart';
 
 class BusStopsView extends StatelessWidget {
   final UserLocation userLocation;
-  static final _log = Logger('BusStopsView');
 
   BusStopsView({@required this.userLocation});
 
