@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:logging/logging.dart';
+import 'package:lta_datamall_flutter/datamodels/bus/bus_route/bus_route_model.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -99,20 +100,41 @@ class DatabaseService {
   }
 
   Future<List<BusStopModel>> getBusStopsByLocation() async {
-    _log.info('getting bus routes');
+    _log.info('getting bus stops');
     var busStopList = <BusStopModel>[];
     final db = await database;
     var busStops = await db.rawQuery('SELECT * FROM $busStopsTableName');
 
-    busStops.forEach((currentBusRoute) {
-      var busStopModel = BusStopModel.fromJson(currentBusRoute);
+    busStops.forEach((currentBusStop) {
+      var busStopModel = BusStopModel.fromJson(currentBusStop);
       busStopList.add(busStopModel);
     });
 
     return busStopList;
   }
 
+  Future<List<BusRouteModel>> getBusRoutes(String busStopCode) async {
+    _log.info('getting bus routes');
+    var busRouteList = <BusRouteModel>[];
+    final db = await database;
+    var busRoutes = await db.rawQuery(
+      'SELECT * FROM $busRoutesTableName WHERE BusStopCode = ?',
+      [busStopCode],
+    );
+
+    busRoutes.forEach((currentBusRoute) {
+      var busRouteModel = BusRouteModel.fromJson(currentBusRoute);
+      busRouteList.add(busRouteModel);
+    });
+
+    return busRouteList;
+  }
+
   void insertBusStops(List<BusStopModel> busStops) {
     _insertList(busStopsTableName, busStops);
+  }
+
+  void insertBusRoutes(List<BusRouteModel> busRoutes) {
+    _insertList(busRoutesTableName, busRoutes);
   }
 }
