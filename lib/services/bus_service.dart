@@ -70,6 +70,12 @@ class BusService {
         );
         busServicesFromApi.add(missingBusArrivalServiceModel);
       });
+
+      // sort bus arrival by bus number
+      busServicesFromApi.sort((BusArrivalServiceModel a,
+              BusArrivalServiceModel b) =>
+          int.parse(a.serviceNo.replaceAll(RegExp('\\D'), ''))
+              .compareTo(int.parse(b.serviceNo.replaceAll(RegExp('\\D'), ''))));
     }
     return busServicesFromApi;
   }
