@@ -42,8 +42,9 @@ class Router extends RouterBase {
         }
         final typedArgs = args as BusArrivalViewArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (context) =>
-              BusArrivalView(busStopCode: typedArgs.busStopCode),
+          builder: (context) => BusArrivalView(
+              busStopCode: typedArgs.busStopCode,
+              description: typedArgs.description),
           settings: settings,
         );
       default:
@@ -59,5 +60,7 @@ class Router extends RouterBase {
 //BusArrivalView arguments holder class
 class BusArrivalViewArguments {
   final String busStopCode;
-  BusArrivalViewArguments({@required this.busStopCode});
+  final String description;
+  BusArrivalViewArguments(
+      {@required this.busStopCode, @required this.description});
 }

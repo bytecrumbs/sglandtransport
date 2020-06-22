@@ -6,14 +6,18 @@ import 'bus_arrival_service_card_view.dart';
 import 'bus_arrival_viewmodel.dart';
 
 class BusArrivalView extends StatelessWidget {
-  BusArrivalView({@required this.busStopCode});
+  BusArrivalView({
+    @required this.busStopCode,
+    @required this.description,
+  });
   final String busStopCode;
+  final String description;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusArrivalViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text('Bus Arrival'),
+          title: Text(description),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
