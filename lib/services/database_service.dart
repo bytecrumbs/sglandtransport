@@ -144,4 +144,22 @@ class DatabaseService {
       await db.rawQuery('SELECT COUNT(*) FROM $busRoutesTableName'),
     );
   }
+
+  Future<List<BusStopModel>> getFavouriteBusStops(
+      List<String> busStopCodes) async {
+    var busStopList = <BusStopModel>[];
+    final db = await database;
+    final rawQuery =
+        'SELECT * FROM $busStopsTableName WHERE BusStopCode in (\'${busStopCodes.join("','")}\')';
+    _log.info('getting favourite bus stops ($rawQuery)');
+    var busStops = await db.rawQuery(rawQuery);
+
+    busStops.forEach((currentBusStop) {
+      print(currentBusStop);
+      var busStopModel = BusStopModel.fromJson(currentBusStop);
+      busStopList.add(busStopModel);
+    });
+
+    return busStopList;
+  }
 }

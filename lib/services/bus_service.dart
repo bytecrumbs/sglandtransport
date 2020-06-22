@@ -8,11 +8,13 @@ import 'package:lta_datamall_flutter/datamodels/user_location.dart';
 import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/services/database_service.dart';
 import 'package:http/io_client.dart' as http;
+import 'package:lta_datamall_flutter/services/favourites_service.dart';
 
 @lazySingleton
 class BusService {
   static final _log = Logger('BusService');
   final _databaseService = locator<DatabaseService>();
+  final _favouritesService = locator<FavouritesService>();
   final _api = locator<Api>();
 
   Future<List<BusStopModel>> getNearbyBusStopsByLocation(
@@ -100,5 +102,14 @@ class BusService {
     final busStops = await _api.fetchBusStopList(http.IOClient());
     _databaseService.insertBusStops(busStops);
     return busStops;
+  }
+
+  Future<List<BusStopModel>> getFavouriteBusStops() async {
+    _log.info('getting favourite bus stop codes from favourites service');
+    final favoriteBusStopCodes =
+        await _favouritesService.getFavouriteBusStops();
+    _log.info(
+        'getting favourite bus stops from database for bus stops ${favoriteBusStopCodes.join(', ')}');
+    return await _databaseService.getFavouriteBusStops(favoriteBusStopCodes);
   }
 }
