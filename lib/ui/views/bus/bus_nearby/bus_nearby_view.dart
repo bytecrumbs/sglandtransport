@@ -8,16 +8,12 @@ class BusNearbyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusNearbyViewModel>.reactive(
-        builder: (context, model, child) => Center(
-              // model will indicate busy until the future is fetched
-              child: !model.userLocation.permissionGranted
-                  ? CircularProgressIndicator()
-                  : BusStopsView(userLocation: model.userLocation),
-            ),
-        viewModelBuilder: () => BusNearbyViewModel(),
-        // createNewModelOnInsert: true,
-        onModelReady: (model) async {
-          await model.initialize();
-        });
+      builder: (context, model, child) => Center(
+        child: model.isBusy
+            ? CircularProgressIndicator()
+            : BusStopsView(userLocation: model.data),
+      ),
+      viewModelBuilder: () => BusNearbyViewModel(),
+    );
   }
 }
