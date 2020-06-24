@@ -8,7 +8,7 @@ class BusNearbyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusNearbyViewModel>.reactive(
-      builder: (context, model, child) => Container(
+      builder: (context, model, child) => Center(
         child: model.isBusy
             ? CircularProgressIndicator()
             : ListView.builder(
