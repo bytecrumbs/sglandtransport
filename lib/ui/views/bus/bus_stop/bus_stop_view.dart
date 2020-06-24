@@ -21,7 +21,9 @@ class BusStopView extends StatelessWidget {
           leading: Icon(Icons.departure_board),
           title: Text(busStopModel.description),
           subtitle: _buildSubTitle(),
-          trailing: _buildBoxInfo(context, busStopModel.distanceInMeters),
+          trailing: busStopModel.distanceInMeters != null
+              ? _buildBoxInfo(context, busStopModel.distanceInMeters)
+              : Icon(Icons.assignment),
           onTap: () {
             model.navigateToBusArrival(
               busStopModel.busStopCode,
