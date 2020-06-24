@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/ui/views/bus/bus_stops/bus_stop_view.dart';
+import 'package:lta_datamall_flutter/ui/views/bus/bus_stop/bus_stop_view.dart';
 import 'package:stacked/stacked.dart';
 
 import 'bus_nearby_viewmodel.dart';
