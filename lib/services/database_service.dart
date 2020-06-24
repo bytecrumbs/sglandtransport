@@ -74,20 +74,6 @@ class DatabaseService {
     );
   }
 
-  // Future<void> _fetchAndInsertBusRoutes(Database database) async {
-  //   _log.info('fetching bus routes');
-  //   final busRoutes = await _api.fetchBusRoutes(http.IOClient());
-  //   _log.info('inserting bus routes');
-  //   await _insertList(busRoutesTableName, busRoutes, database);
-  // }
-
-  // Future<void> _fetchAndInsertBusStops(Database database) async {
-  //   _log.info('fetching bus stops');
-  //   final busStops = await _api.fetchBusStopList(http.IOClient());
-  //   _log.info('inserting bus stops');
-  //   await _insertList(busStopsTableName, busStops, database);
-  // }
-
   Future<void> _insertList(String tableName, List<dynamic> listToInsert) async {
     final db = await database;
     var batch = db.batch();
