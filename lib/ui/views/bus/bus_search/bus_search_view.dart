@@ -9,7 +9,10 @@ class BusSearchView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusSearchViewModel>.reactive(
       builder: (context, model, child) => Container(
-        child: SearchBar(onSearchTextChanged: null),
+        child: SearchBar(
+          controller: TextEditingController(),
+          onSearchTextChanged: null,
+        ),
       ),
       viewModelBuilder: () => BusSearchViewModel(),
     );
