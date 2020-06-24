@@ -14,6 +14,6 @@ class BusStopsViewModel extends FutureViewModel<List<BusStopModel>> {
   @override
   Future<List<BusStopModel>> futureToRun() {
     _log.info('getting bus arrival list for bus stop $userLocation');
-    return _busService.getNearbyBusStopsByLocation(userLocation);
+    return null;
   }
 }
