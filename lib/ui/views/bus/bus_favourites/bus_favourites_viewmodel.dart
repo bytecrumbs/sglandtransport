@@ -6,16 +6,19 @@ import 'package:lta_datamall_flutter/services/favourites_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class BusFavouritesViewModel extends FutureViewModel<List<BusStopModel>> {
+class BusFavouritesViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _favouritesService = locator<FavouritesService>();
   final _busService = locator<BusService>();
-  final String _title = 'Favourites';
-  String get title => _title;
+
+  List<BusStopModel> get favouriteBusStops => _busService.favouriteBusStops;
 
   @override
-  Future<List<BusStopModel>> futureToRun() =>
-      _busService.getFavouriteBusStops();
+  List<ReactiveServiceMixin> get reactiveServices => [_busService];
+
+  Future<void> initialize() async {
+    await _busService.setFavouriteBusStops();
+  }
 
   Future<List<String>> addBusStop(String busStopCode) =>
       _favouritesService.addBusStop(busStopCode);

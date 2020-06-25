@@ -40,6 +40,7 @@ dependencies:
   path: ^1.6.4
   latlong: ^0.6.1
   shared_preferences: ">=0.5.7+3 <2.0.0"
+  observable_ish: ^2.1.4
   #navigation
   auto_route: ^0.5.0
   #stack service

@@ -10,26 +10,19 @@ class BusFavouritesView extends StatelessWidget {
     return ViewModelBuilder<BusFavouritesViewModel>.reactive(
       builder: (context, model, child) => Center(
         // model will indicate busy until the future is fetched
-        child: model.isBusy
+        child: model.favouriteBusStops.isEmpty
             ? CircularProgressIndicator()
-            : !model.hasError
-                ? ListView.builder(
-                    itemBuilder: (context, index) => BusStopView(
-                      busStopModel: model.data[index],
-                    ),
-                    itemCount: model.data.length,
-                  )
-                : Container(
-                    color: Colors.red,
-                    alignment: Alignment.center,
-                    child: Text(
-                      model.error.toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
+            : ListView.builder(
+                itemBuilder: (context, index) => BusStopView(
+                  busStopModel: model.favouriteBusStops[index],
+                ),
+                itemCount: model.favouriteBusStops.length,
+              ),
       ),
       viewModelBuilder: () => BusFavouritesViewModel(),
+      onModelReady: (model) async {
+        await model.initialize();
+      },
     );
   }
 }
