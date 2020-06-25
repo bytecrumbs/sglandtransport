@@ -5,13 +5,17 @@ import 'package:stacked/stacked.dart';
 import 'bus_search_viewmodel.dart';
 
 class BusSearchView extends StatelessWidget {
+  TextEditingController useTextEditingController() {
+    return TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusSearchViewModel>.reactive(
       builder: (context, model, child) => Container(
         child: SearchBar(
-          controller: TextEditingController(),
-          onSearchTextChanged: null,
+          onSearchTextChanged: model.onSearchTextChanged,
+          controller: useTextEditingController(),
         ),
       ),
       viewModelBuilder: () => BusSearchViewModel(),

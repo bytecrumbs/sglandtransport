@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 class SearchBar extends StatelessWidget {
   SearchBar({
     Key key,
-    this.controller,
     @required this.onSearchTextChanged,
+    this.controller,
   }) : super(key: key);
 
   final Function(String) onSearchTextChanged;
   final TextEditingController controller;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,6 +25,7 @@ class SearchBar extends StatelessWidget {
               decoration: InputDecoration(
                   hintText: 'Search bus stop', border: InputBorder.none),
               onChanged: onSearchTextChanged,
+              controller: controller,
             ),
             trailing: IconButton(
               key: const ValueKey<String>('clearSearchInput'),
