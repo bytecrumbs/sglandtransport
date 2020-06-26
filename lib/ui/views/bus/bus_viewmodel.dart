@@ -1,12 +1,12 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
-import 'package:lta_datamall_flutter/services/firebase_analytics_observer_service.dart';
+import 'package:lta_datamall_flutter/services/firebase_analytics_service.dart';
 import 'package:stacked/stacked.dart';
 
 class BusViewModel extends BaseViewModel {
   final _analyticsObserver =
-      locator<FirebaseAnalyticsObserverService>().analyticsObserver;
+      locator<FirebaseAnalyticsService>().analyticsObserver;
 
   int _currentIndex = 0;
 
