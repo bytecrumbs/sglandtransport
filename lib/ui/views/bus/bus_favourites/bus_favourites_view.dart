@@ -11,7 +11,9 @@ class BusFavouritesView extends StatelessWidget {
       builder: (context, model, child) => Center(
         // model will indicate busy until the future is fetched
         child: model.favouriteBusStops.isEmpty
-            ? CircularProgressIndicator()
+            ? Center(
+                child: Text('No favorite bus stops found...'),
+              )
             : ListView.builder(
                 itemBuilder: (context, index) => BusStopView(
                   busStopModel: model.favouriteBusStops[index],
