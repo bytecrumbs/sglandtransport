@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/utils/keyboard.dart';
 
 class SearchBar extends StatelessWidget {
   SearchBar({
     Key key,
-    @required this.onSearchTextChanged,
     this.controller,
+    @required this.onSearchTextChanged,
   }) : super(key: key);
 
   final Function(String) onSearchTextChanged;
@@ -19,36 +20,34 @@ class SearchBar extends StatelessWidget {
         child: Card(
           child: ListTile(
             leading: Icon(Icons.search),
-            title: TextField(
-              key: const ValueKey<String>('searchInput'),
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                  hintText: 'Search bus stop', border: InputBorder.none),
-              onChanged: onSearchTextChanged,
-              controller: controller,
-            ),
-            trailing: IconButton(
-              key: const ValueKey<String>('clearSearchInput'),
-              icon: Icon(Icons.cancel),
-              onPressed: () {
-                controller.clear();
-                Keyboard.dismiss(context);
-                onSearchTextChanged('');
-              },
-            ),
+            title: _buildTextField(),
+            trailing: _buildTrailingView(context),
           ),
         ),
       ),
     );
   }
-}
 
-class Keyboard {
-  static void dismiss(BuildContext context) {
-    final currentFocus = FocusScope.of(context);
+  TextField _buildTextField() {
+    return TextField(
+      key: const ValueKey<String>('searchInput'),
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(
+          hintText: 'Search bus stop', border: InputBorder.none),
+      controller: controller,
+      onSubmitted: onSearchTextChanged,
+    );
+  }
 
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
+  IconButton _buildTrailingView(BuildContext context) {
+    return IconButton(
+      key: const ValueKey<String>('clearSearchInput'),
+      icon: Icon(Icons.cancel),
+      onPressed: () {
+        controller.clear();
+        Keyboard.dismiss(context);
+        onSearchTextChanged('');
+      },
+    );
   }
 }

@@ -10,6 +10,7 @@ class BusArrivalViewModel
   static final _log = Logger('BusArrivalViewModel');
   final String busStopCode;
   final _busService = locator<BusService>();
+
   @override
   Future<List<BusArrivalServiceModel>> futureToRun() {
     _log.info('getting bus arrival list for bus stop $busStopCode');

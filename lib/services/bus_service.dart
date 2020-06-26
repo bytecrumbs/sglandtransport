@@ -133,4 +133,28 @@ class BusService with ReactiveServiceMixin {
     var userLocation = await _locationService.getUserLocation();
     return _getNearbyBusStopsByLocation(userLocation);
   }
+
+  bool _containsSearchText(String value, String searchText) {
+    value = value.toLowerCase();
+    searchText = searchText.toLowerCase();
+    return value.contains(searchText);
+  }
+
+  Future<List<BusStopModel>> findBusStops(String searchText) async {
+    var busStopSearchList = <BusStopModel>[];
+    var allBusStops = await _getBusStopsByLocation();
+
+    if (searchText.isNotEmpty) {
+      allBusStops.forEach((currentBusStop) {
+        final isTextMatching =
+            _containsSearchText(currentBusStop.busStopCode, searchText) ||
+                _containsSearchText(currentBusStop.description, searchText) ||
+                _containsSearchText(currentBusStop.roadName, searchText);
+        if (isTextMatching) {
+          busStopSearchList.add(currentBusStop);
+        }
+      });
+    }
+    return busStopSearchList;
+  }
 }
