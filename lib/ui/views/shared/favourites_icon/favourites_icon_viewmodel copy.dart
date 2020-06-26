@@ -3,9 +3,12 @@ import 'package:lta_datamall_flutter/services/bus_service.dart';
 import 'package:lta_datamall_flutter/services/favourites_service.dart';
 import 'package:stacked/stacked.dart';
 
-class FavouritesIconViewModel extends BaseViewModel {
+class FavouritesIconViewModel extends ReactiveViewModel {
   final _favouritesService = locator<FavouritesService>();
   final _busService = locator<BusService>();
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_busService];
 
   String _busStopCode;
 
@@ -18,14 +21,15 @@ class FavouritesIconViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void toggleFavourite() {
+  void toggleFavourite() async {
+    print('toggle');
     _isFavourited = !_isFavourited;
-    notifyListeners();
     if (!_isFavourited) {
-      _favouritesService.removeBusStop(_busStopCode);
+      await _favouritesService.removeBusStop(_busStopCode);
     } else {
-      _favouritesService.addBusStop(_busStopCode);
+      await _favouritesService.addBusStop(_busStopCode);
     }
-    _busService.setFavouriteBusStops();
+    await _busService.setFavouriteBusStops();
+    notifyListeners();
   }
 }

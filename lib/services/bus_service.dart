@@ -9,16 +9,27 @@ import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/services/database_service.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:lta_datamall_flutter/services/favourites_service.dart';
+import 'package:observable_ish/observable_ish.dart';
+import 'package:stacked/stacked.dart';
 
 import 'location_service.dart';
 
 @lazySingleton
-class BusService {
+class BusService with ReactiveServiceMixin {
+  final _favouriteBusStops =
+      RxValue<List<BusStopModel>>(initial: <BusStopModel>[]);
+
+  BusService() {
+    listenToReactiveValues([_favouriteBusStops]);
+  }
+
   static final _log = Logger('BusService');
   final _databaseService = locator<DatabaseService>();
   final _favouritesService = locator<FavouritesService>();
   final _locationService = locator<LocationService>();
   final _api = locator<Api>();
+
+  List<BusStopModel> get favouriteBusStops => _favouriteBusStops.value;
 
   Future<List<BusStopModel>> _getNearbyBusStopsByLocation(
       UserLocation userLocation) async {
@@ -107,13 +118,14 @@ class BusService {
     return busStops;
   }
 
-  Future<List<BusStopModel>> getFavouriteBusStops() async {
+  Future<void> setFavouriteBusStops() async {
     _log.info('getting favourite bus stop codes from favourites service');
     final favoriteBusStopCodes =
         await _favouritesService.getFavouriteBusStops();
     _log.info(
         'getting favourite bus stops from database for bus stops ${favoriteBusStopCodes.join(', ')}');
-    return await _databaseService.getFavouriteBusStops(favoriteBusStopCodes);
+    _favouriteBusStops.value =
+        await _databaseService.getFavouriteBusStops(favoriteBusStopCodes);
   }
 
   Future<List<BusStopModel>> getNearbyBusStops() async {
