@@ -12,6 +12,7 @@ class BusArrivalView extends StatelessWidget {
   });
   final String busStopCode;
   final String description;
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusArrivalViewModel>.reactive(
