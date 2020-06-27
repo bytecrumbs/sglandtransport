@@ -30,8 +30,6 @@ class LocationService {
       permissionGranted: true,
     );
 
-    print(userLocation.latitude);
-
     return userLocation;
   }
 }
