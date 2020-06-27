@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/ui/views/bus/bus_stop/bus_stop_view.dart';
 import 'package:lta_datamall_flutter/ui/views/shared/search_bar/search_bar_view.dart';
 import 'package:stacked/stacked.dart';
@@ -13,26 +12,29 @@ class BusSearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<BusSearchViewModel>.reactive(
-      builder: (context, model, child) => Container(
+    return ViewModelBuilder<BusSearchViewModel>.nonReactive(
+      viewModelBuilder: () => BusSearchViewModel(),
+      builder: (context, model, _) => Container(
           child: Column(children: <Widget>[
         SearchBar(
           key: Key('SearchBar'),
           controller: useTextEditingController(),
           onSearchTextChanged: model.onSearchTextChanged,
         ),
-        _buildSearchResultList(model.busStopSearchList)
+        SerachResultView()
       ])),
-      viewModelBuilder: () => BusSearchViewModel(),
     );
   }
+}
 
-  Expanded _buildSearchResultList(List<BusStopModel> busStopList) {
+class SerachResultView extends ViewModelWidget<BusSearchViewModel> {
+  @override
+  Widget build(BuildContext context, BusSearchViewModel model) {
     return Expanded(
       child: ListView.builder(
-        itemCount: busStopList.length,
+        itemCount: model.busStopSearchList.length,
         itemBuilder: (BuildContext context, int index) => BusStopView(
-          busStopModel: busStopList[index],
+          busStopModel: model.busStopSearchList[index],
           key: ValueKey<String>('busStopCard-$index'),
         ),
       ),
