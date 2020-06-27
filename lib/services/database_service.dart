@@ -163,6 +163,33 @@ class DatabaseService {
     );
   }
 
+  Future<int> insertBusStopsTableCreationDate({
+    int millisecondsSinceEpoch,
+  }) async {
+    final db = await database;
+    _log.info('Deleting $tableCreationTableName row');
+    await db.delete(tableCreationTableName,
+        where: 'tableName = ?', whereArgs: [busStopsTableName]);
+    _log.info('Inserting timestamp into $tableCreationTableName');
+    return await db.rawInsert(
+      'INSERT INTO $tableCreationTableName(tableName, creationTimeSinceEpoch) VALUES(?, ?)',
+      [
+        busStopsTableName,
+        millisecondsSinceEpoch,
+      ],
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getCreationDateOfBusStops() async {
+    final db = await database;
+    return await db.query(
+      tableCreationTableName,
+      columns: ['creationTimeSinceEpoch'],
+      where: 'tableName = ?',
+      whereArgs: [busStopsTableName],
+    );
+  }
+
   Future<int> getBusRoutesCount() async {
     final db = await database;
     return Sqflite.firstIntValue(
