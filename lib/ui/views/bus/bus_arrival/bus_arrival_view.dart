@@ -27,13 +27,13 @@ class BusArrivalView extends StatelessWidget {
           ],
         ),
         body: Center(
-          child: model.isBusy
+          child: model.busArrivalList.isEmpty
               ? CircularProgressIndicator()
               : ListView.builder(
                   physics: const AlwaysScrollableScrollPhysics(),
-                  itemCount: model.data.length,
+                  itemCount: model.busArrivalList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final currentBusService = model.data[index];
+                    final currentBusService = model.busArrivalList[index];
                     return BusArrivalServiceCardView(
                       key: ValueKey<String>('busArrivalCard-$index'),
                       busArrivalServiceModel: currentBusService,
@@ -42,7 +42,10 @@ class BusArrivalView extends StatelessWidget {
                 ),
         ),
       ),
-      viewModelBuilder: () => BusArrivalViewModel(busStopCode),
+      viewModelBuilder: () => BusArrivalViewModel(),
+      onModelReady: (model) {
+        model.initialise(busStopCode);
+      },
     );
   }
 }
