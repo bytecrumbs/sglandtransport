@@ -11,6 +11,7 @@ class DatabaseService {
 
   static const busRoutesTableName = 'busRoutes';
   static const busStopsTableName = 'busStops';
+  static const tableCreationTableName = 'tableCreation';
 
   Database _database;
 
@@ -40,6 +41,8 @@ class DatabaseService {
     await _createBusRoutesTable(database);
     _log.info('creating $busStopsTableName table');
     await _createBusStopsTable(database);
+    _log.info('creating $tableCreationTableName table');
+    await _createTableCreationTable(database);
   }
 
   Future<void> _createBusRoutesTable(Database database) async {
@@ -70,6 +73,15 @@ class DatabaseService {
       'Latitude REAL,'
       'Longitude REAL,'
       'distanceInMeters INT'
+      ')',
+    );
+  }
+
+  Future<void> _createTableCreationTable(Database database) async {
+    await database.execute(
+      'CREATE TABLE $tableCreationTableName ('
+      'tableName TEXT,'
+      'creationTimeSinceEpoch INT'
       ')',
     );
   }
@@ -124,6 +136,33 @@ class DatabaseService {
     _insertList(busRoutesTableName, busRoutes);
   }
 
+  Future<int> insertBusRoutesTableCreationDate({
+    int millisecondsSinceEpoch,
+  }) async {
+    final db = await database;
+    _log.info('Deleting $tableCreationTableName row');
+    await db.delete(tableCreationTableName,
+        where: 'tableName = ?', whereArgs: [busRoutesTableName]);
+    _log.info('Inserting timestamp into $tableCreationTableName');
+    return await db.rawInsert(
+      'INSERT INTO $tableCreationTableName(tableName, creationTimeSinceEpoch) VALUES(?, ?)',
+      [
+        busRoutesTableName,
+        millisecondsSinceEpoch,
+      ],
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getCreationDateOfBusRoutes() async {
+    final db = await database;
+    return await db.query(
+      tableCreationTableName,
+      columns: ['creationTimeSinceEpoch'],
+      where: 'tableName = ?',
+      whereArgs: [busRoutesTableName],
+    );
+  }
+
   Future<int> getBusRoutesCount() async {
     final db = await database;
     return Sqflite.firstIntValue(
@@ -141,11 +180,24 @@ class DatabaseService {
     var busStops = await db.rawQuery(rawQuery);
 
     busStops.forEach((currentBusStop) {
-      print(currentBusStop);
       var busStopModel = BusStopModel.fromJson(currentBusStop);
       busStopList.add(busStopModel);
     });
 
     return busStopList;
+  }
+
+  Future<int> deleteBusRoutes() async {
+    return await _deleteTable(busRoutesTableName);
+  }
+
+  Future<int> deleteBusStops() async {
+    return await _deleteTable(busStopsTableName);
+  }
+
+  Future<int> _deleteTable(String tableName) async {
+    final db = await database;
+    _log.info('Deleting all records in table $tableName');
+    return await db.delete(tableName);
   }
 }

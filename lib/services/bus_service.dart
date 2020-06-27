@@ -97,14 +97,40 @@ class BusService with ReactiveServiceMixin {
   }
 
   Future<void> addBusRoutesToDb() async {
+    _log.info('checking if table needs to be purged because data is too old');
+    var mustReload = await _mustReloadBusRoutes();
     _log.info('checking if table is empty');
     var count = await _databaseService.getBusRoutesCount();
-    if (count == 0) {
+    if (count == 0 || mustReload) {
+      await _databaseService.deleteBusRoutes();
       _log.info('fetching bus routes from server');
       var busRoutes = await _api.fetchBusRoutes(http.IOClient());
       _log.info('adding bus routes information into DB');
       _databaseService.insertBusRoutes(busRoutes);
+      final dbCreationDate = DateTime.now().millisecondsSinceEpoch;
+      _log.info('adding the table creation timestamp');
+      await _databaseService.insertBusRoutesTableCreationDate(
+          millisecondsSinceEpoch: dbCreationDate);
     }
+  }
+
+  Future<bool> _mustReloadBusRoutes() async {
+    final creationDateRecord =
+        await _databaseService.getCreationDateOfBusRoutes();
+
+    var mustReload = false;
+    if (creationDateRecord.isNotEmpty) {
+      final int creationDateMillisecondsSinceEpoch =
+          creationDateRecord.first['creationTimeSinceEpoch'];
+      final creationDate = DateTime.fromMillisecondsSinceEpoch(
+          creationDateMillisecondsSinceEpoch);
+      final differenceInDays = DateTime.now().difference(creationDate).inDays;
+      _log.info('days since table was created: $differenceInDays');
+      if (differenceInDays > 30) {
+        mustReload = true;
+      }
+    }
+    return mustReload;
   }
 
   Future<List<BusStopModel>> _getBusStopsByLocation() async {
