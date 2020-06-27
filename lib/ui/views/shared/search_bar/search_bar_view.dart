@@ -35,7 +35,7 @@ class SearchBar extends StatelessWidget {
       decoration: InputDecoration(
           hintText: 'Search bus stop', border: InputBorder.none),
       controller: controller,
-      onSubmitted: onSearchTextChanged,
+      onChanged: onSearchTextChanged,
     );
   }
 
