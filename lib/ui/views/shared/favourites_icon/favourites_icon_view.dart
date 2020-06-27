@@ -11,11 +11,11 @@ class FavouritesIconView extends StatelessWidget {
       builder: (context, model, child) => IconButton(
         icon: Icon(model.isFavourited ? Icons.favorite : Icons.favorite_border),
         onPressed: () {
-          model.toggleFavourite();
+          model.toggleFavourite(busStopCode);
         },
       ),
       onModelReady: (model) async {
-        await model.initialize(busStopCode);
+        await model.initialise(busStopCode);
       },
       viewModelBuilder: () => FavouritesIconViewModel(),
     );

@@ -1,11 +1,14 @@
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/services/bus_service.dart';
+import 'package:lta_datamall_flutter/services/favourites_service.dart';
 import 'package:lta_datamall_flutter/services/firebase_analytics_service.dart';
 import 'package:mockito/mockito.dart';
 
 import 'test_data.dart' as test_data;
 
 class BusServiceMock extends Mock implements BusService {}
+
+class FavouritesServiceMock extends Mock implements FavouritesService {}
 
 BusService getAndRegisterBusServiceMock({
   String busStopForBusArrival = '01019',
@@ -21,6 +24,19 @@ BusService getAndRegisterBusServiceMock({
   return service;
 }
 
+FavouritesService getAndRegisterFavouritesServiceMock({
+  bool isFavouriteReturnValue = false,
+  String busStopCode = '01019',
+}) {
+  _removeRegistrationIfExists<FavouritesService>();
+  var service = FavouritesServiceMock();
+  when(service.isFavouriteBusStop(busStopCode)).thenAnswer((realInvocation) {
+    return Future.value(isFavouriteReturnValue);
+  });
+  locator.registerSingleton<FavouritesService>(service);
+  return service;
+}
+
 FirebaseAnalyticsService getAndRegisterFirebaseAnalyticsService() {
   _removeRegistrationIfExists<FirebaseAnalyticsService>();
   var service = FirebaseAnalyticsService();
@@ -31,11 +47,13 @@ FirebaseAnalyticsService getAndRegisterFirebaseAnalyticsService() {
 void registerServices() {
   getAndRegisterFirebaseAnalyticsService();
   getAndRegisterBusServiceMock();
+  getAndRegisterFavouritesServiceMock();
 }
 
 void unregisterServices() {
   locator.unregister<FirebaseAnalyticsService>();
   locator.unregister<BusService>();
+  locator.unregister<FavouritesService>();
 }
 
 void _removeRegistrationIfExists<T>() {

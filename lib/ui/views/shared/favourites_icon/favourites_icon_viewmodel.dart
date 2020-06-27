@@ -7,24 +7,21 @@ class FavouritesIconViewModel extends BaseViewModel {
   final _favouritesService = locator<FavouritesService>();
   final _busService = locator<BusService>();
 
-  String _busStopCode;
-
   bool _isFavourited = false;
   bool get isFavourited => _isFavourited;
 
-  Future<void> initialize(String busStopCode) async {
-    _busStopCode = busStopCode;
+  Future<void> initialise(String busStopCode) async {
     _isFavourited = await _favouritesService.isFavouriteBusStop(busStopCode);
     notifyListeners();
   }
 
-  void toggleFavourite() {
+  void toggleFavourite(String busStopCode) {
     _isFavourited = !_isFavourited;
     notifyListeners();
     if (!_isFavourited) {
-      _favouritesService.removeBusStop(_busStopCode);
+      _favouritesService.removeBusStop(busStopCode);
     } else {
-      _favouritesService.addBusStop(_busStopCode);
+      _favouritesService.addBusStop(busStopCode);
     }
     _busService.setFavouriteBusStops();
   }
