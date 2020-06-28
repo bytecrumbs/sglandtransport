@@ -174,22 +174,21 @@ class DatabaseService {
   }
 
   Future<List<Map<String, dynamic>>> getCreationDateOfBusRoutes() async {
-    final db = await database;
-    return await db.query(
-      tableCreationTableName,
-      columns: ['creationTimeSinceEpoch'],
-      where: 'tableName = ?',
-      whereArgs: [busRoutesTableName],
-    );
+    return await _getCreationDate(tableName: busRoutesTableName);
   }
 
   Future<List<Map<String, dynamic>>> getCreationDateOfBusStops() async {
+    return await _getCreationDate(tableName: busStopsTableName);
+  }
+
+  Future<List<Map<String, dynamic>>> _getCreationDate(
+      {String tableName}) async {
     final db = await database;
     return await db.query(
       tableCreationTableName,
       columns: ['creationTimeSinceEpoch'],
       where: 'tableName = ?',
-      whereArgs: [busStopsTableName],
+      whereArgs: [tableName],
     );
   }
 
