@@ -14,9 +14,15 @@ void main() {
         expect(model.isFavourited, false);
       });
       test('When toggled should invert the value', () {
+        var favouritesService = getAndRegisterFavouritesServiceMock();
         var model = FavouritesIconViewModel();
-        model.toggleFavourite('01019');
+        var busStopNo = '01019';
+        model.toggleFavourite(busStopNo);
         expect(model.isFavourited, true);
+        verify(favouritesService.addBusStop(busStopNo));
+        model.toggleFavourite(busStopNo);
+        expect(model.isFavourited, false);
+        verify(favouritesService.removeBusStop(busStopNo));
       });
       test('When toggled should call the bus service and setBusStopFavourites',
           () {
