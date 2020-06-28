@@ -3,12 +3,22 @@ import 'package:lta_datamall_flutter/services/bus_service.dart';
 import 'package:lta_datamall_flutter/services/favourites_service.dart';
 import 'package:lta_datamall_flutter/services/firebase_analytics_service.dart';
 import 'package:mockito/mockito.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'test_data.dart' as test_data;
 
 class BusServiceMock extends Mock implements BusService {}
 
 class FavouritesServiceMock extends Mock implements FavouritesService {}
+
+class NavigationServiceMock extends Mock implements NavigationService {}
+
+NavigationService getAndRegisterNavigationServiceMock() {
+  _removeRegistrationIfExists<NavigationService>();
+  var service = NavigationServiceMock();
+  locator.registerSingleton<NavigationService>(service);
+  return service;
+}
 
 BusService getAndRegisterBusServiceMock({
   String busStopForBusArrival = '01019',
@@ -48,12 +58,14 @@ void registerServices() {
   getAndRegisterFirebaseAnalyticsService();
   getAndRegisterBusServiceMock();
   getAndRegisterFavouritesServiceMock();
+  getAndRegisterNavigationServiceMock();
 }
 
 void unregisterServices() {
   locator.unregister<FirebaseAnalyticsService>();
   locator.unregister<BusService>();
   locator.unregister<FavouritesService>();
+  locator.unregister<NavigationService>();
 }
 
 void _removeRegistrationIfExists<T>() {
