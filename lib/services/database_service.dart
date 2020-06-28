@@ -139,15 +139,35 @@ class DatabaseService {
   Future<int> insertBusRoutesTableCreationDate({
     int millisecondsSinceEpoch,
   }) async {
+    return await _insertTableCreationDate(
+      tableName: busRoutesTableName,
+      millisecondsSinceEpoch: millisecondsSinceEpoch,
+    );
+  }
+
+  Future<int> insertBusStopsTableCreationDate({
+    int millisecondsSinceEpoch,
+  }) async {
+    return await _insertTableCreationDate(
+      tableName: busStopsTableName,
+      millisecondsSinceEpoch: millisecondsSinceEpoch,
+    );
+  }
+
+  Future<int> _insertTableCreationDate({
+    String tableName,
+    int millisecondsSinceEpoch,
+  }) async {
     final db = await database;
-    _log.info('Deleting $tableCreationTableName row');
+    _log.info('Deleting $tableName row');
     await db.delete(tableCreationTableName,
-        where: 'tableName = ?', whereArgs: [busRoutesTableName]);
-    _log.info('Inserting timestamp into $tableCreationTableName');
+        where: 'tableName = ?', whereArgs: [tableName]);
+    _log.info(
+        'Inserting timestamp into $tableCreationTableName for $tableName');
     return await db.rawInsert(
       'INSERT INTO $tableCreationTableName(tableName, creationTimeSinceEpoch) VALUES(?, ?)',
       [
-        busRoutesTableName,
+        tableName,
         millisecondsSinceEpoch,
       ],
     );
@@ -160,23 +180,6 @@ class DatabaseService {
       columns: ['creationTimeSinceEpoch'],
       where: 'tableName = ?',
       whereArgs: [busRoutesTableName],
-    );
-  }
-
-  Future<int> insertBusStopsTableCreationDate({
-    int millisecondsSinceEpoch,
-  }) async {
-    final db = await database;
-    _log.info('Deleting $tableCreationTableName row');
-    await db.delete(tableCreationTableName,
-        where: 'tableName = ?', whereArgs: [busStopsTableName]);
-    _log.info('Inserting timestamp into $tableCreationTableName');
-    return await db.rawInsert(
-      'INSERT INTO $tableCreationTableName(tableName, creationTimeSinceEpoch) VALUES(?, ?)',
-      [
-        busStopsTableName,
-        millisecondsSinceEpoch,
-      ],
     );
   }
 
