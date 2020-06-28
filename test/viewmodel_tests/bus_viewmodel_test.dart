@@ -8,6 +8,12 @@ void main() {
   group('BusViewModelTest -', () {
     setUp(() => registerServices());
     tearDown(() => unregisterServices());
+    group('tabItems -', () {
+      test('When constructed, should be a list of 3 items', () {
+        var model = BusViewModel();
+        expect(model.tabItems.length, 3);
+      });
+    });
     group('currentIndex -', () {
       test('When constructed it is 0', () {
         var model = BusViewModel();
