@@ -14,15 +14,17 @@ class BusFavouritesViewModel extends ReactiveViewModel {
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_busService];
 
-  Future<void> initialize() async {
+  Future<void> initialise() async {
     await _busService.setFavouriteBusStops();
   }
 
   Future navigateToBusArrival(String busStopCode, String description) async {
-    await _navigationService.navigateTo(Routes.busArrivalView,
-        arguments: BusArrivalViewArguments(
-          busStopCode: busStopCode,
-          description: description,
-        ));
+    await _navigationService.navigateTo(
+      Routes.busArrivalView,
+      arguments: BusArrivalViewArguments(
+        busStopCode: busStopCode,
+        description: description,
+      ),
+    );
   }
 }
