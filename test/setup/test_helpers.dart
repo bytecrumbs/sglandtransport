@@ -1,4 +1,5 @@
 import 'package:lta_datamall_flutter/app/locator.dart';
+import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/services/bus_service.dart';
 import 'package:lta_datamall_flutter/services/favourites_service.dart';
 import 'package:lta_datamall_flutter/services/firebase_analytics_service.dart';
@@ -22,6 +23,7 @@ NavigationService getAndRegisterNavigationServiceMock() {
 
 BusService getAndRegisterBusServiceMock({
   String busStopForBusArrival = '01019',
+  List<BusStopModel> busStopModelList,
 }) {
   _removeRegistrationIfExists<BusService>();
   var service = BusServiceMock();
@@ -30,6 +32,7 @@ BusService getAndRegisterBusServiceMock({
       return Future.value(test_data.busArrivalServiceModelList);
     },
   );
+  when(service.favouriteBusStops).thenReturn(busStopModelList);
   locator.registerSingleton<BusService>(service);
   return service;
 }
