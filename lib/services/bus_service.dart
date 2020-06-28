@@ -99,7 +99,9 @@ class BusService with ReactiveServiceMixin {
   Future<void> addBusRoutesToDb() async {
     _log.info(
         'checking if bus routes table needs to be purged because data is too old');
-    var mustReload = await _mustReloadBusRoutes();
+    final creationDateRecord =
+        await _databaseService.getCreationDateOfBusRoutes();
+    var mustReload = await _mustReload(creationDateRecord: creationDateRecord);
     _log.info('checking if table is empty');
     var count = await _databaseService.getBusRoutesCount();
     if (count == 0 || mustReload) {
@@ -115,10 +117,8 @@ class BusService with ReactiveServiceMixin {
     }
   }
 
-  Future<bool> _mustReloadBusRoutes() async {
-    final creationDateRecord =
-        await _databaseService.getCreationDateOfBusRoutes();
-
+  Future<bool> _mustReload(
+      {List<Map<String, dynamic>> creationDateRecord}) async {
     var mustReload = false;
     if (creationDateRecord.isNotEmpty) {
       // Hardcoding! To be refactored!
@@ -141,32 +141,13 @@ class BusService with ReactiveServiceMixin {
     if (data.isNotEmpty) {
       _log.info(
           'checking if bus stops table needs to be purged because data is too old');
-      mustReload = await _mustReloadBusStops();
+      final creationDateRecord =
+          await _databaseService.getCreationDateOfBusStops();
+      mustReload = await _mustReload(creationDateRecord: creationDateRecord);
     } else {
       mustReload = true;
     }
     return mustReload ? _fetchBusStopsFromServer() : data;
-  }
-
-  Future<bool> _mustReloadBusStops() async {
-    _log.info('getting creation timestamp of bus stops table');
-    final creationDateRecord =
-        await _databaseService.getCreationDateOfBusStops();
-
-    var mustReload = false;
-    if (creationDateRecord.isNotEmpty) {
-      // Hardcoding! To be refactored!
-      final int creationDateMillisecondsSinceEpoch =
-          creationDateRecord.first['creationTimeSinceEpoch'];
-      final creationDate = DateTime.fromMillisecondsSinceEpoch(
-          creationDateMillisecondsSinceEpoch);
-      final differenceInDays = DateTime.now().difference(creationDate).inDays;
-      _log.info('days since table was created: $differenceInDays');
-      if (differenceInDays > 30) {
-        mustReload = true;
-      }
-    }
-    return mustReload;
   }
 
   Future<List<BusStopModel>> _fetchBusStopsFromServer() async {
