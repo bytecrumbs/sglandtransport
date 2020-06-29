@@ -175,6 +175,11 @@ class BusService with ReactiveServiceMixin {
     return _getNearbyBusStopsByLocation(userLocation);
   }
 
+  Future<List<BusStopModel>> getNearbyBusStopsByLocation(userLocation) async {
+    _log.info('getNearbyBusStops');
+    return _getNearbyBusStopsByLocation(userLocation);
+  }
+
   bool _containsSearchText(String value, String searchText) {
     value = value.toLowerCase();
     searchText = searchText.toLowerCase();
