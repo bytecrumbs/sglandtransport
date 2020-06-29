@@ -9,13 +9,13 @@ class BusNearbyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusNearByStreamViewModel>.reactive(
       builder: (context, model, child) => Center(
-        child: model.isBusy || model.currentLocation.isEmpty
+        child: model.isBusy || model.nearByBusStopList.isEmpty
             ? CircularProgressIndicator()
             : ListView.builder(
-                itemCount: model.currentLocation.length,
+                itemCount: model.nearByBusStopList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return BusStopView(
-                    busStopModel: model.currentLocation[index],
+                    busStopModel: model.nearByBusStopList[index],
                     key: ValueKey<String>('busStopCard-$index'),
                   );
                 }),

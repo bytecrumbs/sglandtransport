@@ -1,4 +1,5 @@
 import 'package:location/location.dart';
+import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/datamodels/user_location.dart';
@@ -6,15 +7,14 @@ import 'package:lta_datamall_flutter/services/bus_service.dart';
 import 'package:stacked/stacked.dart';
 
 class BusNearByStreamViewModel extends StreamViewModel {
+  static final _log = Logger('BusNearByStreamViewModel');
+
   Location location = Location();
   final _busService = locator<BusService>();
   UserLocation _userLocation = UserLocation();
-  List<BusStopModel> busStopList = [];
+  List<BusStopModel> _nearByBusStopList = [];
 
-  List<BusStopModel> get currentLocation {
-    // print('=====--------------------------============ $busStopList');
-    return busStopList;
-  }
+  List<BusStopModel> get nearByBusStopList => _nearByBusStopList;
 
   @override
   void initialise() {
@@ -45,7 +45,7 @@ class BusNearByStreamViewModel extends StreamViewModel {
 
   @override
   void onData(data) {
-    print('This is called before get called =========  $data');
+    _log.info('ON DATA CALLED WITH UPDATED LOCATION RETURN BY STREAM $data');
     setNearByBusStops(data);
     super.onData(data);
   }
@@ -57,9 +57,9 @@ class BusNearByStreamViewModel extends StreamViewModel {
         longitude: data.longitude,
         permissionGranted: true,
       );
-      busStopList =
+      _nearByBusStopList =
           await _busService.getNearbyBusStopsByLocation(_userLocation);
-      print('Before ------------Super ---- =========  $busStopList');
+      _log.info('GET NEARBY BUS STOPS BY LOCATION $_nearByBusStopList');
     }
 
     notifyListeners();
