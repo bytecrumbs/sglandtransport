@@ -1,35 +1,30 @@
 import 'package:injectable/injectable.dart';
 import 'package:location/location.dart';
-import 'package:lta_datamall_flutter/datamodels/user_location.dart';
 
 @lazySingleton
 class LocationService {
   final Location _location = Location();
 
-  Future<UserLocation> getUserLocation() async {
-    var userLocation = UserLocation(
-      latitude: 0,
-      longitude: 0,
-      permissionGranted: false,
-    );
+  Stream<LocationData> get onLocationChanged => _location.onLocationChanged;
 
-    await _location.changeSettings(accuracy: LocationAccuracy.low);
+  Future<void> enableLocationPermission() async {
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
 
-    var _permissionGranted = await _location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await _location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return userLocation;
+    _serviceEnabled = await _location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await _location.requestService();
+      if (!_serviceEnabled) {
+        return;
       }
     }
 
-    var locationData = await _location.getLocation();
-    userLocation = UserLocation(
-      latitude: locationData.latitude,
-      longitude: locationData.longitude,
-      permissionGranted: true,
-    );
-
-    return userLocation;
+    _permissionGranted = await _location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await _location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
   }
 }

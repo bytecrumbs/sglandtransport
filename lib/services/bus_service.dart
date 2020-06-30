@@ -12,8 +12,6 @@ import 'package:lta_datamall_flutter/services/favourites_service.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 
-import 'location_service.dart';
-
 @lazySingleton
 class BusService with ReactiveServiceMixin {
   final _favouriteBusStops =
@@ -26,7 +24,6 @@ class BusService with ReactiveServiceMixin {
   static final _log = Logger('BusService');
   final _databaseService = locator<DatabaseService>();
   final _favouritesService = locator<FavouritesService>();
-  final _locationService = locator<LocationService>();
   final _api = locator<Api>();
 
   List<BusStopModel> get favouriteBusStops => _favouriteBusStops.value;
@@ -167,12 +164,6 @@ class BusService with ReactiveServiceMixin {
         'getting favourite bus stops from database for bus stops ${favoriteBusStopCodes.join(', ')}');
     _favouriteBusStops.value =
         await _databaseService.getFavouriteBusStops(favoriteBusStopCodes);
-  }
-
-  Future<List<BusStopModel>> getNearbyBusStops() async {
-    _log.info('getNearbyBusStops');
-    var userLocation = await _locationService.getUserLocation();
-    return _getNearbyBusStopsByLocation(userLocation);
   }
 
   Future<List<BusStopModel>> getNearbyBusStopsByLocation(userLocation) async {
