@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
 import 'package:lta_datamall_flutter/ui/views/bus/bus_stop/bus_stop_view_model.dart';
-import 'package:lta_datamall_flutter/ui/views/shared/box_info/box_info_view.dart';
 import 'package:stacked/stacked.dart';
 
 class BusStopView extends StatelessWidget {
@@ -16,26 +15,34 @@ class BusStopView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusStopViewModel>.nonReactive(
       builder: (context, model, child) => Card(
-        margin: const EdgeInsets.all(6),
+        margin: const EdgeInsets.fromLTRB(15, 0, 15, 10),
         child: ListTile(
-          leading: Icon(Icons.departure_board),
-          title: Text(busStopModel.description),
-          subtitle:
-              Text('${busStopModel.busStopCode} | ${busStopModel.roadName}'),
+          title: Container(
+            margin: EdgeInsets.only(bottom: 3),
+            child: Text(
+              busStopModel.description,
+              style: TextStyle(
+                  color: Color.fromRGBO(37, 48, 77, 1),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600),
+            ),
+          ),
+          subtitle: Text(
+            '${busStopModel.roadName} (${busStopModel.busStopCode})',
+            style: TextStyle(
+                color: Color.fromRGBO(140, 140, 145, 1),
+                fontSize: 16,
+                fontWeight: FontWeight.w100),
+          ),
           trailing: busStopModel.distanceInMeters != null
-              ? BoxInfo(
-                  color: Theme.of(context).highlightColor,
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        busStopModel.distanceInMeters.toString(),
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Text('meters'),
-                    ],
-                  ),
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('${busStopModel.distanceInMeters.toString()} m',
+                        style: TextStyle(fontSize: 15)),
+                  ],
                 )
-              : Icon(Icons.assignment),
+              : null,
           onTap: () {
             model.navigateToBusArrival(
               busStopModel.busStopCode,
