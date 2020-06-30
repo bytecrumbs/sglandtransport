@@ -23,7 +23,7 @@ class BusFavouritesView extends StatelessWidget {
       ),
       viewModelBuilder: () => BusFavouritesViewModel(),
       onModelReady: (model) async {
-        await model.initialize();
+        await model.initialise();
       },
     );
   }

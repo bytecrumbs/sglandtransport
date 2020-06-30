@@ -6,13 +6,13 @@ part 'bus_stop_model.g.dart';
 /// JSON serialization logic to be generated.
 @JsonSerializable()
 class BusStopModel {
-  BusStopModel(
+  BusStopModel({
     this.busStopCode,
     this.roadName,
     this.description,
     this.latitude,
     this.longitude,
-  );
+  });
 
   factory BusStopModel.fromJson(Map<String, dynamic> json) =>
       _$BusStopModelFromJson(json);
