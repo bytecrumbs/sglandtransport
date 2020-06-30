@@ -48,7 +48,6 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'SG Land Transport',
-      darkTheme: ThemeData.dark(),
       theme: ThemeData.light(),
       initialRoute: Routes.busViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
