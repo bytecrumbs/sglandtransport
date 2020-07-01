@@ -45,6 +45,7 @@ dependencies:
   auto_route: ^0.5.0
   #stack service
   stacked_services: ^0.4.1
+  flare_flutter: ^2.0.4
 
 dev_dependencies:
   flutter_test:
@@ -72,7 +73,7 @@ flutter:
   assets:
     - .env
     - images/icon.jpg
-    - images/bus.flr
+    - images/city.flr
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
