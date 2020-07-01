@@ -15,7 +15,7 @@ class BusStopView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusStopViewModel>.nonReactive(
       builder: (context, model, child) => Card(
-        margin: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+        margin: const EdgeInsets.fromLTRB(15, 0, 15, 12),
         child: ListTile(
           title: Container(
             margin: EdgeInsets.only(bottom: 3),
