@@ -19,9 +19,14 @@ class BusView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
+        extendBodyBehindAppBar: true,
         backgroundColor: Color.fromRGBO(212, 238, 249, 1),
         appBar: AppBar(
-          title: const Text('Buses'),
+          backgroundColor: Color.fromRGBO(0, 0, 50, 0.25),
+          elevation: 0,
+          title: const Text(
+            'Buses',
+          ),
         ),
         drawer: AppDrawerView(),
         body: _pageList[model.currentIndex],
