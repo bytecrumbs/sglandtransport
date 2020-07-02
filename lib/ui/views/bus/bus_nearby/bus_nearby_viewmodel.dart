@@ -7,7 +7,7 @@ import 'package:lta_datamall_flutter/services/bus_service.dart';
 import 'package:lta_datamall_flutter/services/location_service.dart';
 import 'package:stacked/stacked.dart';
 
-class BusNearByStreamViewModel extends StreamViewModel {
+class BusNearByViewModel extends StreamViewModel {
   static final _log = Logger('BusNearByStreamViewModel');
   List<BusStopModel> _nearByBusStopList = [];
   final _busService = locator<BusService>();

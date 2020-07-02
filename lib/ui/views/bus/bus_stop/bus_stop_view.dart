@@ -23,18 +23,7 @@ class BusStopView extends StatelessWidget {
           subtitle:
               Text('${busStopModel.busStopCode} | ${busStopModel.roadName}'),
           trailing: busStopModel.distanceInMeters != null
-              ? BoxInfo(
-                  color: Theme.of(context).highlightColor,
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        busStopModel.distanceInMeters.toString(),
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Text('meters'),
-                    ],
-                  ),
-                )
+              ? _buildBoxInfo(context)
               : Icon(Icons.assignment),
           onTap: () {
             model.navigateToBusArrival(
@@ -45,6 +34,21 @@ class BusStopView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => BusStopViewModel(),
+    );
+  }
+
+  BoxInfo _buildBoxInfo(BuildContext context) {
+    return BoxInfo(
+      color: Theme.of(context).highlightColor,
+      child: Column(
+        children: <Widget>[
+          Text(
+            busStopModel.distanceInMeters.toString(),
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const Text('meters'),
+        ],
+      ),
     );
   }
 }
