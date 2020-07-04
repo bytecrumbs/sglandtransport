@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:lta_datamall_flutter/ui/views/bus/bus_stop/bus_stop_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flare_flutter/flare_actor.dart';
@@ -45,9 +46,18 @@ class BusNearbyView extends StatelessWidget {
                         padding: const EdgeInsets.all(0),
                         itemCount: model.nearByBusStopList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return BusStopView(
-                            busStopModel: model.nearByBusStopList[index],
-                            key: ValueKey<String>('busStopCard-$index'),
+                          return AnimationConfiguration.staggeredList(
+                            position: index,
+                            duration: const Duration(milliseconds: 375),
+                            child: SlideAnimation(
+                              verticalOffset: 50.0,
+                              child: FadeInAnimation(
+                                child: BusStopView(
+                                  busStopModel: model.nearByBusStopList[index],
+                                  key: ValueKey<String>('busStopCard-$index'),
+                                ),
+                              ),
+                            ),
                           );
                         },
                       ),
