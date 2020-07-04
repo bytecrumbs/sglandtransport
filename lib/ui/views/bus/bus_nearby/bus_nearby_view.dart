@@ -9,17 +9,11 @@ class BusNearbyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusNearByViewModel>.reactive(
-      builder: (context, model, child) => Center(
-        child: model.isBusy || model.nearByBusStopList.isEmpty
-            ? CircularProgressIndicator()
-            : SingleChildScrollView(
-                physics: ScrollPhysics(),
-                child: Container(
-                  padding: EdgeInsets.only(top: 20),
+      builder: (context, model, child) =>
+          model.isBusy || model.nearByBusStopList.isEmpty
+              ? Center(child: CircularProgressIndicator())
+              : Container(
                   child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(0),
                     itemCount: model.nearByBusStopList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return AnimationConfiguration.staggeredList(
@@ -38,8 +32,6 @@ class BusNearbyView extends StatelessWidget {
                     },
                   ),
                 ),
-              ),
-      ),
       viewModelBuilder: () => BusNearByViewModel(),
     );
   }
