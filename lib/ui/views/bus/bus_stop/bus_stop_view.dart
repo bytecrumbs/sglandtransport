@@ -28,7 +28,7 @@ class BusStopView extends StatelessWidget {
             ),
           ),
           subtitle: Text(
-            '${busStopModel.roadName} (${busStopModel.busStopCode})',
+            '${busStopModel.busStopCode} | ${busStopModel.roadName}',
             style: TextStyle(
                 color: Color.fromRGBO(140, 140, 145, 1),
                 fontSize: 16,
