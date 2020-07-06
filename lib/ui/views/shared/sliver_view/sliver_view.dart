@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flare_flutter/flare_cache_builder.dart';
 import 'package:flutter/services.dart';
 import 'package:flare_flutter/provider/asset_flare.dart';
 
@@ -31,20 +30,11 @@ class SliverView extends StatelessWidget {
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
               height: 320,
-              child: FlareCacheBuilder(
-                [asset],
-                builder: (BuildContext context, bool isWarm) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 320,
-                    child: FlareActor.asset(
-                      asset,
-                      alignment: Alignment.center,
-                      fit: BoxFit.cover,
-                      animation: 'Loop',
-                    ),
-                  );
-                },
+              child: FlareActor.asset(
+                asset,
+                alignment: Alignment.center,
+                fit: BoxFit.cover,
+                animation: 'Loop',
               ),
             ),
           ),
