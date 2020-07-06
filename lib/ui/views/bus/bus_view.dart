@@ -28,9 +28,6 @@ class BusView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Color.fromRGBO(212, 238, 249, 1),
-        // appBar: AppBar(
-        //   title: const Text('Buses'),
-        // ),
         drawer: AppDrawerView(),
         body: SliverView(
           title: _pageTitle[model.currentIndex],
