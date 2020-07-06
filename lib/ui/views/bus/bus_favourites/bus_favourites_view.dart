@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/ui/views/bus/bus_stop/bus_stop_view.dart';
 import 'package:stacked/stacked.dart';
-
 import 'bus_favourites_viewmodel.dart';
 
 class BusFavouritesView extends StatelessWidget {
@@ -15,6 +14,8 @@ class BusFavouritesView extends StatelessWidget {
                 child: Text('No favorite bus stops found...'),
               )
             : ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
                 itemBuilder: (context, index) => BusStopView(
                   busStopModel: model.favouriteBusStops[index],
                 ),

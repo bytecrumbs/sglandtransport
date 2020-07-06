@@ -1,6 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/ui/views/app_drawer/app_drawer_view.dart';
+import 'package:lta_datamall_flutter/ui/views/shared/sliver_view/sliver_view.dart';
 import 'package:stacked/stacked.dart';
 
 import 'bus_favourites/bus_favourites_view.dart';
@@ -15,6 +16,12 @@ class BusView extends StatelessWidget {
     BusSearchView(),
   ];
 
+  final List<String> _pageTitle = <String>[
+    'Nearby Buses',
+    'Favorites',
+    'Search',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusViewModel>.reactive(
@@ -25,7 +32,11 @@ class BusView extends StatelessWidget {
         //   title: const Text('Buses'),
         // ),
         drawer: AppDrawerView(),
-        body: _pageList[model.currentIndex],
+        body: SliverView(
+          title: _pageTitle[model.currentIndex],
+          model: model,
+          child: _pageList[model.currentIndex],
+        ),
         bottomNavigationBar: ConvexAppBar(
           key: Key('BottomBar'),
           color: Colors.grey,

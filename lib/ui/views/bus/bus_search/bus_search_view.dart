@@ -15,14 +15,17 @@ class BusSearchView extends StatelessWidget {
     return ViewModelBuilder<BusSearchViewModel>.nonReactive(
       viewModelBuilder: () => BusSearchViewModel(),
       builder: (context, model, _) => Container(
-          child: Column(children: <Widget>[
-        SearchBar(
-          key: Key('SearchBar'),
-          controller: useTextEditingController(),
-          onSearchTextChanged: model.onSearchTextChanged,
+        child: Column(
+          children: <Widget>[
+            SearchBar(
+              key: Key('SearchBar'),
+              controller: useTextEditingController(),
+              onSearchTextChanged: model.onSearchTextChanged,
+            ),
+            SerachResultView()
+          ],
         ),
-        SerachResultView()
-      ])),
+      ),
     );
   }
 }
@@ -30,8 +33,10 @@ class BusSearchView extends StatelessWidget {
 class SerachResultView extends ViewModelWidget<BusSearchViewModel> {
   @override
   Widget build(BuildContext context, BusSearchViewModel model) {
-    return Expanded(
+    return Container(
       child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         itemCount: model.busStopSearchList.length,
         itemBuilder: (BuildContext context, int index) => BusStopView(
           busStopModel: model.busStopSearchList[index],
