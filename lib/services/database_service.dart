@@ -32,7 +32,7 @@ class DatabaseService {
     final path = join(dbPath, 'sgLandTransportDB.db');
 
     _log.info('opening database');
-    return await openDatabase(path, version: 1, onCreate: _onCreate);
+    return await openDatabase(path, version: 2, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database database, int version) async {
