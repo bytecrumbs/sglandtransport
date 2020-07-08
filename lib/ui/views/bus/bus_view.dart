@@ -31,7 +31,6 @@ class BusView extends StatelessWidget {
         drawer: AppDrawerView(),
         body: SliverView(
           title: _pageTitle[model.currentIndex],
-          model: model,
           child: _pageList[model.currentIndex],
         ),
         bottomNavigationBar: ConvexAppBar(
