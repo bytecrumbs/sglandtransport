@@ -25,6 +25,7 @@ class SliverView extends StatelessWidget {
           floating: false,
           snap: false,
           expandedHeight: 240.0,
+          backgroundColor: Theme.of(context).primaryColor,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
               height: 320,

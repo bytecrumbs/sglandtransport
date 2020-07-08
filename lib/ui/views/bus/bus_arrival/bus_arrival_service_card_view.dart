@@ -159,7 +159,7 @@ class BusArrivalServiceCardView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   BoxInfo(
-                    color: Theme.of(context).primaryColorDark,
+                    color: Theme.of(context).primaryColor,
                     child: _displayBusNumber(),
                   ),
                   busArrivalServiceModel.inService ?? true

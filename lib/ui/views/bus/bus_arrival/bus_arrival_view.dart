@@ -17,7 +17,9 @@ class BusArrivalView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusArrivalViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text(description),
           actions: <Widget>[
             Padding(
