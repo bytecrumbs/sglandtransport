@@ -21,18 +21,12 @@ class BusStopView extends StatelessWidget {
             margin: EdgeInsets.only(bottom: 3),
             child: Text(
               busStopModel.description,
-              style: TextStyle(
-                  color: Color.fromRGBO(37, 48, 77, 1),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600),
+              style: Theme.of(context).textTheme.headline1,
             ),
           ),
           subtitle: Text(
             '${busStopModel.busStopCode} | ${busStopModel.roadName}',
-            style: TextStyle(
-                color: Color.fromRGBO(140, 140, 145, 1),
-                fontSize: 16,
-                fontWeight: FontWeight.w100),
+            style: Theme.of(context).textTheme.headline2,
           ),
           trailing: busStopModel.distanceInMeters != null
               ? Column(

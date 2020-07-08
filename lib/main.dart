@@ -50,9 +50,21 @@ class MyApp extends StatelessWidget {
       title: 'SG Land Transport',
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Color.fromRGBO(75, 98, 107, 1),
-        accentColor: Color.fromRGBO(104, 179, 208, 1),
+        primaryColor: Color.fromRGBO(150, 156, 174, 1),
+        accentColor: Color.fromRGBO(159, 179, 208, 1),
         scaffoldBackgroundColor: Color.fromRGBO(212, 238, 249, 1),
+        textTheme: TextTheme(
+          headline1: TextStyle(
+            color: Color.fromRGBO(37, 48, 77, 1),
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+          headline2: TextStyle(
+            color: Color.fromRGBO(140, 140, 145, 1),
+            fontSize: 16,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
       ),
       initialRoute: Routes.busViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
