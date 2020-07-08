@@ -48,7 +48,12 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'SG Land Transport',
-      theme: ThemeData.light(),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Color.fromRGBO(90, 97, 116, 1),
+        accentColor: Color.fromRGBO(126, 179, 199, 1),
+        scaffoldBackgroundColor: Color.fromRGBO(212, 238, 249, 1),
+      ),
       initialRoute: Routes.busViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,

@@ -27,7 +27,7 @@ class BusView extends StatelessWidget {
     return ViewModelBuilder<BusViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         extendBodyBehindAppBar: true,
-        backgroundColor: Color.fromRGBO(212, 238, 249, 1),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         drawer: AppDrawerView(),
         body: SliverView(
           title: _pageTitle[model.currentIndex],
