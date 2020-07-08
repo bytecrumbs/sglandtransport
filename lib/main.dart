@@ -11,14 +11,25 @@ import 'package:lta_datamall_flutter/app/router.gr.dart';
 import 'package:lta_datamall_flutter/services/bus_service.dart';
 import 'package:lta_datamall_flutter/services/firebase_analytics_service.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:flare_flutter/provider/asset_flare.dart';
+import 'package:flare_flutter/flare_cache.dart';
+
+Future<void> warmupFlare() async {
+  await cachedActor(AssetFlare(bundle: rootBundle, name: 'images/city.flr'));
+}
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  FlareCache.doesPrune = false;
+
   Level logLevel;
   if (foundation.kReleaseMode) {
     logLevel = Level.WARNING;
   } else {
     logLevel = Level.ALL;
   }
+
   Logger.root.level = logLevel;
   Logger.root.onRecord.listen((record) {
     print(
@@ -35,7 +46,9 @@ Future<void> main() async {
     // initiate the DB
     // locator<DatabaseService>().database;
     locator<BusService>().addBusRoutesToDb();
-    runApp(MyApp());
+    warmupFlare().then((_) {
+      runApp(MyApp());
+    });
   }, onError: Crashlytics.instance.recordError);
 }
 
@@ -50,6 +63,7 @@ class MyApp extends StatelessWidget {
       title: 'SG Land Transport',
       theme: ThemeData(
         brightness: Brightness.light,
+        primaryColorDark: Color.fromRGBO(37, 48, 77, 1),
         primaryColor: Color.fromRGBO(150, 156, 174, 1),
         accentColor: Color.fromRGBO(159, 179, 208, 1),
         scaffoldBackgroundColor: Color.fromRGBO(212, 238, 249, 1),
