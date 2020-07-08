@@ -35,6 +35,11 @@ class _SliverViewState extends State<SliverView> {
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
+            iconTheme: IconThemeData(
+              color: _isExpanded
+                  ? Theme.of(context).primaryColorDark
+                  : Colors.white,
+            ),
             title: Text(
               widget.title,
               style: TextStyle(
