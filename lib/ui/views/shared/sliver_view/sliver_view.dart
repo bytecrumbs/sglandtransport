@@ -7,12 +7,10 @@ class SliverView extends StatelessWidget {
   const SliverView({
     Key key,
     @required this.title,
-    @required this.model,
     @required this.child,
   }) : super(key: key);
 
   final String title;
-  final model;
   final Widget child;
 
   @override
@@ -26,13 +24,13 @@ class SliverView extends StatelessWidget {
           pinned: true,
           floating: false,
           snap: false,
-          expandedHeight: 290.0,
+          expandedHeight: 240.0,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
               height: 320,
               child: FlareActor.asset(
                 asset,
-                alignment: Alignment.center,
+                alignment: Alignment.bottomCenter,
                 fit: BoxFit.cover,
                 animation: 'Loop',
               ),
