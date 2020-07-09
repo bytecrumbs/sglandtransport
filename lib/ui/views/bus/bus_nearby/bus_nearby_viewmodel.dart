@@ -1,4 +1,3 @@
-import 'package:location/location.dart';
 import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
@@ -12,22 +11,14 @@ class BusNearByViewModel extends StreamViewModel {
   List<BusStopModel> _nearByBusStopList = [];
   final _busService = locator<BusService>();
   final _locationService = locator<LocationService>();
-  UserLocation _userLocation = UserLocation();
 
   List<BusStopModel> get nearByBusStopList =>
       _nearByBusStopList.toSet().toList();
 
-  Future<void> setNearByBusStops(LocationData locationData) async {
-    if (_userLocation.latitude != locationData.latitude) {
-      _userLocation = UserLocation(
-        latitude: data.latitude,
-        longitude: data.longitude,
-        permissionGranted: true,
-      );
-      _nearByBusStopList =
-          await _busService.getNearbyBusStopsByLocation(_userLocation);
-      _log.info('GET NEARBY BUS STOPS BY LOCATION $_nearByBusStopList');
-    }
+  Future<void> setNearByBusStops(UserLocation userLocation) async {
+    _nearByBusStopList =
+        await _busService.getNearbyBusStopsByLocation(userLocation);
+    _log.info('GET NEARBY BUS STOPS BY LOCATION $_nearByBusStopList');
 
     notifyListeners();
   }
@@ -35,7 +26,7 @@ class BusNearByViewModel extends StreamViewModel {
   @override
   void initialise() {
     super.initialise();
-    _locationService.enableLocationPermission();
+    _locationService.listenToLocationStream();
   }
 
   @override
@@ -46,10 +37,11 @@ class BusNearByViewModel extends StreamViewModel {
   }
 
   @override
-  Stream<LocationData> get stream => _locationService.onLocationChanged;
+  Stream<UserLocation> get stream => _locationService.locationStream;
 
   @override
   void dispose() {
+    _locationService.stopListen();
     super.dispose();
   }
 }
