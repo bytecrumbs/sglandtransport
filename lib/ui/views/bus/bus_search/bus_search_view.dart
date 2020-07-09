@@ -36,11 +36,9 @@ class SerachResultView extends HookViewModelWidget<BusSearchViewModel> {
     );
   }
 
-  Container _buildSearchResultView(BusSearchViewModel model) {
-    return Container(
+  Expanded _buildSearchResultView(BusSearchViewModel model) {
+    return Expanded(
       child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
         itemCount: model.busStopSearchList.length,
         itemBuilder: (BuildContext context, int index) => BusStopView(
           busStopModel: model.busStopSearchList[index],

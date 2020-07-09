@@ -51,7 +51,7 @@ class _SliverViewState extends State<SliverView> {
             pinned: true,
             floating: false,
             snap: false,
-            expandedHeight: 240.0,
+            expandedHeight: _animationHeight,
             backgroundColor: Theme.of(context).primaryColor,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(

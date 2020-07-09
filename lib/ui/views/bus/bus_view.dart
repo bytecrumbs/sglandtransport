@@ -11,15 +11,12 @@ import 'bus_viewmodel.dart';
 
 class BusView extends StatelessWidget {
   final List<Widget> _pageList = <Widget>[
-    BusNearbyView(),
+    SliverView(
+      title: 'Nearby Buses',
+      child: BusNearbyView(),
+    ),
     BusFavouritesView(),
     BusSearchView(),
-  ];
-
-  final List<String> _pageTitle = <String>[
-    'Nearby Buses',
-    'Favorites',
-    'Search',
   ];
 
   @override
@@ -28,10 +25,14 @@ class BusView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         drawer: AppDrawerView(),
-        body: SliverView(
-          title: _pageTitle[model.currentIndex],
-          child: _pageList[model.currentIndex],
-        ),
+        appBar: model.currentIndex == 1 || model.currentIndex == 2
+            ? AppBar(
+                backgroundColor: Theme.of(context).primaryColor,
+                elevation: 0,
+                title: const Text('Buses'),
+              )
+            : null,
+        body: _pageList[model.currentIndex],
         bottomNavigationBar: ConvexAppBar(
           key: Key('BottomBar'),
           color: Colors.grey,

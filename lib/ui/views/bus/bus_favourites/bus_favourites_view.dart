@@ -8,7 +8,8 @@ class BusFavouritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusFavouritesViewModel>.reactive(
-      builder: (context, model, child) => Center(
+      builder: (context, model, child) => Container(
+        margin: EdgeInsets.only(top: 20),
         // model will indicate busy until the future is fetched
         child: model.favouriteBusStops.isEmpty
             ? Center(child: Text('No favorite bus stops found...'))

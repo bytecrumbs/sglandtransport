@@ -14,7 +14,8 @@ class BusNearByViewModel extends StreamViewModel {
   final _locationService = locator<LocationService>();
   UserLocation _userLocation = UserLocation();
 
-  List<BusStopModel> get nearByBusStopList => _nearByBusStopList;
+  List<BusStopModel> get nearByBusStopList =>
+      _nearByBusStopList.toSet().toList();
 
   Future<void> setNearByBusStops(LocationData locationData) async {
     if (_userLocation.latitude != locationData.latitude) {
