@@ -23,9 +23,9 @@ class BusNearByViewModel extends StreamViewModel {
   }
 
   @override
-  void initialise() {
+  void initialise() async {
     super.initialise();
-    _locationService.enableLocationStream();
+    await _locationService.enableLocationStream();
   }
 
   @override
