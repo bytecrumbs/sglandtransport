@@ -21,11 +21,8 @@ class Api {
     var result = <BusStopModel>[];
 
     var fetchURL = '$endPoint/ltaodataservice/BusStops';
-    for (var i = 0; i <= 5000; i = i + 2500) {
+    for (var i = 0; i <= 5000; i = i + 1000) {
       var secondSkip = i + 500;
-      var thirdSkip = i + 1000;
-      var fourthSkip = i + 1500;
-      var fifthSkip = i + 2000;
       var parallelFetch = await Future.wait([
         client.get(
           '$fetchURL?\$skip=$i',
@@ -35,21 +32,10 @@ class Api {
           '$fetchURL?\$skip=$secondSkip',
           headers: requestHeaders,
         ),
-        client.get(
-          '$fetchURL?\$skip=$thirdSkip',
-          headers: requestHeaders,
-        ),
-        client.get(
-          '$fetchURL?\$skip=$fourthSkip',
-          headers: requestHeaders,
-        ),
-        client.get(
-          '$fetchURL?\$skip=$fifthSkip',
-          headers: requestHeaders,
-        ),
       ]);
 
       parallelFetch.forEach((response) {
+        print(response.statusCode);
         if (response.statusCode == 200) {
           // If the call to the server was successful, parse the JSON.
           final busStopListModel =
