@@ -17,7 +17,7 @@ class BusArrivalView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusArrivalViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(description),
@@ -31,16 +31,19 @@ class BusArrivalView extends StatelessWidget {
         body: Center(
           child: model.busArrivalList.isEmpty
               ? CircularProgressIndicator()
-              : ListView.builder(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  itemCount: model.busArrivalList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final currentBusService = model.busArrivalList[index];
-                    return BusArrivalServiceCardView(
-                      key: ValueKey<String>('busArrivalCard-$index'),
-                      busArrivalServiceModel: currentBusService,
-                    );
-                  },
+              : Container(
+                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  child: ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: model.busArrivalList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final currentBusService = model.busArrivalList[index];
+                      return BusArrivalServiceCardView(
+                        key: ValueKey<String>('busArrivalCard-$index'),
+                        busArrivalServiceModel: currentBusService,
+                      );
+                    },
+                  ),
                 ),
         ),
       ),
