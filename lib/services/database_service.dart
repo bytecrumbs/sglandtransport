@@ -67,7 +67,7 @@ class DatabaseService {
   Future<void> _createBusStopsTable(Database database) async {
     await database.execute(
       'CREATE TABLE $busStopsTableName ('
-      'BusStopCode TEXT,'
+      'BusStopCode TEXT PRIMARY KEY,'
       'RoadName TEXT,'
       'Description TEXT,'
       'Latitude REAL,'
@@ -88,13 +88,15 @@ class DatabaseService {
 
   Future<void> _insertList(String tableName, List<dynamic> listToInsert) async {
     final db = await database;
-    var batch = db.batch();
-    listToInsert.forEach((listItem) {
-      batch.insert(tableName, listItem.toJson());
+    await db.transaction((txn) async {
+      var batch = txn.batch();
+      listToInsert.forEach((listItem) {
+        batch.insert(tableName, listItem.toJson());
+      });
+      await batch.commit(noResult: true, continueOnError: true);
+      _log.info(
+          'inserting ${listToInsert.length} records into table $tableName complete...');
     });
-    await batch.commit(noResult: true);
-    _log.info(
-        'inserting ${listToInsert.length} records into table $tableName complete...');
   }
 
   Future<List<BusStopModel>> getBusStopsByLocation() async {
