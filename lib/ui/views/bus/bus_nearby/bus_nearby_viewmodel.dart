@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
@@ -6,41 +8,33 @@ import 'package:lta_datamall_flutter/services/bus_service.dart';
 import 'package:lta_datamall_flutter/services/location_service.dart';
 import 'package:stacked/stacked.dart';
 
-class BusNearByViewModel extends StreamViewModel {
-  static final _log = Logger('BusNearByStreamViewModel');
+class BusNearByViewModel extends BaseViewModel {
+  static final _log = Logger('BusNearByViewModel');
   List<BusStopModel> _nearByBusStopList = [];
   final _busService = locator<BusService>();
   final _locationService = locator<LocationService>();
+  StreamSubscription<UserLocation> _locationSubscription;
 
   List<BusStopModel> get nearByBusStopList => _nearByBusStopList;
 
-  Future<void> setNearByBusStops(UserLocation userLocation) async {
-    _nearByBusStopList =
-        await _busService.getNearbyBusStopsByLocation(userLocation);
-    _log.info('GET NEARBY BUS STOPS BY LOCATION $_nearByBusStopList');
-
-    notifyListeners();
-  }
-
-  @override
   void initialise() async {
-    super.initialise();
     await _locationService.enableLocationStream();
-  }
+    _locationSubscription =
+        _locationService.locationStream.listen((userLocation) async {
+      _log.info(
+          'getting nearby bus stops for latitude ${userLocation.latitude} and longitude ${userLocation.longitude}');
+      _nearByBusStopList =
+          await _busService.getNearbyBusStopsByLocation(userLocation);
+      _log.info('found ${_nearByBusStopList.length} nearby bus stops');
 
-  @override
-  void onData(data) {
-    _log.info('ON DATA CALLED WITH UPDATED LOCATION RETURN BY STREAM $data');
-    setNearByBusStops(data);
-    super.onData(data);
+      notifyListeners();
+    });
   }
-
-  @override
-  Stream<UserLocation> get stream => _locationService.locationStream;
 
   @override
   void dispose() {
     _locationService.cancelLocationStream();
+    _locationSubscription.cancel();
     super.dispose();
   }
 }

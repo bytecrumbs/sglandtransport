@@ -27,6 +27,9 @@ class BusNearbyView extends StatelessWidget {
               ),
       ),
       viewModelBuilder: () => BusNearByViewModel(),
+      onModelReady: (model) {
+        model.initialise();
+      },
     );
   }
 }
