@@ -26,7 +26,7 @@ class BusNearByViewModel extends StreamViewModel {
   @override
   void initialise() {
     super.initialise();
-    _locationService.listenToLocationStream();
+    _locationService.enableLocationStream();
   }
 
   @override
@@ -41,7 +41,7 @@ class BusNearByViewModel extends StreamViewModel {
 
   @override
   void dispose() {
-    _locationService.stopListen();
+    _locationService.cancelLocationStream();
     super.dispose();
   }
 }

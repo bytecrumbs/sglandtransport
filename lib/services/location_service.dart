@@ -17,7 +17,7 @@ class LocationService {
 
   Stream<UserLocation> get locationStream => _locationController.stream;
 
-  Future<void> listenToLocationStream() async {
+  Future<void> enableLocationStream() async {
     bool _serviceEnabled;
     PermissionStatus _permissionGranted;
 
@@ -55,7 +55,7 @@ class LocationService {
     });
   }
 
-  Future<void> stopListen() async {
+  Future<void> cancelLocationStream() async {
     _log.info('Cancelling the location stream');
     await _locationSubscription.cancel();
   }
