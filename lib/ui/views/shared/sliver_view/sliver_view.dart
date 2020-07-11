@@ -19,10 +19,11 @@ class SliverView extends StatefulWidget {
 
 class _SliverViewState extends State<SliverView> {
   bool _isExpanded = true;
-  final double _animationHeight = 240.0;
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final _animationHeight = screenHeight * 0.33;
     final asset = AssetFlare(bundle: rootBundle, name: 'images/city.flr');
 
     return NotificationListener<ScrollNotification>(
