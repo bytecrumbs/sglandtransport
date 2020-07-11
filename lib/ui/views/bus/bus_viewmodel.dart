@@ -18,11 +18,7 @@ class BusViewModel extends BaseViewModel {
     TabItem(
       icon: Icons.favorite,
       title: 'Favorites',
-    ),
-    TabItem(
-      icon: Icons.search,
-      title: 'Search',
-    ),
+    )
   ];
 
   int get currentIndex => _currentIndex;
