@@ -46,7 +46,8 @@ class BusArrivalServiceCardView extends StatelessWidget {
   }
 
   Widget _displayBusFeature(context) {
-    if (busArrivalServiceModel.nextBus.feature != 'WAB') {
+    if (busArrivalServiceModel.nextBus != null &&
+        busArrivalServiceModel.nextBus.feature != 'WAB') {
       return const Text('');
     }
 
@@ -74,9 +75,10 @@ class BusArrivalServiceCardView extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 3),
       child: Text(
-        'Not In\nOperation',
+        'Not in\noperation',
+        textAlign: TextAlign.center,
         style: const TextStyle(
-          fontSize: 14,
+          fontSize: 13,
         ),
       ),
     );
@@ -105,14 +107,11 @@ class BusArrivalServiceCardView extends StatelessWidget {
       ),
       child: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
@@ -123,11 +122,7 @@ class BusArrivalServiceCardView extends StatelessWidget {
                             margin: EdgeInsets.only(right: 7),
                             child: Text(
                               'Bus ${busArrivalServiceModel.serviceNo}',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w800,
-                                color: Theme.of(context).primaryColorDark,
-                              ),
+                              style: Theme.of(context).textTheme.headline1,
                             ),
                           ),
                           _displayBusFeature(context)
@@ -137,7 +132,6 @@ class BusArrivalServiceCardView extends StatelessWidget {
                     busArrivalServiceModel.inService ?? true
                         ? Container(
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Tag(
                                   text: _getBusLoad(
@@ -168,7 +162,6 @@ class BusArrivalServiceCardView extends StatelessWidget {
                   ),
                   child: busArrivalServiceModel.inService ?? true
                       ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             _displayNextBusTiming(),
