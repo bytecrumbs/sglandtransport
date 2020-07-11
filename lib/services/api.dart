@@ -35,7 +35,6 @@ class Api {
       ]);
 
       parallelFetch.forEach((response) {
-        print(response.statusCode);
         if (response.statusCode == 200) {
           // If the call to the server was successful, parse the JSON.
           final busStopListModel =
