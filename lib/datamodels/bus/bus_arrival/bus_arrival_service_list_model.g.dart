@@ -6,9 +6,9 @@ part of 'bus_arrival_service_list_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BusArrivalServiceListModel _$BusArrivalServiceListModelFromJson(
+_$_BusArrivalServiceListModel _$_$_BusArrivalServiceListModelFromJson(
     Map<String, dynamic> json) {
-  return BusArrivalServiceListModel(
+  return _$_BusArrivalServiceListModel(
     odataMetadata: json['odata.metadata'] as String,
     busStopCode: json['BusStopCode'] as String,
     services: (json['Services'] as List)
@@ -19,8 +19,8 @@ BusArrivalServiceListModel _$BusArrivalServiceListModelFromJson(
   );
 }
 
-Map<String, dynamic> _$BusArrivalServiceListModelToJson(
-        BusArrivalServiceListModel instance) =>
+Map<String, dynamic> _$_$_BusArrivalServiceListModelToJson(
+        _$_BusArrivalServiceListModel instance) =>
     <String, dynamic>{
       'odata.metadata': instance.odataMetadata,
       'BusStopCode': instance.busStopCode,

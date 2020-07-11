@@ -1,24 +1,18 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
 import 'bus_stop_model.dart';
 
+part 'bus_stop_list_model.freezed.dart';
 part 'bus_stop_list_model.g.dart';
 
-/// An annotation for the code generator to know that this class needs the
-/// JSON serialization logic to be generated.
-@JsonSerializable()
-class BusStopListModel {
-  BusStopListModel(
-    this.odataMetadata,
-    this.value,
-  );
+@freezed
+abstract class BusStopListModel with _$BusStopListModel {
+  factory BusStopListModel({
+    @JsonKey(name: 'odata.metadata') String odataMetadata,
+    List<BusStopModel> value,
+  }) = _BusStopListModel;
 
   factory BusStopListModel.fromJson(Map<String, dynamic> json) =>
       _$BusStopListModelFromJson(json);
-
-  @JsonKey(name: 'odata.metadata')
-  final String odataMetadata;
-  final List<BusStopModel> value;
-
-  Map<String, dynamic> toJson() => _$BusStopListModelToJson(this);
 }

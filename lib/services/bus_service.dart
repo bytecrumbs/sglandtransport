@@ -42,8 +42,10 @@ class BusService with ReactiveServiceMixin {
           LatLng(busStop.latitude, busStop.longitude),
         );
         if (distanceInMeters <= 500) {
-          busStop.distanceInMeters = distanceInMeters.round();
-          nearbyBusStops.add(busStop);
+          final newBusStop =
+              busStop.copyWith(distanceInMeters: distanceInMeters.round());
+
+          nearbyBusStops.add(newBusStop);
         }
       });
 

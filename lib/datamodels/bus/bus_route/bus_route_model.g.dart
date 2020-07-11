@@ -6,24 +6,24 @@ part of 'bus_route_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BusRouteModel _$BusRouteModelFromJson(Map<String, dynamic> json) {
-  return BusRouteModel(
+_$_BusRouteModel _$_$_BusRouteModelFromJson(Map<String, dynamic> json) {
+  return _$_BusRouteModel(
     serviceNo: json['ServiceNo'] as String,
     busOperator: json['Operator'] as String,
-    busStopCode: json['BusStopCode'] as String,
     direction: json['Direction'] as int,
-    distance: (json['Distance'] as num)?.toDouble(),
-    satFirstBus: json['SAT_FirstBus'] as String,
-    satLastBus: json['SAT_LastBus'] as String,
     stopSequence: json['StopSequence'] as int,
-    sunFirstBus: json['SUN_FirstBus'] as String,
-    sunLastBus: json['SUN_LastBus'] as String,
+    busStopCode: json['BusStopCode'] as String,
+    distance: (json['Distance'] as num)?.toDouble(),
     wdFirstBus: json['WD_FirstBus'] as String,
     wdLastBus: json['WD_LastBus'] as String,
+    satFirstBus: json['SAT_FirstBus'] as String,
+    satLastBus: json['SAT_LastBus'] as String,
+    sunFirstBus: json['SUN_FirstBus'] as String,
+    sunLastBus: json['SUN_LastBus'] as String,
   );
 }
 
-Map<String, dynamic> _$BusRouteModelToJson(BusRouteModel instance) =>
+Map<String, dynamic> _$_$_BusRouteModelToJson(_$_BusRouteModel instance) =>
     <String, dynamic>{
       'ServiceNo': instance.serviceNo,
       'Operator': instance.busOperator,

@@ -6,10 +6,10 @@ part of 'bus_route_list_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BusRouteListModel _$BusRouteListModelFromJson(Map<String, dynamic> json) {
-  return BusRouteListModel(
-    json['odata.metadata'] as String,
-    (json['value'] as List)
+_$_BusRouteListModel _$_$_BusRouteListModelFromJson(Map<String, dynamic> json) {
+  return _$_BusRouteListModel(
+    odataMetadata: json['odata.metadata'] as String,
+    value: (json['value'] as List)
         ?.map((e) => e == null
             ? null
             : BusRouteModel.fromJson(e as Map<String, dynamic>))
@@ -17,7 +17,8 @@ BusRouteListModel _$BusRouteListModelFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$BusRouteListModelToJson(BusRouteListModel instance) =>
+Map<String, dynamic> _$_$_BusRouteListModelToJson(
+        _$_BusRouteListModel instance) =>
     <String, dynamic>{
       'odata.metadata': instance.odataMetadata,
       'value': instance.value,

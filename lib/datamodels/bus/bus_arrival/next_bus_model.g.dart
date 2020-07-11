@@ -6,8 +6,8 @@ part of 'next_bus_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NextBusModel _$NextBusModelFromJson(Map<String, dynamic> json) {
-  return NextBusModel(
+_$_NextBusModel _$_$_NextBusModelFromJson(Map<String, dynamic> json) {
+  return _$_NextBusModel(
     originCode: json['OriginCode'] as String,
     destinationCode: json['DestinationCode'] as String,
     estimatedArrival: json['EstimatedArrival'] as String,
@@ -20,7 +20,7 @@ NextBusModel _$NextBusModelFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$NextBusModelToJson(NextBusModel instance) =>
+Map<String, dynamic> _$_$_NextBusModelToJson(_$_NextBusModel instance) =>
     <String, dynamic>{
       'OriginCode': instance.originCode,
       'DestinationCode': instance.destinationCode,

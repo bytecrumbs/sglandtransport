@@ -1,42 +1,23 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
+part 'next_bus_model.freezed.dart';
 part 'next_bus_model.g.dart';
 
-@JsonSerializable()
-class NextBusModel {
-  NextBusModel({
-    this.originCode,
-    this.destinationCode,
-    this.estimatedArrival,
-    this.latitude,
-    this.longitude,
-    this.visitNumber,
-    this.load,
-    this.feature,
-    this.type,
-  });
+@freezed
+abstract class NextBusModel with _$NextBusModel {
+  factory NextBusModel({
+    @JsonKey(name: 'OriginCode') String originCode,
+    @JsonKey(name: 'DestinationCode') String destinationCode,
+    @JsonKey(name: 'EstimatedArrival') String estimatedArrival,
+    @JsonKey(name: 'Latitude') String latitude,
+    @JsonKey(name: 'Longitude') String longitude,
+    @JsonKey(name: 'VisitNumber') String visitNumber,
+    @JsonKey(name: 'Load') String load,
+    @JsonKey(name: 'Feature') String feature,
+    @JsonKey(name: 'Type') String type,
+  }) = _NextBusModel;
 
   factory NextBusModel.fromJson(Map<String, dynamic> json) =>
       _$NextBusModelFromJson(json);
-
-  @JsonKey(name: 'OriginCode')
-  final String originCode;
-  @JsonKey(name: 'DestinationCode')
-  final String destinationCode;
-  @JsonKey(name: 'EstimatedArrival')
-  final String estimatedArrival;
-  @JsonKey(name: 'Latitude')
-  final String latitude;
-  @JsonKey(name: 'Longitude')
-  final String longitude;
-  @JsonKey(name: 'VisitNumber')
-  final String visitNumber;
-  @JsonKey(name: 'Load')
-  final String load;
-  @JsonKey(name: 'Feature')
-  final String feature;
-  @JsonKey(name: 'Type')
-  final String type;
-
-  Map<String, dynamic> toJson() => _$NextBusModelToJson(this);
 }
