@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/ui/views/shared/favourites_icon/favourites_icon_view.dart';
+import 'package:lta_datamall_flutter/ui/views/shared/staggered_animation/staggered_animation.dart';
 import 'package:stacked/stacked.dart';
 
 import 'bus_arrival_service_card_view.dart';
@@ -38,9 +39,12 @@ class BusArrivalView extends StatelessWidget {
                     itemCount: model.busArrivalList.length,
                     itemBuilder: (BuildContext context, int index) {
                       final currentBusService = model.busArrivalList[index];
-                      return BusArrivalServiceCardView(
-                        key: ValueKey<String>('busArrivalCard-$index'),
-                        busArrivalServiceModel: currentBusService,
+                      return StaggeredAnimation(
+                        index: index,
+                        child: BusArrivalServiceCardView(
+                          key: ValueKey<String>('busArrivalCard-$index'),
+                          busArrivalServiceModel: currentBusService,
+                        ),
                       );
                     },
                   ),
