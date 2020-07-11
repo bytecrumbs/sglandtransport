@@ -169,7 +169,7 @@ class CustomSearchDelegate extends SearchDelegate {
       children: <Widget>[
         Center(
           child: Text(
-            'Showing a search result',
+            'Showing a search result for \'${query}\'',
           ),
         )
       ],
@@ -178,8 +178,13 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // This method is called everytime the search term changes.
-    // If you want to add search suggestions as the user enters their search term, this is the place to do that.
-    return Column();
+    return query.isNotEmpty
+        ? Column(
+            children: <Widget>[
+              Text('Suggestion 1 for $query'),
+              Text('Suggestion 2 for $query'),
+            ],
+          )
+        : Column();
   }
 }
