@@ -37,8 +37,6 @@ class LocationService {
       }
     }
 
-    await _location.changeSettings(interval: 3000, distanceFilter: 10.0);
-
     _log.info('Start to listen to location stream');
     _locationSubscription =
         _location.onLocationChanged.handleError((dynamic err) {
