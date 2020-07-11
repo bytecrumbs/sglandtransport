@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/services.dart';
 import 'package:flare_flutter/provider/asset_flare.dart';
+import 'package:lta_datamall_flutter/ui/views/shared/search_bar/search_bar_view.dart';
 
 class SliverView extends StatefulWidget {
   SliverView({
@@ -15,6 +16,30 @@ class SliverView extends StatefulWidget {
 
   @override
   _SliverViewState createState() => _SliverViewState();
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate(this._container);
+  final Container _container;
+
+  @override
+  double get minExtent => 100;
+
+  @override
+  double get maxExtent => 100;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      child: _container,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return true;
+  }
 }
 
 class _SliverViewState extends State<SliverView> {
@@ -65,6 +90,21 @@ class _SliverViewState extends State<SliverView> {
                 ),
               ),
             ),
+          ),
+          SliverPersistentHeader(
+            delegate: _SliverAppBarDelegate(
+              Container(
+                height: 100,
+                color: _isExpanded
+                    ? Color.fromRGBO(0, 0, 0, 0)
+                    : Color.fromRGBO(150, 156, 174, 1),
+                child: SearchBar(
+                  onSearchTextChanged: null,
+                  showCancel: false,
+                ),
+              ),
+            ),
+            pinned: true,
           ),
           SliverList(
             delegate: SliverChildListDelegate(

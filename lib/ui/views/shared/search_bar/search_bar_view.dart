@@ -6,10 +6,12 @@ class SearchBar extends StatelessWidget {
     Key key,
     this.controller,
     @required this.onSearchTextChanged,
+    this.showCancel = true,
   }) : super(key: key);
 
   final Function(String) onSearchTextChanged;
   final TextEditingController controller;
+  final bool showCancel;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class SearchBar extends StatelessWidget {
           child: ListTile(
             leading: Icon(Icons.search),
             title: _buildTextField(),
-            trailing: _buildTrailingView(context),
+            trailing: showCancel ? _buildTrailingView(context) : null,
           ),
         ),
       ),
