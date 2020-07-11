@@ -46,7 +46,7 @@ class BusArrivalServiceCardView extends StatelessWidget {
   }
 
   Widget _displayBusFeature(context) {
-    if (busArrivalServiceModel.nextBus != null &&
+    if (busArrivalServiceModel.nextBus == null ||
         busArrivalServiceModel.nextBus.feature != 'WAB') {
       return const Text('');
     }
