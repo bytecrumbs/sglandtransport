@@ -46,8 +46,7 @@ class BusArrivalServiceCardView extends StatelessWidget {
   }
 
   Widget _displayBusFeature(context) {
-    if (busArrivalServiceModel.nextBus == null ||
-        busArrivalServiceModel.nextBus.feature != 'WAB') {
+    if (busArrivalServiceModel.nextBus.feature != 'WAB') {
       return const Text('');
     }
 
@@ -125,7 +124,9 @@ class BusArrivalServiceCardView extends StatelessWidget {
                               style: Theme.of(context).textTheme.headline1,
                             ),
                           ),
-                          _displayBusFeature(context)
+                          busArrivalServiceModel.inService ?? true
+                              ? _displayBusFeature(context)
+                              : Text('')
                         ],
                       ),
                     ),
