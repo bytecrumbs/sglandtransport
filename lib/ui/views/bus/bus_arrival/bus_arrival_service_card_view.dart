@@ -45,13 +45,14 @@ class BusArrivalServiceCardView extends StatelessWidget {
     return _busType[type];
   }
 
-  Widget _displayBusFeature() {
+  Widget _displayBusFeature(context) {
     if (busArrivalServiceModel.nextBus.feature != 'WAB') {
       return const Text('');
     }
 
     return Icon(
       Icons.accessible,
+      color: Theme.of(context).primaryColor,
       size: 22.0,
     );
   }
@@ -116,13 +117,21 @@ class BusArrivalServiceCardView extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.only(bottom: 5),
-                      child: Text(
-                        'Bus ${busArrivalServiceModel.serviceNo}',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                          color: Theme.of(context).primaryColorDark,
-                        ),
+                      child: Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 7),
+                            child: Text(
+                              'Bus ${busArrivalServiceModel.serviceNo}',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w800,
+                                color: Theme.of(context).primaryColorDark,
+                              ),
+                            ),
+                          ),
+                          _displayBusFeature(context)
+                        ],
                       ),
                     ),
                     busArrivalServiceModel.inService ?? true
@@ -141,7 +150,6 @@ class BusArrivalServiceCardView extends StatelessWidget {
                                     busArrivalServiceModel.nextBus.type,
                                   ),
                                 ),
-                                _displayBusFeature()
                               ],
                             ),
                           )
