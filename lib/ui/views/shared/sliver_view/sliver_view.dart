@@ -130,6 +130,17 @@ class _SliverViewState extends State<SliverView> {
 
 class CustomSearchDelegate extends SearchDelegate {
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    assert(context != null);
+    final theme = Theme.of(context);
+    assert(theme != null);
+    return theme;
+  }
+
+  @override
+  String get searchFieldLabel => 'Search for bus stops';
+
+  @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
