@@ -4,8 +4,8 @@ import 'package:flare_flutter/flare_cache_builder.dart';
 import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lta_datamall_flutter/services/custom_search_delegate.dart';
 import 'package:lta_datamall_flutter/ui/views/app_drawer/app_drawer_view.dart';
-import 'package:lta_datamall_flutter/ui/views/shared/sliver_view/sliver_view.dart';
 import 'package:stacked/stacked.dart';
 
 import 'bus_favourites/bus_favourites_view.dart';
@@ -57,6 +57,17 @@ class BusView extends StatelessWidget {
                     ),
                   ),
                 ),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      showSearch(
+                        context: context,
+                        delegate: CustomSearchDelegate(),
+                      );
+                    },
+                  ),
+                ],
               ),
             ];
           },
