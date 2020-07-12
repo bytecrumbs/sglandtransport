@@ -1,5 +1,9 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_cache_builder.dart';
+import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lta_datamall_flutter/ui/views/app_drawer/app_drawer_view.dart';
 import 'package:lta_datamall_flutter/ui/views/shared/sliver_view/sliver_view.dart';
 import 'package:stacked/stacked.dart';
@@ -11,10 +15,7 @@ import 'bus_viewmodel.dart';
 
 class BusView extends StatelessWidget {
   final List<Widget> _pageList = <Widget>[
-    SliverView(
-      title: 'Nearby Buses',
-      child: BusNearbyView(),
-    ),
+    BusNearbyView(),
     BusFavouritesView(),
     BusSearchView(),
   ];
@@ -25,14 +26,42 @@ class BusView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         drawer: AppDrawerView(),
-        appBar: model.currentIndex == 1 || model.currentIndex == 2
-            ? AppBar(
-                backgroundColor: Theme.of(context).primaryColor,
-                elevation: 0,
-                title: const Text('Buses'),
-              )
-            : null,
-        body: _pageList[model.currentIndex],
+        body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            final asset =
+                AssetFlare(bundle: rootBundle, name: 'images/city.flr');
+            return <Widget>[
+              SliverAppBar(
+                title: Text('Nearby Buses'),
+                pinned: true,
+                floating: false,
+                snap: false,
+                expandedHeight: 240.0,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Container(
+                    height: 320,
+                    child: FlareCacheBuilder(
+                      [asset],
+                      builder: (BuildContext context, bool isWarm) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 320,
+                          child: FlareActor.asset(
+                            asset,
+                            alignment: Alignment.center,
+                            fit: BoxFit.cover,
+                            animation: 'Loop',
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ];
+          },
+          body: _pageList[model.currentIndex],
+        ),
         bottomNavigationBar: ConvexAppBar(
           key: Key('BottomBar'),
           color: Colors.grey,
