@@ -10,11 +10,16 @@ import 'bus_search/bus_search_view.dart';
 import 'bus_viewmodel.dart';
 
 class BusView extends StatelessWidget {
-  final List<Widget> _pageList = <Widget>[
-    BusNearbyView(),
-    BusFavouritesView(),
-    BusSearchView(),
-  ];
+  Widget _getViewForIndex(int index) {
+    switch (index) {
+      case 0:
+        return BusNearbyView();
+      case 1:
+        return BusFavouritesView();
+      default:
+        return BusNearbyView();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class BusView extends StatelessWidget {
         drawer: AppDrawerView(),
         body: SliverView(
           title: model.appBarTitle,
-          child: _pageList[model.currentIndex],
+          child: _getViewForIndex(model.currentIndex),
         ),
         bottomNavigationBar: ConvexAppBar(
           key: Key('BottomBar'),
