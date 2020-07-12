@@ -124,13 +124,13 @@ class BusArrivalServiceCardView extends StatelessWidget {
                               style: Theme.of(context).textTheme.headline1,
                             ),
                           ),
-                          busArrivalServiceModel.inService ?? true
+                          busArrivalServiceModel.inService
                               ? _displayBusFeature(context)
                               : Text('')
                         ],
                       ),
                     ),
-                    busArrivalServiceModel.inService ?? true
+                    busArrivalServiceModel.inService
                         ? Container(
                             child: Row(
                               children: <Widget>[
@@ -161,7 +161,7 @@ class BusArrivalServiceCardView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: busArrivalServiceModel.inService ?? true
+                  child: busArrivalServiceModel.inService
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
