@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/app/locator.dart';
+import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/ui/views/bus/bus_stop/bus_stop_view.dart';
+
+import 'bus_service.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
+  final _busService = locator<BusService>();
   @override
   ThemeData appBarTheme(BuildContext context) {
     assert(context != null);
@@ -36,27 +42,36 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Center(
-          child: Text(
-            'Showing a search result for \'${query}\'',
-          ),
-        )
-      ],
-    );
+    return _buildSearchResultView();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return query.isNotEmpty
-        ? Column(
-            children: <Widget>[
-              Text('Suggestion 1 for $query'),
-              Text('Suggestion 2 for $query'),
-            ],
-          )
-        : Column();
+    return _buildSearchResultView();
+  }
+
+  FutureBuilder<List<BusStopModel>> _buildSearchResultView() {
+    return FutureBuilder<List<BusStopModel>>(
+      future: _busService.findBusStops(query),
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<List<BusStopModel>> snapshot,
+      ) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
+          final busStopList = snapshot.data;
+          return ListView.builder(
+            padding: const EdgeInsets.only(top: 15.0),
+            itemCount: busStopList.length,
+            itemBuilder: (BuildContext context, int index) => BusStopView(
+              busStopModel: busStopList[index],
+              key: ValueKey<String>('busStopCard-$index'),
+            ),
+          );
+        } else {
+          return Column();
+        }
+      },
+    );
   }
 }
