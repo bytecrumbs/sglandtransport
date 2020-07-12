@@ -38,8 +38,17 @@ class BusView extends StatelessWidget {
           top: -25.0,
           style: TabStyle.react,
           initialActiveIndex: model.currentIndex,
-          onTap: model.onItemTapped,
-          items: model.tabItems,
+          onTap: model.setIndex,
+          items: [
+            TabItem(
+              icon: Icons.location_searching,
+              title: 'Nearby',
+            ),
+            TabItem(
+              icon: Icons.favorite,
+              title: 'Favorites',
+            )
+          ],
         ),
       ),
       viewModelBuilder: () => BusViewModel(),
