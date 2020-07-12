@@ -27,44 +27,46 @@ class BusView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         drawer: AppDrawerView(),
-        body: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            final asset =
-                AssetFlare(bundle: rootBundle, name: 'images/city.flr');
-            return <Widget>[
-              SliverAppBar(
-                title: Text(model.appBarTitle),
-                pinned: true,
-                floating: false,
-                snap: false,
-                expandedHeight: _sliverAnimationHeight,
-                backgroundColor: Theme.of(context).primaryColor,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                    height: 320,
-                    child: FlareActor.asset(
-                      asset,
-                      alignment: Alignment.center,
-                      fit: BoxFit.cover,
-                      animation: 'Loop',
-                    ),
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              title: Text(model.appBarTitle),
+              pinned: true,
+              floating: false,
+              snap: false,
+              expandedHeight: _sliverAnimationHeight,
+              backgroundColor: Theme.of(context).primaryColor,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  height: 320,
+                  child: FlareActor.asset(
+                    AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
+                    alignment: Alignment.center,
+                    fit: BoxFit.cover,
+                    animation: 'Loop',
                   ),
                 ),
-                actions: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.search),
-                    onPressed: () {
-                      showSearch(
-                        context: context,
-                        delegate: CustomSearchDelegate(),
-                      );
-                    },
-                  ),
+              ),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: CustomSearchDelegate(),
+                    );
+                  },
+                ),
+              ],
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  _pageList[model.currentIndex],
                 ],
               ),
-            ];
-          },
-          body: _pageList[model.currentIndex],
+            ),
+          ],
         ),
         bottomNavigationBar: ConvexAppBar(
           key: Key('BottomBar'),
