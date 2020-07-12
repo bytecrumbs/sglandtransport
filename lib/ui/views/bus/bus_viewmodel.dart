@@ -10,7 +10,7 @@ class BusViewModel extends IndexTrackingViewModel {
 
   @override
   void setIndex(int index) {
-    var longScreenName = 'BusIndex$index';
+    var longScreenName = 'BusStopsBottomNavigationIndex$index';
     _sendCurrentTabToAnalytics(longScreenName);
     super.setIndex(index);
   }
