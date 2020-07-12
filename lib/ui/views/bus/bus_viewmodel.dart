@@ -8,6 +8,8 @@ class BusViewModel extends BaseViewModel {
   final _analyticsObserver =
       locator<FirebaseAnalyticsService>().analyticsObserver;
 
+  String get appBarTitle => 'Buses';
+
   int _currentIndex = 0;
 
   final _tabItems = [

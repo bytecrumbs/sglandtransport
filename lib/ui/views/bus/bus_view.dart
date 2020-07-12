@@ -33,7 +33,7 @@ class BusView extends StatelessWidget {
                 AssetFlare(bundle: rootBundle, name: 'images/city.flr');
             return <Widget>[
               SliverAppBar(
-                title: Text('Nearby Buses'),
+                title: Text(model.appBarTitle),
                 pinned: true,
                 floating: false,
                 snap: false,
