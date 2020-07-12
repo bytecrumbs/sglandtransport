@@ -29,7 +29,7 @@ dependencies:
   pedantic: ^1.9.0
   convex_bottom_bar: ^2.2.4
   logging: ^0.11.4
-  stacked: ^1.6.0
+  stacked: ^1.7.1+1
   url_launcher: ^5.4.10
   get_it: ^4.0.2
   injectable: ^0.4.0+1
@@ -46,7 +46,7 @@ dependencies:
   #navigation
   auto_route: ^0.5.0
   #stack service
-  stacked_services: ^0.4.1
+  stacked_services: ^0.4.4+3
   flare_flutter: ^2.0.4
   stacked_hooks: ^0.1.2
 
