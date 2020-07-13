@@ -17,26 +17,48 @@ class BusStopView extends StatelessWidget {
       builder: (context, model, child) => Card(
         margin: const EdgeInsets.fromLTRB(15, 0, 15, 12),
         child: ListTile(
-          title: Container(
-            margin: EdgeInsets.only(bottom: 3),
-            child: Text(
-              busStopModel.description,
-              style: Theme.of(context).textTheme.headline1,
-            ),
+          contentPadding: EdgeInsets.symmetric(vertical: 7, horizontal: 12),
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                child: Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          busStopModel.description,
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                      ),
+                      Text(
+                        '${busStopModel.busStopCode} | ${busStopModel.roadName}',
+                        style: Theme.of(context).textTheme.headline2,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              busStopModel.distanceInMeters != null
+                  ? Center(
+                      child: Text(
+                        '${busStopModel.distanceInMeters.toString()} m',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    )
+                  : Text('')
+            ],
           ),
-          subtitle: Text(
-            '${busStopModel.busStopCode} | ${busStopModel.roadName}',
-            style: Theme.of(context).textTheme.headline2,
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            size: 15,
+            color: Theme.of(context).accentColor,
           ),
-          trailing: busStopModel.distanceInMeters != null
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('${busStopModel.distanceInMeters.toString()} m',
-                        style: TextStyle(fontSize: 15)),
-                  ],
-                )
-              : null,
           onTap: () {
             model.navigateToBusArrival(
               busStopModel.busStopCode,
