@@ -11,7 +11,9 @@ class AppDrawerView extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            _buildDrawerHeader(),
+            SizedBox(
+              height: 40,
+            ),
             for (var item in model.getActiveFeatures())
               ListTile(
                 leading: item.icon,
@@ -32,33 +34,6 @@ class AppDrawerView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => AppDrawerViewModel(),
-    );
-  }
-
-  DrawerHeader _buildDrawerHeader() {
-    return DrawerHeader(
-      margin: EdgeInsets.zero,
-      padding: EdgeInsets.zero,
-      child: Stack(children: <Widget>[
-        Positioned(
-          bottom: 12.0,
-          left: 20.0,
-          child: Text(
-            'Welcome to SG Land Transport',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 17.0,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ]),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('images/icon.jpg'),
-          fit: BoxFit.fill,
-        ),
-      ),
     );
   }
 }

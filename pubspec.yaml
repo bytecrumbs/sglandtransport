@@ -76,7 +76,6 @@ flutter:
   uses-material-design: true
   assets:
     - .env
-    - images/icon.jpg
     - images/city.flr
   # To add assets to your application, add an assets section, like this:
   # assets:
