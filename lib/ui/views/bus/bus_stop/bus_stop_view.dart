@@ -38,10 +38,10 @@ class BusStopView extends StatelessWidget {
                           text: busStopModel.description,
                           term: searchTerm,
                           textStyle: Theme.of(context).textTheme.headline1,
-                          textStyleHighlight:
-                              Theme.of(context).textTheme.headline1.copyWith(
-                                    color: Colors.orangeAccent,
-                                  ),
+                          textStyleHighlight: Theme.of(context)
+                              .textTheme
+                              .headline1
+                              .copyWith(color: Theme.of(context).accentColor),
                         ),
                       ),
                       SubstringHighlight(
@@ -49,10 +49,10 @@ class BusStopView extends StatelessWidget {
                             '${busStopModel.busStopCode} | ${busStopModel.roadName}',
                         term: searchTerm,
                         textStyle: Theme.of(context).textTheme.headline2,
-                        textStyleHighlight:
-                            Theme.of(context).textTheme.headline2.copyWith(
-                                  color: Colors.orangeAccent,
-                                ),
+                        textStyleHighlight: Theme.of(context)
+                            .textTheme
+                            .headline1
+                            .copyWith(color: Theme.of(context).accentColor),
                       ),
                     ],
                   ),
@@ -71,7 +71,7 @@ class BusStopView extends StatelessWidget {
           trailing: Icon(
             Icons.arrow_forward_ios,
             size: 15,
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor,
           ),
           onTap: () {
             model.navigateToBusArrival(

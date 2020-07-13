@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColorDark: Color.fromRGBO(37, 48, 77, 1),
         primaryColor: Color.fromRGBO(150, 156, 174, 1),
-        accentColor: Color.fromRGBO(159, 179, 208, 1),
+        accentColor: Color.fromRGBO(239, 51, 64, 1),
         scaffoldBackgroundColor: Color.fromRGBO(212, 238, 249, 1),
         textTheme: TextTheme(
           headline1: TextStyle(
