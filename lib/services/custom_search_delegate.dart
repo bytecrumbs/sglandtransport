@@ -72,6 +72,7 @@ class CustomSearchDelegate extends SearchDelegate {
             itemBuilder: (BuildContext context, int index) => BusStopView(
               busStopModel: busStopList[index],
               key: ValueKey<String>('busStopCard-$index'),
+              searchTerm: query,
             ),
           );
         } else {

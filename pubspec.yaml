@@ -43,6 +43,7 @@ dependencies:
   observable_ish: ^2.1.4
   flutter_staggered_animations: ^0.1.2
   freezed_annotation: ^0.11.0
+  substring_highlight: ^0.1.2
   #navigation
   auto_route: ^0.5.0
   #stack service
