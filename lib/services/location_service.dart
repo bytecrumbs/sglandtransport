@@ -38,11 +38,13 @@ class LocationService {
     }
 
     _log.info('Start to listen to location stream');
+
     _locationSubscription =
         _location.onLocationChanged.handleError((dynamic err) {
       _log.severe('Error in location Stream: ${err.code}');
       _locationSubscription.cancel();
     }).listen((locationData) {
+      _log.info('Getting a new location');
       if (locationData != null) {
         _locationController.add(
           UserLocation(
