@@ -7,7 +7,7 @@ class AppDrawerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AppDrawerViewModel>.nonReactive(
-      builder: (contect, model, child) => Drawer(
+      builder: (context, model, child) => Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
