@@ -32,10 +32,10 @@ class BusNearByViewModel extends BaseViewModel {
   }
 
   @override
-  void dispose() {
+  void dispose() async {
     _log.info('cancelling streams');
-    _locationSubscription.cancel();
-    _locationService.cancelLocationStream();
+    await _locationSubscription.cancel();
+    await _locationService.cancelLocationStream();
     super.dispose();
   }
 }
