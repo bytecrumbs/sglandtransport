@@ -12,9 +12,7 @@ class CustomSearchDelegate extends SearchDelegate {
     assert(context != null);
     final theme = Theme.of(context).copyWith(
       inputDecorationTheme: InputDecorationTheme(
-        hintStyle: TextStyle(
-          color: Colors.red,
-        ),
+        hintStyle: TextStyle(color: Color.fromRGBO(255, 255, 255, 0.7)),
       ),
     );
     assert(theme != null);
