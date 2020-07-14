@@ -13,8 +13,16 @@ class BusNearbyView extends StatelessWidget {
         child: model.isBusy || model.nearByBusStopList.isEmpty
             ? Padding(
                 padding: const EdgeInsets.only(top: 30),
-                child: Center(
-                  child: CircularProgressIndicator(),
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text('Looking for nearby bus stops...'),
+                  ],
                 ),
               )
             : AnimationLimiter(
