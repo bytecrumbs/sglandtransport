@@ -11,7 +11,12 @@ class BusNearbyView extends StatelessWidget {
     return ViewModelBuilder<BusNearByViewModel>.reactive(
       builder: (context, model, child) => Container(
         child: model.isBusy || model.nearByBusStopList.isEmpty
-            ? Center(child: CircularProgressIndicator())
+            ? Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
             : AnimationLimiter(
                 child: ListView.builder(
                   physics: NeverScrollableScrollPhysics(),

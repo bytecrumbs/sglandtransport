@@ -11,7 +11,12 @@ class BusFavouritesView extends StatelessWidget {
       builder: (context, model, child) => Container(
         // model will indicate busy until the future is fetched
         child: model.favouriteBusStops.isEmpty
-            ? Center(child: Text('No favorite bus stops found...'))
+            ? Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Center(
+                  child: Text('No favorite bus stops found...'),
+                ),
+              )
             : ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
