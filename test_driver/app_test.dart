@@ -21,7 +21,6 @@ void main() {
       test('Should load the app', () async {
         await driver.runUnsynchronized(() async {
           await driver.waitFor(find.byValueKey('BottomBar'));
-          await driver.tap(find.text('Buses'));
         });
       });
 
