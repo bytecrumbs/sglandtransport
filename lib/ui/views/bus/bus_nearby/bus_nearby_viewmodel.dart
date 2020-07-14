@@ -18,7 +18,7 @@ class BusNearByViewModel extends BaseViewModel {
   List<BusStopModel> get nearByBusStopList => _nearByBusStopList;
 
   void initialise() async {
-    await _locationService.enableLocationStream();
+    _log.info('subscribe to location stream from location service');
     _locationSubscription =
         _locationService.locationStream.listen((userLocation) async {
       _log.info(
@@ -29,6 +29,8 @@ class BusNearByViewModel extends BaseViewModel {
 
       notifyListeners();
     });
+    _log.info('enable the location stream in location service');
+    await _locationService.enableLocationStream();
   }
 
   @override
