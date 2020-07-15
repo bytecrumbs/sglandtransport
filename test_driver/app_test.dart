@@ -18,24 +18,27 @@ void main() {
     });
 
     group('Buses', () {
+      final busStopCardFinder = find.byValueKey('busStopCard-0');
+      final busArrivalCardFinder = find.byValueKey('busArrivalCard-0');
+      final nearbyBottomBarFinder = find.text('Nearby');
+      final favouriteBottomBarFinder = find.text('Favorites');
       test('Should load the app', () async {
-        await driver.runUnsynchronized(() async {
-          await driver.waitFor(find.byValueKey('BottomBar'));
-        });
+        await driver.waitFor(busStopCardFinder);
       });
 
       test('Should switch between Nearby and Favorites', () async {
-        await driver.runUnsynchronized(() async {
-          await driver.waitFor(find.byValueKey('BottomBar'));
-          await driver.tap(find.text('Nearby'));
-          await driver.tap(find.text('Favorites'));
-          await driver.tap(find.text('Nearby'));
-        });
+        await driver.tap(favouriteBottomBarFinder);
+        await driver.tap(nearbyBottomBarFinder);
+        await driver.waitFor(busStopCardFinder);
       });
 
-      test('Should show bus arrival times for a given bus stop', () {});
+      test('Should show bus arrival times for a given bus stop', () async {
+        await driver.waitFor(busStopCardFinder);
+        await driver.tap(busStopCardFinder);
+        await driver.waitFor(busArrivalCardFinder);
+      });
 
-      test('Should add a bus stop to Favorites', () {});
+      test('Should add a bus stop to Favorites', () async {});
 
       test('Should remove a bus stop from Favorites', () {});
 
