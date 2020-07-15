@@ -14,7 +14,10 @@ class BusFavouritesView extends StatelessWidget {
             ? Padding(
                 padding: const EdgeInsets.only(top: 30),
                 child: Center(
-                  child: Text('No favorite bus stops found...'),
+                  child: Text(
+                    'No favorite bus stops found...',
+                    key: ValueKey('noFavouriteBusStopsFound'),
+                  ),
                 ),
               )
             : ListView.builder(

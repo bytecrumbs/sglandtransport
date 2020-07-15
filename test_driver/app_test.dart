@@ -22,6 +22,10 @@ void main() {
       final busArrivalCardFinder = find.byValueKey('busArrivalCard-0');
       final nearbyBottomBarFinder = find.text('Nearby');
       final favouriteBottomBarFinder = find.text('Favorites');
+      final favouriteIconButtonFinder = find.byValueKey('favouriteIconButton');
+      final noFavouriteBusStopsFoundFinder =
+          find.byValueKey('noFavouriteBusStopsFound');
+
       test('Should load the app', () async {
         await driver.waitFor(busStopCardFinder);
       });
@@ -38,9 +42,20 @@ void main() {
         await driver.waitFor(busArrivalCardFinder);
       });
 
-      test('Should add a bus stop to Favorites', () async {});
+      test('Should add a bus stop to Favorites', () async {
+        await driver.tap(favouriteIconButtonFinder);
+        await driver.tap(find.pageBack());
+        await driver.tap(favouriteBottomBarFinder);
+        await driver.waitFor(busStopCardFinder);
+      });
 
-      test('Should remove a bus stop from Favorites', () {});
+      test('Should remove a bus stop from Favorites', () async {
+        await driver.tap(busStopCardFinder);
+        await driver.waitFor(busArrivalCardFinder);
+        await driver.tap(favouriteIconButtonFinder);
+        await driver.tap(find.pageBack());
+        await driver.waitFor(noFavouriteBusStopsFoundFinder);
+      });
 
       test('Should open Search screen', () {});
 
