@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/services.dart';
 import 'package:flare_flutter/provider/asset_flare.dart';
+import 'package:lta_datamall_flutter/environment_config.dart';
 import 'package:lta_datamall_flutter/services/custom_search_delegate.dart';
 
 class SliverView extends StatefulWidget {
@@ -51,7 +52,8 @@ class _SliverViewState extends State<SliverView> {
                 AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
                 alignment: Alignment.center,
                 fit: BoxFit.cover,
-                animation: 'Loop',
+                animation:
+                    EnvironmentConfig.is_flutter_drive_run ? 'Idle' : 'Loop',
               ),
             ),
             actions: <Widget>[
