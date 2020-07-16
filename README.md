@@ -90,6 +90,8 @@ flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=T
 
 IMPORTANT NOTE: above argument '--dart-define=IS_FLUTTER_DRIVE_RUN=TRUE'. This is used so that in the code we can check if the app is run using flutter drive and therefore some specific checks can be made (i.e. the flare animation will not animate when running 'flutter drive')
 
+Alternatively, refer to the Screenshots section below, which will run the Integration same integration tests as well.
+
 ## Deployments
 
 ### Beta deployments
@@ -133,7 +135,7 @@ export PATH="<path to flutter installation directory>/bin/cache/dart-sdk/bin:$PA
 
 ### Usage
 
-For uploading screenshots via fastlane, run following command without any mode.
+To create screenshots to upload via fastlane, run following command without any mode.
 
 ```
 screenshots
