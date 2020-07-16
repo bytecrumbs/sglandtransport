@@ -84,13 +84,6 @@ genhtml coverage/lcov.info --output=coverage
 
 ### Run Integration (UI) Tests
 
-1. Install dependencies
-
-- `brew tap wix/brew`
-- `brew install applesimutils`
-
-2. Run tests (from project root):
-
 ```
 flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=TRUE
 ```
