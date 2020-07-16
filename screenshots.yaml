@@ -1,6 +1,6 @@
 # Screen capture tests
 tests:
-  - test_driver/app.dart
+  - --target=test_driver/app.dart --driver=test_driver/app_test.dart --dart-define=IS_FLUTTER_DRIVE_RUN=TRUE
 
 # Interim location of screenshots from tests
 staging: /tmp/screenshots
@@ -18,9 +18,9 @@ devices:
     iPhone X:
     iPhone 7 Plus:
     iPad Pro (12.9-inch) (2nd generation):
-  android:
-    Nexus 5X:
-    Nexus 6P:
-    Nexus 9:
+  # android:
+  #   Nexus 5X:
+  #   Nexus 6P:
+  #   Nexus 9:
 # Frame screenshots
 frame: true
