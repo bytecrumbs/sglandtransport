@@ -649,6 +649,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.12"
+  progress_indicators:
+    dependency: "direct main"
+    description:
+      name: progress_indicators
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
   provider:
     dependency: transitive
     description:

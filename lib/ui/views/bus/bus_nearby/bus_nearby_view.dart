@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:lta_datamall_flutter/ui/views/bus/bus_stop/bus_stop_view.dart';
 import 'package:lta_datamall_flutter/ui/views/shared/staggered_animation/staggered_animation.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:stacked/stacked.dart';
 import 'bus_nearby_viewmodel.dart';
 
@@ -21,7 +22,7 @@ class BusNearbyView extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Text('Looking for nearby bus stops...'),
+                    JumpingText('Looking for nearby bus stops...'),
                   ],
                 ),
               )

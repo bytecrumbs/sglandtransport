@@ -51,6 +51,7 @@ dependencies:
   stacked_services: ^0.4.4+3
   flare_flutter: ^2.0.4
   stacked_hooks: ^0.1.2
+  progress_indicators: ^0.1.5
 
 dev_dependencies:
   flutter_driver:
