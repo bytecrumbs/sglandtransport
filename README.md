@@ -88,7 +88,7 @@ genhtml coverage/lcov.info --output=coverage
 flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=TRUE
 ```
 
-IMPORTANT NOTE: above argument '--dart-define=FLUTTER_DRIVE_RUN=TRUE'. This is used so that in the code we can check if the app is run using flutter drive and therefore some specific checks can be made (i.e. the flare animation will not animate when running 'flutter drive')
+IMPORTANT NOTE: above argument '--dart-define=IS_FLUTTER_DRIVE_RUN=TRUE'. This is used so that in the code we can check if the app is run using flutter drive and therefore some specific checks can be made (i.e. the flare animation will not animate when running 'flutter drive')
 
 ## Deployments
 
