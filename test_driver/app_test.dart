@@ -25,6 +25,7 @@ void main() {
       final favouriteIconButtonFinder = find.byValueKey('favouriteIconButton');
       final noFavouriteBusStopsFoundFinder =
           find.byValueKey('noFavouriteBusStopsFound');
+      final searchIconButtonFinder = find.byValueKey('searchIconButton');
 
       test('Should load the app', () async {
         await driver.waitFor(busStopCardFinder);
@@ -57,9 +58,16 @@ void main() {
         await driver.waitFor(noFavouriteBusStopsFoundFinder);
       });
 
-      test('Should open Search screen', () {});
+      test('Should open Search screen', () async {
+        await driver.tap(searchIconButtonFinder);
+        await driver.waitFor(find.byType('TextField'));
+      });
 
-      test('Should show a search result', () {});
+      test('Should show a search result', () async {
+        await driver.tap(find.byType('TextField'));
+        await driver.enterText('hotel');
+        await driver.waitFor(busStopCardFinder);
+      });
     });
   });
 }

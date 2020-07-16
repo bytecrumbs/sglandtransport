@@ -58,6 +58,7 @@ class _SliverViewState extends State<SliverView> {
             ),
             actions: <Widget>[
               IconButton(
+                key: ValueKey('searchIconButton'),
                 icon: Icon(Icons.search, size: 27),
                 onPressed: () {
                   showSearch(
