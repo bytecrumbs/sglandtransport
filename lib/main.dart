@@ -8,6 +8,7 @@ import 'package:logging/logging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/app/router.gr.dart';
+import 'package:lta_datamall_flutter/environment_config.dart';
 import 'package:lta_datamall_flutter/services/bus_service.dart';
 import 'package:lta_datamall_flutter/services/firebase_analytics_service.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -24,7 +25,7 @@ Future<void> main() async {
   FlareCache.doesPrune = false;
 
   Level logLevel;
-  if (foundation.kReleaseMode) {
+  if (foundation.kReleaseMode || EnvironmentConfig.is_flutter_drive_run) {
     logLevel = Level.WARNING;
   } else {
     logLevel = Level.ALL;
