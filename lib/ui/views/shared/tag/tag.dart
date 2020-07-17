@@ -21,7 +21,6 @@ class Tag extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmall = screenWidth < 340;
-    print(isSmall);
     return isSmall
         ? _displayTagForSmallDevice(context)
         : Container(
