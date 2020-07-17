@@ -2,13 +2,15 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:screenshots/screenshots.dart';
 import 'package:test/test.dart';
 
+import 'utils.dart';
+
 void main() {
   group('SG Land Transport App', () {
     FlutterDriver driver;
 
     // Connect to the Flutter driver before running any tests.
     setUpAll(() async {
-      driver = await FlutterDriver.connect();
+      driver = await setupAndGetDriver();
     });
 
     // Close the connection to the driver after the tests have completed.
