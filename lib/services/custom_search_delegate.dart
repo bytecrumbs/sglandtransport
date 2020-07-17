@@ -16,6 +16,7 @@ class CustomSearchDelegate extends SearchDelegate {
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(color: Color.fromRGBO(255, 255, 255, 0.7)),
       ),
+      primaryColor: theme.primaryColorDark,
       textTheme: theme.textTheme.copyWith(
         title: theme.textTheme.subtitle1.copyWith(color: Colors.white),
       ),

@@ -32,7 +32,7 @@ class BusView extends StatelessWidget {
         ),
         bottomNavigationBar: ConvexAppBar(
           key: Key('BottomBar'),
-          color: Colors.grey,
+          color: Theme.of(context).primaryColorDark,
           activeColor: Theme.of(context).accentColor,
           backgroundColor: Theme.of(context).bottomAppBarColor,
           top: -25.0,
