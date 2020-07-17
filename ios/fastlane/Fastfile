@@ -24,7 +24,7 @@ platform :ios do
       sh("flutter", "test")
     end
   end
-  
+
   lane :beta do
     ensure_git_status_clean
     git_pull
@@ -35,5 +35,16 @@ platform :ios do
     commit_version_bump
     push_to_git_remote
   end
-  
+
+  lane :meta_data do
+    upload_to_app_store(
+      submit_for_review: false,
+      automatic_release: false,
+      force: true, # Skip HTMl report verification
+      skip_metadata: false,
+      skip_screenshots: false,
+      skip_binary_upload: true
+    )
+  end
+
 end
