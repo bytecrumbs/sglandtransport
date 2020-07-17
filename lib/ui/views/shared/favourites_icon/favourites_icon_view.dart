@@ -10,7 +10,9 @@ class FavouritesIconView extends StatelessWidget {
     return ViewModelBuilder<FavouritesIconViewModel>.reactive(
       builder: (context, model, child) => IconButton(
         key: const ValueKey('favouriteIconButton'),
-        icon: Icon(model.isFavourited ? Icons.favorite : Icons.favorite_border),
+        icon: model.isFavourited
+            ? Icon(Icons.favorite, color: Theme.of(context).accentColor)
+            : Icon(Icons.favorite_border),
         onPressed: () {
           model.toggleFavourite(busStopCode);
         },
