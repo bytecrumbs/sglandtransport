@@ -51,7 +51,7 @@ class _SliverViewState extends State<SliverView> {
             expandedHeight: _sliverAnimationHeight,
             backgroundColor: _isPartiallyExpanded
                 ? Theme.of(context).scaffoldBackgroundColor
-                : Theme.of(context).primaryColor,
+                : Theme.of(context).primaryColorDark,
             flexibleSpace: FlexibleSpaceBar(
               background: FlareActor.asset(
                 AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
