@@ -33,7 +33,7 @@ void main() {
       test('Should load the app', () async {
         final config = Config();
         await driver.waitFor(busStopCardFinder);
-        await screenshot(driver, config, 'nearbyBusStops');
+        await screenshot(driver, config, '01-nearbyBusStops');
       });
 
       test('Should switch between Nearby and Favorites', () async {
@@ -47,7 +47,7 @@ void main() {
         await driver.waitFor(busStopCardFinder);
         await driver.tap(busStopCardFinder);
         await driver.waitFor(busArrivalCardFinder);
-        await screenshot(driver, config, 'busArrivals');
+        await screenshot(driver, config, '03-busArrivals');
       });
 
       test('Should add a bus stop to Favorites', () async {
@@ -56,7 +56,7 @@ void main() {
         await driver.tap(find.pageBack());
         await driver.tap(favouriteBottomBarFinder);
         await driver.waitFor(busStopCardFinder);
-        await screenshot(driver, config, 'favouriteBusStops');
+        await screenshot(driver, config, '02-favouriteBusStops');
       });
 
       test('Should remove a bus stop from Favorites', () async {
@@ -71,7 +71,7 @@ void main() {
         final config = Config();
         await driver.tap(searchIconButtonFinder);
         await driver.waitFor(find.byType('TextField'));
-        await screenshot(driver, config, 'emptySearchScreen');
+        await screenshot(driver, config, '04-emptySearchScreen');
       });
 
       test('Should show a search result', () async {
@@ -79,7 +79,7 @@ void main() {
         await driver.tap(find.byType('TextField'));
         await driver.enterText('hotel');
         await driver.waitFor(busStopCardFinder);
-        await screenshot(driver, config, 'searchResult');
+        await screenshot(driver, config, '05-searchResult');
       });
     });
   });
