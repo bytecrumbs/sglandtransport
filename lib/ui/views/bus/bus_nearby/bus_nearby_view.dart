@@ -27,19 +27,23 @@ class BusNearbyView extends StatelessWidget {
                 ),
               )
             : AnimationLimiter(
-                child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: model.nearByBusStopList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return StaggeredAnimation(
-                      index: index,
-                      child: BusStopView(
-                        busStopModel: model.nearByBusStopList[index],
-                        key: ValueKey<String>('busStopCard-$index'),
-                      ),
-                    );
-                  },
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: model.nearByBusStopList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return StaggeredAnimation(
+                        index: index,
+                        child: BusStopView(
+                          busStopModel: model.nearByBusStopList[index],
+                          key: ValueKey<String>('busStopCard-$index'),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
       ),
