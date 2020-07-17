@@ -1,0 +1,9 @@
+An open-source project using LTA Data Mall to facilitate usage of public transport in Singapore.
+- 100% free
+- 100% add-free
+- 100% open source
+
+Current Features:
+This initial release focuses on bus stops and bus arrival times. It allows you to see nearby bus stops, store favourite bus stops and search for bus stops by bus stop name or bus stop number. For each bus stop, it will show you which buses it serves, and the next 3 estimated arrivals for each bus.
+
+More features to come soon!
