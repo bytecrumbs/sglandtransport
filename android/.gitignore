@@ -10,5 +10,5 @@ GeneratedPluginRegistrant.java
 # Fastlane exclusions
 **/fastlane/report.xml
 **/fastlane/Preview.html
-**/fastlane/screenshots
+**/fastlane/metadata/android/en-US/images/phoneScreenshots
 **/fastlane/test_output
