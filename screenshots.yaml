@@ -15,12 +15,9 @@ locales:
 devices:
   ios:
     iPhone Xs Max:
-    iPhone X:
     iPhone 7 Plus:
     iPad Pro (12.9-inch) (2nd generation):
-  # android:
-  #   Nexus 5X:
-  #   Nexus 6P:
-  #   Nexus 9:
+  android:
+    Nexus 6P:
 # Frame screenshots
 frame: true
