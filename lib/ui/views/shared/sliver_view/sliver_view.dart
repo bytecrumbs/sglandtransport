@@ -22,7 +22,7 @@ class _SliverViewState extends State<SliverView> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final _sliverAnimationHeight = screenHeight * 0.33;
+    final _sliverAnimationHeight = screenHeight * 0.32;
     var appBarColor =
         _isExpanded ? Theme.of(context).primaryColorDark : Colors.white;
 
@@ -46,11 +46,11 @@ class _SliverViewState extends State<SliverView> {
             floating: false,
             snap: false,
             expandedHeight: _sliverAnimationHeight,
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             flexibleSpace: FlexibleSpaceBar(
               background: FlareActor.asset(
                 AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
-                alignment: Alignment.center,
+                alignment: Alignment.topCenter,
                 fit: BoxFit.cover,
                 animation:
                     EnvironmentConfig.is_flutter_drive_run ? 'Idle' : 'Loop',
