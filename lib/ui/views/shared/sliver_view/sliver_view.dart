@@ -18,6 +18,7 @@ class SliverView extends StatefulWidget {
 
 class _SliverViewState extends State<SliverView> {
   bool _isExpanded = true;
+  bool _isPartiallyExpanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class _SliverViewState extends State<SliverView> {
         setState(() {
           _isExpanded =
               scrollState.metrics.pixels < _sliverAnimationHeight / 1.5;
+          _isPartiallyExpanded = scrollState.metrics.pixels < 40;
         });
         return _isExpanded;
       },
@@ -47,7 +49,9 @@ class _SliverViewState extends State<SliverView> {
             floating: false,
             snap: false,
             expandedHeight: _sliverAnimationHeight,
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            backgroundColor: _isPartiallyExpanded
+                ? Theme.of(context).scaffoldBackgroundColor
+                : Theme.of(context).primaryColor,
             flexibleSpace: FlexibleSpaceBar(
               background: FlareActor.asset(
                 AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
