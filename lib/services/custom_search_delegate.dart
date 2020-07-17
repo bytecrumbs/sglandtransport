@@ -18,7 +18,7 @@ class CustomSearchDelegate extends SearchDelegate {
       ),
       primaryColor: theme.primaryColorDark,
       textTheme: theme.textTheme.copyWith(
-        title: theme.textTheme.subtitle1.copyWith(color: Colors.white),
+        headline6: theme.textTheme.subtitle1.copyWith(color: Colors.white),
       ),
     );
   }
