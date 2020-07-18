@@ -31,6 +31,11 @@ fastlane ios beta
 fastlane ios meta_data
 ```
 
+### ios submit_review
+```
+fastlane ios submit_review
+```
+
 
 ----
 
