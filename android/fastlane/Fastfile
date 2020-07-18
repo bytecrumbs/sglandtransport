@@ -38,19 +38,33 @@ platform :android do
       skip_upload_metadata: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
+      skip_upload_changelogs: false
     )
   end
 
-  desc "Upload meta-data only to the Google Play Store"
-  lane :deploy_production do
-    Dir.chdir "../.." do
-      sh("flutter", "analyze")
-      sh("flutter", "test")
-      sh("flutter", "build", "appbundle")
-    end
+  desc "Promote the 'internal' track to 'production'"
+  lane :promote_production do
     upload_to_play_store(
-      track: "production",
-      aab: "../build/app/outputs/bundle/release/app-release.aab"
+      track: "internal",
+      track_promote_to: "production"
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_changelogs: true
+    )
+  end
+
+  desc "Upload meta-data"
+  lane :meta_data do
+    upload_to_play_store(
+      skip_upload_metadata: false,
+      skip_upload_images: false,
+      skip_upload_screenshots: false,
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_changelogs: true
     )
   end
 end
