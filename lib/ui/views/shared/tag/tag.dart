@@ -6,7 +6,7 @@ class Tag extends StatelessWidget {
 
   Widget _displayTagForSmallDevice(context) {
     return Container(
-      margin: const EdgeInsets.only(right: 10),
+      margin: const EdgeInsets.only(right: 7),
       child: Text(
         text,
         style: const TextStyle(
@@ -24,7 +24,7 @@ class Tag extends StatelessWidget {
     return isSmall
         ? _displayTagForSmallDevice(context)
         : Container(
-            margin: const EdgeInsets.only(right: 10),
+            margin: const EdgeInsets.only(right: 7),
             padding: const EdgeInsets.only(
               left: 5,
               right: 5,
@@ -38,7 +38,7 @@ class Tag extends StatelessWidget {
             child: Text(
               text,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: FontWeight.w400,
               ),
             ),
