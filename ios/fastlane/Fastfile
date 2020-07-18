@@ -48,4 +48,15 @@ platform :ios do
     )
   end
 
+  lane :submit_review do
+  upload_to_app_store(
+    submit_for_review: true,
+    automatic_release: false,
+    force: true, # Skip HTMl report verification
+    skip_metadata: true,
+    skip_screenshots: true,
+    skip_binary_upload: true
+  )
+end
+
 end
