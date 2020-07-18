@@ -26,11 +26,16 @@ Runs all the tests
 fastlane android deploy_internal
 ```
 Deploy a new version to the Google Play Store
-### android deploy_production
+### android promote_production
 ```
-fastlane android deploy_production
+fastlane android promote_production
 ```
-Upload meta-data only to the Google Play Store
+Promote the 'internal' track to 'production'
+### android meta_data
+```
+fastlane android meta_data
+```
+Upload meta-data
 
 ----
 
