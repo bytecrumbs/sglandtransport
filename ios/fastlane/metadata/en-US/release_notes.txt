@@ -1,3 +1,3 @@
-We have redesigned SG Singapore App from the ground! This new version comes with its own, beautiful and unique design.
+We have redesigned SG Land Transport app from the ground! This new version comes with its own, beautiful and unique design.
 
 In addition, we have focused on internal architecture, fixed bugs and made several minor improvements to increase the user experience and to get the app ready for the next big features that will be released soon!
