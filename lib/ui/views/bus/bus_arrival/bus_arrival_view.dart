@@ -34,21 +34,24 @@ class BusArrivalView extends StatelessWidget {
           child: model.busArrivalList.isEmpty
               ? CircularProgressIndicator()
               : AnimationLimiter(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    child: ListView.builder(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: model.busArrivalList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final currentBusService = model.busArrivalList[index];
-                        return StaggeredAnimation(
-                          index: index,
-                          child: BusArrivalServiceCardView(
-                            key: ValueKey<String>('busArrivalCard-$index'),
-                            busArrivalServiceModel: currentBusService,
-                          ),
-                        );
-                      },
+                  child: MediaQuery.removePadding(
+                    context: context,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 12),
+                      child: ListView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        itemCount: model.busArrivalList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final currentBusService = model.busArrivalList[index];
+                          return StaggeredAnimation(
+                            index: index,
+                            child: BusArrivalServiceCardView(
+                              key: ValueKey<String>('busArrivalCard-$index'),
+                              busArrivalServiceModel: currentBusService,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
