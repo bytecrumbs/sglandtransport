@@ -1,5 +1,12 @@
-Public transport made easy
+SG Land Transport currently shows information about bus stops and bus arrival times.
+- Nearby bus stops: Show all bus stops in near proximity (requires permission to track your location)
+- Favorite bus stops: Personalize your experience and store frequently used bus stops as favorites to easily access them at any time
+- Search: Search for bus stops by name, bus stop code or address
+- Bus Arrival times: For each bus stop it will show you which buses it serves, the next 3 estimated arrivals for each bus, the type of the bus and the available space
 
+More features to come soon!
+
+Best of all, SG Land Transpart is and always will be:
 - 100% free
-- 100% ad-free
-- 100% open-source
+- 100% add-free
+- 100% open source
