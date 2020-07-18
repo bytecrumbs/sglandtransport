@@ -43,7 +43,8 @@ platform :ios do
       force: true, # Skip HTMl report verification
       skip_metadata: false,
       skip_screenshots: false,
-      skip_binary_upload: true
+      skip_binary_upload: true,
+      overwrite_screenshots: true
     )
   end
 
