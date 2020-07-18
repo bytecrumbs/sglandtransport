@@ -97,85 +97,79 @@ class BusArrivalServiceCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Container(
-        child: Column(
+    return Card(
+      child: ListTile(
+        contentPadding: EdgeInsets.symmetric(vertical: 7, horizontal: 12),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5),
-                      child: Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 7),
-                            child: Text(
-                              'Bus ${busArrivalServiceModel.serviceNo}',
-                              style: Theme.of(context).textTheme.headline1,
-                            ),
-                          ),
-                          busArrivalServiceModel.inService
-                              ? _displayBusFeature(context)
-                              : Text('')
-                        ],
-                      ),
-                    ),
-                    busArrivalServiceModel.inService
-                        ? Container(
-                            child: Row(
-                              children: <Widget>[
-                                Tag(
-                                  text: _getBusLoad(
-                                    busArrivalServiceModel.nextBus.load,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Tag(
-                                  text: _busTypes(
-                                    busArrivalServiceModel.nextBus.type,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Container()
-                  ],
-                ),
-                Container(
-                  width: 80,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      left: BorderSide(
-                        color: Color.fromRGBO(0, 0, 0, 0.1),
-                        width: 1.0,
-                      ),
-                    ),
-                  ),
-                  child: busArrivalServiceModel.inService
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            _displayNextBusTiming(),
-                            _displayNextTwoBusTiming()
-                          ],
-                        )
-                      : Center(
-                          child: Container(
-                            child: _displayNotInOperation(),
+            Flexible(
+              flex: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(bottom: 5),
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(right: 7),
+                          child: Text(
+                            'Bus ${busArrivalServiceModel.serviceNo}',
+                            style: Theme.of(context).textTheme.headline1,
                           ),
                         ),
+                        busArrivalServiceModel.inService
+                            ? _displayBusFeature(context)
+                            : Text('')
+                      ],
+                    ),
+                  ),
+                  busArrivalServiceModel.inService
+                      ? Container(
+                          child: Row(
+                            children: <Widget>[
+                              Tag(
+                                text: _getBusLoad(
+                                  busArrivalServiceModel.nextBus.load,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Tag(
+                                text: _busTypes(
+                                  busArrivalServiceModel.nextBus.type,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container()
+                ],
+              ),
+            ),
+            Container(
+              width: 80,
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(
+                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                    width: 1.0,
+                  ),
                 ),
-              ],
+              ),
+              child: busArrivalServiceModel.inService
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        _displayNextBusTiming(),
+                        _displayNextTwoBusTiming()
+                      ],
+                    )
+                  : Center(
+                      child: Container(
+                        child: _displayNotInOperation(),
+                      ),
+                    ),
             ),
           ],
         ),
