@@ -59,7 +59,14 @@ platform :ios do
     force: true, # Skip HTMl report verification
     skip_metadata: true,
     skip_screenshots: true,
-    skip_binary_upload: true
+    skip_binary_upload: true,
+    submission_information: {
+      add_id_info_limits_tracking: true,
+      add_id_info_serves_ads: false,
+      add_id_info_tracks_action: true,
+      add_id_info_tracks_install: true,
+      add_id_info_uses_idfa: true
+    }
   )
 end
 
