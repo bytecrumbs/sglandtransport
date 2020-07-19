@@ -1,11 +1,15 @@
 import 'package:flutter_driver/flutter_driver.dart';
 
-dynamic isRendered(SerializableFinder byValueKey, FlutterDriver driver,
-    {Duration timeout = const Duration(seconds: 1)}) async {
-  try {
-    await driver.waitFor(byValueKey, timeout: timeout);
-    return true;
-  } catch (exception) {
-    return false;
+Future<FlutterDriver> setupAndGetDriver() async {
+  var driver = await FlutterDriver.connect();
+  var connected = false;
+  while (!connected) {
+    try {
+      await driver.waitUntilFirstFrameRasterized();
+      connected = true;
+    } catch (error) {
+      print(error);
+    }
   }
+  return driver;
 }

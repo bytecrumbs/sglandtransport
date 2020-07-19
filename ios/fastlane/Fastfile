@@ -24,16 +24,43 @@ platform :ios do
       sh("flutter", "test")
     end
   end
-  
+
   lane :beta do
     ensure_git_status_clean
     git_pull
     ensure_git_status_clean
     increment_build_number(xcodeproj: "Runner.xcodeproj")
-    build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      clean: true
+    )
     upload_to_testflight
     commit_version_bump
     push_to_git_remote
   end
-  
+
+  lane :meta_data do
+    upload_to_app_store(
+      submit_for_review: false,
+      automatic_release: false,
+      force: true, # Skip HTMl report verification
+      skip_metadata: false,
+      skip_screenshots: false,
+      skip_binary_upload: true,
+      overwrite_screenshots: true
+    )
+  end
+
+  lane :submit_review do
+  upload_to_app_store(
+    submit_for_review: true,
+    automatic_release: false,
+    force: true, # Skip HTMl report verification
+    skip_metadata: true,
+    skip_screenshots: true,
+    skip_binary_upload: true
+  )
+end
+
 end

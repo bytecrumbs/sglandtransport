@@ -51,7 +51,7 @@ Follow the instructions on https://firebase.google.com/docs/flutter/setup?platfo
 
 ## Code Generation
 
-This project uses build runner to generate Models (lib/models) and Routes (lib/routes).
+This project uses build runner to generate Models, Routes and other things.
 
 ### Generate once
 
@@ -84,16 +84,13 @@ genhtml coverage/lcov.info --output=coverage
 
 ### Run Integration (UI) Tests
 
-1. Install dependencies
-
-- `brew tap wix/brew`
-- `brew install applesimutils`
-
-2. Run tests (from project root):
-
 ```
-./execute_ui_tests.sh
+flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true
 ```
+
+IMPORTANT NOTE: above argument '--dart-define=IS_FLUTTER_DRIVE_RUN=true'. This is used so that in the code we can check if the app is run using flutter drive and therefore some specific checks can be made (i.e. the flare animation will not animate when running 'flutter drive')
+
+Alternatively, refer to the Screenshots section below, which will run the same integration tests as well.
 
 ## Deployments
 
@@ -138,8 +135,22 @@ export PATH="<path to flutter installation directory>/bin/cache/dart-sdk/bin:$PA
 
 ### Usage
 
+To create screenshots to upload via fastlane, run following command without any mode.
+
+```
+screenshots
+```
+
+If mode is recording, screenshots will be saved for later comparison
+
 ```
 screenshots -m recording
+```
+
+If mode is archive, screenshots will be archived (and cannot be uploaded via fastlane).
+
+```
+screenshots -m archive
 ```
 
 ## Generate new set of app icon
