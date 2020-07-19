@@ -1,6 +1,6 @@
 # Screen capture tests
 tests:
-  - --target=test_driver/app.dart --driver=test_driver/app_test.dart --dart-define=IS_FLUTTER_DRIVE_RUN=TRUE
+  - --target=test_driver/app.dart --driver=test_driver/app_test.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true
 
 # Interim location of screenshots from tests
 staging: /tmp/screenshots
