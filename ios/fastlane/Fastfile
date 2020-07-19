@@ -30,6 +30,9 @@ platform :ios do
     git_pull
     ensure_git_status_clean
     increment_build_number(xcodeproj: "Runner.xcodeproj")
+    Dir.chdir "../.." do
+      sh("flutter", "build", "ios", "--release", "--no-codesign")
+    end
     build_app(
       workspace: "Runner.xcworkspace",
       scheme: "Runner",
@@ -53,21 +56,20 @@ platform :ios do
   end
 
   lane :submit_review do
-  upload_to_app_store(
-    submit_for_review: true,
-    automatic_release: false,
-    force: true, # Skip HTMl report verification
-    skip_metadata: true,
-    skip_screenshots: true,
-    skip_binary_upload: true,
-    submission_information: {
-      add_id_info_limits_tracking: true,
-      add_id_info_serves_ads: false,
-      add_id_info_tracks_action: true,
-      add_id_info_tracks_install: true,
-      add_id_info_uses_idfa: true
-    }
-  )
-end
-
+    upload_to_app_store(
+      submit_for_review: true,
+      automatic_release: false,
+      force: true, # Skip HTMl report verification
+      skip_metadata: true,
+      skip_screenshots: true,
+      skip_binary_upload: true,
+      submission_information: {
+        add_id_info_limits_tracking: true,
+        add_id_info_serves_ads: false,
+        add_id_info_tracks_action: true,
+        add_id_info_tracks_install: true,
+        add_id_info_uses_idfa: true
+      }
+    )
+  end
 end
