@@ -113,10 +113,29 @@ class BusArrivalServiceCardView extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(right: 7),
-                          child: Text(
-                            'Bus ${busArrivalServiceModel.serviceNo}',
-                            style: Theme.of(context).textTheme.headline1,
+                          padding: EdgeInsets.symmetric(horizontal: 6),
+                          margin: EdgeInsets.only(right: 5),
+                          constraints: BoxConstraints(
+                            minWidth: 50.0,
+                          ),
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColorDark,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '${busArrivalServiceModel.serviceNo}',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18),
+                              ),
+                            ],
                           ),
                         ),
                         busArrivalServiceModel.inService
