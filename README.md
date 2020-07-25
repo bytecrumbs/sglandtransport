@@ -112,7 +112,7 @@ genhtml coverage/lcov.info --output=coverage
 ### Run Integration (UI) Tests
 
 ```
-flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true
+flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true --dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key>
 ```
 
 IMPORTANT NOTE: above argument '--dart-define=IS_FLUTTER_DRIVE_RUN=true'. This is used so that in the code we can check if the app is run using flutter drive and therefore some specific checks can be made (i.e. the flare animation will not animate when running 'flutter drive')
