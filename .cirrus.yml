@@ -1,13 +1,10 @@
-
 analyze_task:
-  <<: *PREPARE_ENV_TEMPLATE
   container:
     image: cirrusci/flutter:latest
   analyze_script:
     - flutter analyze
 
 unit_test_task:
-  <<: *PREPARE_ENV_TEMPLATE
   container:
     image: cirrusci/flutter:latest
   pub_cache:
