@@ -42,7 +42,7 @@ builds/dcinDi7y/0/sascha.derungs/lta-datamall-flutter.tmp/CI_SERVER_TLS_CA_FILE
 builds/dcinDi7y/0/sascha.derungs/lta-datamall-flutter.tmp/git-template/config
 
 # api keys
-lib/secret_lta_api_key.dart
+.vscode/
 ios/Runner/GoogleService-Info.plist
 android/app/google-services.json
 
