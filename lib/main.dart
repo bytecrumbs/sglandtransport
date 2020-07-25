@@ -24,7 +24,7 @@ Future<void> main() async {
   FlareCache.doesPrune = false;
 
   Level logLevel;
-  if (foundation.kReleaseMode || EnvironmentConfig.is_flutter_drive_run) {
+  if (foundation.kReleaseMode || EnvironmentConfig.isFlutterDriveRun) {
     logLevel = Level.WARNING;
   } else {
     logLevel = Level.ALL;

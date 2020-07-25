@@ -58,7 +58,7 @@ class _SliverViewState extends State<SliverView> {
                 alignment: Alignment.topCenter,
                 fit: BoxFit.cover,
                 animation:
-                    EnvironmentConfig.is_flutter_drive_run ? 'Idle' : 'Loop',
+                    EnvironmentConfig.isFlutterDriveRun ? 'Idle' : 'Loop',
               ),
             ),
             actions: <Widget>[

@@ -24,7 +24,7 @@ class LocationService {
 
     // If a UI test is run, do not use a location stream, but use a hardcoded
     // latitude and altitude
-    if (EnvironmentConfig.is_flutter_drive_run) {
+    if (EnvironmentConfig.isFlutterDriveRun) {
       _locationController.add(
         UserLocation(
           latitude: 1.29685,
