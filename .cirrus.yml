@@ -22,8 +22,9 @@ ui_test_task:
   environment:
     LTA_DATAMALL_API_KEY: ENCRYPTED[7c5c36fa21b1913320ef471077914da5f765a3a7b902e1d5224ade79635c6ee9b1842b2c677295a4094253a6587cb27b]
   add_firebase_files_script:
+    - echo ENCRYPTED[c9045648b38fd2f3e4f496e34ef789580e6a50fad8f3941edb3ba10fb044794b5924754277316e0d31826e225b2145e8]
     - echo ENCRYPTED[c9045648b38fd2f3e4f496e34ef789580e6a50fad8f3941edb3ba10fb044794b5924754277316e0d31826e225b2145e8] > ./ios/Runner/GoogleService-Info.plist
     - echo ENCRYPTED[c68bca2da6df1ca61c46e8fc83162895e5cfe4d364c53be6ef118c65ab75f918427d460326cf9eb980f55ddf8ecb115b] > ./android/app/google-services.json
-  ui_test_script:
-    - xcrun simctl boot 2F61BC08-F9EB-4FCE-B775-3F58B02A1C3D
-    - flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true
+  # ui_test_script:
+  #   - xcrun simctl boot 2F61BC08-F9EB-4FCE-B775-3F58B02A1C3D
+  #   - flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true
