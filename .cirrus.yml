@@ -1,6 +1,3 @@
-prepare_env_template: &PREPARE_ENV_TEMPLATE
-  create_env_script:
-    - echo "LTA_DATAMALL_KEY="ENCRYPTED[7c5c36fa21b1913320ef471077914da5f765a3a7b902e1d5224ade79635c6ee9b1842b2c677295a4094253a6587cb27b] > .env
 
 analyze_task:
   <<: *PREPARE_ENV_TEMPLATE
@@ -13,8 +10,6 @@ unit_test_task:
   <<: *PREPARE_ENV_TEMPLATE
   container:
     image: cirrusci/flutter:latest
-  prepare_test_coverage_script:
-    - ./prepare_test_coverage.sh lta_datamall_flutter
   pub_cache:
     folder: ~/.pub-cache
   test_script:

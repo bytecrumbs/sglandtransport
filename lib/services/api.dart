@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 import 'package:http/http.dart' as http;
 import 'package:lta_datamall_flutter/datamodels/bus/bus_arrival/bus_arrival_service_list_model.dart';
@@ -8,6 +7,7 @@ import 'package:lta_datamall_flutter/datamodels/bus/bus_route/bus_route_list_mod
 import 'package:lta_datamall_flutter/datamodels/bus/bus_route/bus_route_model.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_list_model.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/environment_config.dart';
 
 @lazySingleton
 class Api {
@@ -15,7 +15,7 @@ class Api {
 
   Future<List<BusStopModel>> fetchBusStopList(http.Client client) async {
     final requestHeaders = <String, String>{
-      'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
+      'AccountKey': EnvironmentConfig.ltaDatamallApiKey,
     };
 
     var result = <BusStopModel>[];
@@ -53,7 +53,7 @@ class Api {
   Future<BusArrivalServiceListModel> fetchBusArrivalList(
       final http.Client client, final String busStopCode) async {
     final requestHeaders = {
-      'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
+      'AccountKey': EnvironmentConfig.ltaDatamallApiKey,
     };
 
     final response1 = await client.get(
@@ -70,7 +70,7 @@ class Api {
 
   Future<List<BusRouteModel>> fetchBusRoutes(http.Client client) async {
     final requestHeaders = <String, String>{
-      'AccountKey': DotEnv().env['LTA_DATAMALL_KEY'],
+      'AccountKey': EnvironmentConfig.ltaDatamallApiKey,
     };
 
     var result = <BusRouteModel>[];
