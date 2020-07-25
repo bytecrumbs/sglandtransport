@@ -47,7 +47,24 @@ If you use VSCode, we recommend you create a Launch.json file that launches the 
 
 Example launch.json file:
 
-add example later
+```json
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key goes here"
+      ]
+    }
+  ]
+}
+```
 
 ### Google Firebase
 
