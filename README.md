@@ -43,7 +43,7 @@ flutter run ---dart-define=LTA_DATAMALL_API_KEY=<add your key here>
 
 You can generate a key following the guidelines of https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html
 
-If you use VSCode, we recommend you create a Launch.json file that launches the flutter run command with this argument, so that you can use the standard debug functionality of VSCode, rather than running your debug build via the command line.
+If you use VSCode, we recommend you create a launch.json file that launches the flutter run command with this argument, so that you can use the standard debug functionality of VSCode, rather than running your debug build via the command line.
 
 Example launch.json file:
 
