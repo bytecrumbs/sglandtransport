@@ -22,6 +22,5 @@ ui_test_task:
   environment:
     LTA_DATAMALL_API_KEY: ENCRYPTED[7c5c36fa21b1913320ef471077914da5f765a3a7b902e1d5224ade79635c6ee9b1842b2c677295a4094253a6587cb27b]
   ui_test_script:
-    # - xcrun simctl launch 2F61BC08-F9EB-4FCE-B775-3F58B02A1C3D
-    - open -a Simulator
+    - xcrun simctl boot 2F61BC08-F9EB-4FCE-B775-3F58B02A1C3D
     - flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true
