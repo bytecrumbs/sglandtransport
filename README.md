@@ -29,14 +29,41 @@ Our code of conduct is based on the [Contributor Covenant](CODE_OF_CONDUCT.md).
 
 ### Secret keys
 
-This project reads keys from environment variables. For local development, we are using package https://pub.dev/packages/flutter_dotenv. To set this up:
+#### LTA Datamall API key
 
-1. Create a .env file in the root folder of your project
-2. Generate a key following the guidelines of https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html
-3. Update your .env file to something like this:
+This key is read during build time from an environment variable named "LTA_DATAMALL_API_KEY". Environment variables can be read in 2 ways:
+
+1. from command line:
 
 ```
-LTA_DATAMALL_KEY=<the secret key you received from above step 2>
+flutter run ---dart-define=LTA_DATAMALL_API_KEY=<add your key here>
+```
+
+2. From an environment variable on your CI server (see this project's .cirrus.yml file for an example)
+
+You can generate a key following the guidelines of https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html
+
+If you use VSCode, we recommend you create a launch.json file that launches the flutter run command with this argument, so that you can use the standard debug functionality of VSCode, rather than running your debug build via the command line.
+
+Example launch.json file:
+
+```json
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key goes here"
+      ]
+    }
+  ]
+}
 ```
 
 ### Google Firebase
@@ -85,7 +112,7 @@ genhtml coverage/lcov.info --output=coverage
 ### Run Integration (UI) Tests
 
 ```
-flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true
+flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true --dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key>
 ```
 
 IMPORTANT NOTE: above argument '--dart-define=IS_FLUTTER_DRIVE_RUN=true'. This is used so that in the code we can check if the app is run using flutter drive and therefore some specific checks can be made (i.e. the flare animation will not animate when running 'flutter drive')

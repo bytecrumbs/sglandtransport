@@ -6,7 +6,7 @@ SG Land Transport currently shows information about bus stops and bus arrival ti
 
 More features to come soon!
 
-Best of all, SG Land Transpart is and always will be:
+Best of all, SG Land Transport is and always will be:
 - 100% free
 - 100% add-free
 - 100% open source
