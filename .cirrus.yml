@@ -31,6 +31,8 @@
 #     - flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
 
 test_beta_upload_task:
+  osx_instance:
+    image: catalina-flutter
   environment:
     - JSON_KEY: ENCRYPTED[69dc7eab675be46238422d69ef7a5b31b8004ac643cba91ac18ef3af0575c12702a4c8129e3a1a1b2ef995510b93bcaf]
     - UPLOAD_KEY: ENCRYPTED[917bed41d3746f693c9764bfe0cd08e8bf9fc59cf218fa2dc55c15bf8c0096b8ed8f1d836bf0ff8fcdac9d2414a0797a]
