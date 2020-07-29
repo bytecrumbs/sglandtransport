@@ -39,6 +39,9 @@ test_beta_upload_task:
     - RELEASE_KEYSTORE_PASSWORD: ENCRYPTED[04a65c88e5dca9bbaebda889166be0b8a32d0f6df3272b959a40014fe5a234b984a686d01cf6b5acb1f40515b6048c0d]
     - RELEASE_KEYSTORE_KEY_PASSWORD: ENCRYPTED[04a65c88e5dca9bbaebda889166be0b8a32d0f6df3272b959a40014fe5a234b984a686d01cf6b5acb1f40515b6048c0d]
     - RELEASE_KEYSTORE_ALIAS: ENCRYPTED[376950c2794bbe8d0bedef4a6dab3210c0e060e85169029fa1e9a095616f4f43a479713a6d9ee744883102bc72ec0f06]
+    - ANDROID_GOOGLE_SERVICES: ENCRYPTED[c68bca2da6df1ca61c46e8fc83162895e5cfe4d364c53be6ef118c65ab75f918427d460326cf9eb980f55ddf8ecb115b]
+  add_firebase_files_script:
+    - echo $ANDROID_GOOGLE_SERVICES > ./android/app/google-services.json
   create_key_script:
     - mkdir -p android/keys
     - echo $UPLOAD_KEY | base64 -d > android/keys/my-release-key.jks
