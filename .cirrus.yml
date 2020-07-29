@@ -47,4 +47,5 @@ test_beta_upload_task:
     - echo "keyAlias=$RELEASE_KEYSTORE_ALIAS" >> android/key.properties
     - echo "keyPassword=$RELEASE_KEYSTORE_KEY_PASSWORD" >> android/key.properties
   fastlane_script:
+    - cd android
     - fastlane deploy_internal json_key:$JSON_KEY
