@@ -26,7 +26,7 @@ platform :android do
   end
 
   desc "Deploy a new version to the Google Play Store"
-  lane :deploy_internal do |options|
+  lane :deploy_internal do
     Dir.chdir "../.." do
       sh("flutter", "analyze")
       sh("flutter", "test")
@@ -39,7 +39,7 @@ platform :android do
       skip_upload_images: true,
       skip_upload_screenshots: true,
       skip_upload_changelogs: false,
-      json_key_data: options[:json_key]
+      json_key_data: ENV[JSON_KEY]
     )
   end
 
