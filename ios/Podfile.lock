@@ -204,7 +204,7 @@ SPEC CHECKSUMS:
   firebase_analytics_web: 7d539061ea4af07563a0e21044af89cab70efec0
   firebase_core: 335c02abd48672b7c83c683df833d0488a72e73e
   firebase_core_web: d501d8b946b60c8af265428ce483b0fff5ad52d1
-  firebase_crashlytics: bd8c58df07f107cb7e1a20cb190b9a468e0a69fd
+  firebase_crashlytics: cc468e94e5a637364aeeeec5c8a96d92ea75ec7b
   FirebaseAnalytics: cf95d3aab897612783020fbd98401d5366f135ee
   FirebaseCore: 85064903ed6c28e47fec9c7bd149d94ba1b6b6e7
   FirebaseCoreDiagnostics: 5e78803ab276bc5b50340e3c539c06c3de35c649
