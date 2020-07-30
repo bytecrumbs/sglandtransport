@@ -43,9 +43,9 @@ test_beta_upload_task:
   add_firebase_files_script:
     - echo $ANDROID_GOOGLE_SERVICES > android/app/google-services.json
   create_key_script:
-    - mkdir -p android/store_k
-    - echo $UPLOAD_KEY | base64 -d > android/store_k/my-release-k.jks
-    - echo "storeFile=../store_k/my-release-k.jks" > android/key.properties
+    - mkdir -p android/keys
+    - echo $UPLOAD_KEY | base64 -d > android/keys/my-release-key.jks
+    - echo "storeFile=../keys/my-release-key.jks" > android/key.properties
     - echo "storePassword=$RELEASE_KEYSTORE_PASSWORD" >> android/key.properties
     - echo "keyAlias=$RELEASE_KEYSTORE_ALIAS" >> android/key.properties
     - echo "keyPassword=$RELEASE_KEYSTORE_KEY_PASSWORD" >> android/key.properties
