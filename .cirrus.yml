@@ -29,3 +29,31 @@ ui_test_task:
   ui_test_script:
     - xcrun simctl boot 2F61BC08-F9EB-4FCE-B775-3F58B02A1C3D
     - flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
+
+android_beta_upload_task:
+  only_if: $CIRRUS_BRANCH == 'master'
+  depends_on:
+    - analyze
+    - unit_test
+    - ui_test
+  osx_instance:
+    image: catalina-flutter
+  environment:
+    - JSON_KEY: ENCRYPTED[69dc7eab675be46238422d69ef7a5b31b8004ac643cba91ac18ef3af0575c12702a4c8129e3a1a1b2ef995510b93bcaf]
+    - UPLOAD_KEY: ENCRYPTED[771941226be207d30eb347bfa802024cf0caf686cb6e67f5fc59d8a95b4383a62b688a877dfe3cdade2311504efb5a16]
+    - RELEASE_KEYSTORE_PASSWORD: ENCRYPTED[04a65c88e5dca9bbaebda889166be0b8a32d0f6df3272b959a40014fe5a234b984a686d01cf6b5acb1f40515b6048c0d]
+    - RELEASE_KEYSTORE_KEY_PASSWORD: ENCRYPTED[04a65c88e5dca9bbaebda889166be0b8a32d0f6df3272b959a40014fe5a234b984a686d01cf6b5acb1f40515b6048c0d]
+    - RELEASE_KEYSTORE_ALIAS: ENCRYPTED[376950c2794bbe8d0bedef4a6dab3210c0e060e85169029fa1e9a095616f4f43a479713a6d9ee744883102bc72ec0f06]
+    - ANDROID_GOOGLE_SERVICES: ENCRYPTED[c68bca2da6df1ca61c46e8fc83162895e5cfe4d364c53be6ef118c65ab75f918427d460326cf9eb980f55ddf8ecb115b]
+  add_firebase_files_script:
+    - echo $ANDROID_GOOGLE_SERVICES > android/app/google-services.json
+  create_key_script:
+    - mkdir -p android/keys
+    - echo $UPLOAD_KEY | base64 -d > android/keys/my-release-key.jks
+    - echo "storeFile=../keys/my-release-key.jks" > android/key.properties
+    - echo "storePassword=$RELEASE_KEYSTORE_PASSWORD" >> android/key.properties
+    - echo "keyAlias=$RELEASE_KEYSTORE_ALIAS" >> android/key.properties
+    - echo "keyPassword=$RELEASE_KEYSTORE_KEY_PASSWORD" >> android/key.properties
+  fastlane_script:
+    - cd android
+    - fastlane android deploy_internal

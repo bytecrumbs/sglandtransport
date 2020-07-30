@@ -1,1 +1,1 @@
-transport, bus, transit, singapore, sg, travel, traffic
+transit,bus,public,navigator,timing,guide,transport,navi,arrival,navigon,singapore,transcript,mrt
