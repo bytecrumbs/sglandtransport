@@ -35,7 +35,7 @@ void main() {
         '[${record.loggerName}]: ${record.level.name}: ${record.time}: ${record.message}');
   });
 
-  Crashlytics.instance.enableInDevMode = true;
+  Crashlytics.instance.enableInDevMode = false;
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runZoned(() {
