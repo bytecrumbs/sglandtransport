@@ -17,7 +17,7 @@ Future<void> warmupFlare() async {
   await cachedActor(AssetFlare(bundle: rootBundle, name: 'images/city.flr'));
 }
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   FlareCache.doesPrune = false;
