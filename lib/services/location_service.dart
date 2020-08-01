@@ -74,6 +74,6 @@ class LocationService {
 
   Future<void> cancelLocationStream() async {
     _log.info('Cancelling the location stream');
-    await _locationSubscription.cancel();
+    await _locationSubscription?.cancel();
   }
 }
