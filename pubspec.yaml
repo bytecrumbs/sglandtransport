@@ -44,6 +44,7 @@ dependencies:
   freezed_annotation: ^0.11.0
   substring_highlight: ^0.1.2
   screenshots: ^2.1.1
+  rate_my_app: ^0.6.1+6
   #navigation
   auto_route: ^0.5.0
   #stack service
