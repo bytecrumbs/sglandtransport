@@ -1,5 +1,6 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/ui/views/app_drawer/app_drawer_view.dart';
 import 'package:lta_datamall_flutter/ui/views/shared/sliver_view/sliver_view.dart';
 import 'package:rate_my_app/rate_my_app.dart';
@@ -10,6 +11,8 @@ import 'bus_nearby/bus_nearby_view.dart';
 import 'bus_viewmodel.dart';
 
 class BusView extends StatelessWidget {
+  static final _log = Logger('BusView');
+
   Widget _getViewForIndex(int index) {
     switch (index) {
       case 0:
@@ -65,12 +68,12 @@ class BusView extends StatelessWidget {
       onInitialized: (context, rateMyApp) {
         rateMyApp.conditions.forEach((condition) {
           if (condition is DebuggableCondition) {
-            print(condition
+            _log.info(condition
                 .valuesAsString); // We iterate through our list of conditions and we print all debuggable ones.
           }
         });
 
-        print('Are all conditions met ? ' +
+        _log.info('Are all conditions met ? ' +
             (rateMyApp.shouldOpenDialog ? 'Yes' : 'No'));
 
         if (rateMyApp.shouldOpenDialog) {
