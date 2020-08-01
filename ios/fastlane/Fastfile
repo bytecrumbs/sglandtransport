@@ -25,7 +25,7 @@ platform :ios do
     end
   end
 
-  lane :beta do
+  lane :testflight_from_local do
     ensure_git_status_clean
     git_pull
     ensure_git_status_clean
@@ -41,6 +41,18 @@ platform :ios do
     upload_to_testflight
     commit_version_bump
     push_to_git_remote
+  end
+
+  lane :testflight_from_ci do
+    Dir.chdir "../.." do
+      sh("flutter", "build", "ios", "--release", "--no-codesign")
+    end
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      clean: true
+    )
+    upload_to_testflight
   end
 
   lane :meta_data do

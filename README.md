@@ -129,7 +129,7 @@ Deployments can be run from your local machine
 
 ```
 cd ios
-bundle exec fastlane beta
+bundle exec fastlane testflight_from_local
 ```
 
 #### Android internal test track:
