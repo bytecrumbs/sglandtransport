@@ -41,8 +41,6 @@ void main() {
   runZoned(() {
     WidgetsFlutterBinding.ensureInitialized();
     setupLocator();
-    // initiate the DB
-    // locator<DatabaseService>().database;
     locator<BusService>().addBusRoutesToDb();
     warmupFlare().then((_) {
       runApp(MyApp());
