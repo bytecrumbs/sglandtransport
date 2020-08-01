@@ -77,7 +77,10 @@ class BusView extends StatelessWidget {
             (rateMyApp.shouldOpenDialog ? 'Yes' : 'No'));
 
         if (rateMyApp.shouldOpenDialog) {
-          rateMyApp.showRateDialog(context);
+          rateMyApp.showRateDialog(context,
+              title: 'Rate SG Land Transport',
+              message:
+                  'If you like SG Land Transport, please take a little bit of your time to review it!\nIt really helps us and it shouldn\'t take you more than a minute.\nThank you!');
         }
       },
     );
