@@ -27,6 +27,11 @@ class AppDrawerView extends StatelessWidget {
                   }
                 },
               ),
+            ListTile(
+              leading: Icon(Icons.card_giftcard),
+              title: Text('Support Us'),
+              onTap: () {},
+            ),
             AboutListTile(
               icon: Icon(Icons.info_outline),
               applicationName: 'SG Land Transport',
