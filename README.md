@@ -129,7 +129,7 @@ Deployments can be run from your local machine
 
 ```
 cd ios
-bundle exec fastlane testflight_from_local
+bundle exec fastlane testflight_from_local LTA_DATAMALL_API_KEY:<add your key here>
 ```
 
 #### Android internal test track:
