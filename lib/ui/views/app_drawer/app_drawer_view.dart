@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/ui/views/about/about_view.dart';
 import 'package:lta_datamall_flutter/ui/views/app_drawer/app_drawer_viewmodel.dart';
 import 'package:stacked/stacked.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppDrawerView extends StatelessWidget {
   @override
@@ -30,7 +31,14 @@ class AppDrawerView extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.card_giftcard),
               title: Text('Support Us'),
-              onTap: () {},
+              onTap: () async {
+                const url = 'https://ko-fi.com/sglandtransport';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
             ),
             AboutListTile(
               icon: Icon(Icons.info_outline),
