@@ -25,22 +25,15 @@ platform :ios do
     end
   end
 
-  lane :testflight_from_local do |options|
-    ensure_git_status_clean
-    git_pull
-    ensure_git_status_clean
+  lane :increment_build_number_ios do
     increment_build_number(xcodeproj: "Runner.xcodeproj")
-    Dir.chdir "../.." do
-      sh("flutter", "build", "ios", "--release", "--no-codesign", "--dart-define:LTA_DATAMALL_API_KEY:", options[:LTA_DATAMALL_API_KEY])
-    end
-    build_app(
-      workspace: "Runner.xcworkspace",
-      scheme: "Runner",
-      clean: true
+  end
+
+  lane :testflight_from_local do
+    build_ios_app(
+      export_method: "app-store"
     )
     upload_to_testflight
-    commit_version_bump
-    push_to_git_remote
   end
 
   lane :testflight_from_ci do
