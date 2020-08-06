@@ -36,7 +36,7 @@ This key is read during build time from an environment variable named "LTA_DATAM
 1. from command line:
 
 ```
-flutter run ---dart-define=LTA_DATAMALL_API_KEY=<add your key here>
+flutter run --dart-define=LTA_DATAMALL_API_KEY=<add your key here>
 ```
 
 2. From an environment variable on your CI server (see this project's .cirrus.yml file for an example)
@@ -129,7 +129,9 @@ Deployments can be run from your local machine
 
 ```
 cd ios
-bundle exec fastlane testflight_from_local LTA_DATAMALL_API_KEY:<add your key here>
+bundle exec fastlane increment_build_number_ios
+flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key>
+bundle exec fastlane testflight_from_local
 ```
 
 #### Android internal test track:
