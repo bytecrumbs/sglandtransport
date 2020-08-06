@@ -28,6 +28,14 @@ class AppDrawerView extends StatelessWidget {
                   }
                 },
               ),
+            AboutListTile(
+              icon: Icon(Icons.info_outline),
+              applicationName: 'SG Land Transport',
+              applicationVersion: model.version,
+              applicationLegalese: 'free | ad-free | open-source',
+              applicationIcon: Icon(Icons.info_outline),
+              aboutBoxChildren: <Widget>[AboutView()],
+            ),
             ListTile(
               leading: Icon(Icons.card_giftcard),
               title: Text('Support Us'),
@@ -39,14 +47,6 @@ class AppDrawerView extends StatelessWidget {
                   throw 'Could not launch $url';
                 }
               },
-            ),
-            AboutListTile(
-              icon: Icon(Icons.info_outline),
-              applicationName: 'SG Land Transport',
-              applicationVersion: model.version,
-              applicationLegalese: 'free | ad-free | open-source',
-              applicationIcon: Icon(Icons.info_outline),
-              aboutBoxChildren: <Widget>[AboutView()],
             ),
           ],
         ),
