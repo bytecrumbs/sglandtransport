@@ -1,5 +1,1 @@
-Get relevant information for Bus Stops and Bus Arrival times.
-
-- 100% free
-- 100% add-free
-- 100% open source
+Get information for Bus Stops and Bus Arrival times - 100% free - 100% ad-free - 100% open source
