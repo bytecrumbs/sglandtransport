@@ -60,10 +60,10 @@ class BusView extends StatelessWidget {
       ),
       rateMyApp: RateMyApp(
         preferencesPrefix: 'rateMyApp_',
-        minDays: 1,
-        minLaunches: 1,
-        remindDays: 1,
-        remindLaunches: 1,
+        minDays: 7,
+        minLaunches: 10,
+        remindDays: 7,
+        remindLaunches: 10,
       ),
       onInitialized: (context, rateMyApp) {
         rateMyApp.conditions.forEach((condition) {
