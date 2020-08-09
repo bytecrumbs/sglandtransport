@@ -25,11 +25,18 @@ platform :ios do
     end
   end
 
-  lane :beta do
-    ensure_git_status_clean
-    git_pull
-    ensure_git_status_clean
+  lane :increment_build_number_ios do
     increment_build_number(xcodeproj: "Runner.xcodeproj")
+  end
+
+  lane :testflight_from_local do
+    build_ios_app(
+      export_method: "app-store"
+    )
+    upload_to_testflight
+  end
+
+  lane :testflight_from_ci do
     Dir.chdir "../.." do
       sh("flutter", "build", "ios", "--release", "--no-codesign")
     end
@@ -39,8 +46,6 @@ platform :ios do
       clean: true
     )
     upload_to_testflight
-    commit_version_bump
-    push_to_git_remote
   end
 
   lane :meta_data do
@@ -63,6 +68,7 @@ platform :ios do
       skip_metadata: true,
       skip_screenshots: true,
       skip_binary_upload: true,
+      precheck_include_in_app_purchases: false,
       submission_information: {
         add_id_info_limits_tracking: true,
         add_id_info_serves_ads: false,
