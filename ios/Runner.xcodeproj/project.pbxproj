@@ -15,7 +15,7 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		CB20FD5524E1866600193A99 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB20FD5424E1866600193A99 /* StoreKit.framework */; };
+		CB47863324E43F5A000C59D9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB47863224E43F5A000C59D9 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,7 +50,7 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB20FD5324E1859700193A99 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
-		CB20FD5424E1866600193A99 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		CB47863224E43F5A000C59D9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D06FBBDDD7ED43CC1883C2AF /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -60,7 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				296D0254CA903737395D82A7 /* Pods_Runner.framework in Frameworks */,
-				CB20FD5524E1866600193A99 /* StoreKit.framework in Frameworks */,
+				CB47863324E43F5A000C59D9 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +80,7 @@
 		95249B5DA7F69A0350C4CD29 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CB20FD5424E1866600193A99 /* StoreKit.framework */,
+				CB47863224E43F5A000C59D9 /* StoreKit.framework */,
 				D06FBBDDD7ED43CC1883C2AF /* Pods_Runner.framework */,
 			);
 			name = Frameworks;

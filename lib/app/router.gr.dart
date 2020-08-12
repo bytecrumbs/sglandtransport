@@ -9,13 +9,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:lta_datamall_flutter/ui/views/bus/bus_view.dart';
 import 'package:lta_datamall_flutter/ui/views/bus/bus_arrival/bus_arrival_view.dart';
+import 'package:lta_datamall_flutter/ui/views/iap/purchase.dart';
 
 abstract class Routes {
   static const busViewRoute = '/';
   static const busArrivalView = '/bus-arrival-view';
+  static const marketScreen = '/market-screen';
   static const all = {
     busViewRoute,
     busArrivalView,
+    marketScreen,
   };
 }
 
@@ -45,6 +48,11 @@ class Router extends RouterBase {
           builder: (context) => BusArrivalView(
               busStopCode: typedArgs.busStopCode,
               description: typedArgs.description),
+          settings: settings,
+        );
+      case Routes.marketScreen:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => MarketScreen(),
           settings: settings,
         );
       default:
