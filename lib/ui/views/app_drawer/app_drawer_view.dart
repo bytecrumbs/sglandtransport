@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/app/router.gr.dart';
 import 'package:lta_datamall_flutter/ui/views/about/about_view.dart';
 import 'package:lta_datamall_flutter/ui/views/app_drawer/app_drawer_viewmodel.dart';
 import 'package:stacked/stacked.dart';
@@ -27,6 +28,13 @@ class AppDrawerView extends StatelessWidget {
                   }
                 },
               ),
+            ListTile(
+              leading: Icon(Icons.info_outline),
+              title: Text('InApp - Purchase'),
+              onTap: () {
+                model.navigateTo(Routes.marketScreen);
+              },
+            ),
             AboutListTile(
               icon: Icon(Icons.info_outline),
               applicationName: 'SG Land Transport',

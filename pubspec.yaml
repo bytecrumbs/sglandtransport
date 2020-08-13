@@ -52,6 +52,8 @@ dependencies:
   flare_flutter: ^2.0.4
   stacked_hooks: ^0.1.2
   progress_indicators: ^0.1.5
+  #inapp purchase
+  in_app_purchase: ^0.3.4+3
 
 dev_dependencies:
   flutter_driver:
