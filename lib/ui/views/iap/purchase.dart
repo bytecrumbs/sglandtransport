@@ -27,7 +27,6 @@ class MarketScreenState extends State<MarketScreen> {
   StreamSubscription _subscription;
 
   /// Consumable credits the user can buy
-  int credits = 0;
 
   @override
   void initState() {
@@ -37,7 +36,7 @@ class MarketScreenState extends State<MarketScreen> {
 
   @override
   void dispose() {
-    _subscription.cancel();
+    // _subscription.cancel();
     super.dispose();
   }
 
@@ -48,17 +47,17 @@ class MarketScreenState extends State<MarketScreen> {
 
     if (_available) {
       await _getProducts();
-      await _getPastPurchases();
+      // await _getPastPurchases();
 
       // Verify and deliver a purchase with your own business logic
-      _verifyPurchase();
+      // _verifyPurchase();
     }
 
-    _subscription = _iap.purchaseUpdatedStream.listen((data) => setState(() {
-          print('NEW PURCHASE');
-          _purchases.addAll(data);
-          _verifyPurchase();
-        }));
+    // _subscription = _iap.purchaseUpdatedStream.listen((data) => setState(() {
+    //       print('NEW PURCHASE');
+    //       _purchases.addAll(data);
+    //       // _verifyPurchase();
+    //     }));
   }
 
   Future<void> _getProducts() async {
@@ -71,34 +70,34 @@ class MarketScreenState extends State<MarketScreen> {
   }
 
   /// Gets past purchases
-  Future<void> _getPastPurchases() async {
-    var response = await _iap.queryPastPurchases();
+  // Future<void> _getPastPurchases() async {
+  //   var response = await _iap.queryPastPurchases();
 
-    for (var purchase in response.pastPurchases) {
-      if (Platform.isIOS) {
-        await InAppPurchaseConnection.instance.completePurchase(purchase);
-      }
-    }
+  //   for (var purchase in response.pastPurchases) {
+  //     if (Platform.isIOS) {
+  //       await InAppPurchaseConnection.instance.completePurchase(purchase);
+  //     }
+  //   }
 
-    setState(() {
-      _purchases = response.pastPurchases;
-    });
-  }
+  //   setState(() {
+  //     _purchases = response.pastPurchases;
+  //   });
+  // }
 
   /// Returns purchase of specific product ID
-  PurchaseDetails _hasPurchased(String productID) {
-    return _purchases.firstWhere((purchase) => purchase.productID == productID,
-        orElse: () => null);
-  }
+  // PurchaseDetails _hasPurchased(String productID) {
+  //   return _purchases.firstWhere((purchase) => purchase.productID == productID,
+  //       orElse: () => null);
+  // }
 
   /// Your own business logic to setup a consumable
-  void _verifyPurchase() {
-    var purchase = _hasPurchased(testID);
+  // void _verifyPurchase() {
+  //   var purchase = _hasPurchased(testID);
 
-    if (purchase != null && purchase.status == PurchaseStatus.purchased) {
-      credits = 10;
-    }
-  }
+  //   if (purchase != null && purchase.status == PurchaseStatus.purchased) {
+  //     credits = 10;
+  //   }
+  // }
 
   void _buyProduct(ProductDetails prod) {
     var purchaseParam = PurchaseParam(productDetails: prod);
