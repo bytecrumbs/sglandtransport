@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
-final String testID = 'appreciation_token_small';
+final String testID = 'another_token';
 
 class MarketScreen extends StatefulWidget {
   @override
@@ -47,17 +47,18 @@ class MarketScreenState extends State<MarketScreen> {
 
     if (_available) {
       await _getProducts();
-      // await _getPastPurchases();
+      await _getPastPurchases();
 
       // Verify and deliver a purchase with your own business logic
       // _verifyPurchase();
     }
 
-    // _subscription = _iap.purchaseUpdatedStream.listen((data) => setState(() {
-    //       print('NEW PURCHASE');
-    //       _purchases.addAll(data);
-    //       // _verifyPurchase();
-    //     }));
+    _subscription = _iap.purchaseUpdatedStream.listen((data) => setState(() {
+          print('NEW PURCHASE');
+          _purchases.addAll(data);
+          _iap.completePurchase(data[0]);
+          // _verifyPurchase();
+        }));
   }
 
   Future<void> _getProducts() async {
@@ -70,19 +71,19 @@ class MarketScreenState extends State<MarketScreen> {
   }
 
   /// Gets past purchases
-  // Future<void> _getPastPurchases() async {
-  //   var response = await _iap.queryPastPurchases();
+  Future<void> _getPastPurchases() async {
+    var response = await _iap.queryPastPurchases();
 
-  //   for (var purchase in response.pastPurchases) {
-  //     if (Platform.isIOS) {
-  //       await InAppPurchaseConnection.instance.completePurchase(purchase);
-  //     }
-  //   }
+    for (var purchase in response.pastPurchases) {
+      if (Platform.isIOS) {
+        await _iap.completePurchase(purchase);
+      }
+    }
 
-  //   setState(() {
-  //     _purchases = response.pastPurchases;
-  //   });
-  // }
+    setState(() {
+      _purchases = response.pastPurchases;
+    });
+  }
 
   /// Returns purchase of specific product ID
   // PurchaseDetails _hasPurchased(String productID) {
@@ -99,9 +100,9 @@ class MarketScreenState extends State<MarketScreen> {
   //   }
   // }
 
-  void _buyProduct(ProductDetails prod) {
+  void _buyProduct(ProductDetails prod) async {
     var purchaseParam = PurchaseParam(productDetails: prod);
-    _iap.buyConsumable(purchaseParam: purchaseParam, autoConsume: false);
+    await _iap.buyConsumable(purchaseParam: purchaseParam);
   }
 
   @override
