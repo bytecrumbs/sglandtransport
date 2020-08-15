@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 import '../ui/views/bus/bus_arrival/bus_arrival_view.dart';
 import '../ui/views/bus/bus_view.dart';
-import '../ui/views/iap/purchase.dart';
+import '../ui/views/iap/purchase_view.dart';
 
 class Routes {
   static const String busView = '/';
