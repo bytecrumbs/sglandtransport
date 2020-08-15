@@ -204,16 +204,12 @@ class _MarketScreenState extends State<MarketScreen> {
               textColor: Colors.white,
               onPressed: () {
                 PurchaseParam purchaseParam = PurchaseParam(
-                    productDetails: productDetails,
-                    applicationUserName: null,
-                    sandboxTesting: true);
-                if (productDetails.id == _kConsumableId) {
-                  _connection.buyConsumable(
-                      purchaseParam: purchaseParam,
-                      autoConsume: kAutoConsume || Platform.isIOS);
-                } else {
-                  _connection.buyNonConsumable(purchaseParam: purchaseParam);
-                }
+                  productDetails: productDetails,
+                );
+
+                _connection.buyConsumable(
+                    purchaseParam: purchaseParam,
+                    autoConsume: kAutoConsume || Platform.isIOS);
               },
             ));
       },
