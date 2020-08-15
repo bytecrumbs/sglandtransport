@@ -48,7 +48,7 @@ class _MarketScreenState extends State<MarketScreen> {
   }
 
   Future<void> initStoreInfo() async {
-    final bool isAvailable = await _connection.isAvailable();
+    final isAvailable = await _connection.isAvailable();
     if (!isAvailable) {
       setState(() {
         _isAvailable = isAvailable;
@@ -62,7 +62,7 @@ class _MarketScreenState extends State<MarketScreen> {
       return;
     }
 
-    ProductDetailsResponse productDetailResponse =
+    var productDetailResponse =
         await _connection.queryProductDetails(_kProductIds.toSet());
 
     if (productDetailResponse.error != null) {
@@ -93,18 +93,17 @@ class _MarketScreenState extends State<MarketScreen> {
       return;
     }
 
-    final QueryPurchaseDetailsResponse purchaseResponse =
-        await _connection.queryPastPurchases();
+    final purchaseResponse = await _connection.queryPastPurchases();
     if (purchaseResponse.error != null) {
       // handle query past purchase error..
     }
-    final List<PurchaseDetails> verifiedPurchases = [];
-    for (PurchaseDetails purchase in purchaseResponse.pastPurchases) {
+    final verifiedPurchases = [];
+    for (var purchase in purchaseResponse.pastPurchases) {
       if (await _verifyPurchase(purchase)) {
         verifiedPurchases.add(purchase);
       }
     }
-    List<String> consumables = await ConsumableStore.load();
+    var consumables = await ConsumableStore.load();
     setState(() {
       _isAvailable = isAvailable;
       _products = productDetailResponse.productDetails;
@@ -124,7 +123,7 @@ class _MarketScreenState extends State<MarketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> stack = [];
+    var stack = [];
     if (_queryProductError == null) {
       stack.add(
         ListView(
@@ -178,7 +177,7 @@ class _MarketScreenState extends State<MarketScreen> {
       title: Text(
           'The store is ' + (_isAvailable ? 'available' : 'unavailable') + '.'),
     );
-    final List<Widget> children = <Widget>[storeHeader];
+    final children = <Widget>[storeHeader];
 
     if (!_isAvailable) {
       children.addAll([
@@ -204,8 +203,8 @@ class _MarketScreenState extends State<MarketScreen> {
     if (!_isAvailable) {
       return Card();
     }
-    final ListTile productHeader = ListTile(title: Text('Products for Sale'));
-    List<ListTile> productList = <ListTile>[];
+    final productHeader = ListTile(title: Text('Products for Sale'));
+    var productList = <ListTile>[];
     if (_notFoundIds.isNotEmpty) {
       productList.add(ListTile(
           title: Text('[${_notFoundIds.join(", ")}] not found',
@@ -217,8 +216,7 @@ class _MarketScreenState extends State<MarketScreen> {
     // This loading previous purchases code is just a demo. Please do not use this as it is.
     // In your app you should always verify the purchase data using the `verificationData` inside the [PurchaseDetails] object before trusting it.
     // We recommend that you use your own server to verity the purchase data.
-    Map<String, PurchaseDetails> purchases =
-        Map.fromEntries(_purchases.map((PurchaseDetails purchase) {
+    var purchases = Map.fromEntries(_purchases.map((PurchaseDetails purchase) {
       if (purchase.pendingCompletePurchase) {
         InAppPurchaseConnection.instance.completePurchase(purchase);
       }
@@ -226,7 +224,7 @@ class _MarketScreenState extends State<MarketScreen> {
     }));
     productList.addAll(_products.map(
       (ProductDetails productDetails) {
-        PurchaseDetails previousPurchase = purchases[productDetails.id];
+        var previousPurchase = purchases[productDetails.id];
         return ListTile(
             title: Text(
               productDetails.title,
@@ -241,7 +239,7 @@ class _MarketScreenState extends State<MarketScreen> {
                     color: Colors.green[800],
                     textColor: Colors.white,
                     onPressed: () {
-                      PurchaseParam purchaseParam = PurchaseParam(
+                      var purchaseParam = PurchaseParam(
                           productDetails: productDetails,
                           applicationUserName: null,
                           sandboxTesting: true);
@@ -273,8 +271,7 @@ class _MarketScreenState extends State<MarketScreen> {
     if (!_isAvailable || _notFoundIds.contains(_kConsumableId)) {
       return Card();
     }
-    final ListTile consumableHeader =
-        ListTile(title: Text('Purchased consumables'));
+    final consumableHeader = ListTile(title: Text('Purchased consumables'));
     final List<Widget> tokens = _consumables.map((String id) {
       return GridTile(
         child: IconButton(
@@ -306,7 +303,7 @@ class _MarketScreenState extends State<MarketScreen> {
 
   Future<void> consume(String id) async {
     await ConsumableStore.consume(id);
-    final List<String> consumables = await ConsumableStore.load();
+    final consumables = await ConsumableStore.load();
     setState(() {
       _consumables = consumables;
     });
@@ -322,7 +319,7 @@ class _MarketScreenState extends State<MarketScreen> {
     // IMPORTANT!! Always verify a purchase purchase details before delivering the product.
     if (purchaseDetails.productID == _kConsumableId) {
       await ConsumableStore.save(purchaseDetails.purchaseID);
-      List<String> consumables = await ConsumableStore.load();
+      var consumables = await ConsumableStore.load();
       setState(() {
         _purchasePending = false;
         _consumables = consumables;
@@ -359,7 +356,7 @@ class _MarketScreenState extends State<MarketScreen> {
         if (purchaseDetails.status == PurchaseStatus.error) {
           handleError(purchaseDetails.error);
         } else if (purchaseDetails.status == PurchaseStatus.purchased) {
-          bool valid = await _verifyPurchase(purchaseDetails);
+          var valid = await _verifyPurchase(purchaseDetails);
           if (valid) {
             deliverProduct(purchaseDetails);
           } else {
