@@ -8,7 +8,7 @@ import 'package:lta_datamall_flutter/datamodels/feature.dart';
 class FeatureService {
   static final _busFeature = Feature(
     title: 'Buses',
-    routeName: Routes.busViewRoute,
+    routeName: Routes.busView,
     icon: Icon(Icons.directions_bus),
   );
 
