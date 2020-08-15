@@ -110,9 +110,11 @@ class _MarketScreenState extends State<MarketScreen> {
         ),
       );
     } else {
-      stack.add(Center(
-        child: Text(_queryProductError),
-      ));
+      stack.add(
+        Center(
+          child: Text(_queryProductError),
+        ),
+      );
     }
     if (_purchasePending) {
       stack.add(
@@ -145,7 +147,11 @@ class _MarketScreenState extends State<MarketScreen> {
 
   Card _buildConnectionCheckTile() {
     if (_loading) {
-      return Card(child: ListTile(title: const Text('Trying to connect...')));
+      return Card(
+        child: ListTile(
+          title: const Text('Trying to connect...'),
+        ),
+      );
     }
     final Widget storeHeader = ListTile(
       leading: Icon(_isAvailable ? Icons.check : Icons.block,
@@ -156,42 +162,56 @@ class _MarketScreenState extends State<MarketScreen> {
     final children = <Widget>[storeHeader];
 
     if (!_isAvailable) {
-      children.addAll([
-        Divider(),
-        ListTile(
-          title: Text('Not connected',
-              style: TextStyle(color: ThemeData.light().errorColor)),
-          subtitle: const Text(
-              'Unable to connect to the payments processor. Has this app been configured correctly? See the example README for instructions.'),
-        ),
-      ]);
+      children.addAll(
+        [
+          Divider(),
+          ListTile(
+            title: Text('Not connected',
+                style: TextStyle(color: ThemeData.light().errorColor)),
+            subtitle: const Text(
+                'Unable to connect to the payments processor. Has this app been configured correctly? See the example README for instructions.'),
+          ),
+        ],
+      );
     }
-    return Card(child: Column(children: children));
+    return Card(
+      child: Column(children: children),
+    );
   }
 
   Card _buildProductList() {
     if (_loading) {
       return Card(
-          child: (ListTile(
-              leading: CircularProgressIndicator(),
-              title: Text('Fetching products...'))));
+        child: (ListTile(
+          leading: CircularProgressIndicator(),
+          title: Text('Fetching products...'),
+        )),
+      );
     }
     if (!_isAvailable) {
       return Card();
     }
-    final productHeader = ListTile(title: Text('Products for Sale'));
+    final productHeader = ListTile(
+      title: Text('Products for Sale'),
+    );
     var productList = <ListTile>[];
     if (_notFoundIds.isNotEmpty) {
-      productList.add(ListTile(
-          title: Text('[${_notFoundIds.join(", ")}] not found',
-              style: TextStyle(color: ThemeData.light().errorColor)),
+      productList.add(
+        ListTile(
+          title: Text(
+            '[${_notFoundIds.join(", ")}] not found',
+            style: TextStyle(color: ThemeData.light().errorColor),
+          ),
           subtitle: Text(
-              'This app needs special configuration to run. Please see example/README.md for instructions.')));
+              'This app needs special configuration to run. Please see example/README.md for instructions.'),
+        ),
+      );
     }
 
-    productList.addAll(_products.map(
-      (ProductDetails productDetails) {
-        return ListTile(
+    productList.addAll(
+      _products.map(
+        (ProductDetails productDetails) {
+          return ListTile(
             title: Text(
               productDetails.title,
             ),
@@ -211,9 +231,11 @@ class _MarketScreenState extends State<MarketScreen> {
                     purchaseParam: purchaseParam,
                     autoConsume: kAutoConsume || Platform.isIOS);
               },
-            ));
-      },
-    ));
+            ),
+          );
+        },
+      ),
+    );
 
     return Card(
       child: Column(children: <Widget>[productHeader, Divider()] + productList),
