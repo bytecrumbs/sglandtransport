@@ -3,8 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-
-import 'consumable_store.dart';
+import 'package:lta_datamall_flutter/ui/views/app_drawer/app_drawer_view.dart';
 
 const bool kAutoConsume = true;
 
@@ -23,7 +22,6 @@ class _MarketScreenState extends State<MarketScreen> {
   StreamSubscription<List<PurchaseDetails>> _subscription;
   List<String> _notFoundIds = [];
   List<ProductDetails> _products = [];
-  List<String> _consumables = [];
   bool _isAvailable = false;
   bool _purchasePending = false;
   bool _loading = true;
@@ -51,7 +49,6 @@ class _MarketScreenState extends State<MarketScreen> {
         _isAvailable = isAvailable;
         _products = [];
         _notFoundIds = [];
-        _consumables = [];
         _purchasePending = false;
         _loading = false;
       });
@@ -67,7 +64,6 @@ class _MarketScreenState extends State<MarketScreen> {
         _isAvailable = isAvailable;
         _products = productDetailResponse.productDetails;
         _notFoundIds = productDetailResponse.notFoundIDs;
-        _consumables = [];
         _purchasePending = false;
         _loading = false;
       });
@@ -80,19 +76,16 @@ class _MarketScreenState extends State<MarketScreen> {
         _isAvailable = isAvailable;
         _products = productDetailResponse.productDetails;
         _notFoundIds = productDetailResponse.notFoundIDs;
-        _consumables = [];
         _purchasePending = false;
         _loading = false;
       });
       return;
     }
 
-    List<String> consumables = await ConsumableStore.load();
     setState(() {
       _isAvailable = isAvailable;
       _products = productDetailResponse.productDetails;
       _notFoundIds = productDetailResponse.notFoundIDs;
-      _consumables = consumables;
       _purchasePending = false;
       _loading = false;
     });
@@ -113,7 +106,6 @@ class _MarketScreenState extends State<MarketScreen> {
           children: [
             _buildConnectionCheckTile(),
             _buildProductList(),
-            _buildConsumableBox(),
           ],
         ),
       );
@@ -143,6 +135,7 @@ class _MarketScreenState extends State<MarketScreen> {
         appBar: AppBar(
           title: const Text('IAP Example'),
         ),
+        drawer: AppDrawerView(),
         body: Stack(
           children: stack,
         ),
@@ -231,55 +224,6 @@ class _MarketScreenState extends State<MarketScreen> {
     );
   }
 
-  Card _buildConsumableBox() {
-    if (_loading) {
-      return Card(
-          child: (ListTile(
-              leading: CircularProgressIndicator(),
-              title: Text('Fetching consumables...'))));
-    }
-    if (!_isAvailable || _notFoundIds.contains(_kConsumableId)) {
-      return Card();
-    }
-    final ListTile consumableHeader =
-        ListTile(title: Text('Purchased consumables'));
-    final List<Widget> tokens = _consumables.map((String id) {
-      return GridTile(
-        child: IconButton(
-          icon: Icon(
-            Icons.stars,
-            size: 42.0,
-            color: Colors.orange,
-          ),
-          splashColor: Colors.yellowAccent,
-          onPressed: () => consume(id),
-        ),
-      );
-    }).toList();
-    return Card(
-      child: Column(
-        children: <Widget>[
-          consumableHeader,
-          Divider(),
-          GridView.count(
-            crossAxisCount: 5,
-            children: tokens,
-            shrinkWrap: true,
-            padding: EdgeInsets.all(16.0),
-          )
-        ],
-      ),
-    );
-  }
-
-  Future<void> consume(String id) async {
-    await ConsumableStore.consume(id);
-    final List<String> consumables = await ConsumableStore.load();
-    setState(() {
-      _consumables = consumables;
-    });
-  }
-
   void showPendingUI() {
     setState(() {
       _purchasePending = true;
@@ -289,11 +233,8 @@ class _MarketScreenState extends State<MarketScreen> {
   void deliverProduct(PurchaseDetails purchaseDetails) async {
     // IMPORTANT!! Always verify a purchase purchase details before delivering the product.
     if (purchaseDetails.productID == _kConsumableId) {
-      await ConsumableStore.save(purchaseDetails.purchaseID);
-      List<String> consumables = await ConsumableStore.load();
       setState(() {
         _purchasePending = false;
-        _consumables = consumables;
       });
     } else {
       setState(() {
