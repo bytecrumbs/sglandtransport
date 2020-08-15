@@ -7,9 +7,10 @@ import 'package:lta_datamall_flutter/ui/views/app_drawer/app_drawer_view.dart';
 
 const bool kAutoConsume = true;
 
-const String _kConsumableId = 'consumable';
 const List<String> _kProductIds = <String>[
-  _kConsumableId,
+  'big_appreciation',
+  'huge_appreciation',
+  'gigantic_appreciation',
 ];
 
 class MarketScreen extends StatefulWidget {
@@ -54,6 +55,7 @@ class _MarketScreenState extends State<MarketScreen> {
       return;
     }
 
+    print('querying products');
     var productDetailResponse =
         await _connection.queryProductDetails(_kProductIds.toSet());
 
@@ -191,7 +193,7 @@ class _MarketScreenState extends State<MarketScreen> {
       return Card();
     }
     final productHeader = ListTile(
-      title: Text('Products for Sale'),
+      title: Text('Do you want to support us?'),
     );
     var productList = <ListTile>[];
     if (_notFoundIds.isNotEmpty) {
@@ -249,15 +251,9 @@ class _MarketScreenState extends State<MarketScreen> {
 
   void deliverProduct(PurchaseDetails purchaseDetails) async {
     // IMPORTANT!! Always verify a purchase purchase details before delivering the product.
-    if (purchaseDetails.productID == _kConsumableId) {
-      setState(() {
-        _purchasePending = false;
-      });
-    } else {
-      setState(() {
-        _purchasePending = false;
-      });
-    }
+    setState(() {
+      _purchasePending = false;
+    });
   }
 
   void handleError(IAPError error) {
@@ -277,7 +273,7 @@ class _MarketScreenState extends State<MarketScreen> {
           deliverProduct(purchaseDetails);
         }
         if (Platform.isAndroid) {
-          if (!kAutoConsume && purchaseDetails.productID == _kConsumableId) {
+          if (!kAutoConsume) {
             await _connection.consumePurchase(purchaseDetails);
           }
         }
