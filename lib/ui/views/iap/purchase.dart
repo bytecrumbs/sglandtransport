@@ -224,11 +224,10 @@ class _MarketScreenState extends State<MarketScreen> {
       }
       return MapEntry<String, PurchaseDetails>(purchase.productID, purchase);
     }));
-    productList.addAll(
-      _products.map(
-        (ProductDetails productDetails) {
-          PurchaseDetails previousPurchase = purchases[productDetails.id];
-          return ListTile(
+    productList.addAll(_products.map(
+      (ProductDetails productDetails) {
+        PurchaseDetails previousPurchase = purchases[productDetails.id];
+        return ListTile(
             title: Text(
               productDetails.title,
             ),
@@ -255,11 +254,9 @@ class _MarketScreenState extends State<MarketScreen> {
                             purchaseParam: purchaseParam);
                       }
                     },
-                  ),
-          );
-        },
-      ),
-    );
+                  ));
+      },
+    ));
 
     return Card(
       child: Column(children: <Widget>[productHeader, Divider()] + productList),
