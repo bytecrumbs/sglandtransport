@@ -21,6 +21,8 @@ Future<void> warmupFlare() async {
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
+  InAppPurchaseConnection.enablePendingPurchases();
+
   FlareCache.doesPrune = false;
 
   Level logLevel;
