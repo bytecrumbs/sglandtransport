@@ -43,7 +43,7 @@ class _MarketScreenState extends State<MarketScreen> {
   }
 
   Future<void> initStoreInfo() async {
-    final bool isAvailable = await _connection.isAvailable();
+    final isAvailable = await _connection.isAvailable();
     if (!isAvailable) {
       setState(() {
         _isAvailable = isAvailable;
@@ -55,7 +55,7 @@ class _MarketScreenState extends State<MarketScreen> {
       return;
     }
 
-    ProductDetailsResponse productDetailResponse =
+    var productDetailResponse =
         await _connection.queryProductDetails(_kProductIds.toSet());
 
     if (productDetailResponse.error != null) {
@@ -99,7 +99,7 @@ class _MarketScreenState extends State<MarketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> stack = [];
+    var stack = <Widget>[];
     if (_queryProductError == null) {
       stack.add(
         ListView(
@@ -153,7 +153,7 @@ class _MarketScreenState extends State<MarketScreen> {
       title: Text(
           'The store is ' + (_isAvailable ? 'available' : 'unavailable') + '.'),
     );
-    final List<Widget> children = <Widget>[storeHeader];
+    final children = <Widget>[storeHeader];
 
     if (!_isAvailable) {
       children.addAll([
@@ -179,8 +179,8 @@ class _MarketScreenState extends State<MarketScreen> {
     if (!_isAvailable) {
       return Card();
     }
-    final ListTile productHeader = ListTile(title: Text('Products for Sale'));
-    List<ListTile> productList = <ListTile>[];
+    final productHeader = ListTile(title: Text('Products for Sale'));
+    var productList = <ListTile>[];
     if (_notFoundIds.isNotEmpty) {
       productList.add(ListTile(
           title: Text('[${_notFoundIds.join(", ")}] not found',
@@ -203,7 +203,7 @@ class _MarketScreenState extends State<MarketScreen> {
               color: Colors.green[800],
               textColor: Colors.white,
               onPressed: () {
-                PurchaseParam purchaseParam = PurchaseParam(
+                var purchaseParam = PurchaseParam(
                   productDetails: productDetails,
                 );
 
