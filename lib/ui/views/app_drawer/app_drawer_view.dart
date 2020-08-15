@@ -28,13 +28,6 @@ class AppDrawerView extends StatelessWidget {
                   }
                 },
               ),
-            ListTile(
-              leading: Icon(Icons.info_outline),
-              title: Text('InApp - Purchase'),
-              onTap: () {
-                model.navigateTo(Routes.marketScreen);
-              },
-            ),
             AboutListTile(
               icon: Icon(Icons.info_outline),
               applicationName: 'SG Land Transport',

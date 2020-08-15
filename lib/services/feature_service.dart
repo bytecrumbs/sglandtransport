@@ -12,10 +12,16 @@ class FeatureService {
     icon: Icon(Icons.directions_bus),
   );
 
-  final _devFeatures = [_busFeature];
+  static final _inAppPurchaseFeature = Feature(
+    title: 'InApp - Purchase',
+    routeName: Routes.marketScreen,
+    icon: Icon(Icons.donut_small),
+  );
+
+  final _devFeatures = [_busFeature, _inAppPurchaseFeature];
   List<Feature> get devFeatures => _devFeatures;
 
-  final _releaseFeatures = [_busFeature];
+  final _releaseFeatures = [_busFeature, _inAppPurchaseFeature];
   List<Feature> get releaseFeatures => _releaseFeatures;
 
   List<Feature> getListOfFeatures() {
