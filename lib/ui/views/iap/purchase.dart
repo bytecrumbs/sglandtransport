@@ -4,18 +4,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
-final String testID = 'another_token';
+final String testID = 'test_gem_5';
 
 class MarketScreen extends StatefulWidget {
   @override
-  MarketScreenState createState() => MarketScreenState();
+  _MarketScreenState createState() => _MarketScreenState();
 }
 
-class MarketScreenState extends State<MarketScreen> {
+class _MarketScreenState extends State<MarketScreen> {
+  var _credits = 0;
+
+  /// Is the API available on the device
   bool _available = true;
 
   /// The In App Purchase plugin
-  final InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
+  InAppPurchaseConnection _iap = InAppPurchaseConnection.instance;
 
   /// Products for sale
   List<ProductDetails> _products = [];
@@ -27,6 +30,7 @@ class MarketScreenState extends State<MarketScreen> {
   StreamSubscription _subscription;
 
   /// Consumable credits the user can buy
+  int credits = 0;
 
   @override
   void initState() {
@@ -36,11 +40,10 @@ class MarketScreenState extends State<MarketScreen> {
 
   @override
   void dispose() {
-    // _subscription.cancel();
+    _subscription.cancel();
     super.dispose();
   }
 
-  /// Initialize data
   void _initialize() async {
     // Check availability of In App Purchases
     _available = await _iap.isAvailable();
@@ -48,22 +51,34 @@ class MarketScreenState extends State<MarketScreen> {
     if (_available) {
       await _getProducts();
       await _getPastPurchases();
-
-      // Verify and deliver a purchase with your own business logic
-      // _verifyPurchase();
     }
 
+    // Listen to new purchases
     _subscription = _iap.purchaseUpdatedStream.listen((data) => setState(() {
           print('NEW PURCHASE');
+          print(data.length);
+          print(data[0].status);
+
+          print(data[0]);
           _purchases.addAll(data);
-          _iap.completePurchase(data[0]);
-          // _verifyPurchase();
+          if (data[0].status == PurchaseStatus.purchased) {
+            print('completing purchase');
+            InAppPurchaseConnection.instance.completePurchase(data[0]);
+          }
         }));
   }
 
+  /// Purchase a product
+  void _buyProduct(ProductDetails prod) {
+    final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
+    // _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    _iap.buyConsumable(purchaseParam: purchaseParam, autoConsume: true);
+  }
+
+  /// Get all products available for sale
   Future<void> _getProducts() async {
-    var ids = <String>{testID};
-    var response = await _iap.queryProductDetails(ids);
+    Set<String> ids = Set.from([testID]);
+    ProductDetailsResponse response = await _iap.queryProductDetails(ids);
 
     setState(() {
       _products = response.productDetails;
@@ -72,37 +87,17 @@ class MarketScreenState extends State<MarketScreen> {
 
   /// Gets past purchases
   Future<void> _getPastPurchases() async {
-    var response = await _iap.queryPastPurchases();
+    QueryPurchaseDetailsResponse response = await _iap.queryPastPurchases();
 
-    for (var purchase in response.pastPurchases) {
+    for (PurchaseDetails purchase in response.pastPurchases) {
       if (Platform.isIOS) {
-        await _iap.completePurchase(purchase);
+        await InAppPurchaseConnection.instance.completePurchase(purchase);
       }
     }
 
     setState(() {
       _purchases = response.pastPurchases;
     });
-  }
-
-  /// Returns purchase of specific product ID
-  // PurchaseDetails _hasPurchased(String productID) {
-  //   return _purchases.firstWhere((purchase) => purchase.productID == productID,
-  //       orElse: () => null);
-  // }
-
-  /// Your own business logic to setup a consumable
-  // void _verifyPurchase() {
-  //   var purchase = _hasPurchased(testID);
-
-  //   if (purchase != null && purchase.status == PurchaseStatus.purchased) {
-  //     credits = 10;
-  //   }
-  // }
-
-  void _buyProduct(ProductDetails prod) async {
-    var purchaseParam = PurchaseParam(productDetails: prod);
-    await _iap.buyConsumable(purchaseParam: purchaseParam);
   }
 
   @override
@@ -116,7 +111,6 @@ class MarketScreenState extends State<MarketScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             for (var prod in _products) ...[
-              // ignore: deprecated_member_use
               Text(prod.title, style: Theme.of(context).textTheme.headline),
               Text(prod.description),
               Text(prod.price,
