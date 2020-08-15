@@ -11,8 +11,6 @@ const bool kAutoConsume = true;
 const String _kConsumableId = 'consumable';
 const List<String> _kProductIds = <String>[
   _kConsumableId,
-  'upgrade',
-  'subscription'
 ];
 
 class MarketScreen extends StatefulWidget {
@@ -25,7 +23,6 @@ class _MarketScreenState extends State<MarketScreen> {
   StreamSubscription<List<PurchaseDetails>> _subscription;
   List<String> _notFoundIds = [];
   List<ProductDetails> _products = [];
-  List<PurchaseDetails> _purchases = [];
   List<String> _consumables = [];
   bool _isAvailable = false;
   bool _purchasePending = false;
@@ -53,7 +50,6 @@ class _MarketScreenState extends State<MarketScreen> {
       setState(() {
         _isAvailable = isAvailable;
         _products = [];
-        _purchases = [];
         _notFoundIds = [];
         _consumables = [];
         _purchasePending = false;
@@ -70,7 +66,6 @@ class _MarketScreenState extends State<MarketScreen> {
         _queryProductError = productDetailResponse.error.message;
         _isAvailable = isAvailable;
         _products = productDetailResponse.productDetails;
-        _purchases = [];
         _notFoundIds = productDetailResponse.notFoundIDs;
         _consumables = [];
         _purchasePending = false;
@@ -84,7 +79,6 @@ class _MarketScreenState extends State<MarketScreen> {
         _queryProductError = null;
         _isAvailable = isAvailable;
         _products = productDetailResponse.productDetails;
-        _purchases = [];
         _notFoundIds = productDetailResponse.notFoundIDs;
         _consumables = [];
         _purchasePending = false;
@@ -93,22 +87,10 @@ class _MarketScreenState extends State<MarketScreen> {
       return;
     }
 
-    final QueryPurchaseDetailsResponse purchaseResponse =
-        await _connection.queryPastPurchases();
-    if (purchaseResponse.error != null) {
-      // handle query past purchase error..
-    }
-    final List<PurchaseDetails> verifiedPurchases = [];
-    for (PurchaseDetails purchase in purchaseResponse.pastPurchases) {
-      if (await _verifyPurchase(purchase)) {
-        verifiedPurchases.add(purchase);
-      }
-    }
     List<String> consumables = await ConsumableStore.load();
     setState(() {
       _isAvailable = isAvailable;
       _products = productDetailResponse.productDetails;
-      _purchases = verifiedPurchases;
       _notFoundIds = productDetailResponse.notFoundIDs;
       _consumables = consumables;
       _purchasePending = false;
@@ -214,19 +196,8 @@ class _MarketScreenState extends State<MarketScreen> {
               'This app needs special configuration to run. Please see example/README.md for instructions.')));
     }
 
-    // This loading previous purchases code is just a demo. Please do not use this as it is.
-    // In your app you should always verify the purchase data using the `verificationData` inside the [PurchaseDetails] object before trusting it.
-    // We recommend that you use your own server to verity the purchase data.
-    Map<String, PurchaseDetails> purchases =
-        Map.fromEntries(_purchases.map((PurchaseDetails purchase) {
-      if (purchase.pendingCompletePurchase) {
-        InAppPurchaseConnection.instance.completePurchase(purchase);
-      }
-      return MapEntry<String, PurchaseDetails>(purchase.productID, purchase);
-    }));
     productList.addAll(_products.map(
       (ProductDetails productDetails) {
-        PurchaseDetails previousPurchase = purchases[productDetails.id];
         return ListTile(
             title: Text(
               productDetails.title,
@@ -234,27 +205,24 @@ class _MarketScreenState extends State<MarketScreen> {
             subtitle: Text(
               productDetails.description,
             ),
-            trailing: previousPurchase != null
-                ? Icon(Icons.check)
-                : FlatButton(
-                    child: Text(productDetails.price),
-                    color: Colors.green[800],
-                    textColor: Colors.white,
-                    onPressed: () {
-                      PurchaseParam purchaseParam = PurchaseParam(
-                          productDetails: productDetails,
-                          applicationUserName: null,
-                          sandboxTesting: true);
-                      if (productDetails.id == _kConsumableId) {
-                        _connection.buyConsumable(
-                            purchaseParam: purchaseParam,
-                            autoConsume: kAutoConsume || Platform.isIOS);
-                      } else {
-                        _connection.buyNonConsumable(
-                            purchaseParam: purchaseParam);
-                      }
-                    },
-                  ));
+            trailing: FlatButton(
+              child: Text(productDetails.price),
+              color: Colors.green[800],
+              textColor: Colors.white,
+              onPressed: () {
+                PurchaseParam purchaseParam = PurchaseParam(
+                    productDetails: productDetails,
+                    applicationUserName: null,
+                    sandboxTesting: true);
+                if (productDetails.id == _kConsumableId) {
+                  _connection.buyConsumable(
+                      purchaseParam: purchaseParam,
+                      autoConsume: kAutoConsume || Platform.isIOS);
+                } else {
+                  _connection.buyNonConsumable(purchaseParam: purchaseParam);
+                }
+              },
+            ));
       },
     ));
 
@@ -329,7 +297,6 @@ class _MarketScreenState extends State<MarketScreen> {
       });
     } else {
       setState(() {
-        _purchases.add(purchaseDetails);
         _purchasePending = false;
       });
     }
