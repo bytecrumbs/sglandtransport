@@ -29,8 +29,7 @@ class _MarketScreenState extends State<MarketScreen> {
 
   @override
   void initState() {
-    Stream purchaseUpdated =
-        InAppPurchaseConnection.instance.purchaseUpdatedStream;
+    Stream purchaseUpdated = _connection.purchaseUpdatedStream;
     _subscription = purchaseUpdated.listen((purchaseDetailsList) {
       _listenToPurchaseUpdated(purchaseDetailsList);
     }, onDone: () {
@@ -279,13 +278,11 @@ class _MarketScreenState extends State<MarketScreen> {
         }
         if (Platform.isAndroid) {
           if (!kAutoConsume && purchaseDetails.productID == _kConsumableId) {
-            await InAppPurchaseConnection.instance
-                .consumePurchase(purchaseDetails);
+            await _connection.consumePurchase(purchaseDetails);
           }
         }
         if (purchaseDetails.pendingCompletePurchase) {
-          await InAppPurchaseConnection.instance
-              .completePurchase(purchaseDetails);
+          await _connection.completePurchase(purchaseDetails);
         }
       }
     });
