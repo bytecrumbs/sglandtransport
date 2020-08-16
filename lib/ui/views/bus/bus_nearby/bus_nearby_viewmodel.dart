@@ -18,6 +18,11 @@ class BusNearByViewModel extends BaseViewModel {
   List<BusStopModel> get nearByBusStopList => _nearByBusStopList;
 
   void initialise() async {
+    // Cancelling subscriptions is required when the bus section is selected
+    // from the app drawer menu and the Bus section is already active
+    await _locationSubscription?.cancel();
+    await _locationService?.cancelLocationStream();
+
     _log.info('subscribe to location stream from location service');
     _locationSubscription =
         _locationService.locationStream.listen((userLocation) async {

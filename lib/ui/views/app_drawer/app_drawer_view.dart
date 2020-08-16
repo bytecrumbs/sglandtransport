@@ -19,12 +19,7 @@ class AppDrawerView extends StatelessWidget {
                 leading: item.icon,
                 title: Text(item.title),
                 onTap: () {
-                  // only navigate to a new page if a new section is tapped
-                  if (ModalRoute.of(context).settings.name == item.routeName) {
-                    Navigator.pop(context);
-                  } else {
-                    model.navigateTo(item.routeName);
-                  }
+                  model.navigateTo(item.routeName);
                 },
               ),
             AboutListTile(
