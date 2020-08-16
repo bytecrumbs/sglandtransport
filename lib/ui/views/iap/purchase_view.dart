@@ -42,6 +42,17 @@ class _MarketScreenState extends State<MarketScreen> {
     super.initState();
   }
 
+  void updateProductDetails(
+    bool isAvailable,
+    var productDetails,
+  ) {
+    _isAvailable = isAvailable;
+    _products = productDetails.productDetails;
+    _notFoundIds = productDetails.notFoundIDs;
+    _purchasePending = false;
+    _loading = false;
+  }
+
   Future<void> initStoreInfo() async {
     final isAvailable = await _connection.isAvailable();
     if (!isAvailable) {
@@ -62,11 +73,7 @@ class _MarketScreenState extends State<MarketScreen> {
     if (productDetailResponse.error != null) {
       setState(() {
         _queryProductError = productDetailResponse.error.message;
-        _isAvailable = isAvailable;
-        _products = productDetailResponse.productDetails;
-        _notFoundIds = productDetailResponse.notFoundIDs;
-        _purchasePending = false;
-        _loading = false;
+        updateProductDetails(isAvailable, productDetailResponse);
       });
       return;
     }
@@ -74,21 +81,13 @@ class _MarketScreenState extends State<MarketScreen> {
     if (productDetailResponse.productDetails.isEmpty) {
       setState(() {
         _queryProductError = null;
-        _isAvailable = isAvailable;
-        _products = productDetailResponse.productDetails;
-        _notFoundIds = productDetailResponse.notFoundIDs;
-        _purchasePending = false;
-        _loading = false;
+        updateProductDetails(isAvailable, productDetailResponse);
       });
       return;
     }
 
     setState(() {
-      _isAvailable = isAvailable;
-      _products = productDetailResponse.productDetails;
-      _notFoundIds = productDetailResponse.notFoundIDs;
-      _purchasePending = false;
-      _loading = false;
+      updateProductDetails(isAvailable, productDetailResponse);
     });
   }
 
