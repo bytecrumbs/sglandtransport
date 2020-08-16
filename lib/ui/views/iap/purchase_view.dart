@@ -136,7 +136,7 @@ class _MarketScreenState extends State<MarketScreen> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('IAP Example'),
+          title: const Text('Thank you!'),
         ),
         drawer: AppDrawerView(),
         body: Stack(
@@ -193,7 +193,8 @@ class _MarketScreenState extends State<MarketScreen> {
       return Card();
     }
     final productHeader = ListTile(
-      title: Text('Do you want to support us?'),
+      title: Text(
+          'We dislike ads, and we dislike in-app purchases that will grant access to special features.\n\nTherefore, SG Land Transport is and always will be completely free and ad-free, and all the features will be available for everyone.\n\nHowever, if you appreciate the app and use it often, you can support us by buying a token of appreciation for us, which will allow us to buy some coffees to keep us awake when we work late in the night on the next feature of this app...'),
     );
     var productList = <ListTile>[];
     if (_notFoundIds.isNotEmpty) {
@@ -237,6 +238,9 @@ class _MarketScreenState extends State<MarketScreen> {
         },
       ),
     );
+
+    productList
+        .sort((a, b) => a.title.toString().compareTo(b.title.toString()));
 
     return Card(
       child: Column(children: <Widget>[productHeader, Divider()] + productList),
