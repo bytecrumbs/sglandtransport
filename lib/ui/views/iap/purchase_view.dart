@@ -133,15 +133,15 @@ class _MarketScreenState extends State<MarketScreen> {
       );
     }
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Thank you!'),
-        ),
-        drawer: AppDrawerView(),
-        body: Stack(
-          children: stack,
-        ),
+    return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColorDark,
+        title: const Text('Thank you!'),
+      ),
+      drawer: AppDrawerView(),
+      body: Stack(
+        children: stack,
       ),
     );
   }
