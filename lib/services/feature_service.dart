@@ -13,9 +13,9 @@ class FeatureService {
   );
 
   static final _inAppPurchaseFeature = Feature(
-    title: 'InApp - Purchase',
+    title: 'Want to support us?',
     routeName: Routes.marketScreen,
-    icon: Icon(Icons.donut_small),
+    icon: Icon(Icons.card_giftcard),
   );
 
   final _devFeatures = [_busFeature, _inAppPurchaseFeature];
