@@ -8,14 +8,20 @@ import 'package:lta_datamall_flutter/datamodels/feature.dart';
 class FeatureService {
   static final _busFeature = Feature(
     title: 'Buses',
-    routeName: Routes.busViewRoute,
+    routeName: Routes.busView,
     icon: Icon(Icons.directions_bus),
   );
 
-  final _devFeatures = [_busFeature];
+  static final _inAppPurchaseFeature = Feature(
+    title: 'Want to support us?',
+    routeName: Routes.marketScreen,
+    icon: Icon(Icons.card_giftcard),
+  );
+
+  final _devFeatures = [_busFeature, _inAppPurchaseFeature];
   List<Feature> get devFeatures => _devFeatures;
 
-  final _releaseFeatures = [_busFeature];
+  final _releaseFeatures = [_busFeature, _inAppPurchaseFeature];
   List<Feature> get releaseFeatures => _releaseFeatures;
 
   List<Feature> getListOfFeatures() {

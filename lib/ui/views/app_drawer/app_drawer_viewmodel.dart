@@ -8,7 +8,7 @@ class AppDrawerViewModel extends BaseViewModel {
   final _featureService = locator<FeatureService>();
   final _navigationService = locator<NavigationService>();
 
-  final String _version = '1.2.0';
+  final String _version = '1.3.0';
   String get version => _version;
 
   List<Feature> getActiveFeatures() {

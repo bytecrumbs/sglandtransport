@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:logging/logging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
@@ -20,6 +21,8 @@ Future<void> warmupFlare() async {
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
+  InAppPurchaseConnection.enablePendingPurchases();
+
   FlareCache.doesPrune = false;
 
   Level logLevel;
@@ -36,6 +39,7 @@ void main() {
   });
 
   Crashlytics.instance.enableInDevMode = false;
+
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runZoned(() {
