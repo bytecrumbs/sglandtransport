@@ -170,6 +170,7 @@ class _MarketScreenState extends State<MarketScreen> {
       _products.map(
         (ProductDetails productDetails) {
           return ListTile(
+            contentPadding: EdgeInsets.symmetric(vertical: 7, horizontal: 12),
             title: Text(
               productDetails.title,
             ),
@@ -204,6 +205,7 @@ class _MarketScreenState extends State<MarketScreen> {
         productA.title.toString().compareTo(productB.title.toString()));
 
     return Card(
+      margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
       child: Column(children: <Widget>[productHeader, Divider()] + productList),
     );
   }
