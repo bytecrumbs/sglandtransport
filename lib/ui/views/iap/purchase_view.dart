@@ -104,7 +104,10 @@ class _MarketScreenState extends State<MarketScreen> {
       stack.add(
         ListView(
           children: [
-            _buildConnectionCheckTile(),
+            if (_loading)
+              Center(
+                child: CircularProgressIndicator(),
+              ),
             _buildProductList(),
           ],
         ),
@@ -145,56 +148,10 @@ class _MarketScreenState extends State<MarketScreen> {
     );
   }
 
-  Card _buildConnectionCheckTile() {
-    if (_loading) {
-      return Card(
-        child: ListTile(
-          title: const Text('Trying to connect...'),
-        ),
-      );
-    }
-    final Widget storeHeader = ListTile(
-      leading: Icon(_isAvailable ? Icons.check : Icons.block,
-          color: _isAvailable ? Colors.green : ThemeData.light().errorColor),
-      title: Text(
-          'The store is ' + (_isAvailable ? 'available' : 'unavailable') + '.'),
-    );
-    final children = <Widget>[storeHeader];
-
-    if (!_isAvailable) {
-      children.addAll(
-        [
-          Divider(),
-          ListTile(
-            title: Text('Not connected',
-                style: TextStyle(color: ThemeData.light().errorColor)),
-            subtitle: const Text(
-                'Unable to connect to the payments processor. Has this app been configured correctly? See the example README for instructions.'),
-          ),
-        ],
-      );
-    }
-    return Card(
-      child: Column(children: children),
-    );
-  }
-
   Card _buildProductList() {
-    if (_loading) {
-      return Card(
-        child: (ListTile(
-          leading: CircularProgressIndicator(),
-          title: Text('Fetching products...'),
-        )),
-      );
-    }
     if (!_isAvailable) {
       return Card();
     }
-    final productHeader = ListTile(
-      title: Text(
-          'We dislike ads, and we dislike in-app purchases that will grant access to special features.\n\nTherefore, SG Land Transport is and always will be completely free and ad-free, and all the features will be available for everyone.\n\nHowever, if you appreciate the app and use it often, you can support us by buying a token of appreciation for us, which will allow us to buy some coffees to keep us awake when we work late in the night on the next feature of this app...'),
-    );
     var productList = <ListTile>[];
     if (_notFoundIds.isNotEmpty) {
       productList.add(
@@ -238,8 +195,13 @@ class _MarketScreenState extends State<MarketScreen> {
       ),
     );
 
-    productList
-        .sort((a, b) => a.title.toString().compareTo(b.title.toString()));
+    final productHeader = ListTile(
+      title: Text(
+          'We dislike ads, and we dislike in-app purchases that will grant access to special features.\n\nTherefore, SG Land Transport is and always will be completely free and ad-free, and all the features will be available for everyone.\n\nHowever, if you appreciate the app and use it often, you can support us by buying a token of appreciation for us, which will allow us to buy some coffees to keep us awake when we work late in the night on the next feature of this app...'),
+    );
+
+    productList.sort((productA, productB) =>
+        productA.title.toString().compareTo(productB.title.toString()));
 
     return Card(
       child: Column(children: <Widget>[productHeader, Divider()] + productList),
