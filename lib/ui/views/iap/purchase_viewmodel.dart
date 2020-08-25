@@ -16,7 +16,6 @@ class PurchaseViewModel extends BaseViewModel {
   static final _log = Logger('PurchaseViewModel');
   final InAppPurchaseConnection _connection = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
-  List<String> _notFoundIds = [];
   List<ProductDetails> _products = [];
   bool _purchasePending = false;
   String _queryProductError;
@@ -28,8 +27,6 @@ class PurchaseViewModel extends BaseViewModel {
   String get queryProductError => _queryProductError;
   bool get loading => _loading;
   bool get isAvailable => _isAvailable;
-
-  bool get notFoundIds => _notFoundIds.isNotEmpty ? true : false;
 
   void initialise() {
     _log.info('Calling initialise and register for purchseUpdateStream');
@@ -80,7 +77,6 @@ class PurchaseViewModel extends BaseViewModel {
     _log.info('Is IAP avialable - $isAvailable');
     if (!_isAvailable) {
       _products = [];
-      _notFoundIds = [];
       _purchasePending = false;
       _loading = false;
       return;
@@ -113,7 +109,6 @@ class PurchaseViewModel extends BaseViewModel {
     var productDetails,
   ) {
     _products = productDetails.productDetails;
-    _notFoundIds = productDetails.notFoundIDs;
     _purchasePending = false;
     _loading = false;
   }

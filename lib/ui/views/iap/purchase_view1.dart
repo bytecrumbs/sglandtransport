@@ -72,18 +72,6 @@ class PurchaseView extends StatelessWidget {
       return Card();
     }
     var productList = <ListTile>[];
-    if (model.notFoundIds) {
-      productList.add(
-        ListTile(
-          title: Text(
-            'Items not found',
-            style: TextStyle(color: ThemeData.light().errorColor),
-          ),
-          subtitle: Text(
-              'This app needs special configuration to run. Please see example/README.md for instructions.'),
-        ),
-      );
-    }
 
     productList.addAll(
       model.products.map(
