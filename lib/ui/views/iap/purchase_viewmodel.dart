@@ -51,9 +51,8 @@ class PurchaseViewModel extends BaseViewModel {
       if (purchaseDetails.status == PurchaseStatus.pending) {
         _purchasePending = true;
       } else {
-        if (purchaseDetails.status == PurchaseStatus.error) {
-          _purchasePending = false;
-        } else if (purchaseDetails.status == PurchaseStatus.purchased) {
+        if (purchaseDetails.status == PurchaseStatus.error ||
+            purchaseDetails.status == PurchaseStatus.purchased) {
           _purchasePending = false;
         }
         if (Platform.isAndroid) {
