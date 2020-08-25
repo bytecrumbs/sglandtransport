@@ -8,7 +8,6 @@ class PurchaseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<PurchaseViewModel>.reactive(
-      fireOnModelReadyOnce: true,
       builder: (context, model, child) {
         var stack = <Widget>[];
         if (model.queryProductError == null) {
@@ -25,27 +24,12 @@ class PurchaseView extends StatelessWidget {
           );
         } else {
           stack.add(
-            Center(
-              child: Text(model.queryProductError),
-            ),
+            Center(child: Text(model.queryProductError)),
           );
         }
 
         if (model.purchasePending) {
-          stack.add(
-            Stack(
-              children: [
-                Opacity(
-                  opacity: 0.3,
-                  child: const ModalBarrier(
-                      dismissible: false, color: Colors.grey),
-                ),
-                Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ],
-            ),
-          );
+          stack.add(buildPurchasePendingUI());
         }
 
         return Scaffold(
@@ -55,15 +39,22 @@ class PurchaseView extends StatelessWidget {
             title: const Text('Thank you!'),
           ),
           drawer: AppDrawerView(),
-          body: Stack(
-            children: stack,
-          ),
+          body: Stack(children: stack),
         );
       },
       viewModelBuilder: () => PurchaseViewModel(),
       onModelReady: (model) {
         model.initialise();
       },
+      fireOnModelReadyOnce: true,
+    );
+  }
+
+  Stack buildPurchasePendingUI() {
+    return Stack(
+      children: [
+        Center(child: CircularProgressIndicator()),
+      ],
     );
   }
 
