@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:logging/logging.dart';
 import 'package:stacked/stacked.dart';
 
 const bool kAutoConsume = true;
@@ -12,6 +13,7 @@ const List<String> _kProductIds = <String>[
 ];
 
 class PurchaseViewModel extends BaseViewModel {
+  static final _log = Logger('BusNearByViewModel');
   final InAppPurchaseConnection _connection = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
   List<String> _notFoundIds = [];
@@ -30,8 +32,10 @@ class PurchaseViewModel extends BaseViewModel {
   bool get notFoundIds => _notFoundIds.isNotEmpty ? true : false;
 
   void initialise() {
+    _log.info('Calling initialise and register for purchseUpdateStream');
     Stream purchaseUpdated = _connection.purchaseUpdatedStream;
     _subscription = purchaseUpdated.listen((purchaseDetailsList) {
+      _log.info('Calling _listenToPurchaseUpdated');
       _listenToPurchaseUpdated(purchaseDetailsList);
     }, onDone: () {
       _subscription.cancel();
@@ -65,6 +69,8 @@ class PurchaseViewModel extends BaseViewModel {
   }
 
   void buyConsumable(PurchaseParam purchaseParam) {
+    _log.info(
+        'Calling buyConsumable when user click on buy(shows as amount) button from UI');
     _connection.buyConsumable(
         purchaseParam: purchaseParam,
         autoConsume: kAutoConsume || Platform.isIOS);
@@ -72,6 +78,7 @@ class PurchaseViewModel extends BaseViewModel {
 
   Future<void> initStoreInfo() async {
     _isAvailable = await _connection.isAvailable();
+    _log.info('Is IAP avialable - $isAvailable');
     if (!_isAvailable) {
       _products = [];
       _notFoundIds = [];
