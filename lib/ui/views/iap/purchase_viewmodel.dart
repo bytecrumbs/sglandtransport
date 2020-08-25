@@ -86,11 +86,13 @@ class PurchaseViewModel extends BaseViewModel {
       _loading = false;
       return;
     }
-    print('querying products');
+
+    _log.info('querying products');
     var productDetailResponse =
         await _connection.queryProductDetails(_kProductIds.toSet());
 
     if (productDetailResponse.error != null) {
+      _log.info('Query products throw error - ${productDetailResponse.error}');
       _queryProductError = productDetailResponse.error.message;
       updateProductDetails(productDetailResponse);
       return;
@@ -102,6 +104,8 @@ class PurchaseViewModel extends BaseViewModel {
       return;
     }
 
+    _log.info(
+        'Products avialable - ${productDetailResponse.productDetails.length}');
     updateProductDetails(productDetailResponse);
     notifyListeners();
   }
