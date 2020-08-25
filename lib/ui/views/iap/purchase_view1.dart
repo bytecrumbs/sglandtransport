@@ -62,6 +62,21 @@ class PurchaseView extends StatelessWidget {
     if (!model.isAvailable) {
       return Card();
     }
+
+    final productHeader = ListTile(
+      title: Text(
+          'We dislike ads, and we dislike in-app purchases that will grant access to special features.\n\nTherefore, SG Land Transport is and always will be completely free and ad-free, and all the features will be available for everyone.\n\nHowever, if you appreciate the app and use it often, you can support us by buying a token of appreciation for us, which will allow us to buy some coffees to keep us awake when we work late in the night on the next feature of this app...'),
+    );
+
+    var productList = _buildProductListAndSort(model);
+
+    return Card(
+      margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+      child: Column(children: <Widget>[productHeader, Divider()] + productList),
+    );
+  }
+
+  List<ListTile> _buildProductListAndSort(PurchaseViewModel model) {
     var productList = <ListTile>[];
 
     productList.addAll(
@@ -92,17 +107,8 @@ class PurchaseView extends StatelessWidget {
       ),
     );
 
-    final productHeader = ListTile(
-      title: Text(
-          'We dislike ads, and we dislike in-app purchases that will grant access to special features.\n\nTherefore, SG Land Transport is and always will be completely free and ad-free, and all the features will be available for everyone.\n\nHowever, if you appreciate the app and use it often, you can support us by buying a token of appreciation for us, which will allow us to buy some coffees to keep us awake when we work late in the night on the next feature of this app...'),
-    );
-
     productList.sort((productA, productB) =>
         productA.title.toString().compareTo(productB.title.toString()));
-
-    return Card(
-      margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-      child: Column(children: <Widget>[productHeader, Divider()] + productList),
-    );
+    return productList;
   }
 }
