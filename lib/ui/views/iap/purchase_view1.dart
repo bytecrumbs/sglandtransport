@@ -23,7 +23,31 @@ class PurchaseView extends StatelessWidget {
               ],
             ),
           );
+        } else {
+          stack.add(
+            Center(
+              child: Text(model.queryProductError),
+            ),
+          );
         }
+
+        if (model.purchasePending) {
+          stack.add(
+            Stack(
+              children: [
+                Opacity(
+                  opacity: 0.3,
+                  child: const ModalBarrier(
+                      dismissible: false, color: Colors.grey),
+                ),
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ],
+            ),
+          );
+        }
+
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
