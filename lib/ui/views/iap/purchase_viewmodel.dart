@@ -13,7 +13,7 @@ const List<String> _kProductIds = <String>[
 ];
 
 class PurchaseViewModel extends BaseViewModel {
-  static final _log = Logger('BusNearByViewModel');
+  static final _log = Logger('PurchaseViewModel');
   final InAppPurchaseConnection _connection = InAppPurchaseConnection.instance;
   StreamSubscription<List<PurchaseDetails>> _subscription;
   List<String> _notFoundIds = [];
