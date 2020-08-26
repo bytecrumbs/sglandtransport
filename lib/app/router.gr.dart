@@ -16,11 +16,11 @@ import '../ui/views/iap/purchase_view.dart';
 class Routes {
   static const String busView = '/';
   static const String busArrivalView = '/bus-arrival-view';
-  static const String marketScreen = '/market-screen';
+  static const String purchaseView = '/purchase-view';
   static const all = <String>{
     busView,
     busArrivalView,
-    marketScreen,
+    purchaseView,
   };
 }
 
@@ -30,7 +30,7 @@ class Router extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.busView, page: BusView),
     RouteDef(Routes.busArrivalView, page: BusArrivalView),
-    RouteDef(Routes.marketScreen, page: MarketScreen),
+    RouteDef(Routes.purchaseView, page: PurchaseView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -51,9 +51,9 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    MarketScreen: (data) {
+    PurchaseView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => MarketScreen(),
+        builder: (context) => PurchaseView(),
         settings: data,
       );
     },

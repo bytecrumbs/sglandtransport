@@ -6,6 +6,6 @@ import 'package:lta_datamall_flutter/ui/views/iap/purchase_view.dart';
 @MaterialAutoRouter(routes: [
   MaterialRoute(page: BusView, initial: true),
   MaterialRoute(page: BusArrivalView),
-  MaterialRoute(page: MarketScreen),
+  MaterialRoute(page: PurchaseView),
 ])
 class $Router {}

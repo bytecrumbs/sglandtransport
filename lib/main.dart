@@ -42,12 +42,11 @@ void main() {
 
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
-  runZoned(() {
-    WidgetsFlutterBinding.ensureInitialized();
-    setupLocator();
-    locator<BusService>().addBusRoutesToDb();
-    warmupFlare().then((_) {
-      runApp(MyApp());
-    });
-  }, onError: Crashlytics.instance.recordError);
+
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
+  locator<BusService>().addBusRoutesToDb();
+  warmupFlare().then((_) {
+    runApp(MyApp());
+  });
 }
