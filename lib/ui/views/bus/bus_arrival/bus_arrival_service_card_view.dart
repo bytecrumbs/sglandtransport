@@ -144,23 +144,31 @@ class BusArrivalServiceCardView extends StatelessWidget {
                   ),
                 ),
               ),
-              // Container(
-              //   margin: EdgeInsets.only(left: 1),
-              //   padding: EdgeInsets.fromLTRB(7, 4, 10, 4),
-              //   decoration: BoxDecoration(
-              //     color: Colors.white,
-              //     borderRadius: BorderRadius.only(
-              //       topRight: Radius.circular(10.0),
-              //     ),
-              //   ),
-              //   child: Text(
-              //     'to Bukir Merah Int',
-              //     style: TextStyle(
-              //       fontWeight: FontWeight.w600,
-              //       fontSize: 13,
-              //     ),
-              //   ),
-              // )
+              Container(
+                margin: EdgeInsets.only(left: 1),
+                padding: EdgeInsets.fromLTRB(7, 4, 10, 4),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(10.0),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.35),
+                      spreadRadius: 0,
+                      blurRadius: 3,
+                      offset: Offset(0, -1),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  'to Bukir Merah Int',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                ),
+              )
             ],
           ),
           Container(
