@@ -88,6 +88,7 @@ class BusArrivalServiceCardView extends StatelessWidget {
                 Text(
                   getTimeToBusStop(model.estimatedArrival, true),
                   style: const TextStyle(
+                    color: Color.fromRGBO(37, 48, 77, 1),
                     fontWeight: FontWeight.w600,
                     fontSize: 19,
                   ),
@@ -122,23 +123,45 @@ class BusArrivalServiceCardView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColorDark,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                topRight: Radius.circular(10.0),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColorDark,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0),
+                  ),
+                ),
+                child: Text(
+                  '${busArrivalServiceModel.serviceNo}',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                  ),
+                ),
               ),
-            ),
-            child: Text(
-              '${busArrivalServiceModel.serviceNo}',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 20,
-              ),
-            ),
+              // Container(
+              //   margin: EdgeInsets.only(left: 1),
+              //   padding: EdgeInsets.fromLTRB(7, 4, 10, 4),
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: BorderRadius.only(
+              //       topRight: Radius.circular(10.0),
+              //     ),
+              //   ),
+              //   child: Text(
+              //     'to Bukir Merah Int',
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.w600,
+              //       fontSize: 13,
+              //     ),
+              //   ),
+              // )
+            ],
           ),
           Container(
             child: Container(
@@ -153,7 +176,7 @@ class BusArrivalServiceCardView extends StatelessWidget {
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 0,
-                    blurRadius: 1,
+                    blurRadius: 3,
                     offset: Offset(0, 1),
                   ),
                 ],
