@@ -25,6 +25,21 @@ class BusArrivalServiceCardView extends StatelessWidget {
         : '${arrivalInMinutes.toString()}$suffix';
   }
 
+  Widget _displayBusFeature(feature) {
+    if (feature != 'WAB') {
+      return const Text('');
+    }
+
+    return Container(
+      margin: EdgeInsets.only(left: 5),
+      child: Icon(
+        Icons.accessible,
+        color: Color.fromRGBO(0, 64, 135, 1),
+        size: 18.0,
+      ),
+    );
+  }
+
   Widget _displayBusLoad(dynamic load, isSmallScreen) {
     var backgroundColor = Color.fromRGBO(244, 247, 248, 1);
     final _busLoad = {
@@ -74,9 +89,10 @@ class BusArrivalServiceCardView extends StatelessWidget {
                   getTimeToBusStop(model.estimatedArrival, true),
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 20,
+                    fontSize: 19,
                   ),
-                )
+                ),
+                _displayBusFeature(model.feature)
               ],
             ),
           ),
@@ -102,12 +118,12 @@ class BusArrivalServiceCardView extends StatelessWidget {
     final isSmallScreen = MediaQuery.of(context).size.width < 340;
 
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 7, horizontal: 12),
+      padding: EdgeInsets.symmetric(vertical: 7, horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 6, horizontal: 11),
+            padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColorDark,
               borderRadius: BorderRadius.only(
@@ -142,21 +158,33 @@ class BusArrivalServiceCardView extends StatelessWidget {
                   ),
                 ],
               ),
-              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
               child: busArrivalServiceModel.nextBus != null &&
                       busArrivalServiceModel.nextBus2 != null &&
                       busArrivalServiceModel.nextBus3 != null
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _displayBusInfo(
-                            busArrivalServiceModel.nextBus, isSmallScreen),
-                        _displayBusInfo(
-                            busArrivalServiceModel.nextBus2, isSmallScreen,
-                            displayBorder: true),
-                        _displayBusInfo(
-                            busArrivalServiceModel.nextBus3, isSmallScreen,
-                            displayBorder: true)
+                        Expanded(
+                          child: _displayBusInfo(
+                            busArrivalServiceModel.nextBus,
+                            isSmallScreen,
+                          ),
+                        ),
+                        Expanded(
+                          child: _displayBusInfo(
+                            busArrivalServiceModel.nextBus2,
+                            isSmallScreen,
+                            displayBorder: true,
+                          ),
+                        ),
+                        Expanded(
+                          child: _displayBusInfo(
+                            busArrivalServiceModel.nextBus3,
+                            isSmallScreen,
+                            displayBorder: true,
+                          ),
+                        ),
                       ],
                     )
                   : _displayNotInOperation(),

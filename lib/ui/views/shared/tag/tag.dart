@@ -10,8 +10,9 @@ class Tag extends StatelessWidget {
       margin: const EdgeInsets.only(right: 7),
       child: Text(
         text,
+        textAlign: TextAlign.center,
         style: const TextStyle(
-          fontSize: 13,
+          fontSize: 12,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -27,8 +28,8 @@ class Tag extends StatelessWidget {
         : Container(
             margin: const EdgeInsets.only(right: 7),
             padding: const EdgeInsets.only(
-              left: 5,
-              right: 5,
+              left: 3,
+              right: 3,
               top: 5,
               bottom: 5,
             ),
@@ -38,6 +39,7 @@ class Tag extends StatelessWidget {
             ),
             child: Text(
               text,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
