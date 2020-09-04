@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Tag extends StatelessWidget {
-  Tag({@required this.text});
+  Tag({@required this.text, this.color});
   final String text;
+  Color color;
 
   Widget _displayTagForSmallDevice(context) {
     return Container(
@@ -10,8 +11,8 @@ class Tag extends StatelessWidget {
       child: Text(
         text,
         style: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w300,
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );
@@ -32,14 +33,14 @@ class Tag extends StatelessWidget {
               bottom: 5,
             ),
             decoration: BoxDecoration(
-              color: Color.fromRGBO(244, 247, 248, 1),
+              color: color,
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
               text,
               style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
             ),
           );

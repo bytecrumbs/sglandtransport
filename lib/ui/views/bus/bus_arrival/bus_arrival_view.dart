@@ -37,7 +37,6 @@ class BusArrivalView extends StatelessWidget {
                   child: MediaQuery.removePadding(
                     context: context,
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 12),
                       child: ListView.builder(
                         physics: const AlwaysScrollableScrollPhysics(),
                         itemCount: model.busArrivalList.length,
