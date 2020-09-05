@@ -14,7 +14,7 @@ class CustomSearchDelegate extends SearchDelegate {
     assert(theme != null);
     return theme.copyWith(
       inputDecorationTheme: InputDecorationTheme(
-        hintStyle: TextStyle(color: Color.fromRGBO(255, 255, 255, 0.7)),
+        hintStyle: TextStyle(color: Color(0xB3FFFFFF)),
       ),
       primaryColor: theme.primaryColorDark,
       textTheme: theme.textTheme.copyWith(

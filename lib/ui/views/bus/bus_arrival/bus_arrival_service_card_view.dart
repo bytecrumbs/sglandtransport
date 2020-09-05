@@ -34,14 +34,14 @@ class BusArrivalServiceCardView extends StatelessWidget {
       margin: EdgeInsets.only(left: 5),
       child: Icon(
         Icons.accessible,
-        color: Color.fromRGBO(0, 64, 135, 1),
+        color: Color(0xFF004087),
         size: 18.0,
       ),
     );
   }
 
   Widget _displayBusLoad(dynamic load, isSmallScreen) {
-    var backgroundColor = Color.fromRGBO(244, 247, 248, 1);
+    var backgroundColor = Color(0xFFF4F7F8);
     final _busLoad = {
       'SEA': 'Seats avail.',
       'SDA': isSmallScreen ? 'Standing\navail.' : 'Standing avail.',
@@ -49,11 +49,11 @@ class BusArrivalServiceCardView extends StatelessWidget {
     };
 
     if (load == 'SEA') {
-      backgroundColor = Color.fromRGBO(0, 155, 96, 0.14);
+      backgroundColor = Color(0x26009B60);
     } else if (load == 'SDA') {
-      backgroundColor = Color.fromRGBO(250, 107, 0, 0.14);
+      backgroundColor = Color(0x26FA6B00);
     } else {
-      backgroundColor = Color.fromRGBO(255, 0, 0, 0.14);
+      backgroundColor = Color(0x26FF0000);
     }
 
     return load != ''
@@ -88,7 +88,7 @@ class BusArrivalServiceCardView extends StatelessWidget {
                 Text(
                   getTimeToBusStop(model.estimatedArrival, true),
                   style: const TextStyle(
-                    color: Color.fromRGBO(37, 48, 77, 1),
+                    color: Color(0xFF25304D),
                     fontWeight: FontWeight.w600,
                     fontSize: 19,
                   ),
