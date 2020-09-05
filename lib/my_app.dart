@@ -16,18 +16,18 @@ class MyApp extends StatelessWidget {
       title: 'SG Land Transport',
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColorDark: Color.fromRGBO(37, 48, 77, 1),
-        primaryColor: Color.fromRGBO(150, 156, 174, 1),
-        accentColor: Color.fromRGBO(239, 51, 64, 1),
-        scaffoldBackgroundColor: Color.fromRGBO(226, 239, 245, 1),
+        primaryColorDark: Color(0xFF25304D),
+        primaryColor: Color(0xFF969CAE),
+        accentColor: Color(0xFFEF3340),
+        scaffoldBackgroundColor: Color(0xFFE2EFF5),
         textTheme: TextTheme(
           headline1: TextStyle(
-            color: Color.fromRGBO(37, 48, 77, 1),
+            color: Color(0xFF25304D),
             fontSize: 18,
             fontWeight: FontWeight.w700,
           ),
           headline2: TextStyle(
-            color: Color.fromRGBO(140, 140, 145, 1),
+            color: Color(0xFF8C8C91),
             fontSize: 16,
             fontWeight: FontWeight.w300,
           ),
