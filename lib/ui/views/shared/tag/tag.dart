@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Tag extends StatelessWidget {
   Tag({@required this.text, this.color});
   final String text;
-  Color color;
+  final Color color;
 
   Widget _displayTagForSmallDevice(context) {
     return Container(
