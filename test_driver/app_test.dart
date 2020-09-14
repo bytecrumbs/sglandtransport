@@ -68,10 +68,8 @@ void main() {
       });
 
       test('Should open Search screen', () async {
-        final config = Config();
         await driver.tap(searchIconButtonFinder);
         await driver.waitFor(find.byType('TextField'));
-        await screenshot(driver, config, '04-emptySearchScreen');
       });
 
       test('Should show a search result', () async {
