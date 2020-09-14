@@ -23,7 +23,8 @@ class _$BusArrivalServiceModelTearOff {
       @JsonKey(name: 'NextBus') NextBusModel nextBus,
       @JsonKey(name: 'NextBus2') NextBusModel nextBus2,
       @JsonKey(name: 'NextBus3') NextBusModel nextBus3,
-      bool inService = true}) {
+      bool inService = true,
+      String destinationName}) {
     return _BusArrivalServiceModel(
       serviceNo: serviceNo,
       busOperator: busOperator,
@@ -31,6 +32,7 @@ class _$BusArrivalServiceModelTearOff {
       nextBus2: nextBus2,
       nextBus3: nextBus3,
       inService: inService,
+      destinationName: destinationName,
     );
   }
 }
@@ -50,6 +52,7 @@ mixin _$BusArrivalServiceModel {
   @JsonKey(name: 'NextBus3')
   NextBusModel get nextBus3;
   bool get inService;
+  String get destinationName;
 
   Map<String, dynamic> toJson();
   $BusArrivalServiceModelCopyWith<BusArrivalServiceModel> get copyWith;
@@ -65,7 +68,8 @@ abstract class $BusArrivalServiceModelCopyWith<$Res> {
       @JsonKey(name: 'NextBus') NextBusModel nextBus,
       @JsonKey(name: 'NextBus2') NextBusModel nextBus2,
       @JsonKey(name: 'NextBus3') NextBusModel nextBus3,
-      bool inService});
+      bool inService,
+      String destinationName});
 
   $NextBusModelCopyWith<$Res> get nextBus;
   $NextBusModelCopyWith<$Res> get nextBus2;
@@ -88,6 +92,7 @@ class _$BusArrivalServiceModelCopyWithImpl<$Res>
     Object nextBus2 = freezed,
     Object nextBus3 = freezed,
     Object inService = freezed,
+    Object destinationName = freezed,
   }) {
     return _then(_value.copyWith(
       serviceNo: serviceNo == freezed ? _value.serviceNo : serviceNo as String,
@@ -99,6 +104,9 @@ class _$BusArrivalServiceModelCopyWithImpl<$Res>
       nextBus3:
           nextBus3 == freezed ? _value.nextBus3 : nextBus3 as NextBusModel,
       inService: inService == freezed ? _value.inService : inService as bool,
+      destinationName: destinationName == freezed
+          ? _value.destinationName
+          : destinationName as String,
     ));
   }
 
@@ -145,7 +153,8 @@ abstract class _$BusArrivalServiceModelCopyWith<$Res>
       @JsonKey(name: 'NextBus') NextBusModel nextBus,
       @JsonKey(name: 'NextBus2') NextBusModel nextBus2,
       @JsonKey(name: 'NextBus3') NextBusModel nextBus3,
-      bool inService});
+      bool inService,
+      String destinationName});
 
   @override
   $NextBusModelCopyWith<$Res> get nextBus;
@@ -173,6 +182,7 @@ class __$BusArrivalServiceModelCopyWithImpl<$Res>
     Object nextBus2 = freezed,
     Object nextBus3 = freezed,
     Object inService = freezed,
+    Object destinationName = freezed,
   }) {
     return _then(_BusArrivalServiceModel(
       serviceNo: serviceNo == freezed ? _value.serviceNo : serviceNo as String,
@@ -184,6 +194,9 @@ class __$BusArrivalServiceModelCopyWithImpl<$Res>
       nextBus3:
           nextBus3 == freezed ? _value.nextBus3 : nextBus3 as NextBusModel,
       inService: inService == freezed ? _value.inService : inService as bool,
+      destinationName: destinationName == freezed
+          ? _value.destinationName
+          : destinationName as String,
     ));
   }
 }
@@ -198,7 +211,8 @@ class _$_BusArrivalServiceModel
       @JsonKey(name: 'NextBus') this.nextBus,
       @JsonKey(name: 'NextBus2') this.nextBus2,
       @JsonKey(name: 'NextBus3') this.nextBus3,
-      this.inService = true})
+      this.inService = true,
+      this.destinationName})
       : assert(inService != null);
 
   factory _$_BusArrivalServiceModel.fromJson(Map<String, dynamic> json) =>
@@ -222,10 +236,12 @@ class _$_BusArrivalServiceModel
   @JsonKey(defaultValue: true)
   @override
   final bool inService;
+  @override
+  final String destinationName;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BusArrivalServiceModel(serviceNo: $serviceNo, busOperator: $busOperator, nextBus: $nextBus, nextBus2: $nextBus2, nextBus3: $nextBus3, inService: $inService)';
+    return 'BusArrivalServiceModel(serviceNo: $serviceNo, busOperator: $busOperator, nextBus: $nextBus, nextBus2: $nextBus2, nextBus3: $nextBus3, inService: $inService, destinationName: $destinationName)';
   }
 
   @override
@@ -238,7 +254,8 @@ class _$_BusArrivalServiceModel
       ..add(DiagnosticsProperty('nextBus', nextBus))
       ..add(DiagnosticsProperty('nextBus2', nextBus2))
       ..add(DiagnosticsProperty('nextBus3', nextBus3))
-      ..add(DiagnosticsProperty('inService', inService));
+      ..add(DiagnosticsProperty('inService', inService))
+      ..add(DiagnosticsProperty('destinationName', destinationName));
   }
 
   @override
@@ -262,7 +279,10 @@ class _$_BusArrivalServiceModel
                     .equals(other.nextBus3, nextBus3)) &&
             (identical(other.inService, inService) ||
                 const DeepCollectionEquality()
-                    .equals(other.inService, inService)));
+                    .equals(other.inService, inService)) &&
+            (identical(other.destinationName, destinationName) ||
+                const DeepCollectionEquality()
+                    .equals(other.destinationName, destinationName)));
   }
 
   @override
@@ -273,7 +293,8 @@ class _$_BusArrivalServiceModel
       const DeepCollectionEquality().hash(nextBus) ^
       const DeepCollectionEquality().hash(nextBus2) ^
       const DeepCollectionEquality().hash(nextBus3) ^
-      const DeepCollectionEquality().hash(inService);
+      const DeepCollectionEquality().hash(inService) ^
+      const DeepCollectionEquality().hash(destinationName);
 
   @override
   _$BusArrivalServiceModelCopyWith<_BusArrivalServiceModel> get copyWith =>
@@ -293,7 +314,8 @@ abstract class _BusArrivalServiceModel implements BusArrivalServiceModel {
       @JsonKey(name: 'NextBus') NextBusModel nextBus,
       @JsonKey(name: 'NextBus2') NextBusModel nextBus2,
       @JsonKey(name: 'NextBus3') NextBusModel nextBus3,
-      bool inService}) = _$_BusArrivalServiceModel;
+      bool inService,
+      String destinationName}) = _$_BusArrivalServiceModel;
 
   factory _BusArrivalServiceModel.fromJson(Map<String, dynamic> json) =
       _$_BusArrivalServiceModel.fromJson;
@@ -315,6 +337,8 @@ abstract class _BusArrivalServiceModel implements BusArrivalServiceModel {
   NextBusModel get nextBus3;
   @override
   bool get inService;
+  @override
+  String get destinationName;
   @override
   _$BusArrivalServiceModelCopyWith<_BusArrivalServiceModel> get copyWith;
 }

@@ -66,10 +66,20 @@ class BusService with ReactiveServiceMixin {
     var busServicesFromBusRoutes =
         await _databaseService.getBusRoutes(busStopCode);
 
+    final newBusArrivalServiceListModel = <BusArrivalServiceModel>[];
+
+    for (var item in busServicesFromApi) {
+      var busStop =
+          await _databaseService.getBusStopByCode(item.nextBus.destinationCode);
+      var busService = item.copyWith(destinationName: busStop.description);
+      newBusArrivalServiceListModel.add(busService);
+    }
+
     // add services not in use to the original api result
-    if (busServicesFromApi.length < busServicesFromBusRoutes.length) {
+    if (newBusArrivalServiceListModel.length <
+        busServicesFromBusRoutes.length) {
       final busServicesFromApiList =
-          busServicesFromApi.map((e) => e.serviceNo).toList();
+          newBusArrivalServiceListModel.map((e) => e.serviceNo).toList();
       final busServicesFromBusRoutesList =
           busServicesFromBusRoutes.map((e) => e.serviceNo).toList();
 
@@ -83,15 +93,15 @@ class BusService with ReactiveServiceMixin {
           serviceNo: element,
           inService: false,
         );
-        busServicesFromApi.add(missingBusArrivalServiceModel);
+        newBusArrivalServiceListModel.add(missingBusArrivalServiceModel);
       });
     }
     // sort bus arrival by bus number
-    busServicesFromApi.sort((BusArrivalServiceModel a,
+    newBusArrivalServiceListModel.sort((BusArrivalServiceModel a,
             BusArrivalServiceModel b) =>
         int.parse(a.serviceNo.replaceAll(RegExp('\\D'), ''))
             .compareTo(int.parse(b.serviceNo.replaceAll(RegExp('\\D'), ''))));
-    return busServicesFromApi;
+    return newBusArrivalServiceListModel;
   }
 
   Future<void> addBusRoutesToDb() async {

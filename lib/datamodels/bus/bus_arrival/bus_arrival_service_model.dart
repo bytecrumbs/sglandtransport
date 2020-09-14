@@ -15,6 +15,7 @@ abstract class BusArrivalServiceModel with _$BusArrivalServiceModel {
     @JsonKey(name: 'NextBus2') NextBusModel nextBus2,
     @JsonKey(name: 'NextBus3') NextBusModel nextBus3,
     @Default(true) bool inService,
+    String destinationName,
   }) = _BusArrivalServiceModel;
 
   factory BusArrivalServiceModel.fromJson(Map<String, dynamic> json) =>

@@ -218,6 +218,21 @@ class DatabaseService {
     return busStopList;
   }
 
+  Future<BusStopModel> getBusStopByCode(String busStopCode) async {
+    var busStopModel;
+    final db = await database;
+    final rawQuery =
+        'SELECT * FROM $busStopsTableName WHERE BusStopCode in (\'${busStopCode}\')';
+    _log.info('getting favourite bus stops ($rawQuery)');
+    var busStops = await db.rawQuery(rawQuery);
+
+    busStops.forEach((currentBusStop) {
+      busStopModel = BusStopModel.fromJson(currentBusStop);
+    });
+
+    return busStopModel;
+  }
+
   Future<int> deleteBusRoutes() async {
     return await _deleteTable(busRoutesTableName);
   }
