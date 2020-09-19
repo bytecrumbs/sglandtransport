@@ -193,7 +193,7 @@ screenshots -m archive
 <a href="https://github.com/bobrenji"><img width="60" height="60" src="https://github.com/bobrenji.png?size=500"/></a>
 <a href="https://github.com/sderungs99"><img width="60" height="60" src="https://github.com/sderungs99.png?size=500"/></a>
 
-[license badge]: https://img.shields.io/github/license/sderungs99/sglandtransport
+[license badge]: https://img.shields.io/github/license/bytecrumbs/sglandtransport
 [twitter handle]: https://img.shields.io/twitter/follow/sgltapp.svg?style=social&label=Follow
 [twitter badge]: https://twitter.com/intent/follow?screen_name=sgltapp
 [build status - cirrus]: https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg
