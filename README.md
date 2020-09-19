@@ -196,7 +196,7 @@ screenshots -m archive
 [license badge]: https://img.shields.io/github/license/bytecrumbs/sglandtransport
 [twitter handle]: https://img.shields.io/twitter/follow/sgltapp.svg?style=social&label=Follow
 [twitter badge]: https://twitter.com/intent/follow?screen_name=sgltapp
-[build status - cirrus]: https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg
-[build status - cirrus analyze]: https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?task=analyze
-[build status - cirrus unit_test]: https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?task=unit_test
-[build status]: https://cirrus-ci.com/github/sderungs99/sglandtransport/master
+[build status - cirrus]: https://api.cirrus-ci.com/github/bytecrumbs/sglandtransport.svg
+[build status - cirrus analyze]: https://api.cirrus-ci.com/github/bytecrumbs/sglandtransport.svg?task=analyze
+[build status - cirrus unit_test]: https://api.cirrus-ci.com/github/bytecrumbs/sglandtransport.svg?task=unit_test
+[build status]: https://cirrus-ci.com/github/bytecrumbs/sglandtransport/master
