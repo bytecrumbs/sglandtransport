@@ -83,8 +83,6 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.1):
     - GoogleUtilities/Logger
-  - in_app_purchase (0.0.1):
-    - Flutter
   - location (0.0.1):
     - Flutter
   - nanopb (0.3.9011):
@@ -108,7 +106,6 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
   - Flutter (from `Flutter`)
-  - in_app_purchase (from `.symlinks/plugins/in_app_purchase/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - rate_my_app (from `.symlinks/plugins/rate_my_app/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
@@ -143,8 +140,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_crashlytics/ios"
   Flutter:
     :path: Flutter
-  in_app_purchase:
-    :path: ".symlinks/plugins/in_app_purchase/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
   rate_my_app:
@@ -175,7 +170,6 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 0048df6388dab1c254799f2a30365b1dffe20422
   GoogleDataTransportCCTSupport: f880d70972efa2ed1be4e9173a0f4c5f3dc2d176
   GoogleUtilities: 06eb53bb579efe7099152735900dd04bf09e7275
-  in_app_purchase: 3e2155afa9d03d4fa32d9e62d567885080ce97d6
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
