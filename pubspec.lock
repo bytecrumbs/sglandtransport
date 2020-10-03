@@ -233,7 +233,7 @@ packages:
     source: hosted
     version: "1.2.0-nullsafety.1"
   file:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: file
       url: "https://pub.dartlang.org"
@@ -615,7 +615,7 @@ packages:
     source: hosted
     version: "1.10.0-nullsafety.1"
   platform:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: platform
       url: "https://pub.dartlang.org"
@@ -643,7 +643,7 @@ packages:
     source: hosted
     version: "1.5.0-nullsafety.1"
   process:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: process
       url: "https://pub.dartlang.org"
@@ -663,13 +663,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.2"
-  pub_cache:
-    dependency: transitive
-    description:
-      name: pub_cache
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.3"
   pub_semver:
     dependency: transitive
     description:
@@ -698,20 +691,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.0"
-  resource:
-    dependency: transitive
-    description:
-      name: resource
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.7"
-  screenshots:
-    dependency: "direct main"
-    description:
-      name: screenshots
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -934,20 +913,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1+2"
-  tool_base:
-    dependency: transitive
-    description:
-      name: tool_base
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.9.5+3"
-  tool_mobile:
-    dependency: transitive
-    description:
-      name: tool_mobile
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.9.5+1"
   typed_data:
     dependency: transitive
     description:
