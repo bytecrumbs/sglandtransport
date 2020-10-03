@@ -59,7 +59,7 @@ dev_dependencies:
   injectable_generator: ^1.0.4
   json_serializable: ^3.4.0
   mockito: ^4.1.2
-  freezed: ^0.11.5
+  freezed: ^0.12.1
 
 # dependency_overrides:
 #   process: ^4.0.0-nullsafety.1
