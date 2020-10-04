@@ -223,7 +223,7 @@ class DatabaseService {
     final db = await database;
     final rawQuery =
         'SELECT * FROM $busStopsTableName WHERE BusStopCode in (\'${busStopCode}\')';
-    _log.info('getting favourite bus stops ($rawQuery)');
+    _log.info('getting bus stops by code ($rawQuery)');
     var busStops = await db.rawQuery(rawQuery);
 
     busStops.forEach((currentBusStop) {
