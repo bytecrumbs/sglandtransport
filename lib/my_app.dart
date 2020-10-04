@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
-import 'package:lta_datamall_flutter/app/router.gr.dart' as my_router;
+import 'package:lta_datamall_flutter/app/router.gr.dart' as auto_router;
 import 'package:lta_datamall_flutter/services/firebase_analytics_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -86,8 +86,8 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
             ),
-            initialRoute: my_router.Routes.busView,
-            onGenerateRoute: my_router.Router().onGenerateRoute,
+            initialRoute: auto_router.Routes.busView,
+            onGenerateRoute: auto_router.Router().onGenerateRoute,
             navigatorKey: locator<NavigationService>().navigatorKey,
             navigatorObservers: [
               locator<FirebaseAnalyticsService>().analyticsObserver,
