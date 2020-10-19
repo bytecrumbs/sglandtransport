@@ -1,5 +1,5 @@
 import 'package:flutter_driver/flutter_driver.dart';
-// import 'package:screenshots/screenshots.dart';
+import 'package:screenshots/screenshots.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
@@ -31,9 +31,9 @@ void main() {
       final searchIconButtonFinder = find.byValueKey('searchIconButton');
 
       test('Should load the app', () async {
-        // final config = Config();
+        final config = Config();
         await driver.waitFor(busStopCardFinder);
-        // await screenshot(driver, config, '01-nearbyBusStops');
+        await screenshot(driver, config, '01-nearbyBusStops');
       });
 
       test('Should switch between Nearby and Favorites', () async {
@@ -43,20 +43,20 @@ void main() {
       });
 
       test('Should show bus arrival times for a given bus stop', () async {
-        // final config = Config();
+        final config = Config();
         await driver.waitFor(busStopCardFinder);
         await driver.tap(busStopCardFinder);
         await driver.waitFor(busArrivalCardFinder);
-        // await screenshot(driver, config, '03-busArrivals');
+        await screenshot(driver, config, '03-busArrivals');
       });
 
       test('Should add a bus stop to Favorites', () async {
-        // final config = Config();
+        final config = Config();
         await driver.tap(favouriteIconButtonFinder);
         await driver.tap(find.pageBack());
         await driver.tap(favouriteBottomBarFinder);
         await driver.waitFor(busStopCardFinder);
-        // await screenshot(driver, config, '02-favouriteBusStops');
+        await screenshot(driver, config, '02-favouriteBusStops');
       });
 
       test('Should remove a bus stop from Favorites', () async {
@@ -73,11 +73,11 @@ void main() {
       });
 
       test('Should show a search result', () async {
-        // final config = Config();
+        final config = Config();
         await driver.tap(find.byType('TextField'));
         await driver.enterText('hotel');
         await driver.waitFor(busStopCardFinder);
-        // await screenshot(driver, config, '05-searchResult');
+        await screenshot(driver, config, '05-searchResult');
       });
     });
   });
