@@ -1,1 +1,3 @@
-Maintenance release, focusing on minor performance improvements, updated store keywords and screenshots.
+- A new and improved Bus Arrival screen, giving you all the important information at a glance
+- Stability and performance improvements
+- New app store screen shots
