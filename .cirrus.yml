@@ -4,6 +4,14 @@ analyze_task:
   analyze_script:
     - flutter analyze
 
+list_device_task:
+  osx_instance:
+    image: catalina-flutter
+  pub_cache:
+    folder: ~/.pub-cache
+  list_device_script:
+    - xcrun simctl list
+
 unit_test_task:
   container:
     image: cirrusci/flutter:latest
