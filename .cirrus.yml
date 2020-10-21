@@ -35,7 +35,7 @@ android_beta_upload_task:
   depends_on:
     - analyze
     - unit_test
-    - ui_test
+    # - ui_test
   osx_instance:
     image: catalina-flutter
   environment:
