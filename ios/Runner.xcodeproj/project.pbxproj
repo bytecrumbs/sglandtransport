@@ -146,7 +146,6 @@
 			buildPhases = (
 				96E58E72121A6249FD3FD780 /* [CP] Check Pods Manifest.lock */,
 				9740EEB61CF901F6004384FC /* Run Script */,
-				74A3B18F639770798BEA695B /* [CP] Prepare Artifacts */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
@@ -264,29 +263,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed\n/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" thin\n";
 		};
-		74A3B18F639770798BEA695B /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-artifacts.sh",
-				"${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/abseil.xcframework",
-				"${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/BoringSSL-GRPC.xcframework",
-				"${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/FirebaseFirestore.xcframework",
-				"${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/gRPC-C++.xcframework",
-				"${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/gRPC-Core.xcframework",
-				"${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/leveldb-library.xcframework",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-artifacts.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		96E58E72121A6249FD3FD780 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -330,7 +306,6 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${PODS_ROOT}/../Flutter/Flutter.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
