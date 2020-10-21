@@ -13,6 +13,7 @@ BusArrivalServiceListModel _$BusArrivalServiceListModelFromJson(
   return _BusArrivalServiceListModel.fromJson(json);
 }
 
+/// @nodoc
 class _$BusArrivalServiceListModelTearOff {
   const _$BusArrivalServiceListModelTearOff();
 
@@ -27,11 +28,18 @@ class _$BusArrivalServiceListModelTearOff {
       services: services,
     );
   }
+
+// ignore: unused_element
+  BusArrivalServiceListModel fromJson(Map<String, Object> json) {
+    return BusArrivalServiceListModel.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $BusArrivalServiceListModel = _$BusArrivalServiceListModelTearOff();
 
+/// @nodoc
 mixin _$BusArrivalServiceListModel {
   @JsonKey(name: 'odata.metadata')
   String get odataMetadata;
@@ -44,6 +52,7 @@ mixin _$BusArrivalServiceListModel {
   $BusArrivalServiceListModelCopyWith<BusArrivalServiceListModel> get copyWith;
 }
 
+/// @nodoc
 abstract class $BusArrivalServiceListModelCopyWith<$Res> {
   factory $BusArrivalServiceListModelCopyWith(BusArrivalServiceListModel value,
           $Res Function(BusArrivalServiceListModel) then) =
@@ -54,6 +63,7 @@ abstract class $BusArrivalServiceListModelCopyWith<$Res> {
       @JsonKey(name: 'Services') List<BusArrivalServiceModel> services});
 }
 
+/// @nodoc
 class _$BusArrivalServiceListModelCopyWithImpl<$Res>
     implements $BusArrivalServiceListModelCopyWith<$Res> {
   _$BusArrivalServiceListModelCopyWithImpl(this._value, this._then);
@@ -81,6 +91,7 @@ class _$BusArrivalServiceListModelCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class _$BusArrivalServiceListModelCopyWith<$Res>
     implements $BusArrivalServiceListModelCopyWith<$Res> {
   factory _$BusArrivalServiceListModelCopyWith(
@@ -94,6 +105,7 @@ abstract class _$BusArrivalServiceListModelCopyWith<$Res>
       @JsonKey(name: 'Services') List<BusArrivalServiceModel> services});
 }
 
+/// @nodoc
 class __$BusArrivalServiceListModelCopyWithImpl<$Res>
     extends _$BusArrivalServiceListModelCopyWithImpl<$Res>
     implements _$BusArrivalServiceListModelCopyWith<$Res> {
@@ -125,6 +137,8 @@ class __$BusArrivalServiceListModelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_BusArrivalServiceListModel
     with DiagnosticableTreeMixin
     implements _BusArrivalServiceListModel {

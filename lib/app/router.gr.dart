@@ -11,16 +11,13 @@ import 'package:flutter/material.dart';
 
 import '../ui/views/bus/bus_arrival/bus_arrival_view.dart';
 import '../ui/views/bus/bus_view.dart';
-import '../ui/views/iap/purchase_view.dart';
 
 class Routes {
   static const String busView = '/';
   static const String busArrivalView = '/bus-arrival-view';
-  static const String purchaseView = '/purchase-view';
   static const all = <String>{
     busView,
     busArrivalView,
-    purchaseView,
   };
 }
 
@@ -30,7 +27,6 @@ class Router extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.busView, page: BusView),
     RouteDef(Routes.busArrivalView, page: BusArrivalView),
-    RouteDef(Routes.purchaseView, page: PurchaseView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -48,12 +44,6 @@ class Router extends RouterBase {
           busStopCode: args.busStopCode,
           description: args.description,
         ),
-        settings: data,
-      );
-    },
-    PurchaseView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => PurchaseView(),
         settings: data,
       );
     },

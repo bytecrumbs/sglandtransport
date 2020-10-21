@@ -82,8 +82,8 @@ class AboutView extends StatelessWidget {
                 style: bodyText22,
               ),
               _buildTextSpanWithTapGesture(
-                'sderungs99/sglandtransport',
-                'https://github.com/sderungs99/sglandtransport',
+                'bytecrumbs/sglandtransport',
+                'https://github.com/bytecrumbs/sglandtransport',
               ),
             ],
           ),

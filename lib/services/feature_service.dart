@@ -12,20 +12,13 @@ class FeatureService {
     icon: Icon(Icons.directions_bus),
   );
 
-  static final _inAppPurchaseFeature = Feature(
-    title: 'Want to support us?',
-    routeName: Routes.purchaseView,
-    icon: Icon(Icons.card_giftcard),
-  );
-
   final _devFeatures = [
     _busFeature,
-    _inAppPurchaseFeature,
   ];
 
   List<Feature> get devFeatures => _devFeatures;
 
-  final _releaseFeatures = [_busFeature, _inAppPurchaseFeature];
+  final _releaseFeatures = [_busFeature];
   List<Feature> get releaseFeatures => _releaseFeatures;
 
   List<Feature> getListOfFeatures() {

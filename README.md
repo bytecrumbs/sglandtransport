@@ -134,6 +134,8 @@ flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=<yo
 bundle exec fastlane testflight_from_local
 ```
 
+Note: if you have received errors during _flutter build ios_ (i.e. an error relateded to "double-quoted include", please follow instructions in this link: https://github.com/firebase/firebase-ios-sdk/issues/5987)
+
 #### Android internal test track:
 
 ```
@@ -193,10 +195,10 @@ screenshots -m archive
 <a href="https://github.com/bobrenji"><img width="60" height="60" src="https://github.com/bobrenji.png?size=500"/></a>
 <a href="https://github.com/sderungs99"><img width="60" height="60" src="https://github.com/sderungs99.png?size=500"/></a>
 
-[license badge]: https://img.shields.io/github/license/sderungs99/sglandtransport
+[license badge]: https://img.shields.io/github/license/bytecrumbs/sglandtransport
 [twitter handle]: https://img.shields.io/twitter/follow/sgltapp.svg?style=social&label=Follow
 [twitter badge]: https://twitter.com/intent/follow?screen_name=sgltapp
-[build status - cirrus]: https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg
-[build status - cirrus analyze]: https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?task=analyze
-[build status - cirrus unit_test]: https://api.cirrus-ci.com/github/sderungs99/sglandtransport.svg?task=unit_test
-[build status]: https://cirrus-ci.com/github/sderungs99/sglandtransport/master
+[build status - cirrus]: https://api.cirrus-ci.com/github/bytecrumbs/sglandtransport.svg
+[build status - cirrus analyze]: https://api.cirrus-ci.com/github/bytecrumbs/sglandtransport.svg?task=analyze
+[build status - cirrus unit_test]: https://api.cirrus-ci.com/github/bytecrumbs/sglandtransport.svg?task=unit_test
+[build status]: https://cirrus-ci.com/github/bytecrumbs/sglandtransport/master

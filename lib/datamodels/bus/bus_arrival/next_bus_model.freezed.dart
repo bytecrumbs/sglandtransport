@@ -12,6 +12,7 @@ NextBusModel _$NextBusModelFromJson(Map<String, dynamic> json) {
   return _NextBusModel.fromJson(json);
 }
 
+/// @nodoc
 class _$NextBusModelTearOff {
   const _$NextBusModelTearOff();
 
@@ -38,11 +39,18 @@ class _$NextBusModelTearOff {
       type: type,
     );
   }
+
+// ignore: unused_element
+  NextBusModel fromJson(Map<String, Object> json) {
+    return NextBusModel.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $NextBusModel = _$NextBusModelTearOff();
 
+/// @nodoc
 mixin _$NextBusModel {
   @JsonKey(name: 'OriginCode')
   String get originCode;
@@ -67,6 +75,7 @@ mixin _$NextBusModel {
   $NextBusModelCopyWith<NextBusModel> get copyWith;
 }
 
+/// @nodoc
 abstract class $NextBusModelCopyWith<$Res> {
   factory $NextBusModelCopyWith(
           NextBusModel value, $Res Function(NextBusModel) then) =
@@ -83,6 +92,7 @@ abstract class $NextBusModelCopyWith<$Res> {
       @JsonKey(name: 'Type') String type});
 }
 
+/// @nodoc
 class _$NextBusModelCopyWithImpl<$Res> implements $NextBusModelCopyWith<$Res> {
   _$NextBusModelCopyWithImpl(this._value, this._then);
 
@@ -122,6 +132,7 @@ class _$NextBusModelCopyWithImpl<$Res> implements $NextBusModelCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$NextBusModelCopyWith<$Res>
     implements $NextBusModelCopyWith<$Res> {
   factory _$NextBusModelCopyWith(
@@ -140,6 +151,7 @@ abstract class _$NextBusModelCopyWith<$Res>
       @JsonKey(name: 'Type') String type});
 }
 
+/// @nodoc
 class __$NextBusModelCopyWithImpl<$Res> extends _$NextBusModelCopyWithImpl<$Res>
     implements _$NextBusModelCopyWith<$Res> {
   __$NextBusModelCopyWithImpl(
@@ -182,6 +194,8 @@ class __$NextBusModelCopyWithImpl<$Res> extends _$NextBusModelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_NextBusModel with DiagnosticableTreeMixin implements _NextBusModel {
   _$_NextBusModel(
       {@JsonKey(name: 'OriginCode') this.originCode,

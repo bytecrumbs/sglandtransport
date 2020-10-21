@@ -25,19 +25,19 @@ class BusArrivalServiceCardView extends StatelessWidget {
         : '${arrivalInMinutes.toString()}$suffix';
   }
 
-  Widget _displayBusFeature(feature) {
-    if (feature != 'WAB') {
-      return const Text('');
+  Widget _displayBusFeature(feature, arrivalTime) {
+    if (feature != 'WAB' && arrivalTime != '') {
+      return Container(
+        margin: EdgeInsets.only(left: 5),
+        child: Icon(
+          Icons.accessible,
+          color: Color(0xFFEF3340),
+          size: 18.0,
+        ),
+      );
     }
 
-    return Container(
-      margin: EdgeInsets.only(left: 5),
-      child: Icon(
-        Icons.accessible,
-        color: Color(0xFF004087),
-        size: 18.0,
-      ),
-    );
+    return const Text('');
   }
 
   Widget _displayBusLoad(dynamic load, isSmallScreen) {
@@ -93,7 +93,7 @@ class BusArrivalServiceCardView extends StatelessWidget {
                     fontSize: 19,
                   ),
                 ),
-                _displayBusFeature(model.feature)
+                _displayBusFeature(model.feature, model.estimatedArrival)
               ],
             ),
           ),

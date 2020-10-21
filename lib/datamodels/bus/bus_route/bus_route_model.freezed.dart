@@ -12,6 +12,7 @@ BusRouteModel _$BusRouteModelFromJson(Map<String, dynamic> json) {
   return _BusRouteModel.fromJson(json);
 }
 
+/// @nodoc
 class _$BusRouteModelTearOff {
   const _$BusRouteModelTearOff();
 
@@ -44,11 +45,18 @@ class _$BusRouteModelTearOff {
       sunLastBus: sunLastBus,
     );
   }
+
+// ignore: unused_element
+  BusRouteModel fromJson(Map<String, Object> json) {
+    return BusRouteModel.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $BusRouteModel = _$BusRouteModelTearOff();
 
+/// @nodoc
 mixin _$BusRouteModel {
   @JsonKey(name: 'ServiceNo')
   String get serviceNo;
@@ -79,6 +87,7 @@ mixin _$BusRouteModel {
   $BusRouteModelCopyWith<BusRouteModel> get copyWith;
 }
 
+/// @nodoc
 abstract class $BusRouteModelCopyWith<$Res> {
   factory $BusRouteModelCopyWith(
           BusRouteModel value, $Res Function(BusRouteModel) then) =
@@ -98,6 +107,7 @@ abstract class $BusRouteModelCopyWith<$Res> {
       @JsonKey(name: 'SUN_LastBus') String sunLastBus});
 }
 
+/// @nodoc
 class _$BusRouteModelCopyWithImpl<$Res>
     implements $BusRouteModelCopyWith<$Res> {
   _$BusRouteModelCopyWithImpl(this._value, this._then);
@@ -146,6 +156,7 @@ class _$BusRouteModelCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class _$BusRouteModelCopyWith<$Res>
     implements $BusRouteModelCopyWith<$Res> {
   factory _$BusRouteModelCopyWith(
@@ -167,6 +178,7 @@ abstract class _$BusRouteModelCopyWith<$Res>
       @JsonKey(name: 'SUN_LastBus') String sunLastBus});
 }
 
+/// @nodoc
 class __$BusRouteModelCopyWithImpl<$Res>
     extends _$BusRouteModelCopyWithImpl<$Res>
     implements _$BusRouteModelCopyWith<$Res> {
@@ -218,6 +230,8 @@ class __$BusRouteModelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_BusRouteModel with DiagnosticableTreeMixin implements _BusRouteModel {
   _$_BusRouteModel(
       {@JsonKey(name: 'ServiceNo') this.serviceNo,

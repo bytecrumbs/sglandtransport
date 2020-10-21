@@ -12,6 +12,7 @@ BusStopModel _$BusStopModelFromJson(Map<String, dynamic> json) {
   return _BusStopModel.fromJson(json);
 }
 
+/// @nodoc
 class _$BusStopModelTearOff {
   const _$BusStopModelTearOff();
 
@@ -32,11 +33,18 @@ class _$BusStopModelTearOff {
       distanceInMeters: distanceInMeters,
     );
   }
+
+// ignore: unused_element
+  BusStopModel fromJson(Map<String, Object> json) {
+    return BusStopModel.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $BusStopModel = _$BusStopModelTearOff();
 
+/// @nodoc
 mixin _$BusStopModel {
   @JsonKey(name: 'BusStopCode')
   String get busStopCode;
@@ -54,6 +62,7 @@ mixin _$BusStopModel {
   $BusStopModelCopyWith<BusStopModel> get copyWith;
 }
 
+/// @nodoc
 abstract class $BusStopModelCopyWith<$Res> {
   factory $BusStopModelCopyWith(
           BusStopModel value, $Res Function(BusStopModel) then) =
@@ -67,6 +76,7 @@ abstract class $BusStopModelCopyWith<$Res> {
       int distanceInMeters});
 }
 
+/// @nodoc
 class _$BusStopModelCopyWithImpl<$Res> implements $BusStopModelCopyWith<$Res> {
   _$BusStopModelCopyWithImpl(this._value, this._then);
 
@@ -98,6 +108,7 @@ class _$BusStopModelCopyWithImpl<$Res> implements $BusStopModelCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$BusStopModelCopyWith<$Res>
     implements $BusStopModelCopyWith<$Res> {
   factory _$BusStopModelCopyWith(
@@ -113,6 +124,7 @@ abstract class _$BusStopModelCopyWith<$Res>
       int distanceInMeters});
 }
 
+/// @nodoc
 class __$BusStopModelCopyWithImpl<$Res> extends _$BusStopModelCopyWithImpl<$Res>
     implements _$BusStopModelCopyWith<$Res> {
   __$BusStopModelCopyWithImpl(
@@ -147,6 +159,8 @@ class __$BusStopModelCopyWithImpl<$Res> extends _$BusStopModelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_BusStopModel with DiagnosticableTreeMixin implements _BusStopModel {
   _$_BusStopModel(
       {@JsonKey(name: 'BusStopCode') this.busStopCode,

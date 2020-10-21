@@ -12,6 +12,7 @@ BusStopListModel _$BusStopListModelFromJson(Map<String, dynamic> json) {
   return _BusStopListModel.fromJson(json);
 }
 
+/// @nodoc
 class _$BusStopListModelTearOff {
   const _$BusStopListModelTearOff();
 
@@ -24,11 +25,18 @@ class _$BusStopListModelTearOff {
       value: value,
     );
   }
+
+// ignore: unused_element
+  BusStopListModel fromJson(Map<String, Object> json) {
+    return BusStopListModel.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $BusStopListModel = _$BusStopListModelTearOff();
 
+/// @nodoc
 mixin _$BusStopListModel {
   @JsonKey(name: 'odata.metadata')
   String get odataMetadata;
@@ -38,6 +46,7 @@ mixin _$BusStopListModel {
   $BusStopListModelCopyWith<BusStopListModel> get copyWith;
 }
 
+/// @nodoc
 abstract class $BusStopListModelCopyWith<$Res> {
   factory $BusStopListModelCopyWith(
           BusStopListModel value, $Res Function(BusStopListModel) then) =
@@ -47,6 +56,7 @@ abstract class $BusStopListModelCopyWith<$Res> {
       List<BusStopModel> value});
 }
 
+/// @nodoc
 class _$BusStopListModelCopyWithImpl<$Res>
     implements $BusStopListModelCopyWith<$Res> {
   _$BusStopListModelCopyWithImpl(this._value, this._then);
@@ -69,6 +79,7 @@ class _$BusStopListModelCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class _$BusStopListModelCopyWith<$Res>
     implements $BusStopListModelCopyWith<$Res> {
   factory _$BusStopListModelCopyWith(
@@ -80,6 +91,7 @@ abstract class _$BusStopListModelCopyWith<$Res>
       List<BusStopModel> value});
 }
 
+/// @nodoc
 class __$BusStopListModelCopyWithImpl<$Res>
     extends _$BusStopListModelCopyWithImpl<$Res>
     implements _$BusStopListModelCopyWith<$Res> {
@@ -105,6 +117,8 @@ class __$BusStopListModelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_BusStopListModel
     with DiagnosticableTreeMixin
     implements _BusStopListModel {

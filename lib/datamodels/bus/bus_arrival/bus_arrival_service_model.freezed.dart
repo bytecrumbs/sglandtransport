@@ -13,6 +13,7 @@ BusArrivalServiceModel _$BusArrivalServiceModelFromJson(
   return _BusArrivalServiceModel.fromJson(json);
 }
 
+/// @nodoc
 class _$BusArrivalServiceModelTearOff {
   const _$BusArrivalServiceModelTearOff();
 
@@ -35,11 +36,18 @@ class _$BusArrivalServiceModelTearOff {
       destinationName: destinationName,
     );
   }
+
+// ignore: unused_element
+  BusArrivalServiceModel fromJson(Map<String, Object> json) {
+    return BusArrivalServiceModel.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $BusArrivalServiceModel = _$BusArrivalServiceModelTearOff();
 
+/// @nodoc
 mixin _$BusArrivalServiceModel {
   @JsonKey(name: 'ServiceNo')
   String get serviceNo;
@@ -58,6 +66,7 @@ mixin _$BusArrivalServiceModel {
   $BusArrivalServiceModelCopyWith<BusArrivalServiceModel> get copyWith;
 }
 
+/// @nodoc
 abstract class $BusArrivalServiceModelCopyWith<$Res> {
   factory $BusArrivalServiceModelCopyWith(BusArrivalServiceModel value,
           $Res Function(BusArrivalServiceModel) then) =
@@ -76,6 +85,7 @@ abstract class $BusArrivalServiceModelCopyWith<$Res> {
   $NextBusModelCopyWith<$Res> get nextBus3;
 }
 
+/// @nodoc
 class _$BusArrivalServiceModelCopyWithImpl<$Res>
     implements $BusArrivalServiceModelCopyWith<$Res> {
   _$BusArrivalServiceModelCopyWithImpl(this._value, this._then);
@@ -141,6 +151,7 @@ class _$BusArrivalServiceModelCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class _$BusArrivalServiceModelCopyWith<$Res>
     implements $BusArrivalServiceModelCopyWith<$Res> {
   factory _$BusArrivalServiceModelCopyWith(_BusArrivalServiceModel value,
@@ -164,6 +175,7 @@ abstract class _$BusArrivalServiceModelCopyWith<$Res>
   $NextBusModelCopyWith<$Res> get nextBus3;
 }
 
+/// @nodoc
 class __$BusArrivalServiceModelCopyWithImpl<$Res>
     extends _$BusArrivalServiceModelCopyWithImpl<$Res>
     implements _$BusArrivalServiceModelCopyWith<$Res> {
@@ -202,6 +214,8 @@ class __$BusArrivalServiceModelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_BusArrivalServiceModel
     with DiagnosticableTreeMixin
     implements _BusArrivalServiceModel {
