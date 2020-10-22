@@ -136,6 +136,13 @@ bundle exec fastlane testflight_from_local
 
 Note: if you have received errors during _flutter build ios_ (i.e. an error relateded to "double-quoted include", please follow instructions in this link: https://github.com/firebase/firebase-ios-sdk/issues/5987)
 
+Upload meta-data:
+
+```
+cd ios
+bundle exec fastlane meta_data
+```
+
 #### Android internal test track:
 
 ```
@@ -145,7 +152,12 @@ bundle exec fastlane deploy_internal
 
 ## Production deployments
 
-TBD
+### Submit for Apple Review
+
+```
+cd ios
+bundle exec fastlane submit_review
+```
 
 ## Screenshot Commandline utility
 
