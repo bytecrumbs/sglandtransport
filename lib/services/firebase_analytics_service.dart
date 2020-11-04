@@ -6,6 +6,8 @@ import 'package:injectable/injectable.dart';
 class FirebaseAnalyticsService {
   final FirebaseAnalytics _analytics = FirebaseAnalytics();
 
+  FirebaseAnalytics get analytics => _analytics;
+
   FirebaseAnalyticsObserver get analyticsObserver =>
       FirebaseAnalyticsObserver(analytics: _analytics);
 }

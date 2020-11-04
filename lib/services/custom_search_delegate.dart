@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lta_datamall_flutter/app/locator.dart';
 import 'package:lta_datamall_flutter/datamodels/bus/bus_stop/bus_stop_model.dart';
+import 'package:lta_datamall_flutter/services/firebase_analytics_service.dart';
 import 'package:lta_datamall_flutter/ui/views/bus/bus_stop/bus_stop_view.dart';
 
 import 'bus_service.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   final _busService = locator<BusService>();
+  final _analytics = locator<FirebaseAnalyticsService>().analytics;
   @override
   ThemeData appBarTheme(BuildContext context) {
     assert(context != null);
@@ -32,6 +34,10 @@ class CustomSearchDelegate extends SearchDelegate {
       IconButton(
         icon: Icon(Icons.clear),
         onPressed: () {
+          _analytics.logSearch(
+            searchTerm: query,
+          );
+          print(query);
           query = '';
         },
       ),
@@ -43,6 +49,10 @@ class CustomSearchDelegate extends SearchDelegate {
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
+        _analytics.logSearch(
+          searchTerm: query,
+        );
+        print(query);
         close(context, null);
       },
     );
