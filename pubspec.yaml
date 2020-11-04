@@ -29,7 +29,7 @@ dependencies:
   logging: ^0.11.4
   stacked: ^1.7.6
   url_launcher: ^5.7.10
-  get_it: ^4.0.4
+  get_it: ^5.0.1
   injectable: ^1.0.5
   json_annotation: ^3.1.0
   location: ^3.0.2
