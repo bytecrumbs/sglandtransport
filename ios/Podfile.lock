@@ -100,11 +100,11 @@ PODS:
   - GoogleDataTransportCCTSupport (3.2.0):
     - GoogleDataTransport (~> 6.1)
     - nanopb (~> 1.30905.0)
-  - GoogleToolboxForMac/Defines (2.2.2)
-  - GoogleToolboxForMac/Logger (2.2.2):
-    - GoogleToolboxForMac/Defines (= 2.2.2)
-  - "GoogleToolboxForMac/NSData+zlib (2.2.2)":
-    - GoogleToolboxForMac/Defines (= 2.2.2)
+  - GoogleToolboxForMac/Defines (2.3.0)
+  - GoogleToolboxForMac/Logger (2.3.0):
+    - GoogleToolboxForMac/Defines (= 2.3.0)
+  - "GoogleToolboxForMac/NSData+zlib (2.3.0)":
+    - GoogleToolboxForMac/Defines (= 2.3.0)
   - GoogleUtilities/AppDelegateSwizzler (6.7.2):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -125,7 +125,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.7.2):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.4.0)
+  - GTMSessionFetcher/Core (1.5.0)
   - location (0.0.1):
     - Flutter
   - nanopb (1.30905.0):
@@ -133,7 +133,7 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
-  - PromisesObjC (1.2.10)
+  - PromisesObjC (1.2.11)
   - Protobuf (3.13.0)
   - rate_my_app (0.7.1):
     - Flutter
@@ -234,12 +234,12 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 67458367830514fb20fd9e233496f1eef9d90185
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
-  GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
+  GoogleToolboxForMac: 1350d40e86a76f7863928d63bcb0b89c84c521c5
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
-  GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
-  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
   rate_my_app: 3b64dd0876bd286001595ee2e69193e757c4d77c
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
