@@ -174,7 +174,7 @@
 				TargetAttributes = {
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 7V39AWND2H;
+						DevelopmentTeam = 78XZ3S3HJ5;
 						LastSwiftMigration = 1100;
 					};
 				};
@@ -414,7 +414,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = 83;
-				DEVELOPMENT_TEAM = 7V39AWND2H;
+				DEVELOPMENT_TEAM = 78XZ3S3HJ5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -597,7 +597,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = 83;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 7V39AWND2H;
+				DEVELOPMENT_TEAM = 78XZ3S3HJ5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -674,7 +674,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = 83;
-				DEVELOPMENT_TEAM = 7V39AWND2H;
+				DEVELOPMENT_TEAM = 78XZ3S3HJ5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
