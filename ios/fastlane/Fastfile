@@ -30,7 +30,7 @@ platform :ios do
   end
 
   lane :testflight_from_local do
-    match(type: "appstore")
+    match(type: "appstore", readonly: is_ci)
     build_ios_app(
       export_method: "app-store"
     )
