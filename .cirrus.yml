@@ -75,7 +75,7 @@ ios_testflight_task:
     - IOS_GOOGLE_SERVICE: ENCRYPTED[0c68601978a3c621098ec0886835acdff5102246d74731c670f8287bf8aa33171e56caa3dee27a2fecfe337280ee4a4d]
   add_firebase_files_script:
     - echo $IOS_GOOGLE_SERVICE > ios/Runner/GoogleService-Info.plist
-   build_app_script:
+  build_app_script:
     - flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
   fastlane_script:
     - cd ios
