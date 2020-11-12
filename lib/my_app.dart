@@ -41,6 +41,10 @@ class _MyAppState extends State<MyApp> {
       // Forward to original handler.
       originalOnError(errorDetails);
     };
+
+    await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+      DeviceOrientation.portraitUp,
+    ]);
   }
 
   @override
