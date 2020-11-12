@@ -17,10 +17,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<void> _initializeFlutterFireFuture;
+  Future<void> _initializeSgLandTransportFuture;
 
   // Define an async function to initialize FlutterFire
-  Future<void> _initializeFlutterFire() async {
+  Future<void> _initializeSgLandTransport() async {
     // Wait for Firebase to initialize
     await Firebase.initializeApp();
 
@@ -50,13 +50,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _initializeFlutterFireFuture = _initializeFlutterFire();
+    _initializeSgLandTransportFuture = _initializeSgLandTransport();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initializeFlutterFireFuture,
+      future: _initializeSgLandTransportFuture,
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
