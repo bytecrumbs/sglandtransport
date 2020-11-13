@@ -72,10 +72,10 @@ ios_testflight_task:
     - LTA_DATAMALL_API_KEY: ENCRYPTED[7c5c36fa21b1913320ef471077914da5f765a3a7b902e1d5224ade79635c6ee9b1842b2c677295a4094253a6587cb27b]
     - FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ENCRYPTED[2129c94a0f6cea6a7956d60be5d471cb9e0894dc502d03a140755c73c31ac6037f611399b6f683980d62bb6d0a60eb70]
     - IOS_GOOGLE_SERVICE: ENCRYPTED[0c68601978a3c621098ec0886835acdff5102246d74731c670f8287bf8aa33171e56caa3dee27a2fecfe337280ee4a4d]
+    - MATCH_PASSWORD: ENCRYPTED[2daa383a60a84c13dd9d6386326447aa8a38dcc96eab3e90be82cbbd846e00a23500283858fc1d5cbb288e6b9d8d293a]
   add_firebase_files_script:
     - echo $IOS_GOOGLE_SERVICE > ios/Runner/GoogleService-Info.plist
   build_app_script:
-    - flutter upgrade
     - flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
   fastlane_script:
     - cd ios
