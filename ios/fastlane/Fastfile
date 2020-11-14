@@ -52,7 +52,8 @@ platform :ios do
       },
       xcargs: {
         "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall"
-      }
+      },
+      skip_profile_detection: true
     )
     upload_to_testflight
   end
