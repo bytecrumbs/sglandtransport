@@ -38,13 +38,22 @@ platform :ios do
   end
 
   lane :testflight_from_ci do
-    match(type: "appstore", readonly: is_ci)
+    match(
+      type: "appstore",
+      readonly: is_ci,
+      app_identifier: com.saschaderungs.ltaDatamall
+    )
     build_ios_app(
       export_method: "app-store",
       export_options: {
         provisioningProfiles: {
           "com.saschaderungs.ltaDatamall" => "match AppStore com.saschaderungs.ltaDatamall"
         }
+      }
+      xcargs: {
+        "BUNDLE_IDENTIFIER" => "com.saschaderungs.ltaDatamall",
+        "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall",
+        "DEVELOPMENT_TEAM" => "78XZ3S3HJ5"
       }
     )
     upload_to_testflight
