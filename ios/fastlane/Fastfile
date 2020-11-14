@@ -47,7 +47,6 @@ platform :ios do
       code_sign_identity: "iPhone Distribution",
       use_automatic_signing: false
     )
-    sync_code_signing
     build_ios_app(
       export_method: "app-store",
       export_options: {
