@@ -51,9 +51,7 @@ platform :ios do
         }
       },
       xcargs: {
-        "BUNDLE_IDENTIFIER" => "com.saschaderungs.ltaDatamall",
-        "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall",
-        "DEVELOPMENT_TEAM" => "78XZ3S3HJ5"
+        "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall"
       }
     )
     upload_to_testflight
