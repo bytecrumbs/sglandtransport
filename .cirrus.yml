@@ -76,8 +76,8 @@ ios_testflight_task:
     - MATCH_GIT_PRIVATE_KEY: ENCRYPTED[1c55aefb94f129b326aa3acce292bb78d01b2d8b151fb1926fb69d7eae118730818779e0b9b18f6c13064b87977ee94c]
   add_firebase_files_script:
     - echo $IOS_GOOGLE_SERVICE > ios/Runner/GoogleService-Info.plist
-  # build_app_script:
-  #   - flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
+  build_app_script:
+    - flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
   fastlane_script:
     - git config --global url."https://x-access-token:${MATCH_GIT_PRIVATE_KEY}@github".insteadOf https://github
     - cd ios
