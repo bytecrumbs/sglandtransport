@@ -40,7 +40,8 @@ platform :ios do
   lane :testflight_from_ci do
     match(type: "appstore", readonly: is_ci)
     build_ios_app(
-      export_method: "app-store"
+      export_method: "app-store",
+      skip_profile_detection: true
     )
     upload_to_testflight
   end
