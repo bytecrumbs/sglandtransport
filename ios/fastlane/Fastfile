@@ -41,7 +41,7 @@ platform :ios do
     match(
       type: "appstore",
       readonly: is_ci,
-      app_identifier: com.saschaderungs.ltaDatamall
+      app_identifier: "com.saschaderungs.ltaDatamall"
     )
     build_ios_app(
       export_method: "app-store",
