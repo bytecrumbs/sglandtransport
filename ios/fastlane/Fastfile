@@ -43,9 +43,8 @@ platform :ios do
       readonly: is_ci,
       app_identifier: "com.saschaderungs.ltaDatamall"
     )
-    update_code_signing_settings(
-      use_automatic_signing: false
-    )
+    disable_automatic_code_signing(code_sign_identity: "iPhone Distribution"),
+    sync_code_signing,
     build_ios_app(
       export_method: "app-store",
       export_options: {
