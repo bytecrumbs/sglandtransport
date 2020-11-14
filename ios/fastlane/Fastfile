@@ -49,7 +49,7 @@ platform :ios do
         provisioningProfiles: {
           "com.saschaderungs.ltaDatamall" => "match AppStore com.saschaderungs.ltaDatamall"
         }
-      }
+      },
       xcargs: {
         BUNDLE_IDENTIFIER: "com.saschaderungs.ltaDatamall",
         PROVISIONING_PROFILE_SPECIFIER: "match AppStore com.saschaderungs.ltaDatamall",
