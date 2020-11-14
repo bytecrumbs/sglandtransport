@@ -38,6 +38,7 @@ platform :ios do
   end
 
   lane :testflight_from_ci do
+    setup_travis
     match(
       type: "appstore",
       readonly: is_ci,
