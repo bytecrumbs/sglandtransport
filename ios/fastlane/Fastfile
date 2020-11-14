@@ -41,7 +41,8 @@ platform :ios do
     match(type: "appstore", readonly: is_ci)
     build_ios_app(
       export_method: "app-store",
-      skip_profile_detection: true
+      skip_profile_detection: true,
+      export_xcargs: "-allowProvisioningUpdates"
     )
     upload_to_testflight
   end
