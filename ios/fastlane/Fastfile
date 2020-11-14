@@ -45,7 +45,7 @@ platform :ios do
     )
     update_code_signing_settings(
       use_automatic_signing: false
-    ),
+    )
     build_ios_app(
       export_method: "app-store",
       export_options: {
@@ -56,10 +56,10 @@ platform :ios do
       xcargs: {
         "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall"
       }
-    ),
+    )
     update_code_signing_settings(
       use_automatic_signing: true
-    ),
+    )
     upload_to_testflight
   end
 
