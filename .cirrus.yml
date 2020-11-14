@@ -78,5 +78,6 @@ ios_testflight_task:
   build_app_script:
     - flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
   fastlane_script:
+    - git config --global url."https://x-access-token:${CIRRUS_REPO_CLONE_TOKEN}@github".insteadOf https://github
     - cd ios
     - fastlane ios testflight_from_ci
