@@ -43,7 +43,7 @@ platform :ios do
       readonly: is_ci,
       app_identifier: "com.saschaderungs.ltaDatamall"
     )
-    disable_automatic_code_signing(
+    update_code_signing_settings(
       code_sign_identity: "iPhone Distribution",
       use_automatic_signing: false
     )
@@ -57,9 +57,6 @@ platform :ios do
       xcargs: {
         "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall",
       }
-    )
-    update_code_signing_settings(
-      use_automatic_signing: true
     )
     upload_to_testflight
   end
