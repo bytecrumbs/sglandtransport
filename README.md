@@ -125,7 +125,7 @@ Alternatively, refer to the Screenshots section below, which will run the same i
 
 Deployments can be run from your local machine
 
-#### iOS TestFlight:
+#### iOS TestFlight from Dev Machine:
 
 ```
 cd ios
@@ -142,6 +142,19 @@ Upload meta-data:
 cd ios
 bundle exec fastlane meta_data
 ```
+
+#### iOS TestFlight from CI/CD:
+
+```
+cd ios
+bundle exec fastlane testflight_from_ci
+```
+
+Note:
+Authentication with Apple services: Several Fastlane actions communicate with Apple services that need authentication. This can pose several challenges on CI. More info, use this link: https://docs.fastlane.tools/best-practices/continuous-integration/#application-specific-passwords
+
+An Apple ID session is only valid for a certain region, meaning if your CI system is in a different region than your local machine, you might run into issues
+An Apple ID session is only valid for up to a month, meaning you'll have to generate a new session every month. Usually you'd only know about it when your build starts failing
 
 #### Android internal test track:
 
