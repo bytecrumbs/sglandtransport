@@ -14,7 +14,7 @@ unit_test_task:
     - lcov --list coverage/lcov.info
     # - genhtml coverage/lcov.info --output=coverage
 
-ui_test_task:
+integration_test_task:
   osx_instance:
     image: catalina-flutter
   pub_cache:
@@ -26,7 +26,7 @@ ui_test_task:
   add_firebase_files_script:
     - echo $IOS_GOOGLE_SERVICES > ./ios/Runner/GoogleService-Info.plist
     - echo $ANDROID_GOOGLE_SERVICES > ./android/app/google-services.json
-  ui_test_script:
+  integration_test_script:
     - xcrun simctl boot 67A0E90A-97AE-4584-BBD1-29052EEE5BC5
     - flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
 
@@ -35,7 +35,7 @@ android_beta_upload_task:
   depends_on:
     - analyze
     - unit_test
-    - ui_test
+    - integration_test
   osx_instance:
     image: catalina-flutter
   environment:
@@ -66,7 +66,7 @@ ios_testflight_task:
   depends_on:
     - analyze
     - unit_test
-    - ui_test
+    - integration_test
   osx_instance:
     image: catalina-flutter
   environment:
