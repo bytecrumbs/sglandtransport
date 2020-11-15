@@ -35,7 +35,7 @@ android_beta_upload_task:
   depends_on:
     - analyze
     - unit_test
-    # - ui_test
+    - ui_test
   osx_instance:
     image: catalina-flutter
   environment:
@@ -60,12 +60,13 @@ android_beta_upload_task:
   fastlane_script:
     - cd android
     - fastlane android deploy_internal
+
 ios_testflight_task:
   only_if: $CIRRUS_BRANCH == 'master'
   depends_on:
     - analyze
     - unit_test
-  #   - ui_test
+    - ui_test
   osx_instance:
     image: catalina-flutter
   environment:
