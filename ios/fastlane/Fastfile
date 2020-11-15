@@ -68,9 +68,6 @@ platform :ios do
       success: true,
       default_payloads: [:git_branch, :last_git_commit_message]
     )
-  end
-
-  lane :meta_data do
     upload_to_app_store(
       submit_for_review: false,
       automatic_release: false,
@@ -79,6 +76,11 @@ platform :ios do
       skip_screenshots: false,
       skip_binary_upload: true,
       overwrite_screenshots: true
+    )
+    slack(
+      message: "Latest Meta-Data has been uploaded to App Store",
+      success: true,
+      default_payloads: [:git_branch, :last_git_commit_message]
     )
   end
 
