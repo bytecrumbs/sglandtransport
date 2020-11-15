@@ -62,9 +62,9 @@ android_beta_upload_task:
     - fastlane android deploy_internal
 ios_testflight_task:
   only_if: $CIRRUS_BRANCH == 'master'
-  # depends_on:
-  #   - analyze
-  #   - unit_test
+  depends_on:
+    - analyze
+    - unit_test
   #   - ui_test
   osx_instance:
     image: catalina-flutter
