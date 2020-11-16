@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/environment_config.dart';
 import 'my_app.dart';
@@ -18,5 +19,5 @@ void main() {
         '[${record.loggerName}]: ${record.level.name}: ${record.time}: ${record.message}');
   });
 
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }

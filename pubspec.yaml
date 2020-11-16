@@ -24,6 +24,8 @@ dependencies:
   firebase_analytics: ^6.2.0
   firebase_crashlytics: ^0.2.3
   firebase_performance: ^0.4.2
+  flutter_hooks: ^0.14.0
+  hooks_riverpod: ^0.12.1
   pedantic: ^1.9.2
   convex_bottom_bar: ^2.6.0
   logging: ^0.11.4
