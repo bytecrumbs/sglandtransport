@@ -9,15 +9,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../ui/views/bus/bus_arrival/bus_arrival_view.dart';
-import '../ui/views/bus/bus_view.dart';
+import 'bus/bus_view.dart';
 
 class Routes {
   static const String busView = '/';
-  static const String busArrivalView = '/bus-arrival-view';
   static const all = <String>{
     busView,
-    busArrivalView,
   };
 }
 
@@ -26,7 +23,6 @@ class Router extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.busView, page: BusView),
-    RouteDef(Routes.busArrivalView, page: BusArrivalView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -37,27 +33,5 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    BusArrivalView: (data) {
-      final args = data.getArgs<BusArrivalViewArguments>(nullOk: false);
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => BusArrivalView(
-          busStopCode: args.busStopCode,
-          description: args.description,
-        ),
-        settings: data,
-      );
-    },
   };
-}
-
-/// ************************************************************************
-/// Arguments holder classes
-/// *************************************************************************
-
-/// BusArrivalView arguments holder class
-class BusArrivalViewArguments {
-  final String busStopCode;
-  final String description;
-  BusArrivalViewArguments(
-      {@required this.busStopCode, @required this.description});
 }
