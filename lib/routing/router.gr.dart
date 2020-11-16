@@ -9,7 +9,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import 'bus/bus_view.dart';
+import '../app/bus/bus_view.dart';
 
 class Routes {
   static const String busView = '/';

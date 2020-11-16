@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'app/router.gr.dart' as auto_route;
+import 'routing/router.gr.dart' as auto_route;
 
 // Toggle this for testing Crashlytics in your app locally.
 final _kTestingCrashlytics = false;
