@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/environment_config.dart';
 import 'my_app.dart';
+import 'services/provider_logger.dart';
 
 void main() {
   Level logLevel;
@@ -19,5 +20,8 @@ void main() {
         '[${record.loggerName}]: ${record.level.name}: ${record.time}: ${record.message}');
   });
 
-  runApp(ProviderScope(child: MyApp()));
+  runApp(ProviderScope(
+    child: MyApp(),
+    observers: [ProviderLogger()],
+  ));
 }
