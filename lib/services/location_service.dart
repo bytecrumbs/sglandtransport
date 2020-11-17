@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:location/location.dart';
 
@@ -5,12 +7,12 @@ final locationServiceProvider =
     Provider<LocationService>((ref) => LocationService());
 
 class LocationService {
-  var location = Location();
+  final _location = Location();
 
   void _checkLocationServiceAndPermission() {
-    location.serviceEnabled().then((isServiceEnabled) {
+    _location.serviceEnabled().then((isServiceEnabled) {
       if (!isServiceEnabled) {
-        location.requestService().then((isServiceEnabled) {
+        _location.requestService().then((isServiceEnabled) {
           if (!isServiceEnabled) {
             return;
           }
@@ -18,9 +20,9 @@ class LocationService {
       }
     });
 
-    location.hasPermission().then((permissionStatus) {
+    _location.hasPermission().then((permissionStatus) {
       if (permissionStatus == PermissionStatus.denied) {
-        location.requestPermission().then((permissionStatus) {
+        _location.requestPermission().then((permissionStatus) {
           if (permissionStatus != PermissionStatus.granted) {
             return;
           }
@@ -29,8 +31,13 @@ class LocationService {
     });
   }
 
+  Future<LocationData> getLocation() async {
+    _checkLocationServiceAndPermission();
+    return await _location.getLocation();
+  }
+
   Stream<LocationData> getLocationStream() {
     _checkLocationServiceAndPermission();
-    return location.onLocationChanged;
+    return _location.onLocationChanged;
   }
 }
