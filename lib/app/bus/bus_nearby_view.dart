@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
+import 'package:lta_datamall_flutter/app/bus/bus_stop.dart';
+import 'package:lta_datamall_flutter/common_widgets/staggered_animation.dart';
 import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/services/database_service.dart';
 import 'package:lta_datamall_flutter/services/location_service.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 import 'models/bus_stop_model.dart';
 
@@ -66,14 +70,23 @@ class BusNearbyView extends HookWidget {
       data: (busStopModelList) {
         if (busStopModelList.isEmpty) {
           return Center(
-            child: Text('Looking for nearby Bus Stops'),
+            child: JumpingText('Looking for nearby bus stops...'),
           );
         }
-        return Center(
-          child: Text('BusView ${busStopModelList.length}'),
+        return AnimationLimiter(
+          child: ListView.builder(
+            itemCount: busStopModelList.length,
+            itemBuilder: (context, index) {
+              return StaggeredAnimation(
+                index: index,
+                child: BusStop(busStopModel: busStopModelList[index]),
+              );
+            },
+          ),
         );
       },
-      loading: () => Center(child: const CircularProgressIndicator()),
+      loading: () =>
+          Center(child: JumpingText('Looking for nearby bus stops...')),
       error: (error, stack) => const Text('Oops'),
     );
   }
