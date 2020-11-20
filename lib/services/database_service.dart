@@ -14,6 +14,7 @@ class DatabaseService {
   static final _log = Logger('DatabaseService');
 
   static const busStopsTableName = 'busStops';
+  static const tableCreationTableName = 'tableCreation';
 
   Database _database;
 
@@ -43,8 +44,8 @@ class DatabaseService {
     // await _createBusRoutesTable(database);
     _log.info('creating $busStopsTableName table');
     await _createBusStopsTable(database);
-    // _log.info('creating $tableCreationTableName table');
-    // await _createTableCreationTable(database);
+    _log.info('creating $tableCreationTableName table');
+    await _createTableCreationTable(database);
   }
 
   Future<void> _createBusStopsTable(Database database) async {
@@ -56,6 +57,15 @@ class DatabaseService {
       'Latitude REAL,'
       'Longitude REAL,'
       'distanceInMeters INT'
+      ')',
+    );
+  }
+
+  Future<void> _createTableCreationTable(Database database) async {
+    await database.execute(
+      'CREATE TABLE $tableCreationTableName ('
+      'tableName TEXT,'
+      'creationTimeSinceEpoch INT'
       ')',
     );
   }
@@ -76,6 +86,34 @@ class DatabaseService {
 
   Future<void> insertBusStops(List<BusStopModel> busStops) async {
     await _insertList(busStopsTableName, busStops);
+  }
+
+  Future<int> insertBusStopsTableCreationDate({
+    int millisecondsSinceEpoch,
+  }) async {
+    return await _insertTableCreationDate(
+      tableName: busStopsTableName,
+      millisecondsSinceEpoch: millisecondsSinceEpoch,
+    );
+  }
+
+  Future<int> _insertTableCreationDate({
+    String tableName,
+    int millisecondsSinceEpoch,
+  }) async {
+    final db = await database;
+    _log.info('Deleting $tableName row');
+    await db.delete(tableCreationTableName,
+        where: 'tableName = ?', whereArgs: [tableName]);
+    _log.info(
+        'Inserting timestamp into $tableCreationTableName for $tableName');
+    return await db.rawInsert(
+      'INSERT INTO $tableCreationTableName(tableName, creationTimeSinceEpoch) VALUES(?, ?)',
+      [
+        tableName,
+        millisecondsSinceEpoch,
+      ],
+    );
   }
 
   Future<void> _insertList(String tableName, List<dynamic> listToInsert) async {

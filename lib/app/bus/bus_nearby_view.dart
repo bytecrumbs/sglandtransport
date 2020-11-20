@@ -33,6 +33,8 @@ final nearbyBusStopsProvider =
   if (allBusStops.isEmpty) {
     allBusStops = await api.fetchBusStopList();
     await databaseService.insertBusStops(allBusStops);
+    await databaseService.insertBusStopsTableCreationDate(
+        millisecondsSinceEpoch: DateTime.now().millisecondsSinceEpoch);
   }
 
   await for (var locationData in locationStream) {
