@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
+import 'package:lta_datamall_flutter/services/api.dart';
 import 'package:lta_datamall_flutter/services/database_service.dart';
 import 'package:lta_datamall_flutter/services/location_service.dart';
 
@@ -16,12 +18,42 @@ final locationStreamProvider = StreamProvider.autoDispose<LocationData>((ref) {
 final nearbyBusStopsProvider =
     StreamProvider.autoDispose<List<BusStopModel>>((ref) async* {
   final databaseService = ref.read(databaseServiceProvider);
+  final api = ref.read(apiProvider);
 
   var locationStream = ref.watch(locationStreamProvider.stream);
 
+  // fetch all bus stops from DB
+  var allBusStops = await databaseService.getBusStops();
+
+  // if not populated, fetch from API and write result into DB
+  if (allBusStops.isEmpty) {
+    allBusStops = await api.fetchBusStopList();
+    await databaseService.insertBusStops(allBusStops);
+  }
+
   await for (var locationData in locationStream) {
-    yield await databaseService.getNearbyBusStops(
-        locationData.latitude, locationData.altitude);
+    final nearbyBusStops = <BusStopModel>[];
+    final distance = Distance();
+
+    // filter DB result by location
+    allBusStops.forEach((busStop) {
+      final distanceInMeters = distance(
+        LatLng(locationData.latitude, locationData.longitude),
+        LatLng(busStop.latitude, busStop.longitude),
+      );
+      if (distanceInMeters <= 500) {
+        final newBusStop =
+            busStop.copyWith(distanceInMeters: distanceInMeters.round());
+
+        nearbyBusStops.add(newBusStop);
+      }
+    });
+
+    // sort result by distance
+    nearbyBusStops.sort((BusStopModel a, BusStopModel b) =>
+        a.distanceInMeters.compareTo(b.distanceInMeters));
+
+    yield nearbyBusStops;
   }
 });
 
@@ -38,7 +70,7 @@ class BusNearbyView extends HookWidget {
           );
         }
         return Center(
-          child: Text('BusView ${busStopModelList[0].busStopCode}'),
+          child: Text('BusView ${busStopModelList.length}'),
         );
       },
       loading: () => Center(child: const CircularProgressIndicator()),
