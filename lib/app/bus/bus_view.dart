@@ -6,8 +6,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'bus_favourites_view.dart';
 import 'bus_nearby_view.dart';
 
+/// Stores the selected index of the bottom bar
 final bottomBarIndexStateProvider = StateProvider<int>((ref) => 0);
 
+/// The main bus view, in which you can switch between nearby and
+/// favorite bus stops
 class BusView extends HookWidget {
   Widget _getViewForIndex(int index) {
     switch (index) {

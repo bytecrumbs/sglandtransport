@@ -13,12 +13,15 @@ import '../../services/location_service.dart';
 import 'bus_stop.dart';
 import 'models/bus_stop_model.dart';
 
+/// Provides a stream of user location information
 final locationStreamProvider = StreamProvider.autoDispose<LocationData>((ref) {
   final locationService = ref.read(locationServiceProvider);
 
   return locationService.getLocationStream();
 });
 
+/// Provides a stream of nearby bus stops, based on
+/// user location
 final nearbyBusStopsProvider =
     StreamProvider.autoDispose<List<BusStopModel>>((ref) async* {
   final databaseService = ref.read(databaseServiceProvider);
@@ -62,6 +65,7 @@ final nearbyBusStopsProvider =
   }
 });
 
+/// The main view that shows nearby bus stops
 class BusNearbyView extends HookWidget {
   @override
   Widget build(BuildContext context) {
