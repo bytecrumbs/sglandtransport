@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
 
     // Pass all uncaught errors to Crashlytics.
     Function originalOnError = FlutterError.onError;
-    FlutterError.onError = (FlutterErrorDetails errorDetails) async {
+    FlutterError.onError = (var errorDetails) async {
       await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
       // Forward to original handler.
       originalOnError(errorDetails);
@@ -104,7 +104,8 @@ class _MyAppState extends State<MyApp> {
           );
         }
 
-        // Otherwise, show something whilst waiting for initialization to complete
+        // Otherwise, show something whilst waiting for initialization
+        // to complete
         return MaterialApp(
           home: Scaffold(),
         );

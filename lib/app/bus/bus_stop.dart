@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/app/bus/models/bus_stop_model.dart';
 import 'package:substring_highlight/substring_highlight.dart';
+
+import 'models/bus_stop_model.dart';
 
 class BusStop extends StatelessWidget {
   const BusStop({
@@ -42,8 +43,8 @@ class BusStop extends StatelessWidget {
                       ),
                     ),
                     SubstringHighlight(
-                      text:
-                          '${busStopModel.busStopCode} | ${busStopModel.roadName}',
+                      text: '${busStopModel.busStopCode} | '
+                          '${busStopModel.roadName}',
                       term: searchTerm,
                       textStyle: Theme.of(context).textTheme.headline2,
                       textStyleHighlight: Theme.of(context)

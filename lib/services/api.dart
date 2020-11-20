@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 
-import 'package:lta_datamall_flutter/app/bus/models/bus_stop_list_model.dart';
-import 'package:lta_datamall_flutter/app/bus/models/bus_stop_model.dart';
-import 'package:lta_datamall_flutter/environment_config.dart';
+import '../app/bus/models/bus_stop_list_model.dart';
+import '../app/bus/models/bus_stop_model.dart';
+import '../environment_config.dart';
 
 final dioProvider = Provider<Dio>((ref) => Dio());
 
@@ -35,11 +35,11 @@ class Api {
         _get('$fetchURL?\$skip=$secondSkip'),
       ]);
 
-      parallelFetch.forEach((response) {
+      for (var response in parallelFetch) {
         // If the call to the server was successful, parse the JSON.
         final busStopListModel = BusStopListModel.fromJson(response.data);
         result = result + busStopListModel.value;
-      });
+      }
     }
 
     return result;
@@ -69,7 +69,8 @@ class Api {
         _log.severe(e.response.headers);
         _log.severe(e.response.request);
       } else {
-        // Something happened in setting up or sending the request that triggered an Error
+        // Something happened in setting up or sending the request that
+        // triggered an Error
         _log.severe(e.request);
         _log.severe(e.message);
       }

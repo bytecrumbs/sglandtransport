@@ -4,13 +4,13 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
-import 'package:lta_datamall_flutter/app/bus/bus_stop.dart';
-import 'package:lta_datamall_flutter/common_widgets/staggered_animation.dart';
-import 'package:lta_datamall_flutter/services/api.dart';
-import 'package:lta_datamall_flutter/services/database_service.dart';
-import 'package:lta_datamall_flutter/services/location_service.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
+import '../../common_widgets/staggered_animation.dart';
+import '../../services/api.dart';
+import '../../services/database_service.dart';
+import '../../services/location_service.dart';
+import 'bus_stop.dart';
 import 'models/bus_stop_model.dart';
 
 final locationStreamProvider = StreamProvider.autoDispose<LocationData>((ref) {
@@ -42,7 +42,7 @@ final nearbyBusStopsProvider =
     final distance = Distance();
 
     // filter DB result by location
-    allBusStops.forEach((busStop) {
+    for (var busStop in allBusStops) {
       final distanceInMeters = distance(
         LatLng(locationData.latitude, locationData.longitude),
         LatLng(busStop.latitude, busStop.longitude),
@@ -53,11 +53,10 @@ final nearbyBusStopsProvider =
 
         nearbyBusStops.add(newBusStop);
       }
-    });
-
+    }
     // sort result by distance
-    nearbyBusStops.sort((BusStopModel a, BusStopModel b) =>
-        a.distanceInMeters.compareTo(b.distanceInMeters));
+    nearbyBusStops.sort(
+        (var a, var b) => a.distanceInMeters.compareTo(b.distanceInMeters));
 
     yield nearbyBusStops;
   }

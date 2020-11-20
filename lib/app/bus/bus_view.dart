@@ -37,7 +37,7 @@ class BusView extends HookWidget {
         top: -25.0,
         style: TabStyle.react,
         initialActiveIndex: bottomBarIndex.state,
-        onTap: (int i) => bottomBarIndex.state = i,
+        onTap: (var i) => bottomBarIndex.state = i,
         items: [
           TabItem(
             icon: Icons.location_searching,

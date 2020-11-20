@@ -1,8 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:lta_datamall_flutter/app/bus/models/bus_stop_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../app/bus/models/bus_stop_model.dart';
 
 final databaseServiceProvider = Provider((ref) => DatabaseService(ref.read));
 
@@ -76,10 +77,10 @@ class DatabaseService {
     final db = await database;
     var busStops = await db.rawQuery('SELECT * FROM $busStopsTableName');
 
-    busStops.forEach((currentBusStop) {
+    for (var currentBusStop in busStops) {
       var busStopModel = BusStopModel.fromJson(currentBusStop);
       busStopList.add(busStopModel);
-    });
+    }
 
     return busStopList;
   }
@@ -108,7 +109,8 @@ class DatabaseService {
     _log.info(
         'Inserting timestamp into $tableCreationTableName for $tableName');
     return await db.rawInsert(
-      'INSERT INTO $tableCreationTableName(tableName, creationTimeSinceEpoch) VALUES(?, ?)',
+      'INSERT INTO $tableCreationTableName(tableName, creationTimeSinceEpoch) '
+      'VALUES(?, ?)',
       [
         tableName,
         millisecondsSinceEpoch,
@@ -120,12 +122,12 @@ class DatabaseService {
     final db = await database;
     await db.transaction((txn) async {
       var batch = txn.batch();
-      listToInsert.forEach((listItem) {
+      for (var listItem in listToInsert) {
         batch.insert(tableName, listItem.toJson());
-      });
+      }
       await batch.commit(noResult: true, continueOnError: true);
-      _log.info(
-          'inserting ${listToInsert.length} records into table $tableName complete...');
+      _log.info('inserting ${listToInsert.length} records into table '
+          '$tableName complete...');
     });
   }
 }
