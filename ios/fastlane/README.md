@@ -31,14 +31,14 @@ fastlane ios increment_build_number_ios
 fastlane ios testflight_from_local
 ```
 
+### ios upload_firebase
+```
+fastlane ios upload_firebase
+```
+Upload to Firebase
 ### ios testflight_from_ci
 ```
 fastlane ios testflight_from_ci
-```
-
-### ios meta_data
-```
-fastlane ios meta_data
 ```
 
 ### ios submit_review

@@ -41,6 +41,20 @@ platform :ios do
     upload_to_testflight
   end
 
+  desc "Upload to Firebase"
+  lane :upload_firebase do
+    # match(type: "development")
+    build_ios_app(
+      export_method: "development"
+    )
+    firebase_app_distribution(
+      app: "1:993014486723:ios:3e667c9450c311aa827476",
+      release_notes: "This is a test release!",
+      groups: "sglandtransport_internal_test_group",
+      debug: true
+    )
+  end
+
   lane :testflight_from_ci do
     match(
       type: "appstore",
