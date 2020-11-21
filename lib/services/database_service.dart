@@ -130,4 +130,19 @@ class DatabaseService {
           '$tableName complete...');
     });
   }
+
+  Future<List<Map<String, dynamic>>> getCreationDateOfBusStops() async {
+    return await _getCreationDate(tableName: busStopsTableName);
+  }
+
+  Future<List<Map<String, dynamic>>> _getCreationDate(
+      {String tableName}) async {
+    final db = await database;
+    return await db.query(
+      tableCreationTableName,
+      columns: ['creationTimeSinceEpoch'],
+      where: 'tableName = ?',
+      whereArgs: [tableName],
+    );
+  }
 }

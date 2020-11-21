@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../common_widgets/staggered_animation.dart';
-import '../../services/api.dart';
-import '../../services/database_service.dart';
 import '../../services/location_service.dart';
+import 'bus_nearby_viewmodel.dart';
 import 'bus_stop.dart';
 import 'models/bus_stop_model.dart';
 
@@ -20,48 +18,38 @@ final locationStreamProvider = StreamProvider.autoDispose<LocationData>((ref) {
   return locationService.getLocationStream();
 });
 
+// TODO: sometimes on first load when DB is created, a new location value is not
+// emmitted, and the view page just shows the loading message
 /// Provides a stream of nearby bus stops, based on
 /// user location
 final nearbyBusStopsProvider =
     StreamProvider.autoDispose<List<BusStopModel>>((ref) async* {
-  final databaseService = ref.read(databaseServiceProvider);
-  final api = ref.read(apiProvider);
+  final vm = ref.read(busNearbyViewModelProvider);
 
   var locationStream = ref.watch(locationStreamProvider.stream);
 
-  // fetch all bus stops from DB
-  var allBusStops = await databaseService.getBusStops();
+  var allBusStops = <BusStopModel>[];
 
-  // if not populated, fetch from API and write result into DB
+  // TODO: if it goes through here, then the latest location is not
+  // emmited and the Nearby view is always loading
+  allBusStops = await vm.checkAgeAndReloadBusStops();
+
+  // fetch all bus stops from DB if it has not already been reloaded and fetched
+  // from the api
   if (allBusStops.isEmpty) {
-    allBusStops = await api.fetchBusStopList();
-    await databaseService.insertBusStops(allBusStops);
-    await databaseService.insertBusStopsTableCreationDate(
-        millisecondsSinceEpoch: DateTime.now().millisecondsSinceEpoch);
+    allBusStops = await vm.getBusStopsFromDb();
   }
 
+  // if DB is not populated, fetch from API and write result into DB
+  if (allBusStops.isEmpty) {
+    await vm.populateBusStopsDbfromApi();
+  }
+
+  // filter and yield a value whenever a new location is provided via the
+  // location stream
   await for (var locationData in locationStream) {
-    final nearbyBusStops = <BusStopModel>[];
-    final distance = Distance();
-
-    // filter DB result by location
-    for (var busStop in allBusStops) {
-      final distanceInMeters = distance(
-        LatLng(locationData.latitude, locationData.longitude),
-        LatLng(busStop.latitude, busStop.longitude),
-      );
-      if (distanceInMeters <= 500) {
-        final newBusStop =
-            busStop.copyWith(distanceInMeters: distanceInMeters.round());
-
-        nearbyBusStops.add(newBusStop);
-      }
-    }
-    // sort result by distance
-    nearbyBusStops.sort(
-        (var a, var b) => a.distanceInMeters.compareTo(b.distanceInMeters));
-
-    yield nearbyBusStops;
+    yield vm.filterBusStopsByLocation(
+        allBusStops, locationData.latitude, locationData.longitude);
   }
 });
 
