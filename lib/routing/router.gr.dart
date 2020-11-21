@@ -9,7 +9,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../app/bus/bus_view.dart';
+import '../app/bus/bus_stop_view.dart';
 
 class Routes {
   static const String busView = '/';
@@ -22,14 +22,14 @@ class Router extends RouterBase {
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
-    RouteDef(Routes.busView, page: BusView),
+    RouteDef(Routes.busView, page: BusStopView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, AutoRouteFactory>{
-    BusView: (data) {
+    BusStopView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => BusView(),
+        builder: (context) => BusStopView(),
         settings: data,
       );
     },

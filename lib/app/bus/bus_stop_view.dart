@@ -11,7 +11,7 @@ final bottomBarIndexStateProvider = StateProvider<int>((ref) => 0);
 
 /// The main bus view, in which you can switch between nearby and
 /// favorite bus stops
-class BusView extends HookWidget {
+class BusStopView extends HookWidget {
   Widget _getViewForIndex(int index) {
     switch (index) {
       case 0:

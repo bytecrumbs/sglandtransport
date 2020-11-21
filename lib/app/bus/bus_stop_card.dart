@@ -3,8 +3,8 @@ import 'package:substring_highlight/substring_highlight.dart';
 
 import 'models/bus_stop_model.dart';
 
-class BusStop extends StatelessWidget {
-  const BusStop({
+class BusStopCard extends StatelessWidget {
+  const BusStopCard({
     Key key,
     @required this.busStopModel,
     this.searchTerm = '',

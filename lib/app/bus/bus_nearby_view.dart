@@ -8,7 +8,7 @@ import 'package:progress_indicators/progress_indicators.dart';
 import '../../common_widgets/staggered_animation.dart';
 import '../../services/location_service.dart';
 import 'bus_nearby_viewmodel.dart';
-import 'bus_stop.dart';
+import 'bus_stop_card.dart';
 import 'models/bus_stop_model.dart';
 
 /// Provides a stream of user location information
@@ -72,7 +72,7 @@ class BusNearbyView extends HookWidget {
             itemBuilder: (context, index) {
               return StaggeredAnimation(
                 index: index,
-                child: BusStop(busStopModel: busStopModelList[index]),
+                child: BusStopCard(busStopModel: busStopModelList[index]),
               );
             },
           ),
