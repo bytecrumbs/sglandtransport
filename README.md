@@ -156,6 +156,36 @@ Authentication with Apple services: Several Fastlane actions communicate with Ap
 An Apple ID session is only valid for a certain region, meaning if your CI system is in a different region than your local machine, you might run into issues
 An Apple ID session is only valid for up to a month, meaning you'll have to generate a new session every month. Usually you'd only know about it when your build starts failing
 
+### iOS Firebase App Distribution from Local:
+
+#### Upload build using Fastlane
+
+1. Set up fastlane and Add App Distribution to your fastlane configuration
+
+```
+fastlane add_plugin firebase_app_distribution
+```
+
+2. Authenticate With Firebase
+
+#### To install the Firebase CLI using the automatic install script
+
+```
+curl -sL https://firebase.tools | bash
+```
+
+3. Log into Firebase using your Google account
+
+```
+firebase login:ci
+```
+
+4. Get the token and set FIREBASE_TOKEN
+
+```
+export FIREBASE_TOKEN=token_from_ci
+```
+
 #### Android internal test track:
 
 ```
