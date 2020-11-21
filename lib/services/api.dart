@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 
+import '../app/bus/models/bus_arrival_service_list_model.dart';
+import '../app/bus/models/bus_arrival_service_model.dart';
 import '../app/bus/models/bus_stop_list_model.dart';
 import '../app/bus/models/bus_stop_model.dart';
 import '../environment_config.dart';
@@ -23,10 +25,6 @@ class Api {
     var result = <BusStopModel>[];
     final fetchURL = '$endPoint/ltaodataservice/BusStops';
 
-    // final response = await _get(fetchURL);
-
-    // return BusStopListModel.fromJson(response.data).value;
-
     for (var i = 0; i <= 5000; i = i + 1000) {
       var secondSkip = i + 500;
 
@@ -43,6 +41,20 @@ class Api {
     }
 
     return result;
+  }
+
+  Future<List<BusArrivalServiceModel>> fetchBusArrivalList(
+      String busStopCode) async {
+    final fetchUrl = '$endPoint/ltaodataservice/BusArrivalv2';
+
+    final response = await _get(
+      fetchUrl,
+      queryParameters: {
+        'BusStopCode': busStopCode,
+      },
+    );
+
+    return BusArrivalServiceListModel.fromJson(response.data).services;
   }
 
   Future<Response<dynamic>> _get(

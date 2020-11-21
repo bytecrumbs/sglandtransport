@@ -1,16 +1,23 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
+import '../../routing/router.gr.dart' as auto_route;
 import 'models/bus_stop_model.dart';
 
+/// Shows a single card for bus stop information
 class BusStopCard extends StatelessWidget {
+  /// The constructor for the BusStopCard
   const BusStopCard({
     Key key,
     @required this.busStopModel,
     this.searchTerm = '',
   }) : super(key: key);
 
+  /// bus stop information
   final BusStopModel busStopModel;
+
+  /// search string that is used to highlight text a user has searched for
   final String searchTerm;
 
   @override
@@ -72,11 +79,11 @@ class BusStopCard extends StatelessWidget {
           color: Theme.of(context).primaryColor,
         ),
         onTap: () {
-          print('moving to next page');
-          // model.navigateToBusArrival(
-          //   busStopModel.busStopCode,
-          //   busStopModel.description,
-          // );
+          ExtendedNavigator.root.push(auto_route.Routes.busArrivalView,
+              arguments: auto_route.BusArrivalViewArguments(
+                busStopCode: busStopModel.busStopCode,
+                description: busStopModel.description,
+              ));
         },
       ),
     );

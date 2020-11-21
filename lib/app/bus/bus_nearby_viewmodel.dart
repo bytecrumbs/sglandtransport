@@ -57,6 +57,7 @@ class BusNearbyViewModel {
         millisecondsSinceEpoch: DateTime.now().millisecondsSinceEpoch);
   }
 
+  /// returns bus stops that are nearby a given latitude and longitude
   List<BusStopModel> filterBusStopsByLocation(
     List<BusStopModel> busStopModelList,
     double latitude,

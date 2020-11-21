@@ -80,6 +80,7 @@ class BusNearbyView extends HookWidget {
       },
       loading: () =>
           Center(child: JumpingText('Looking for nearby bus stops...')),
+      // TODO: show proper error screen
       error: (error, stack) => const Text('Oops'),
     );
   }
