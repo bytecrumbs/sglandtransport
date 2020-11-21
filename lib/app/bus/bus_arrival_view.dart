@@ -15,6 +15,8 @@ final busArrivalServiceListFutureProvider = FutureProvider.autoDispose
   return await vm.getBusArrivalServiceList(busStopCode);
 });
 
+// TODO: figure out how to do an auto refresh every minute
+
 /// The main class that shows the page with all the bus arrival information
 /// for a given bus stop
 class BusArrivalView extends HookWidget {
