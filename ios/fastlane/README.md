@@ -31,6 +31,11 @@ fastlane ios increment_build_number_ios
 fastlane ios testflight_from_local
 ```
 
+### ios add_new_devices
+```
+fastlane ios add_new_devices
+```
+Registers new devices to Dev Portal and auto re-generate the provisioning profile if necessary
 ### ios upload_firebase
 ```
 fastlane ios upload_firebase

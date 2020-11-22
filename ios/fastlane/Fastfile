@@ -53,13 +53,27 @@ platform :ios do
 
   desc "Upload to Firebase"
   lane :upload_firebase do
-    # match(type: "development")
+    match(
+      type: "adhoc",
+      readonly: true,
+      app_identifier: "com.saschaderungs.ltaDatamall"
+    )
+    update_code_signing_settings(
+      code_sign_identity: "iPhone Distribution",
+      use_automatic_signing: false
+    )
     build_ios_app(
-      export_method: "development"
+      export_method: "ad-hoc",
+      configuration: "Release",
+      export_options: {
+        provisioningProfiles: {
+          "com.saschaderungs.ltaDatamall" => "match AdHoc com.saschaderungs.ltaDatamall"
+        }
+      }
     )
     firebase_app_distribution(
       app: "1:993014486723:ios:3e667c9450c311aa827476",
-      release_notes: "This is a test release!",
+      release_notes: "This is a distribution build!",
       groups: "sglandtransport_internal_test_group",
       debug: true
     )
