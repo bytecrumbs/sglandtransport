@@ -8,6 +8,13 @@ import 'bus_arrival_service_card.dart';
 import 'bus_arrival_viewmodel.dart';
 import 'models/bus_arrival_service_model.dart';
 
+/// checks if a given bus stop is already added as a favorite bus stop
+final isFavoriteFutureProvider =
+    FutureProvider.family<bool, String>((ref, busStopCode) async {
+  final vm = ref.read(busArrivalViewModelProvider);
+  return await vm.isFavoriteBusStop(busStopCode);
+});
+
 /// retrieves the list of bus arrival services
 final busArrivalServiceListFutureProvider = FutureProvider.autoDispose
     .family<List<BusArrivalServiceModel>, String>((ref, busStopCode) async {
@@ -37,10 +44,27 @@ class BusArrivalView extends HookWidget {
   Widget build(BuildContext context) {
     var busArrivalServiceList =
         useProvider(busArrivalServiceListFutureProvider(busStopCode));
+    var isFavorite = useProvider(isFavoriteFutureProvider(busStopCode));
+    var mv = useProvider(busArrivalViewModelProvider);
     return Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           title: Text(description),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: isFavorite.when(
+                  data: (isFavorite) => IconButton(
+                      icon: Icon(
+                          isFavorite ? Icons.favorite : Icons.favorite_outline),
+                      onPressed: () async {
+                        await mv.toggleFavoriteBusStop(busStopCode);
+                        context.refresh(isFavoriteFutureProvider(busStopCode));
+                      }),
+                  loading: () => null,
+                  error: (error, stack) => Icon(Icons.favorite_outline)),
+            ),
+          ],
         ),
         body: busArrivalServiceList.when(
           data: (busArrivalServiceList) => RefreshIndicator(
