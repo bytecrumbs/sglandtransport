@@ -41,6 +41,16 @@ platform :ios do
     upload_to_testflight
   end
 
+  desc "Registers new devices to Dev Portal and auto re-generate the provisioning profile if necessary"
+  lane :add_new_devices do
+    register_devices(
+      devices: {
+        "Device name" => "UDID-XXXXXX"
+      }
+    )
+    match(type: "adhoc", force_for_new_devices: true)
+  end
+
   desc "Upload to Firebase"
   lane :upload_firebase do
     # match(type: "development")
