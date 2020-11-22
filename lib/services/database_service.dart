@@ -71,11 +71,28 @@ class DatabaseService {
     );
   }
 
-  Future<List<BusStopModel>> getBusStops() async {
+  Future<List<BusStopModel>> getAllBusStops() async {
     _log.info('getting bus stops');
     var busStopList = <BusStopModel>[];
     final db = await database;
     var busStops = await db.rawQuery('SELECT * FROM $busStopsTableName');
+
+    for (var currentBusStop in busStops) {
+      var busStopModel = BusStopModel.fromJson(currentBusStop);
+      busStopList.add(busStopModel);
+    }
+
+    return busStopList;
+  }
+
+  Future<List<BusStopModel>> getFavouriteBusStops(
+      List<String> busStopCodes) async {
+    var busStopList = <BusStopModel>[];
+    final db = await database;
+    final rawQuery = 'SELECT * FROM $busStopsTableName WHERE BusStopCode '
+        'in (\'${busStopCodes.join("','")}\')';
+    _log.info('getting favorite bus stops ($rawQuery)');
+    var busStops = await db.rawQuery(rawQuery);
 
     for (var currentBusStop in busStops) {
       var busStopModel = BusStopModel.fromJson(currentBusStop);

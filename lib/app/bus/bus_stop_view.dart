@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'bus_favourites_view.dart';
+import 'bus_favorites_view.dart';
 import 'bus_nearby_view.dart';
 
 /// Stores the selected index of the bottom bar
@@ -17,7 +17,7 @@ class BusStopView extends HookWidget {
       case 0:
         return BusNearbyView();
       case 1:
-        return BusFavouritesView();
+        return BusFavoritesView();
       default:
         return BusNearbyView();
     }

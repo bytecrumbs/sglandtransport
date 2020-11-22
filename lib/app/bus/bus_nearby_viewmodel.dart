@@ -41,7 +41,7 @@ class BusNearbyViewModel {
 
   /// fetches all bus stops from the database
   Future<List<BusStopModel>> getBusStopsFromDb() async {
-    return read(databaseServiceProvider).getBusStops();
+    return read(databaseServiceProvider).getAllBusStops();
   }
 
   /// Get the bus stops from the API and store the result in the DB. It also

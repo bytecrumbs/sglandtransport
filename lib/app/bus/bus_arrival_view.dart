@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../common_widgets/staggered_animation.dart';
 import 'bus_arrival_service_card.dart';
 import 'bus_arrival_viewmodel.dart';
+import 'bus_favorites_view.dart';
 import 'models/bus_arrival_service_model.dart';
 
 /// checks if a given bus stop is already added as a favorite bus stop
@@ -60,8 +61,9 @@ class BusArrivalView extends HookWidget {
                       onPressed: () async {
                         await mv.toggleFavoriteBusStop(busStopCode);
                         context.refresh(isFavoriteFutureProvider(busStopCode));
+                        context.refresh(favoriteBusStopsFutureProvider);
                       }),
-                  loading: () => null,
+                  loading: () => Icon(Icons.favorite_outline),
                   error: (error, stack) => Icon(Icons.favorite_outline)),
             ),
           ],

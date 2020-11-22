@@ -57,7 +57,7 @@ class BusArrivalViewModel {
   }
 
   /// checks if a bus stop is a favorite bus stop
-  Future<bool> isFavoriteBusStop(busStopCode) async {
+  Future<bool> isFavoriteBusStop(String busStopCode) async {
     final localStorageService = read(localStorageServiceProvider);
     return await localStorageService.containsValueInList(
         favoriteBusStopsKey, busStopCode);

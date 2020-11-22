@@ -10,7 +10,7 @@ class LocalStorageService {
   /// if the key is not found.
   Future<List<String>> getStringList(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return await prefs.getStringList(key) ?? <String>[];
+    return prefs.getStringList(key) ?? <String>[];
   }
 
   /// Adds a string to a list for a given key
