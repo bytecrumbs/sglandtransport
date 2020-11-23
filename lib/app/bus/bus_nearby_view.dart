@@ -62,19 +62,39 @@ class BusNearbyView extends HookWidget {
     return locationData.when(
       data: (busStopModelList) {
         if (busStopModelList.isEmpty) {
-          return Center(
-            child: JumpingText('Looking for nearby bus stops...'),
+          Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: Column(
+              children: <Widget>[
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                JumpingText('Looking for nearby bus stops...'),
+              ],
+            ),
           );
         }
         return AnimationLimiter(
-          child: ListView.builder(
-            itemCount: busStopModelList.length,
-            itemBuilder: (context, index) {
-              return StaggeredAnimation(
-                index: index,
-                child: BusStopCard(busStopModel: busStopModelList[index]),
-              );
-            },
+          child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: busStopModelList.length,
+              itemBuilder: (context, index) {
+                return StaggeredAnimation(
+                  index: index,
+                  child: BusStopCard(
+                    busStopModel: busStopModelList[index],
+                    key: ValueKey<String>('busStopCard-$index'),
+                  ),
+                );
+              },
+            ),
           ),
         );
       },

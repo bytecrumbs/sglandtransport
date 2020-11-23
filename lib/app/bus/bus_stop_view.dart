@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../common_widgets/sliver_view.dart';
 import 'bus_favorites_view.dart';
 import 'bus_nearby_view.dart';
 
@@ -28,10 +29,10 @@ class BusStopView extends HookWidget {
     var bottomBarIndex = useProvider(bottomBarIndexStateProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        title: Text('Bus View'),
+      body: SliverView(
+        title: 'Buses',
+        child: _getViewForIndex(bottomBarIndex.state),
       ),
-      body: _getViewForIndex(bottomBarIndex.state),
       bottomNavigationBar: ConvexAppBar(
         key: Key('BottomBar'),
         color: Theme.of(context).primaryColorDark,

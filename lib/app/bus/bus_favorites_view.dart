@@ -23,21 +23,31 @@ class BusFavoritesView extends HookWidget {
     return favoriteBusStops.when(
       data: (favoriteBusStops) {
         return favoriteBusStops.isEmpty
-            ? Center(
-                child: Text(
-                  'No favorite bus stops found...',
-                  key: ValueKey('noFavouriteBusStopsFound'),
+            ? Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Center(
+                  child: Text(
+                    'No favorite bus stops found...',
+                    key: ValueKey('noFavouriteBusStopsFound'),
+                  ),
                 ),
               )
             : AnimationLimiter(
-                child: ListView.builder(
-                  itemCount: favoriteBusStops.length,
-                  itemBuilder: (context, index) {
-                    return StaggeredAnimation(
-                      index: index,
-                      child: BusStopCard(busStopModel: favoriteBusStops[index]),
-                    );
-                  },
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: favoriteBusStops.length,
+                    itemBuilder: (context, index) {
+                      return StaggeredAnimation(
+                        index: index,
+                        child:
+                            BusStopCard(busStopModel: favoriteBusStops[index]),
+                      );
+                    },
+                  ),
                 ),
               );
       },
