@@ -69,6 +69,9 @@ platform :ios do
         provisioningProfiles: {
           "com.saschaderungs.ltaDatamall" => "match AdHoc com.saschaderungs.ltaDatamall"
         }
+      },
+      xcargs: {
+        "PROVISIONING_PROFILE_SPECIFIER" => "match AdHoc com.saschaderungs.ltaDatamall",
       }
     )
     firebase_app_distribution(
