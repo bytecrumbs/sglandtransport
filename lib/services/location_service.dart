@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:location/location.dart';
 
+/// Provides the LocationService class
 final locationServiceProvider =
     Provider<LocationService>((ref) => LocationService());
 
+/// Provides the location of the device
 class LocationService {
   final _location = Location();
 
@@ -31,11 +33,13 @@ class LocationService {
     });
   }
 
+  /// Gets the current location of the device
   Future<LocationData> getLocation() async {
     _checkLocationServiceAndPermission();
     return await _location.getLocation();
   }
 
+  /// Returns a stream of location information of the device
   Stream<LocationData> getLocationStream() {
     _checkLocationServiceAndPermission();
     return _location.onLocationChanged;
