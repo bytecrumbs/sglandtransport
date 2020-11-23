@@ -3,7 +3,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/services.dart';
 import 'package:flare_flutter/provider/asset_flare.dart';
 
-import '../app/custom_search_delegate.dart';
+import '../app/search/custom_search_delegate.dart';
 import '../environment_config.dart';
 
 class SliverView extends StatefulWidget {

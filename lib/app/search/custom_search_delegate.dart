@@ -1,6 +1,12 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
+import 'search_result_view.dart';
+
+/// The Search function that extends the native Material search
 class CustomSearchDelegate extends SearchDelegate {
+  /// Firebase Analytics reference
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
   @override
   ThemeData appBarTheme(BuildContext context) {
     assert(context != null);
@@ -26,6 +32,9 @@ class CustomSearchDelegate extends SearchDelegate {
       IconButton(
         icon: Icon(Icons.clear),
         onPressed: () {
+          analytics.logSearch(
+            searchTerm: query,
+          );
           query = '';
         },
       ),
@@ -37,6 +46,9 @@ class CustomSearchDelegate extends SearchDelegate {
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
+        analytics.logSearch(
+          searchTerm: query,
+        );
         close(context, null);
       },
     );
@@ -44,37 +56,11 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // return _buildSearchResultView();
+    return SearchResultView(searchTerm: query);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // return _buildSearchResultView();
+    return SearchResultView(searchTerm: query);
   }
-
-  // FutureBuilder<List<BusStopModel>> _buildSearchResultView() {
-  //   return FutureBuilder<List<BusStopModel>>(
-  //     future: _busService.findBusStops(query),
-  //     builder: (
-  //       BuildContext context,
-  //       AsyncSnapshot<List<BusStopModel>> snapshot,
-  //     ) {
-  //       if (snapshot.connectionState == ConnectionState.done &&
-  //           snapshot.hasData) {
-  //         final busStopList = snapshot.data;
-  //         return ListView.builder(
-  //           padding: const EdgeInsets.only(top: 15.0),
-  //           itemCount: busStopList.length,
-  //           itemBuilder: (BuildContext context, int index) => BusStopView(
-  //             busStopModel: busStopList[index],
-  //             key: ValueKey<String>('busStopCard-$index'),
-  //             searchTerm: query,
-  //           ),
-  //         );
-  //       } else {
-  //         return Column();
-  //       }
-  //     },
-  //   );
-  // }
 }
