@@ -9,6 +9,7 @@ import 'environment_config.dart';
 import 'my_app.dart';
 import 'services/provider_logger.dart';
 
+/// Preload Flare asset
 Future<void> warmupFlare() async {
   await cachedActor(AssetFlare(bundle: rootBundle, name: 'images/city.flr'));
 }

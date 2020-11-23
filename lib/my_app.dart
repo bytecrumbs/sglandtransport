@@ -12,6 +12,7 @@ import 'routing/router.gr.dart' as auto_route;
 // Toggle this for testing Crashlytics in your app locally.
 final _kTestingCrashlytics = false;
 
+/// Main class that prepares the app and does all the Firebase loading
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();

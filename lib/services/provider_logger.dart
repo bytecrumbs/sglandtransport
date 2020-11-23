@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/all.dart';
 import 'package:logging/logging.dart';
 
+/// Main logging class for all the Riverpod providers
 class ProviderLogger extends ProviderObserver {
   static final _log = Logger('ProviderLogger');
   @override
