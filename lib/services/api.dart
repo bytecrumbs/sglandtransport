@@ -4,6 +4,8 @@ import 'package:logging/logging.dart';
 
 import '../app/bus/models/bus_arrival_service_list_model.dart';
 import '../app/bus/models/bus_arrival_service_model.dart';
+import '../app/bus/models/bus_route_list_model.dart';
+import '../app/bus/models/bus_route_model.dart';
 import '../app/bus/models/bus_stop_list_model.dart';
 import '../app/bus/models/bus_stop_model.dart';
 import '../app/failure.dart';
@@ -46,6 +48,37 @@ class Api {
         // If the call to the server was successful, parse the JSON.
         final busStopListModel = BusStopListModel.fromJson(response.data);
         result = result + busStopListModel.value;
+      }
+    }
+
+    return result;
+  }
+
+  /// Fetches all the available bus routes (unfiltered).
+  Future<List<BusRouteModel>> fetchBusRouteList() async {
+    var result = <BusRouteModel>[];
+    final fetchURL = '$endPoint/ltaodataservice/BusRoutes';
+
+    for (var i = 0; i <= 26000; i = i + 3000) {
+      var secondSkip = i + 500;
+      var thirdSkip = i + 1000;
+      var fourthSkip = i + 1500;
+      var fifthSkip = i + 2000;
+      var sixthSkip = i + 2500;
+
+      var parallelFetch = await Future.wait([
+        _get('$fetchURL?\$skip=$i'),
+        _get('$fetchURL?\$skip=$secondSkip'),
+        _get('$fetchURL?\$skip=$thirdSkip'),
+        _get('$fetchURL?\$skip=$fourthSkip'),
+        _get('$fetchURL?\$skip=$fifthSkip'),
+        _get('$fetchURL?\$skip=$sixthSkip'),
+      ]);
+
+      for (var response in parallelFetch) {
+        // If the call to the server was successful, parse the JSON.
+        final busRouteListModel = BusRouteListModel.fromJson(response.data);
+        result = result + busRouteListModel.value;
       }
     }
 

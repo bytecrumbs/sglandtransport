@@ -3,6 +3,7 @@ import 'package:logging/logging.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../app/bus/models/bus_route_model.dart';
 import '../app/bus/models/bus_stop_model.dart';
 
 /// Provides the database service class
@@ -126,6 +127,25 @@ class DatabaseService {
     return busStopList;
   }
 
+  /// Selects all bus routes stored in the bus routes table for a given bus
+  /// stop.
+  Future<List<BusRouteModel>> getBusRoutes(String busStopCode) async {
+    var busRouteList = <BusRouteModel>[];
+    final db = await database;
+    _log.info('getting bus routes');
+    var busRoutes = await db.rawQuery(
+      'SELECT * FROM $busRoutesTableName WHERE BusStopCode = ?',
+      [busStopCode],
+    );
+
+    for (var currentBusRoute in busRoutes) {
+      var busRouteModel = BusRouteModel.fromJson(currentBusRoute);
+      busRouteList.add(busRouteModel);
+    }
+
+    return busRouteList;
+  }
+
   /// Selects bus stops based on a given list of bus stop codes
   Future<List<BusStopModel>> getFavouriteBusStops(
       List<String> busStopCodes) async {
@@ -150,6 +170,12 @@ class DatabaseService {
     await _insertList(busStopsTableName, busStops);
   }
 
+  /// Inserts bus stops into the bus stop table, based on a given list of bus
+  /// stops
+  Future<void> insertBusRoutes(List<BusRouteModel> busRoutes) async {
+    await _insertList(busRoutesTableName, busRoutes);
+  }
+
   /// Inserts the timestamp (as "milliseconds since epoch") of when the bus
   /// stops table has been created and populated
   Future<int> insertBusStopsTableCreationDate({
@@ -157,6 +183,17 @@ class DatabaseService {
   }) async {
     return await _insertTableCreationDate(
       tableName: busStopsTableName,
+      millisecondsSinceEpoch: millisecondsSinceEpoch,
+    );
+  }
+
+  /// Inserts the timestamp (as "milliseconds since epoch") of when the bus
+  /// routes table has been created and populated
+  Future<int> insertBusRoutesTableCreationDate({
+    int millisecondsSinceEpoch,
+  }) async {
+    return await _insertTableCreationDate(
+      tableName: busRoutesTableName,
       millisecondsSinceEpoch: millisecondsSinceEpoch,
     );
   }
@@ -194,10 +231,14 @@ class DatabaseService {
     });
   }
 
-  /// Gets back the details of when a table has been created and populated,
-  /// based on a given table name
+  /// Gets back the details of when the bus stop table has been created
   Future<List<Map<String, dynamic>>> getCreationDateOfBusStops() async {
     return await _getCreationDate(tableName: busStopsTableName);
+  }
+
+  /// Gets back the details of when the bus routes table has been created
+  Future<List<Map<String, dynamic>>> getCreationDateOfBusRoutes() async {
+    return await _getCreationDate(tableName: busRoutesTableName);
   }
 
   Future<List<Map<String, dynamic>>> _getCreationDate(

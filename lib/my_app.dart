@@ -16,6 +16,9 @@ final appInitFutureProvider = FutureProvider<void>((ref) async {
   await initializer.initFirebase();
 
   await initializer.initLayout();
+
+  // no need to await here, as this can run in the background
+  initializer.initDatabaseLoad();
 });
 
 /// The main class, which will first initiate firebase and other things that

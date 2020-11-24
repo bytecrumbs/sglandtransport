@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 
+import 'services/api.dart';
+import 'services/database_service.dart';
+
 /// Provides the view model for the MyApp class
 final myAppInitializerProvider = Provider((ref) => MyAppInitializer(ref.read));
 
@@ -51,5 +54,40 @@ class MyAppInitializer {
     await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.portraitUp,
     ]);
+  }
+
+  /// Populates the bus routes DB, if it is not already populated
+  Future initDatabaseLoad() async {
+    _log.info('initializing database load');
+    final _databaseService = read(databaseServiceProvider);
+
+    final creationDateRecord =
+        await _databaseService.getCreationDateOfBusRoutes();
+    if (creationDateRecord.isNotEmpty) {
+      final int creationDateMillisecondsSinceEpoch =
+          creationDateRecord.first['creationTimeSinceEpoch'];
+      final creationDate = DateTime.fromMillisecondsSinceEpoch(
+          creationDateMillisecondsSinceEpoch);
+      final differenceInDays = DateTime.now().difference(creationDate).inDays;
+      if (differenceInDays > 30) {
+        _log.info('repopulating the DB, as it has expired');
+        await _populateBusRoutesDbfromApi();
+      }
+    } else {
+      _log.info('repopulating the DB, as it has not yet been populated');
+      await _populateBusRoutesDbfromApi();
+    }
+  }
+
+  Future _populateBusRoutesDbfromApi() async {
+    final _databaseService = read(databaseServiceProvider);
+    final _api = read(apiProvider);
+
+    final allBusRoutes = await _api.fetchBusRouteList();
+    await _databaseService.deleteBusRoutes();
+    await _databaseService.insertBusRoutes(allBusRoutes);
+    await _databaseService.insertBusRoutesTableCreationDate(
+        millisecondsSinceEpoch: DateTime.now().millisecondsSinceEpoch);
+    return allBusRoutes;
   }
 }
