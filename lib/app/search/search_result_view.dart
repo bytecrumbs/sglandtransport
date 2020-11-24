@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../common_widgets/error_view.dart';
 import '../bus/bus_stop_card.dart';
 import '../bus/models/bus_stop_model.dart';
+import '../failure.dart';
 import 'search_result_viewmodel.dart';
 
 /// Provides a list of bus stops with the containing the given search term
@@ -37,8 +39,12 @@ class SearchResultView extends HookWidget {
         );
       },
       loading: () => Container(),
-      // TODO: show proper error screen
-      error: (error, stack) => const Text('Oops'),
+      error: (err, stack) {
+        if (err is Failure) {
+          return ErrorView(message: err.message);
+        }
+        return ErrorView();
+      },
     );
   }
 }

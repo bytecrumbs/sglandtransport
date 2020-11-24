@@ -5,8 +5,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:location/location.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
+import '../../common_widgets/error_view.dart';
 import '../../common_widgets/staggered_animation.dart';
 import '../../services/location_service.dart';
+import '../failure.dart';
 import 'bus_nearby_viewmodel.dart';
 import 'bus_stop_card.dart';
 import 'models/bus_stop_model.dart';
@@ -100,8 +102,12 @@ class BusNearbyView extends HookWidget {
       },
       loading: () =>
           Center(child: JumpingText('Looking for nearby bus stops...')),
-      // TODO: show proper error screen
-      error: (error, stack) => const Text('Oops'),
+      error: (err, stack) {
+        if (err is Failure) {
+          return ErrorView(message: err.message);
+        }
+        return ErrorView();
+      },
     );
   }
 }

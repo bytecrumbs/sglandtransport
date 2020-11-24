@@ -3,7 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../common_widgets/error_view.dart';
 import '../../common_widgets/staggered_animation.dart';
+import '../failure.dart';
 import 'bus_favorites_viewmodel.dart';
 import 'bus_stop_card.dart';
 import 'models/bus_stop_model.dart';
@@ -52,8 +54,12 @@ class BusFavoritesView extends HookWidget {
               );
       },
       loading: () => Container(),
-      // TODO: show proper error screen
-      error: (error, stack) => const Text('Oops'),
+      error: (err, stack) {
+        if (err is Failure) {
+          return ErrorView(message: err.message);
+        }
+        return ErrorView();
+      },
     );
   }
 }

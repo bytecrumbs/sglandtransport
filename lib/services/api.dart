@@ -6,6 +6,7 @@ import '../app/bus/models/bus_arrival_service_list_model.dart';
 import '../app/bus/models/bus_arrival_service_model.dart';
 import '../app/bus/models/bus_stop_list_model.dart';
 import '../app/bus/models/bus_stop_model.dart';
+import '../app/failure.dart';
 import '../environment_config.dart';
 
 /// Provides the DIO library
@@ -81,21 +82,8 @@ class Api {
             },
           ),
           queryParameters: queryParameters);
-    } on DioError catch (e) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx and is also not 304.
-      // TODO: proper error handling...
-      if (e.response != null) {
-        _log.severe(e.response.data);
-        _log.severe(e.response.headers);
-        _log.severe(e.response.request);
-      } else {
-        // Something happened in setting up or sending the request that
-        // triggered an Error
-        _log.severe(e.request);
-        _log.severe(e.message);
-      }
-      rethrow;
+    } on DioError catch (dioError) {
+      throw Failure.fromDioError(dioError);
     }
   }
 }
