@@ -82,7 +82,8 @@ class DatabaseService {
     );
   }
 
-  /// Selects all bus stops stored in the bus stops table
+  /// Selects all bus stops stored in the bus stops table. A list of bus stop
+  /// codes can be provided as a filter
   Future<List<BusStopModel>> getBusStops([List<String> busStopCodes]) async {
     var busStopList = <BusStopModel>[];
     final db = await database;
