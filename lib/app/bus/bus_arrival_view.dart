@@ -88,52 +88,53 @@ class BusArrivalView extends HookWidget {
     var isFavorite = useProvider(isFavoriteFutureProvider(busStopCode));
     var mv = useProvider(busArrivalViewModelProvider);
     return Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        appBar: AppBar(
-          title: Text(description),
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: isFavorite.when(
-                  data: (isFavorite) => IconButton(
-                      icon: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_outline),
-                      onPressed: () async {
-                        await mv.toggleFavoriteBusStop(busStopCode);
-                        context.refresh(isFavoriteFutureProvider(busStopCode));
-                        context.refresh(favoriteBusStopsFutureProvider);
-                      }),
-                  loading: () => Icon(Icons.favorite_outline),
-                  error: (error, stack) => Icon(Icons.favorite_outline)),
-            ),
-          ],
-        ),
-        body: busArrivalServiceList.when(
-          data: (busArrivalServiceList) => RefreshIndicator(
-            onRefresh: () => context
-                .refresh(busArrivalServiceListFutureProvider(busStopCode)),
-            child: AnimationLimiter(
-              child: ListView.builder(
-                itemCount: busArrivalServiceList.length,
-                itemBuilder: (context, index) {
-                  return StaggeredAnimation(
-                    index: index,
-                    child: BusArrivalServiceCard(
-                      busArrivalServiceModel: busArrivalServiceList[index],
-                      key: ValueKey<String>('busArrivalCard-$index'),
-                    ),
-                  );
-                },
-              ),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        title: Text(description),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: isFavorite.when(
+                data: (isFavorite) => IconButton(
+                    icon: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_outline),
+                    onPressed: () async {
+                      await mv.toggleFavoriteBusStop(busStopCode);
+                      context.refresh(isFavoriteFutureProvider(busStopCode));
+                      context.refresh(favoriteBusStopsFutureProvider);
+                    }),
+                loading: () => Icon(Icons.favorite_outline),
+                error: (error, stack) => Icon(Icons.favorite_outline)),
+          ),
+        ],
+      ),
+      body: busArrivalServiceList.when(
+        data: (busArrivalServiceList) => RefreshIndicator(
+          onRefresh: () =>
+              context.refresh(busArrivalServiceListFutureProvider(busStopCode)),
+          child: AnimationLimiter(
+            child: ListView.builder(
+              itemCount: busArrivalServiceList.length,
+              itemBuilder: (context, index) {
+                return StaggeredAnimation(
+                  index: index,
+                  child: BusArrivalServiceCard(
+                    busArrivalServiceModel: busArrivalServiceList[index],
+                    key: ValueKey<String>('busArrivalCard-$index'),
+                  ),
+                );
+              },
             ),
           ),
-          loading: () => Center(child: CircularProgressIndicator()),
-          error: (err, stack) {
-            if (err is Failure) {
-              return ErrorView(message: err.message);
-            }
-            return ErrorView();
-          },
-        ));
+        ),
+        loading: () => Center(child: CircularProgressIndicator()),
+        error: (err, stack) {
+          if (err is Failure) {
+            return ErrorView(message: err.message);
+          }
+          return ErrorView();
+        },
+      ),
+    );
   }
 }
