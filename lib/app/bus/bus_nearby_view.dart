@@ -17,19 +17,16 @@ import 'models/bus_stop_model.dart';
 final locationStreamProvider = StreamProvider.autoDispose<LocationData>((ref) {
   final locationService = ref.read(locationServiceProvider);
 
+  print('---- in locationStreamProvider ----');
+
   return locationService.getLocationStream();
 });
 
-// TODO: on first load when DB is created while accepting the location
-// permission, a new location value is not emmitted, and the view page just
-// shows the loading message
 /// Provides a stream of nearby bus stops, based on
 /// user location
 final nearbyBusStopsProvider =
     StreamProvider.autoDispose<List<BusStopModel>>((ref) async* {
   final vm = ref.read(busNearbyViewModelProvider);
-
-  var locationStream = ref.watch(locationStreamProvider.stream);
 
   var allBusStops = <BusStopModel>[];
 
@@ -37,6 +34,7 @@ final nearbyBusStopsProvider =
 
   // filter and yield a value whenever a new location is provided via the
   // location stream
+  var locationStream = ref.watch(locationStreamProvider.stream);
   await for (var locationData in locationStream) {
     yield vm.filterBusStopsByLocation(
         allBusStops, locationData.latitude, locationData.longitude);
