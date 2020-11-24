@@ -26,7 +26,6 @@ class BusNearbyViewModel {
     final creationDateRecord =
         await _databaseService.getCreationDateOfBusStops();
     if (creationDateRecord.isNotEmpty) {
-      // TODO: Hardcoding! To be refactored!
       final int creationDateMillisecondsSinceEpoch =
           creationDateRecord.first['creationTimeSinceEpoch'];
       final creationDate = DateTime.fromMillisecondsSinceEpoch(
