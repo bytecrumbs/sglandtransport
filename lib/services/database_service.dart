@@ -83,11 +83,17 @@ class DatabaseService {
   }
 
   /// Selects all bus stops stored in the bus stops table
-  Future<List<BusStopModel>> getAllBusStops() async {
-    _log.info('getting bus stops');
+  Future<List<BusStopModel>> getBusStops([List<String> busStopCodes]) async {
     var busStopList = <BusStopModel>[];
     final db = await database;
-    var busStops = await db.rawQuery('SELECT * FROM $busStopsTableName');
+    var busStopCodeInFilter = '';
+    if (busStopCodes != null) {
+      busStopCodeInFilter =
+          'WHERE BusStopCode IN (\'${busStopCodes.join("','")}\')';
+    }
+    var queryString = 'SELECT * FROM $busStopsTableName $busStopCodeInFilter';
+    _log.info('getting bus stops with query: $queryString');
+    var busStops = await db.rawQuery(queryString);
 
     for (var currentBusStop in busStops) {
       var busStopModel = BusStopModel.fromJson(currentBusStop);

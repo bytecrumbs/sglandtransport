@@ -29,7 +29,7 @@ class SearchResultViewModel {
   Future<List<BusStopModel>> findBusStops(String searchText) async {
     final databaseService = read(databaseServiceProvider);
     final busStopSearchList = <BusStopModel>[];
-    final allBusStops = await databaseService.getAllBusStops();
+    final allBusStops = await databaseService.getBusStops();
 
     if (searchText.isNotEmpty) {
       for (var currentBusStop in allBusStops) {
