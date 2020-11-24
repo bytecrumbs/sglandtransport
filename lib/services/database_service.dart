@@ -5,20 +5,31 @@ import 'package:sqflite/sqflite.dart';
 
 import '../app/bus/models/bus_stop_model.dart';
 
+/// Provides the database service class
 final databaseServiceProvider = Provider((ref) => DatabaseService(ref.read));
 
+/// The main database class, which handles all the reading/writing to the local
+/// databse
 class DatabaseService {
+  /// The default constructor for the class
   DatabaseService(this.read);
 
+  /// A reader that enables reading other providers
   final Reader read;
 
   static final _log = Logger('DatabaseService');
 
+  /// The name of the table that stores the bus stops
   static const busStopsTableName = 'busStops';
+
+  /// The name of the table that stores dates when individual tables have been
+  /// created
   static const tableCreationTableName = 'tableCreation';
 
   Database _database;
 
+  /// Gets the database instance. If it does not exist yet, it will initialize
+  /// the database first
   Future<Database> get database async {
     _log.info('getting database');
     if (_database != null) {
@@ -71,6 +82,7 @@ class DatabaseService {
     );
   }
 
+  /// Selects all bus stops stored in the bus stops table
   Future<List<BusStopModel>> getAllBusStops() async {
     _log.info('getting bus stops');
     var busStopList = <BusStopModel>[];
@@ -85,6 +97,7 @@ class DatabaseService {
     return busStopList;
   }
 
+  /// Selects bus stops based on a given list of bus stop codes
   Future<List<BusStopModel>> getFavouriteBusStops(
       List<String> busStopCodes) async {
     var busStopList = <BusStopModel>[];
@@ -102,10 +115,14 @@ class DatabaseService {
     return busStopList;
   }
 
+  /// Inserts bus stops into the bus stop table, based on a given list of bus
+  /// stops
   Future<void> insertBusStops(List<BusStopModel> busStops) async {
     await _insertList(busStopsTableName, busStops);
   }
 
+  /// Inserts the timestamp (as "milliseconds since epoch") of when the bus
+  /// stops table has been created and populated
   Future<int> insertBusStopsTableCreationDate({
     int millisecondsSinceEpoch,
   }) async {
@@ -148,6 +165,8 @@ class DatabaseService {
     });
   }
 
+  /// Gets back the details of when a table has been created and populated,
+  /// based on a given table name
   Future<List<Map<String, dynamic>>> getCreationDateOfBusStops() async {
     return await _getCreationDate(tableName: busStopsTableName);
   }
