@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../common_widgets/error_view.dart';
@@ -10,6 +13,39 @@ import 'bus_arrival_service_card.dart';
 import 'bus_arrival_viewmodel.dart';
 import 'bus_favorites_view.dart';
 import 'models/bus_arrival_service_model.dart';
+
+part 'bus_arrival_view.freezed.dart';
+
+@freezed
+
+/// The Timer Provider requires 2 parameters. As only one parameter can be
+/// passed to it, this is a workaround to create a class that holds 2
+/// parameters. Note that this is a freezed class and therefore if you make
+/// changes to this, you need to run "flutter pub run build_runner build" for
+/// it to have take effect
+abstract class TimerProviderParameter with _$TimerProviderParameter {
+  /// Constructor for the freezed class
+  factory TimerProviderParameter({
+    BuildContext context,
+    String busStopCode,
+  }) = _TimerProviderParameter;
+}
+
+/// A provider that refreshes the bus arrival list every 1 minute
+final timerProvider = Provider.autoDispose
+    .family<void, TimerProviderParameter>((ref, timerProviderParameter) {
+  Timer _timer;
+
+  _timer = Timer.periodic(
+    Duration(minutes: 1),
+    (timer) => timerProviderParameter.context.refresh(
+        busArrivalServiceListFutureProvider(
+            timerProviderParameter.busStopCode)),
+  );
+  ref.onDispose(() {
+    _timer.cancel();
+  });
+});
 
 /// checks if a given bus stop is already added as a favorite bus stop
 final isFavoriteFutureProvider =
@@ -24,8 +60,6 @@ final busArrivalServiceListFutureProvider = FutureProvider.autoDispose
   final vm = ref.read(busArrivalViewModelProvider);
   return await vm.getBusArrivalServiceList(busStopCode);
 });
-
-// TODO: figure out how to do an auto refresh every minute
 
 /// The main class that shows the page with all the bus arrival information
 /// for a given bus stop
@@ -45,6 +79,10 @@ class BusArrivalView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    useProvider(timerProvider(TimerProviderParameter(
+      context: context,
+      busStopCode: busStopCode,
+    )));
     var busArrivalServiceList =
         useProvider(busArrivalServiceListFutureProvider(busStopCode));
     var isFavorite = useProvider(isFavoriteFutureProvider(busStopCode));
