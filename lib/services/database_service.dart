@@ -22,6 +22,9 @@ class DatabaseService {
   /// The name of the table that stores the bus stops
   static const busStopsTableName = 'busStops';
 
+  /// The name of the table that stores the bus routes
+  static const busRoutesTableName = 'busRoutes';
+
   /// The name of the table that stores dates when individual tables have been
   /// created
   static const tableCreationTableName = 'tableCreation';
@@ -52,12 +55,31 @@ class DatabaseService {
 
   Future<void> _onCreate(Database database, int version) async {
     _log.info('creating database');
-    // _log.info('creating $busRoutesTableName table');
-    // await _createBusRoutesTable(database);
+    _log.info('creating $busRoutesTableName table');
+    await _createBusRoutesTable(database);
     _log.info('creating $busStopsTableName table');
     await _createBusStopsTable(database);
     _log.info('creating $tableCreationTableName table');
     await _createTableCreationTable(database);
+  }
+
+  Future<void> _createBusRoutesTable(Database database) async {
+    await database.execute(
+      'CREATE TABLE $busRoutesTableName ('
+      'ServiceNo TEXT,'
+      'Operator TEXT,'
+      'Direction INTEGER,'
+      'StopSequence INTEGER,'
+      'BusStopCode TEXT,'
+      'Distance REAL,'
+      'WD_FirstBus TEXT,'
+      'WD_LastBus TEXT,'
+      'SAT_FirstBus TEXT,'
+      'SAT_LastBus TEXT,'
+      'SUN_firstBus TEXT,'
+      'SUN_LastBus TEXT'
+      ')',
+    );
   }
 
   Future<void> _createBusStopsTable(Database database) async {
@@ -187,6 +209,11 @@ class DatabaseService {
       where: 'tableName = ?',
       whereArgs: [tableName],
     );
+  }
+
+  /// Deletes all records from the bus routes table
+  Future<int> deleteBusRoutes() async {
+    return await _deleteTable(busRoutesTableName);
   }
 
   /// Deletes all records from the bus stop table
