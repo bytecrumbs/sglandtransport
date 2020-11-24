@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 
+import '../../constants.dart';
 import '../../services/api.dart';
 import '../../services/local_storage_service.dart';
 import 'models/bus_arrival_service_model.dart';
@@ -12,9 +13,6 @@ final busArrivalViewModelProvider =
 /// The viewmodel for the BusArrival screen
 class BusArrivalViewModel {
   static final _log = Logger('BusArrivalViewModel');
-
-  /// the key which we are going to use to store the favorite bus stops
-  static const favoriteBusStopsKey = 'favouriteBusStopsKey';
 
   /// a reader that enables reading other providers
   final Reader read;
@@ -41,16 +39,16 @@ class BusArrivalViewModel {
     _log.info('toggling $busStopCode on Favorites');
     final localStorageService = read(localStorageServiceProvider);
     var currentFavorites =
-        await localStorageService.getStringList(favoriteBusStopsKey);
+        await localStorageService.getStringList(Constants.favoriteBusStopsKey);
     if (currentFavorites.contains(busStopCode)) {
       _log.info('removing from Favorites, as bus stop already exists');
       await localStorageService.removeStringFromList(
-          favoriteBusStopsKey, busStopCode);
+          Constants.favoriteBusStopsKey, busStopCode);
       currentFavorites.remove(busStopCode);
     } else {
       _log.info('adding to Favorites, as bus stop does not exist');
       await localStorageService.addStringToList(
-          favoriteBusStopsKey, busStopCode);
+          Constants.favoriteBusStopsKey, busStopCode);
       currentFavorites.add(busStopCode);
     }
     return currentFavorites;
@@ -60,6 +58,6 @@ class BusArrivalViewModel {
   Future<bool> isFavoriteBusStop(String busStopCode) async {
     final localStorageService = read(localStorageServiceProvider);
     return await localStorageService.containsValueInList(
-        favoriteBusStopsKey, busStopCode);
+        Constants.favoriteBusStopsKey, busStopCode);
   }
 }

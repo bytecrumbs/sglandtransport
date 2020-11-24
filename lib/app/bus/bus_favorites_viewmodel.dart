@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 
+import '../../constants.dart';
 import '../../services/database_service.dart';
 import '../../services/local_storage_service.dart';
 import 'models/bus_stop_model.dart';
@@ -19,10 +20,6 @@ class BusFavoritesViewModel {
 
   static final _log = Logger('BusFavoritesViewModel');
 
-  // TODO: this is duplicated in several files...
-  /// the key which we are going to use to store the favorite bus stops
-  static const favoriteBusStopsKey = 'favouriteBusStopsKey';
-
   /// Gets all the favorited bus stops by first fetching the bus stop codes
   /// from the local storage and then the details of each bus stop from
   /// the local database
@@ -31,7 +28,7 @@ class BusFavoritesViewModel {
     final databaseService = read(databaseServiceProvider);
     final localStorageService = read(localStorageServiceProvider);
     final favoriteBusStopStringList =
-        await localStorageService.getStringList(favoriteBusStopsKey);
+        await localStorageService.getStringList(Constants.favoriteBusStopsKey);
     return await databaseService.getBusStops(favoriteBusStopStringList);
   }
 }
