@@ -188,4 +188,15 @@ class DatabaseService {
       whereArgs: [tableName],
     );
   }
+
+  /// Deletes all records from teh bus stop table
+  Future<int> deleteBusStops() async {
+    return await _deleteTable(busStopsTableName);
+  }
+
+  Future<int> _deleteTable(String tableName) async {
+    final db = await database;
+    _log.info('Deleting all records in table $tableName');
+    return await db.delete(tableName);
+  }
 }

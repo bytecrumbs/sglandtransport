@@ -51,6 +51,7 @@ class BusNearbyViewModel {
     final _api = read(apiProvider);
 
     final allBusStops = await _api.fetchBusStopList();
+    await _databaseService.deleteBusStops();
     await _databaseService.insertBusStops(allBusStops);
     await _databaseService.insertBusStopsTableCreationDate(
         millisecondsSinceEpoch: DateTime.now().millisecondsSinceEpoch);
