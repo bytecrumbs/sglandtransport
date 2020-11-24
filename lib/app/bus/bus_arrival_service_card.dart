@@ -16,7 +16,10 @@ class BusArrivalServiceCard extends StatelessWidget {
   final BusArrivalServiceModel busArrivalServiceModel;
 
   /// returns the arrival time in minutes
-  String getTimeToBusArrival(String arrivalTime, [bool isSuffixShown = false]) {
+  String getTimeToBusArrival({
+    @required String arrivalTime,
+    bool isSuffixShown = false,
+  }) {
     if (arrivalTime == '' || arrivalTime == null) {
       return 'n/a';
     }
@@ -92,7 +95,10 @@ class BusArrivalServiceCard extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  getTimeToBusArrival(model.estimatedArrival, true),
+                  getTimeToBusArrival(
+                    arrivalTime: model.estimatedArrival,
+                    isSuffixShown: true,
+                  ),
                   style: const TextStyle(
                     color: Color(0xFF25304D),
                     fontWeight: FontWeight.w600,
