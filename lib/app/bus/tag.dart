@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
+/// Shows the load of the bus
 class Tag extends StatelessWidget {
+  /// The default constructor of the class
   Tag({@required this.text, this.color});
+
+  /// The text that is shown, indicating the bus load
   final String text;
+
+  /// The color that the text should be shown in
   final Color color;
 
   Widget _displayTagForSmallDevice(context) {

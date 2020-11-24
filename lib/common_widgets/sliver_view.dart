@@ -6,11 +6,16 @@ import 'package:flare_flutter/provider/asset_flare.dart';
 import '../app/search/custom_search_delegate.dart';
 import '../environment_config.dart';
 
+/// The main sliver wrapper class
 class SliverView extends StatefulWidget {
+  /// The default constructor of the class
   SliverView({Key key, @required this.title, @required this.child})
       : super(key: key);
 
+  /// The title to be shown in the app bar
   final String title;
+
+  /// The child widget that should be shown in the sliver
   final Widget child;
 
   @override
