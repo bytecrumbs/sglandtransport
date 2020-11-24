@@ -189,7 +189,7 @@ class DatabaseService {
     );
   }
 
-  /// Deletes all records from teh bus stop table
+  /// Deletes all records from the bus stop table
   Future<int> deleteBusStops() async {
     return await _deleteTable(busStopsTableName);
   }
