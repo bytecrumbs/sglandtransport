@@ -17,9 +17,10 @@ class BusNearbyViewModel {
   /// a reader that enables reading other providers
   final Reader read;
 
-  /// check when the bus stop table has been created, and reload it if
-  /// it is too old
-  Future<List<BusStopModel>> checkAgeAndReloadBusStops() async {
+  /// get all the bus stops with the following checks:
+  /// if the table is already populated, reload it if it is older than 30 days
+  /// if it is not yet populated, fetch it from the API and populate the DB
+  Future<List<BusStopModel>> getBusStops() async {
     final _databaseService = read(databaseServiceProvider);
 
     var allBusStops = <BusStopModel>[];
@@ -32,8 +33,12 @@ class BusNearbyViewModel {
           creationDateMillisecondsSinceEpoch);
       final differenceInDays = DateTime.now().difference(creationDate).inDays;
       if (differenceInDays > 30) {
-        populateBusStopsDbfromApi();
+        allBusStops = await populateBusStopsDbfromApi();
+      } else {
+        allBusStops = await getBusStopsFromDb();
       }
+    } else {
+      allBusStops = await populateBusStopsDbfromApi();
     }
     return allBusStops;
   }
@@ -46,7 +51,7 @@ class BusNearbyViewModel {
   /// Get the bus stops from the API and store the result in the DB. It also
   /// adds a record into the "audit" table so that we know when the table has
   /// last been refreshed.
-  Future<void> populateBusStopsDbfromApi() async {
+  Future<List<BusStopModel>> populateBusStopsDbfromApi() async {
     final _databaseService = read(databaseServiceProvider);
     final _api = read(apiProvider);
 
@@ -55,6 +60,7 @@ class BusNearbyViewModel {
     await _databaseService.insertBusStops(allBusStops);
     await _databaseService.insertBusStopsTableCreationDate(
         millisecondsSinceEpoch: DateTime.now().millisecondsSinceEpoch);
+    return allBusStops;
   }
 
   /// returns bus stops that are nearby a given latitude and longitude

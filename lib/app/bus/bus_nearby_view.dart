@@ -34,18 +34,7 @@ final nearbyBusStopsProvider =
 
   // TODO: if it goes through here, then the latest location is not
   // emmited and the Nearby view is always loading
-  allBusStops = await vm.checkAgeAndReloadBusStops();
-
-  // fetch all bus stops from DB if it has not already been reloaded and fetched
-  // from the api
-  if (allBusStops.isEmpty) {
-    allBusStops = await vm.getBusStopsFromDb();
-  }
-
-  // if DB is not populated, fetch from API and write result into DB
-  if (allBusStops.isEmpty) {
-    await vm.populateBusStopsDbfromApi();
-  }
+  allBusStops = await vm.getBusStops();
 
   // filter and yield a value whenever a new location is provided via the
   // location stream
