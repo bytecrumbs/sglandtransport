@@ -17,8 +17,6 @@ import 'models/bus_stop_model.dart';
 final locationStreamProvider = StreamProvider.autoDispose<LocationData>((ref) {
   final locationService = ref.read(locationServiceProvider);
 
-  print('---- in locationStreamProvider ----');
-
   return locationService.getLocationStream();
 });
 
