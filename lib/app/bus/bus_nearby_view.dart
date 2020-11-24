@@ -20,8 +20,9 @@ final locationStreamProvider = StreamProvider.autoDispose<LocationData>((ref) {
   return locationService.getLocationStream();
 });
 
-// TODO: sometimes on first load when DB is created, a new location value is not
-// emmitted, and the view page just shows the loading message
+// TODO: on first load when DB is created while accepting the location
+// permission, a new location value is not emmitted, and the view page just
+// shows the loading message
 /// Provides a stream of nearby bus stops, based on
 /// user location
 final nearbyBusStopsProvider =
@@ -32,8 +33,6 @@ final nearbyBusStopsProvider =
 
   var allBusStops = <BusStopModel>[];
 
-  // TODO: if it goes through here, then the latest location is not
-  // emmited and the Nearby view is always loading
   allBusStops = await vm.getBusStops();
 
   // filter and yield a value whenever a new location is provided via the
