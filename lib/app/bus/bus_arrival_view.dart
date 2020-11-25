@@ -96,6 +96,7 @@ class BusArrivalView extends HookWidget {
             padding: const EdgeInsets.only(right: 10.0),
             child: isFavorite.when(
                 data: (isFavorite) => IconButton(
+                    key: const ValueKey('favouriteIconButton'),
                     icon: Icon(
                         isFavorite ? Icons.favorite : Icons.favorite_outline),
                     onPressed: () async {

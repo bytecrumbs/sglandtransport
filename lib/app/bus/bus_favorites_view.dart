@@ -45,8 +45,10 @@ class BusFavoritesView extends HookWidget {
                     itemBuilder: (context, index) {
                       return StaggeredAnimation(
                         index: index,
-                        child:
-                            BusStopCard(busStopModel: favoriteBusStops[index]),
+                        child: BusStopCard(
+                          busStopModel: favoriteBusStops[index],
+                          key: ValueKey<String>('busStopCard-$index'),
+                        ),
                       );
                     },
                   ),

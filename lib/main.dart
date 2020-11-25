@@ -4,7 +4,10 @@ import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:location/location.dart';
 import 'package:logging/logging.dart';
+
+import 'app/bus/bus_nearby_view.dart';
 import 'environment_config.dart';
 import 'my_app.dart';
 import 'services/provider_logger.dart';
@@ -32,8 +35,27 @@ void main() {
         '${record.time}: ${record.message}');
   });
 
+  final fakeLocationStreamProvider =
+      StreamProvider.autoDispose<LocationData>((ref) async* {
+    yield LocationData.fromMap(
+      {
+        'latitude': 1.29685,
+        'longitude': 103.853,
+      },
+    );
+  });
+
+  var providerOverrides = EnvironmentConfig.isFlutterDriveRun
+      ? [
+          locationStreamProvider.overrideWithProvider(
+            fakeLocationStreamProvider,
+          ),
+        ]
+      : <Override>[];
+
   warmupFlare().then((_) {
     runApp(ProviderScope(
+      overrides: providerOverrides,
       child: MyApp(),
       observers: [ProviderLogger()],
     ));
