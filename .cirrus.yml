@@ -27,8 +27,9 @@ integration_test_task:
     - echo $IOS_GOOGLE_SERVICES > ./ios/Runner/GoogleService-Info.plist
     - echo $ANDROID_GOOGLE_SERVICES > ./android/app/google-services.json
   integration_test_script:
-    - xcrun simctl boot 67A0E90A-97AE-4584-BBD1-29052EEE5BC5
-    - flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
+    - xcrun simctl list
+    # - xcrun simctl boot 67A0E90A-97AE-4584-BBD1-29052EEE5BC5
+    # - flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
 
 android_beta_upload_task:
   only_if: $CIRRUS_BRANCH == 'master'
