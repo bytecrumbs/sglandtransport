@@ -49,9 +49,10 @@ dependencies:
   progress_indicators: ^0.1.5
 
 dev_dependencies:
+  flutter_test:
+    sdk: flutter
   flutter_driver:
     sdk: flutter
-  test: any
   auto_route_generator: ^0.6.10
   build_runner: ^1.10.4
   injectable_generator: ^1.0.6

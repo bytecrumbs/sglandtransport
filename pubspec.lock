@@ -378,7 +378,7 @@ packages:
     source: hosted
     version: "0.1.2"
   flutter_test:
-    dependency: transitive
+    dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -927,7 +927,7 @@ packages:
     source: hosted
     version: "1.2.0-nullsafety.1"
   test:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: test
       url: "https://pub.dartlang.org"
