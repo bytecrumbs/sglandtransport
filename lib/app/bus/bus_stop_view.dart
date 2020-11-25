@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
+import '../../common_widgets/app_drawer_view.dart';
 import '../../common_widgets/sliver_view.dart';
 import 'bus_favorites_view.dart';
 import 'bus_nearby_view.dart';
@@ -33,6 +34,7 @@ class BusStopView extends HookWidget {
     return RateMyAppBuilder(
       builder: (context) => Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        drawer: AppDrawerView(),
         body: SliverView(
           title: 'Buses',
           child: _getViewForIndex(bottomBarIndex.state),
