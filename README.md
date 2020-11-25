@@ -159,7 +159,7 @@ An Apple ID session is only valid for up to a month, meaning you'll have to gene
 1. Set up fastlane and Add App Distribution to your fastlane configuration
 
 ```
-fastlane add_plugin firebase_app_distribution
+bundle exec fastlane add_plugin firebase_app_distribution
 ```
 
 2. Authenticate With Firebase
