@@ -116,6 +116,7 @@ class Api {
           ),
           queryParameters: queryParameters);
     } on DioError catch (dioError) {
+      _log.severe(dioError.message);
       throw Failure.fromDioError(dioError);
     }
   }
