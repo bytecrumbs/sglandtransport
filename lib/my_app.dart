@@ -1,77 +1,46 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lta_datamall_flutter/app/locator.dart';
-import 'package:lta_datamall_flutter/app/router.gr.dart' as auto_router;
-import 'package:lta_datamall_flutter/services/firebase_analytics_service.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
 
-// Toggle this for testing Crashlytics in your app locally.
-final _kTestingCrashlytics = false;
+import 'my_app_initializer.dart';
+import 'routing/router.gr.dart' as auto_route;
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+/// Initializes things that need to be done prior to app start
+final appInitFutureProvider = FutureProvider<void>((ref) async {
+  final initializer = ref.read(myAppInitializerProvider);
 
-class _MyAppState extends State<MyApp> {
-  Future<void> _initializeSgLandTransportFuture;
+  await initializer.initFirebase();
 
-  // Define an async function to initialize FlutterFire
-  Future<void> _initializeSgLandTransport() async {
-    // Wait for Firebase to initialize
-    await Firebase.initializeApp();
+  await initializer.initLayout();
 
-    if (_kTestingCrashlytics) {
-      // Force enable crashlytics collection enabled if we're testing it.
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    } else {
-      // Else only enable it in non-debug builds.
-      // We could additionally extend this to allow users to opt-in.
-      await FirebaseCrashlytics.instance
-          .setCrashlyticsCollectionEnabled(!kDebugMode);
-    }
+  // no need to await here, as this can run in the background
+  initializer.initDatabaseLoad();
+});
 
-    // Pass all uncaught errors to Crashlytics.
-    Function originalOnError = FlutterError.onError;
-    FlutterError.onError = (FlutterErrorDetails errorDetails) async {
-      await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
-      // Forward to original handler.
-      originalOnError(errorDetails);
-    };
+/// The main class, which will first initiate firebase and other things that
+/// need to be done on start up.
+class MyApp extends HookWidget {
+  /// The Firebase analytics reference
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
 
-    await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
-      DeviceOrientation.portraitUp,
-    ]);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeSgLandTransportFuture = _initializeSgLandTransport();
-  }
-
+  /// The observer used to log navigation events
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initializeSgLandTransportFuture,
-      builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          MaterialApp(
-            home: Scaffold(
-              body: Center(child: Text('Something went wrong')),
-            ),
-          );
-        }
-
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            title: 'SG Land Transport',
-            theme: ThemeData(
+    final appInit = useProvider(appInitFutureProvider);
+    return appInit.when(
+      data: (appInit) => MaterialApp(
+        title: 'GitLab Mobile',
+        builder: ExtendedNavigator.builder(
+          router: auto_route.Router(),
+          observers: <NavigatorObserver>[observer],
+          builder: (context, extendedNav) => Theme(
+            data: ThemeData(
               brightness: Brightness.light,
               primaryColorDark: Color(0xFF25304D),
               primaryColor: Color(0xFF969CAE),
@@ -90,20 +59,18 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
             ),
-            initialRoute: auto_router.Routes.busView,
-            onGenerateRoute: auto_router.Router().onGenerateRoute,
-            navigatorKey: locator<NavigationService>().navigatorKey,
-            navigatorObservers: [
-              locator<FirebaseAnalyticsService>().analyticsObserver,
-            ],
-          );
-        }
-
-        // Otherwise, show something whilst waiting for initialization to complete
-        return MaterialApp(
-          home: Scaffold(),
-        );
-      },
+            child: extendedNav,
+          ),
+        ),
+      ),
+      loading: () => MaterialApp(
+        home: Scaffold(),
+      ),
+      error: (err, stack) => MaterialApp(
+        home: Scaffold(
+          body: Center(child: Text('Something went wrong')),
+        ),
+      ),
     );
   }
 }
