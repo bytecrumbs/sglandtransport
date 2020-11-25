@@ -32,13 +32,13 @@ void main() {
   });
 
   final fakeLocationStreamProvider =
-      StreamProvider.autoDispose<LocationData>((ref) async* {
-    yield LocationData.fromMap(
+      StreamProvider.autoDispose<LocationData>((ref) {
+    return Stream.value(LocationData.fromMap(
       {
         'latitude': 1.29685,
         'longitude': 103.853,
       },
-    );
+    ));
   });
 
   warmupFlare().then((_) {
