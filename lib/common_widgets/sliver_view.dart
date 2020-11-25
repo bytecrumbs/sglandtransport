@@ -6,13 +6,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app/search/custom_search_delegate.dart';
-import '../environment_config.dart';
 
 /// Provides info on whether the sliver is fully expanded or not
 final isExpandedStateProvider = StateProvider<bool>((ref) => true);
 
 /// Provides infor on whether the sliver is partially expanded or not
 final isPartiallyExpandedStateProvider = StateProvider<bool>((ref) => true);
+
+/// Defined whether the flare animation should loop or be idle. This was done
+/// so that for the integration tests, this value can easily be overriden
+final isFlareAnimationLoopStateProvider = StateProvider<bool>((ref) => true);
 
 /// Main Sliver view, which can be used to wrap a child in it.
 class SliverView extends HookWidget {
@@ -32,6 +35,7 @@ class SliverView extends HookWidget {
   Widget build(BuildContext context) {
     final isExpanded = useProvider(isExpandedStateProvider);
     final isPartiallyExpanded = useProvider(isPartiallyExpandedStateProvider);
+    final isFlareAnimationLoop = useProvider(isFlareAnimationLoopStateProvider);
 
     final screenHeight = MediaQuery.of(context).size.height;
     final _sliverAnimationHeight = screenHeight * 0.32;
@@ -67,8 +71,7 @@ class SliverView extends HookWidget {
                 AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
                 alignment: Alignment.topCenter,
                 fit: BoxFit.cover,
-                animation:
-                    EnvironmentConfig.isFlutterDriveRun ? 'Idle' : 'Loop',
+                animation: isFlareAnimationLoop.state ? 'Loop' : 'Idle',
               ),
             ),
             actions: <Widget>[

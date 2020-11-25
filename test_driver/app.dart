@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:location/location.dart';
 import 'package:logging/logging.dart';
 import 'package:lta_datamall_flutter/app/bus/bus_nearby_view.dart';
+import 'package:lta_datamall_flutter/common_widgets/sliver_view.dart';
 import 'package:lta_datamall_flutter/my_app.dart';
 import 'package:lta_datamall_flutter/services/provider_logger.dart';
 
@@ -49,6 +50,8 @@ void main() {
         locationStreamProvider.overrideWithProvider(
           fakeLocationStreamProvider,
         ),
+        isFlareAnimationLoopStateProvider
+            .overrideWithValue(StateController(false)),
       ],
       child: MyApp(),
       observers: [ProviderLogger()],
