@@ -90,6 +90,7 @@ class BusArrivalView extends HookWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColorDark,
         title: Text(description),
         actions: <Widget>[
           Padding(
