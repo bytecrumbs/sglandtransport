@@ -7,7 +7,7 @@ Future<FlutterDriver> setupAndGetDriver() async {
     try {
       await driver.waitUntilFirstFrameRasterized();
       connected = true;
-    } catch (error) {
+    } on Exception catch (error) {
       print(error);
     }
   }

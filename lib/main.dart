@@ -1,17 +1,15 @@
-import 'dart:async';
-
+import 'package:flare_flutter/provider/asset_flare.dart';
+import 'package:flare_flutter/flare_cache.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:logging/logging.dart';
-import 'package:lta_datamall_flutter/app/locator.dart';
-import 'package:lta_datamall_flutter/environment_config.dart';
-import 'package:lta_datamall_flutter/services/bus_service.dart';
-import 'package:flare_flutter/provider/asset_flare.dart';
-import 'package:flare_flutter/flare_cache.dart';
 
 import 'my_app.dart';
+import 'services/provider_logger.dart';
 
+/// Preload Flare asset
 Future<void> warmupFlare() async {
   await cachedActor(AssetFlare(bundle: rootBundle, name: 'images/city.flr'));
 }
@@ -22,7 +20,7 @@ void main() {
   FlareCache.doesPrune = false;
 
   Level logLevel;
-  if (foundation.kReleaseMode || EnvironmentConfig.isFlutterDriveRun) {
+  if (foundation.kReleaseMode) {
     logLevel = Level.WARNING;
   } else {
     logLevel = Level.ALL;
@@ -30,14 +28,14 @@ void main() {
 
   Logger.root.level = logLevel;
   Logger.root.onRecord.listen((record) {
-    print(
-        '[${record.loggerName}]: ${record.level.name}: ${record.time}: ${record.message}');
+    print('[${record.loggerName}]: ${record.level.name}: '
+        '${record.time}: ${record.message}');
   });
 
-  WidgetsFlutterBinding.ensureInitialized();
-  setupLocator();
-  locator<BusService>().addBusRoutesToDb();
   warmupFlare().then((_) {
-    runApp(MyApp());
+    runApp(ProviderScope(
+      child: MyApp(),
+      observers: [ProviderLogger()],
+    ));
   });
 }

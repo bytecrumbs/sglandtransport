@@ -16,6 +16,10 @@
 default_platform(:ios)
 
 platform :ios do
+  before_all do
+    setup_ci
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+  end
 
   desc "Push a new beta build to TestFlight"
   lane :test do
@@ -30,25 +34,81 @@ platform :ios do
   end
 
   lane :testflight_from_local do
+    match(type: "appstore", readonly: is_ci)
     build_ios_app(
       export_method: "app-store"
     )
     upload_to_testflight
   end
 
-  lane :testflight_from_ci do
-    Dir.chdir "../.." do
-      sh("flutter", "build", "ios", "--release", "--no-codesign")
-    end
-    build_app(
-      workspace: "Runner.xcworkspace",
-      scheme: "Runner",
-      clean: true
+  desc "Registers new devices to Dev Portal and auto re-generate the provisioning profile if necessary"
+  lane :add_new_devices do
+    register_devices(
+      devices: {
+        "Device name" => "UDID-XXXXXX"
+      }
     )
-    upload_to_testflight
+    match(type: "adhoc", force_for_new_devices: true)
   end
 
-  lane :meta_data do
+  desc "Upload to Firebase"
+  lane :upload_firebase do
+    match(
+      type: "adhoc",
+      readonly: true,
+      app_identifier: "com.saschaderungs.ltaDatamall"
+    )
+    update_code_signing_settings(
+      code_sign_identity: "iPhone Distribution",
+      use_automatic_signing: false
+    )
+    build_ios_app(
+      export_method: "ad-hoc",
+      configuration: "Release",
+      export_options: {
+        provisioningProfiles: {
+          "com.saschaderungs.ltaDatamall" => "match AdHoc com.saschaderungs.ltaDatamall"
+        }
+      },
+      xcargs: {
+        "PROVISIONING_PROFILE_SPECIFIER" => "match AdHoc com.saschaderungs.ltaDatamall",
+      }
+    )
+    firebase_app_distribution(
+      app: "1:993014486723:ios:3e667c9450c311aa827476",
+      release_notes: "This is a distribution build!",
+      groups: "sglandtransport_internal_test_group",
+      debug: true
+    )
+  end
+
+  lane :testflight_from_ci do
+    match(
+      type: "appstore",
+      readonly: is_ci,
+      app_identifier: "com.saschaderungs.ltaDatamall"
+    )
+    update_code_signing_settings(
+      code_sign_identity: "iPhone Distribution",
+      use_automatic_signing: false
+    )
+    build_ios_app(
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+          "com.saschaderungs.ltaDatamall" => "match AppStore com.saschaderungs.ltaDatamall"
+        }
+      },
+      xcargs: {
+        "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall",
+      }
+    )
+    upload_to_testflight
+    slack(
+      message: "Application was built and successfully uploaded to Testflight",
+      success: true,
+      default_payloads: [:git_branch, :last_git_commit_message]
+    )
     upload_to_app_store(
       submit_for_review: false,
       automatic_release: false,
@@ -57,6 +117,11 @@ platform :ios do
       skip_screenshots: false,
       skip_binary_upload: true,
       overwrite_screenshots: true
+    )
+    slack(
+      message: "Latest Meta-Data has been uploaded to App Store",
+      success: true,
+      default_payloads: [:git_branch, :last_git_commit_message]
     )
   end
 
@@ -76,6 +141,13 @@ platform :ios do
         add_id_info_tracks_install: true,
         add_id_info_uses_idfa: true
       }
+    )
+  end
+
+  error do |lane, exception|
+    slack(
+      message: exception.message,
+      success: false
     )
   end
 end

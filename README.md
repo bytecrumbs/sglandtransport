@@ -112,12 +112,8 @@ genhtml coverage/lcov.info --output=coverage
 ### Run Integration (UI) Tests
 
 ```
-flutter drive --target=test_driver/app.dart --dart-define=IS_FLUTTER_DRIVE_RUN=true --dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key>
+flutter drive --target=test_driver/app.dart --dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key>
 ```
-
-IMPORTANT NOTE: above argument '--dart-define=IS_FLUTTER_DRIVE_RUN=true'. This is used so that in the code we can check if the app is run using flutter drive and therefore some specific checks can be made (i.e. the flare animation will not animate when running 'flutter drive')
-
-Alternatively, refer to the Screenshots section below, which will run the same integration tests as well.
 
 ## Deployments
 
@@ -125,7 +121,7 @@ Alternatively, refer to the Screenshots section below, which will run the same i
 
 Deployments can be run from your local machine
 
-#### iOS TestFlight:
+#### iOS TestFlight from Dev Machine:
 
 ```
 cd ios
@@ -141,6 +137,49 @@ Upload meta-data:
 ```
 cd ios
 bundle exec fastlane meta_data
+```
+
+#### iOS TestFlight from CI/CD:
+
+```
+cd ios
+bundle exec fastlane testflight_from_ci
+```
+
+Note:
+Authentication with Apple services: Several Fastlane actions communicate with Apple services that need authentication. This can pose several challenges on CI. More info, use this link: https://docs.fastlane.tools/best-practices/continuous-integration/#application-specific-passwords
+
+An Apple ID session is only valid for a certain region, meaning if your CI system is in a different region than your local machine, you might run into issues
+An Apple ID session is only valid for up to a month, meaning you'll have to generate a new session every month. Usually you'd only know about it when your build starts failing
+
+### iOS Firebase App Distribution from Local:
+
+#### Upload build using Fastlane
+
+1. Set up fastlane and Add App Distribution to your fastlane configuration
+
+```
+bundle exec fastlane add_plugin firebase_app_distribution
+```
+
+2. Authenticate With Firebase
+
+#### To install the Firebase CLI using the automatic install script
+
+```
+curl -sL https://firebase.tools | bash
+```
+
+3. Log into Firebase using your Google account
+
+```
+firebase login:ci
+```
+
+4. Get the token and set FIREBASE_TOKEN
+
+```
+export FIREBASE_TOKEN=token_from_ci
 ```
 
 #### Android internal test track:
