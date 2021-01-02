@@ -6,12 +6,19 @@ import 'package:logging/logging.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
 import '../../common_widgets/app_drawer_view.dart';
+import '../../common_widgets/error_view.dart';
 import '../../common_widgets/sliver_view.dart';
+import '../../constants.dart';
+import '../../services/local_storage_service.dart';
+import '../failure.dart';
 import 'bus_favorites_view.dart';
 import 'bus_nearby_view.dart';
 
 /// Stores the selected index of the bottom bar
-final bottomBarIndexStateProvider = StateProvider<int>((ref) => 0);
+final bottomBarIndexFutureProvider = FutureProvider<int>((ref) {
+  final localStorage = ref.read(localStorageServiceProvider);
+  return localStorage.getInt(Constants.bottomBarIndexKey);
+});
 
 /// The main bus view, in which you can switch between nearby and
 /// favorite bus stops
@@ -30,34 +37,54 @@ class BusStopView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bottomBarIndex = useProvider(bottomBarIndexStateProvider);
+    var bottomBarIndex = useProvider(bottomBarIndexFutureProvider);
+    var localStorage = useProvider(localStorageServiceProvider);
     return RateMyAppBuilder(
       builder: (context) => Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         drawer: AppDrawerView(),
         body: SliverView(
-          title: 'Buses',
-          child: _getViewForIndex(bottomBarIndex.state),
-        ),
-        bottomNavigationBar: ConvexAppBar(
-          key: Key('BottomBar'),
-          color: Theme.of(context).primaryColorDark,
-          activeColor: Theme.of(context).accentColor,
-          backgroundColor: Theme.of(context).bottomAppBarColor,
-          top: -25.0,
-          style: TabStyle.react,
-          initialActiveIndex: bottomBarIndex.state,
-          onTap: (var i) => bottomBarIndex.state = i,
-          items: [
-            TabItem(
-              icon: Icons.location_searching,
-              title: 'Nearby',
-            ),
-            TabItem(
-              icon: Icons.favorite,
-              title: 'Favorites',
-            )
-          ],
+            title: 'Buses',
+            child: bottomBarIndex.when(
+                data: _getViewForIndex,
+                loading: () => Container(),
+                error: (err, stack) {
+                  if (err is Failure) {
+                    return ErrorView(message: err.message);
+                  }
+                  return ErrorView();
+                })),
+        bottomNavigationBar: bottomBarIndex.when(
+          data: (index) => ConvexAppBar(
+            key: Key('BottomBar'),
+            color: Theme.of(context).primaryColorDark,
+            activeColor: Theme.of(context).accentColor,
+            backgroundColor: Theme.of(context).bottomAppBarColor,
+            top: -25.0,
+            style: TabStyle.react,
+            initialActiveIndex: index,
+            onTap: (var i) async {
+              await localStorage.setInt(Constants.bottomBarIndexKey, i);
+              context.refresh(bottomBarIndexFutureProvider);
+            },
+            items: [
+              TabItem(
+                icon: Icons.location_searching,
+                title: 'Nearby',
+              ),
+              TabItem(
+                icon: Icons.favorite,
+                title: 'Favorites',
+              )
+            ],
+          ),
+          loading: () => Container(),
+          error: (err, stack) {
+            if (err is Failure) {
+              return ErrorView(message: err.message);
+            }
+            return ErrorView();
+          },
         ),
       ),
       rateMyApp: RateMyApp(

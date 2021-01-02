@@ -38,4 +38,16 @@ class LocalStorageService {
     final stringList = prefs.getStringList(key) ?? <String>[];
     return stringList.contains(value);
   }
+
+  /// sets an integer value in the local storage of the device
+  Future<bool> setInt(String key, int value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return await prefs.setInt(key, value);
+  }
+
+  /// gets an integer value based on a key from the local storage of the device
+  Future<int> getInt(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(key);
+  }
 }
