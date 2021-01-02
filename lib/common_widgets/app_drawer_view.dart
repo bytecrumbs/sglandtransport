@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:share/share.dart';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +33,16 @@ class AppDrawerView extends StatelessWidget {
             applicationLegalese: 'free | ad-free | open-source',
             applicationIcon: Icon(Icons.info_outline),
             aboutBoxChildren: <Widget>[AboutView()],
+          ),
+          ListTile(
+            leading: Icon(Platform.isAndroid ? Icons.share : Icons.ios_share),
+            title: Text('Share'),
+            onTap: () async {
+              await Share.share(
+                'Check out SG Land Transport here: https://sglandtransport.app',
+                subject: 'SG Land Transport',
+              );
+            },
           ),
         ],
       ),

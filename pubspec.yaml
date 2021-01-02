@@ -11,7 +11,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.3.2+96
+version: 1.4.0+97
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -21,18 +21,18 @@ dependencies:
     sdk: flutter
 
   dio: ^3.0.10
-  firebase_core: ^0.5.2+1
-  firebase_analytics: ^6.2.0
-  firebase_crashlytics: ^0.2.3+1
-  firebase_performance: ^0.4.2
+  firebase_core: ^0.5.3
+  firebase_analytics: ^6.3.0
+  firebase_crashlytics: ^0.2.4
+  firebase_performance: ^0.4.3
   flutter_hooks: ^0.15.0
   hooks_riverpod: ^0.12.1
   convex_bottom_bar: ^2.6.0
   logging: ^0.11.4
   url_launcher: ^5.7.10
-  injectable: ^1.0.5
+  injectable: ^1.0.7
   json_annotation: ^3.1.1
-  location: ^3.1.0
+  location: ^3.2.1
   sqflite: ^1.3.2+1
   path: ^1.7.0
   latlong: ^0.6.1
@@ -47,6 +47,7 @@ dependencies:
   #stack service
   flare_flutter: ^2.0.6
   progress_indicators: ^0.1.5
+  share: ">=0.6.5+4 <2.0.0"
 
 dev_dependencies:
   flutter_test:
@@ -54,11 +55,11 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   auto_route_generator: ^0.6.10
-  build_runner: ^1.10.6
-  injectable_generator: ^1.0.6
-  json_serializable: ^3.5.0
+  build_runner: ^1.10.11
+  injectable_generator: ^1.0.7
+  json_serializable: ^3.5.1
   mockito: ^4.1.3
-  freezed: ^0.12.3
+  freezed: ^0.12.6
   effective_dart: ^1.3.0
 
 dependency_overrides:

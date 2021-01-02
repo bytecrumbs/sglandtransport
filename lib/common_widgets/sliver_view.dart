@@ -7,14 +7,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app/search/custom_search_delegate.dart';
 
-/// Provides info on whether the sliver is fully expanded or not
-final isExpandedStateProvider = StateProvider<bool>((ref) => true);
-
-/// Provides infor on whether the sliver is partially expanded or not
-final isPartiallyExpandedStateProvider = StateProvider<bool>((ref) => true);
-
-/// Defined whether the flare animation should loop or be idle. This was done
-/// so that for the integration tests, this value can easily be overriden
+/// Defines whether the flare animation should loop or be idle. It is done like
+/// this (rather than using a useState hook), so that for the integration tests,
+/// this value can easily be overriden
 final isFlareAnimationLoopStateProvider = StateProvider<bool>((ref) => true);
 
 /// Main Sliver view, which can be used to wrap a child in it.
@@ -33,22 +28,22 @@ class SliverView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isExpanded = useProvider(isExpandedStateProvider);
-    final isPartiallyExpanded = useProvider(isPartiallyExpandedStateProvider);
+    final isExpanded = useState(true);
+    final isPartiallyExpanded = useState(true);
     final isFlareAnimationLoop = useProvider(isFlareAnimationLoopStateProvider);
 
     final screenHeight = MediaQuery.of(context).size.height;
     final _sliverAnimationHeight = screenHeight * 0.32;
     var appBarColor =
-        isExpanded.state ? Theme.of(context).primaryColorDark : Colors.white;
+        isExpanded.value ? Theme.of(context).primaryColorDark : Colors.white;
 
     return NotificationListener<ScrollNotification>(
       onNotification: (scrollState) {
-        isExpanded.state =
+        isExpanded.value =
             scrollState.metrics.pixels < _sliverAnimationHeight / 1.5;
-        isPartiallyExpanded.state = scrollState.metrics.pixels < 40;
+        isPartiallyExpanded.value = scrollState.metrics.pixels < 40;
         ;
-        return isExpanded.state;
+        return isExpanded.value;
       },
       child: CustomScrollView(
         slivers: [
@@ -63,7 +58,7 @@ class SliverView extends HookWidget {
             floating: false,
             snap: false,
             expandedHeight: _sliverAnimationHeight,
-            backgroundColor: isPartiallyExpanded.state
+            backgroundColor: isPartiallyExpanded.value
                 ? Theme.of(context).scaffoldBackgroundColor
                 : Theme.of(context).primaryColorDark,
             flexibleSpace: FlexibleSpaceBar(
