@@ -1,0 +1,3 @@
+- The app now remembers whether you have last used the "Nearby" or the "Favorites" section of bus stops, and loads that section by default on start-up
+- Ability to share the app with your friends via the native Share function available in the main menu of the app
+- Stability and performance improvements
