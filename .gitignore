@@ -45,6 +45,7 @@ builds/dcinDi7y/0/sascha.derungs/lta-datamall-flutter.tmp/git-template/config
 # api keys
 .vscode/
 ios/Runner/GoogleService-Info.plist
+ios/GoogleService-Info.plist
 android/app/google-services.json
 
 # environment variables for local development

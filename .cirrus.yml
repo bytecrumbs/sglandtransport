@@ -24,7 +24,7 @@ integration_test_task:
     - IOS_GOOGLE_SERVICES: ENCRYPTED[c9045648b38fd2f3e4f496e34ef789580e6a50fad8f3941edb3ba10fb044794b5924754277316e0d31826e225b2145e8]
     - ANDROID_GOOGLE_SERVICES: ENCRYPTED[c68bca2da6df1ca61c46e8fc83162895e5cfe4d364c53be6ef118c65ab75f918427d460326cf9eb980f55ddf8ecb115b]
   add_firebase_files_script:
-    - echo $IOS_GOOGLE_SERVICES > ./ios/Runner/GoogleService-Info.plist
+    - echo $IOS_GOOGLE_SERVICES > ./ios/GoogleService-Info.plist
     - echo $ANDROID_GOOGLE_SERVICES > ./android/app/google-services.json
   integration_test_script:
     - xcrun simctl boot 2EB7256A-920E-43B0-BC35-0A23E9E18385
