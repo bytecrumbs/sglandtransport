@@ -31,6 +31,7 @@ mixin _$TimerProviderParameter {
   BuildContext get context;
   String get busStopCode;
 
+  @JsonKey(ignore: true)
   $TimerProviderParameterCopyWith<TimerProviderParameter> get copyWith;
 }
 
@@ -130,6 +131,7 @@ class _$_TimerProviderParameter implements _TimerProviderParameter {
       const DeepCollectionEquality().hash(context) ^
       const DeepCollectionEquality().hash(busStopCode);
 
+  @JsonKey(ignore: true)
   @override
   _$TimerProviderParameterCopyWith<_TimerProviderParameter> get copyWith =>
       __$TimerProviderParameterCopyWithImpl<_TimerProviderParameter>(
@@ -145,5 +147,6 @@ abstract class _TimerProviderParameter implements TimerProviderParameter {
   @override
   String get busStopCode;
   @override
+  @JsonKey(ignore: true)
   _$TimerProviderParameterCopyWith<_TimerProviderParameter> get copyWith;
 }

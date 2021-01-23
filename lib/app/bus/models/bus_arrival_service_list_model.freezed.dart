@@ -49,6 +49,7 @@ mixin _$BusArrivalServiceListModel {
   List<BusArrivalServiceModel> get services;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $BusArrivalServiceListModelCopyWith<BusArrivalServiceListModel> get copyWith;
 }
 
@@ -197,6 +198,7 @@ class _$_BusArrivalServiceListModel
       const DeepCollectionEquality().hash(busStopCode) ^
       const DeepCollectionEquality().hash(services);
 
+  @JsonKey(ignore: true)
   @override
   _$BusArrivalServiceListModelCopyWith<_BusArrivalServiceListModel>
       get copyWith => __$BusArrivalServiceListModelCopyWithImpl<
@@ -229,6 +231,7 @@ abstract class _BusArrivalServiceListModel
   @JsonKey(name: 'Services')
   List<BusArrivalServiceModel> get services;
   @override
+  @JsonKey(ignore: true)
   _$BusArrivalServiceListModelCopyWith<_BusArrivalServiceListModel>
       get copyWith;
 }

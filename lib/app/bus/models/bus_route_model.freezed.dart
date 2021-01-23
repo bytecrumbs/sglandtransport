@@ -84,6 +84,7 @@ mixin _$BusRouteModel {
   String get sunLastBus;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $BusRouteModelCopyWith<BusRouteModel> get copyWith;
 }
 
@@ -369,6 +370,7 @@ class _$_BusRouteModel with DiagnosticableTreeMixin implements _BusRouteModel {
       const DeepCollectionEquality().hash(sunFirstBus) ^
       const DeepCollectionEquality().hash(sunLastBus);
 
+  @JsonKey(ignore: true)
   @override
   _$BusRouteModelCopyWith<_BusRouteModel> get copyWith =>
       __$BusRouteModelCopyWithImpl<_BusRouteModel>(this, _$identity);
@@ -434,5 +436,6 @@ abstract class _BusRouteModel implements BusRouteModel {
   @JsonKey(name: 'SUN_LastBus')
   String get sunLastBus;
   @override
+  @JsonKey(ignore: true)
   _$BusRouteModelCopyWith<_BusRouteModel> get copyWith;
 }

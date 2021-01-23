@@ -43,6 +43,7 @@ mixin _$BusStopListModel {
   List<BusStopModel> get value;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $BusStopListModelCopyWith<BusStopListModel> get copyWith;
 }
 
@@ -165,6 +166,7 @@ class _$_BusStopListModel
       const DeepCollectionEquality().hash(odataMetadata) ^
       const DeepCollectionEquality().hash(value);
 
+  @JsonKey(ignore: true)
   @override
   _$BusStopListModelCopyWith<_BusStopListModel> get copyWith =>
       __$BusStopListModelCopyWithImpl<_BusStopListModel>(this, _$identity);
@@ -189,5 +191,6 @@ abstract class _BusStopListModel implements BusStopListModel {
   @override
   List<BusStopModel> get value;
   @override
+  @JsonKey(ignore: true)
   _$BusStopListModelCopyWith<_BusStopListModel> get copyWith;
 }
