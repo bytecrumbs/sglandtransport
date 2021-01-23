@@ -77,10 +77,13 @@ ios_testflight_task:
     - MATCH_GIT_PRIVATE_KEY: ENCRYPTED[1c55aefb94f129b326aa3acce292bb78d01b2d8b151fb1926fb69d7eae118730818779e0b9b18f6c13064b87977ee94c]
     - FASTLANE_PASSWORD: ENCRYPTED[2daa383a60a84c13dd9d6386326447aa8a38dcc96eab3e90be82cbbd846e00a23500283858fc1d5cbb288e6b9d8d293a]
     - FASTLANE_SESSION: ENCRYPTED[f080e8cd0dd592ab5ee9e5d9a6290dab27049bc2a53ddda47a44eef46d322826ea23aafd31909f13c6c1eb6574743eeb]
+  update_library_versions:
+    - gem which cocoapods
+    - flutter --version
   add_firebase_files_script:
     - echo $IOS_GOOGLE_SERVICE > ios/GoogleService-Info.plist
-  build_app_script:
-    - flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
+  # build_app_script:
+  #   - flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
   # fastlane_script:
   #   - git config --global url."https://x-access-token:${MATCH_GIT_PRIVATE_KEY}@github".insteadOf https://github
   #   - cd ios
