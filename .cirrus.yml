@@ -80,7 +80,7 @@ ios_testflight_task:
   update_flutter_script:
     - flutter upgrade
   add_firebase_files_script:
-    - echo $IOS_GOOGLE_SERVICE > ios/GoogleService-Info.plist
+    - echo $IOS_GOOGLE_SERVICES > ios/GoogleService-Info.plist
   build_app_script:
     - flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
   # fastlane_script:
