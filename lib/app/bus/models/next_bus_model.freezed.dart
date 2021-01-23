@@ -72,6 +72,7 @@ mixin _$NextBusModel {
   String get type;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $NextBusModelCopyWith<NextBusModel> get copyWith;
 }
 
@@ -304,6 +305,7 @@ class _$_NextBusModel with DiagnosticableTreeMixin implements _NextBusModel {
       const DeepCollectionEquality().hash(feature) ^
       const DeepCollectionEquality().hash(type);
 
+  @JsonKey(ignore: true)
   @override
   _$NextBusModelCopyWith<_NextBusModel> get copyWith =>
       __$NextBusModelCopyWithImpl<_NextBusModel>(this, _$identity);
@@ -357,5 +359,6 @@ abstract class _NextBusModel implements NextBusModel {
   @JsonKey(name: 'Type')
   String get type;
   @override
+  @JsonKey(ignore: true)
   _$NextBusModelCopyWith<_NextBusModel> get copyWith;
 }

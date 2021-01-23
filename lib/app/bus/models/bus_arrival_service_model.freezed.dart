@@ -63,6 +63,7 @@ mixin _$BusArrivalServiceModel {
   String get destinationName;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $BusArrivalServiceModelCopyWith<BusArrivalServiceModel> get copyWith;
 }
 
@@ -310,6 +311,7 @@ class _$_BusArrivalServiceModel
       const DeepCollectionEquality().hash(inService) ^
       const DeepCollectionEquality().hash(destinationName);
 
+  @JsonKey(ignore: true)
   @override
   _$BusArrivalServiceModelCopyWith<_BusArrivalServiceModel> get copyWith =>
       __$BusArrivalServiceModelCopyWithImpl<_BusArrivalServiceModel>(
@@ -354,5 +356,6 @@ abstract class _BusArrivalServiceModel implements BusArrivalServiceModel {
   @override
   String get destinationName;
   @override
+  @JsonKey(ignore: true)
   _$BusArrivalServiceModelCopyWith<_BusArrivalServiceModel> get copyWith;
 }

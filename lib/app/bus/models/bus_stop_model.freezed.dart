@@ -59,6 +59,7 @@ mixin _$BusStopModel {
   int get distanceInMeters;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $BusStopModelCopyWith<BusStopModel> get copyWith;
 }
 
@@ -243,6 +244,7 @@ class _$_BusStopModel with DiagnosticableTreeMixin implements _BusStopModel {
       const DeepCollectionEquality().hash(longitude) ^
       const DeepCollectionEquality().hash(distanceInMeters);
 
+  @JsonKey(ignore: true)
   @override
   _$BusStopModelCopyWith<_BusStopModel> get copyWith =>
       __$BusStopModelCopyWithImpl<_BusStopModel>(this, _$identity);
@@ -283,5 +285,6 @@ abstract class _BusStopModel implements BusStopModel {
   @override
   int get distanceInMeters;
   @override
+  @JsonKey(ignore: true)
   _$BusStopModelCopyWith<_BusStopModel> get copyWith;
 }
