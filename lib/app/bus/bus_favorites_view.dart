@@ -22,6 +22,7 @@ class BusFavoritesView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final favoriteBusStops = useProvider(favoriteBusStopsFutureProvider);
+    var busFavVMProvider = useProvider(busFavoritesViewModelProvider);
     return favoriteBusStops.when(
       data: (favoriteBusStops) {
         return favoriteBusStops.isEmpty
@@ -46,9 +47,14 @@ class BusFavoritesView extends HookWidget {
                       return StaggeredAnimation(
                         index: index,
                         child: Dismissible(
-                          key: Key(index.toString()),
-                          onDismissed: (direction) {
-                            favoriteBusStops.removeAt(index);
+                          key: Key(
+                            favoriteBusStops[index].toString(),
+                          ),
+                          onDismissed: (direction) async {
+                            var removedItem = favoriteBusStops.removeAt(index);
+                            await busFavVMProvider
+                                .removeBusStopFromFavorites(removedItem);
+                            context.refresh(busFavoritesViewModelProvider);
                           },
                           direction: DismissDirection.endToStart,
                           child: BusStopCard(
