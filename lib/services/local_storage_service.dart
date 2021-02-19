@@ -8,7 +8,8 @@ final localStorageServiceProvider =
 
 /// The local storage class, which is based on Shared Preferences
 class LocalStorageService {
-  /// The Shared Preferences instance
+  /// The Shared Preferences instance. It is passed in like this, so that we
+  /// don't have to asynchronously get the instances every time.
   final SharedPreferences sharedPreferences;
 
   /// Default class constructor
