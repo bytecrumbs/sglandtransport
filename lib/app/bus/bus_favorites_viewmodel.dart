@@ -28,7 +28,7 @@ class BusFavoritesViewModel {
     final databaseService = read(databaseServiceProvider);
     final localStorageService = read(localStorageServiceProvider);
     final favoriteBusStopStringList =
-        await localStorageService.getStringList(Constants.favoriteBusStopsKey);
+        localStorageService.getStringList(Constants.favoriteBusStopsKey);
     return await databaseService.getBusStops(favoriteBusStopStringList);
   }
 }
