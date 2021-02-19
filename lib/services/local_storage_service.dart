@@ -1,7 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Provides the LocalStorageService class
+/// Provides the LocalStorageService class.
+/// NOTE: This is overridden by ProviderScope() in the main.dart file
 final localStorageServiceProvider =
     Provider<LocalStorageService>((ref) => throw UnimplementedError());
 
