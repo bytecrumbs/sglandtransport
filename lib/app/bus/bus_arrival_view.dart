@@ -49,7 +49,7 @@ final timerProvider = Provider.autoDispose
 
 /// checks if a given bus stop is already added as a favorite bus stop
 final isFavoriteFutureProvider =
-    FutureProvider.family<bool, String>((ref, busStopCode) async {
+    FutureProvider.autoDispose.family<bool, String>((ref, busStopCode) async {
   final vm = ref.read(busArrivalViewModelProvider);
   return await vm.isFavoriteBusStop(busStopCode);
 });

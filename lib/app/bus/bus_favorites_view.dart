@@ -51,13 +51,49 @@ class BusFavoritesView extends HookWidget {
                             favoriteBusStops[index].toString(),
                           ),
                           background: _slideBackgroundWidget(),
-                          onDismissed: (direction) async {
-                            var removedItem = favoriteBusStops.removeAt(index);
-                            await busFavVMProvider
-                                .removeBusStopFromFavorites(removedItem);
-                            context.refresh(busFavoritesViewModelProvider);
-                          },
                           direction: DismissDirection.endToStart,
+                          // ignore: missing_return
+                          confirmDismiss: (direction) async {
+                            if (direction == DismissDirection.endToStart) {
+                              final res = await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    content: Text(
+                                        "Are you sure you want to delete?"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text(
+                                          "Cancel",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: Text(
+                                          "Delete",
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                        onPressed: () async {
+                                          var removedItem =
+                                              favoriteBusStops.removeAt(index);
+                                          await busFavVMProvider
+                                              .removeBusStopFromFavorites(
+                                                  removedItem);
+                                          context.refresh(
+                                              busFavoritesViewModelProvider);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              return res;
+                            } else {}
+                          },
                           child: BusStopCard(
                             busStopModel: favoriteBusStops[index],
                             key: ValueKey<String>('busStopCard-$index'),
