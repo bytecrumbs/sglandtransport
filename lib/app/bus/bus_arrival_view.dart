@@ -48,10 +48,11 @@ final timerProvider = Provider.autoDispose
 });
 
 /// checks if a given bus stop is already added as a favorite bus stop
-final isFavoriteFutureProvider =
-    FutureProvider.autoDispose.family<bool, String>((ref, busStopCode) async {
+
+final isFavoriteStateProvider =
+    StateProvider.family<bool, String>((ref, busStopCode) {
   final vm = ref.read(busArrivalViewModelProvider);
-  return await vm.isFavoriteBusStop(busStopCode);
+  return vm.isFavoriteBusStop(busStopCode);
 });
 
 /// retrieves the list of bus arrival services
@@ -85,7 +86,7 @@ class BusArrivalView extends HookWidget {
     )));
     var busArrivalServiceList =
         useProvider(busArrivalServiceListFutureProvider(busStopCode));
-    var isFavorite = useProvider(isFavoriteFutureProvider(busStopCode));
+    var isFavorite = useProvider(isFavoriteStateProvider(busStopCode));
     var mv = useProvider(busArrivalViewModelProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -95,18 +96,16 @@ class BusArrivalView extends HookWidget {
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
-            child: isFavorite.when(
-                data: (isFavorite) => IconButton(
-                    key: const ValueKey('favouriteIconButton'),
-                    icon: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_outline),
-                    onPressed: () async {
-                      await mv.toggleFavoriteBusStop(busStopCode);
-                      context.refresh(isFavoriteFutureProvider(busStopCode));
-                      context.refresh(favoriteBusStopsFutureProvider);
-                    }),
-                loading: () => Icon(Icons.favorite_outline),
-                error: (error, stack) => Icon(Icons.favorite_outline)),
+            child: IconButton(
+              key: const ValueKey('favouriteIconButton'),
+              icon: Icon(
+                  isFavorite.state ? Icons.favorite : Icons.favorite_outline),
+              onPressed: () async {
+                await mv.toggleFavoriteBusStop(busStopCode);
+                isFavorite.state = !isFavorite.state;
+                context.refresh(favoriteBusStopsFutureProvider);
+              },
+            ),
           ),
         ],
       ),
