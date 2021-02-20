@@ -22,6 +22,7 @@ class BusFavoritesView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final favoriteBusStops = useProvider(favoriteBusStopsFutureProvider);
+    var busFavVMProvider = useProvider(busFavoritesViewModelProvider);
     return favoriteBusStops.when(
       data: (favoriteBusStops) {
         return favoriteBusStops.isEmpty
@@ -45,9 +46,58 @@ class BusFavoritesView extends HookWidget {
                     itemBuilder: (context, index) {
                       return StaggeredAnimation(
                         index: index,
-                        child: BusStopCard(
-                          busStopModel: favoriteBusStops[index],
-                          key: ValueKey<String>('busStopCard-$index'),
+                        child: Dismissible(
+                          key: Key(
+                            favoriteBusStops[index].toString(),
+                          ),
+                          background: _slideBackgroundWidget(),
+                          direction: DismissDirection.endToStart,
+                          // ignore: missing_return
+                          confirmDismiss: (direction) async {
+                            if (direction == DismissDirection.endToStart) {
+                              final res = await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    content: Text(
+                                        "Are you sure you want to delete?"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text(
+                                          "Cancel",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: Text(
+                                          "Delete",
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                        onPressed: () async {
+                                          var removedItem =
+                                              favoriteBusStops.removeAt(index);
+                                          await busFavVMProvider
+                                              .removeBusStopFromFavorites(
+                                                  removedItem);
+                                          context.refresh(
+                                              busFavoritesViewModelProvider);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              return res;
+                            } else {}
+                          },
+                          child: BusStopCard(
+                            busStopModel: favoriteBusStops[index],
+                            key: ValueKey<String>('busStopCard-$index'),
+                          ),
                         ),
                       );
                     },
@@ -64,4 +114,31 @@ class BusFavoritesView extends HookWidget {
       },
     );
   }
+
+  Widget _slideBackgroundWidget() => Container(
+        color: Colors.red,
+        child: Align(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
+              Text(
+                " Delete",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.right,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+            ],
+          ),
+          alignment: Alignment.centerRight,
+        ),
+      );
 }
