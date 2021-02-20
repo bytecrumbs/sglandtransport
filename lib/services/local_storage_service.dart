@@ -8,12 +8,12 @@ final localStorageServiceProvider =
 
 /// The local storage class, which is based on Shared Preferences
 class LocalStorageService {
+  /// Default class constructor
+  LocalStorageService(this.sharedPreferences);
+
   /// The Shared Preferences instance. It is passed in like this, so that we
   /// don't have to asynchronously get the instances every time.
   final SharedPreferences sharedPreferences;
-
-  /// Default class constructor
-  LocalStorageService(this.sharedPreferences);
 
   /// Get a list of strings based on a key. It will return an empty list
   /// if the key is not found.
@@ -46,7 +46,7 @@ class LocalStorageService {
 
   /// sets an integer value in the local storage of the device
   Future<bool> setInt(String key, int value) async {
-    return await sharedPreferences.setInt(key, value);
+    return sharedPreferences.setInt(key, value);
   }
 
   /// gets an integer value based on a key from the local storage of the device

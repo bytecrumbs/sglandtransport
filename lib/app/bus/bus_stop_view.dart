@@ -21,22 +21,25 @@ final bottomBarIndexStateProvider = StateProvider<int>((ref) {
 /// The main bus view, in which you can switch between nearby and
 /// favorite bus stops
 class BusStopView extends HookWidget {
+  /// Default constructor
+  const BusStopView({Key key}) : super(key: key);
+
   static final _log = Logger('BusStopView');
   Widget _getViewForIndex(int index) {
     switch (index) {
       case 0:
-        return BusNearbyView();
+        return const BusNearbyView();
       case 1:
-        return BusFavoritesView();
+        return const BusFavoritesView();
       default:
-        return BusNearbyView();
+        return const BusNearbyView();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    var bottomBarIndex = useProvider(bottomBarIndexStateProvider);
-    var localStorage = useProvider(localStorageServiceProvider);
+    final bottomBarIndex = useProvider(bottomBarIndexStateProvider);
+    final localStorage = useProvider(localStorageServiceProvider);
     return RateMyAppBuilder(
       builder: (context) => Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -48,18 +51,18 @@ class BusStopView extends HookWidget {
           ),
         ),
         bottomNavigationBar: ConvexAppBar(
-          key: Key('BottomBar'),
+          key: const Key('BottomBar'),
           color: Theme.of(context).primaryColorDark,
           activeColor: Theme.of(context).accentColor,
           backgroundColor: Theme.of(context).bottomAppBarColor,
-          top: -25.0,
+          top: -25,
           style: TabStyle.react,
           initialActiveIndex: bottomBarIndex.state,
           onTap: (var i) async {
             await localStorage.setInt(Constants.bottomBarIndexKey, i);
             bottomBarIndex.state = i;
           },
-          items: [
+          items: const [
             TabItem(
               icon: Icons.location_searching,
               title: 'Nearby',
@@ -72,7 +75,6 @@ class BusStopView extends HookWidget {
         ),
       ),
       rateMyApp: RateMyApp(
-        preferencesPrefix: 'rateMyApp_',
         minDays: 7,
         minLaunches: 10,
         remindDays: 7,
@@ -80,7 +82,7 @@ class BusStopView extends HookWidget {
       ),
       onInitialized: (context, rateMyApp) {
         // rateMyApp.conditions.forEach((condition) {
-        for (var condition in rateMyApp.conditions) {
+        for (final condition in rateMyApp.conditions) {
           if (condition is DebuggableCondition) {
             _log.info(condition.valuesAsString);
           }
@@ -95,7 +97,7 @@ class BusStopView extends HookWidget {
               message:
                   'If you like SG Land Transport, please take a little bit of '
                   'your time to review it!\nIt really helps us and it '
-                  'shouldn\'t take you more than a minute.\nThank you!');
+                  "shouldn't take you more than a minute.\nThank you!");
         }
       },
     );

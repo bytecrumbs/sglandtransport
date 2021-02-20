@@ -31,7 +31,7 @@ final nearbyBusStopsProvider =
   // filter and yield a value whenever a new location is provided via the
   // location stream
   final locationStream = ref.watch(locationStreamProvider.stream);
-  await for (var locationData in locationStream) {
+  await for (final locationData in locationStream) {
     yield vm.filterBusStopsByLocation(
         allBusStops, locationData.latitude, locationData.longitude);
   }
@@ -39,9 +39,12 @@ final nearbyBusStopsProvider =
 
 /// The main view that shows nearby bus stops
 class BusNearbyView extends HookWidget {
+  /// Default Constructor
+  const BusNearbyView({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    var locationData = useProvider(nearbyBusStopsProvider);
+    final locationData = useProvider(nearbyBusStopsProvider);
 
     return locationData.when(
       data: (busStopModelList) {
@@ -50,10 +53,10 @@ class BusNearbyView extends HookWidget {
             padding: const EdgeInsets.only(top: 30),
             child: Column(
               children: <Widget>[
-                Center(
+                const Center(
                   child: CircularProgressIndicator(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 JumpingText('Looking for nearby bus stops...'),
@@ -66,7 +69,7 @@ class BusNearbyView extends HookWidget {
             context: context,
             removeTop: true,
             child: ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: busStopModelList.length,
               itemBuilder: (context, index) {
@@ -88,7 +91,9 @@ class BusNearbyView extends HookWidget {
         if (err is Failure) {
           return ErrorView(message: err.message);
         }
-        return ErrorView();
+        return const ErrorView(
+          message: 'Something unexpected happened!',
+        );
       },
     );
   }

@@ -27,8 +27,8 @@ class BusNearbyViewModel {
     final creationDateRecord =
         await _databaseService.getCreationDateOfBusStops();
     if (creationDateRecord.isNotEmpty) {
-      final int creationDateMillisecondsSinceEpoch =
-          creationDateRecord.first['creationTimeSinceEpoch'];
+      final creationDateMillisecondsSinceEpoch =
+          creationDateRecord.first['creationTimeSinceEpoch'] as int;
       final creationDate = DateTime.fromMillisecondsSinceEpoch(
           creationDateMillisecondsSinceEpoch);
       final differenceInDays = DateTime.now().difference(creationDate).inDays;
@@ -70,10 +70,10 @@ class BusNearbyViewModel {
     double longitude,
   ) {
     final nearbyBusStops = <BusStopModel>[];
-    final distance = Distance();
+    const distance = Distance();
 
     // filter DB result by location
-    for (var busStop in busStopModelList) {
+    for (final busStop in busStopModelList) {
       final distanceInMeters = distance(
         LatLng(latitude, longitude),
         LatLng(busStop.latitude, busStop.longitude),

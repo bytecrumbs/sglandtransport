@@ -25,52 +25,46 @@ class BusStopCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.fromLTRB(15, 0, 15, 12),
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(vertical: 7, horizontal: 12),
+        contentPadding: const EdgeInsets.symmetric(vertical: 7, horizontal: 12),
         title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              child: Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5),
-                      child: SubstringHighlight(
-                        text: busStopModel.description,
-                        term: searchTerm,
-                        textStyle: Theme.of(context).textTheme.headline1,
-                        textStyleHighlight: Theme.of(context)
-                            .textTheme
-                            .headline1
-                            .copyWith(color: Theme.of(context).accentColor),
-                      ),
-                    ),
-                    SubstringHighlight(
-                      text: '${busStopModel.busStopCode} | '
-                          '${busStopModel.roadName}',
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 5),
+                    child: SubstringHighlight(
+                      text: busStopModel.description,
                       term: searchTerm,
-                      textStyle: Theme.of(context).textTheme.headline2,
+                      textStyle: Theme.of(context).textTheme.headline1,
                       textStyleHighlight: Theme.of(context)
                           .textTheme
                           .headline1
                           .copyWith(color: Theme.of(context).accentColor),
                     ),
-                  ],
-                ),
+                  ),
+                  SubstringHighlight(
+                    text: '${busStopModel.busStopCode} | '
+                        '${busStopModel.roadName}',
+                    term: searchTerm,
+                    textStyle: Theme.of(context).textTheme.headline2,
+                    textStyleHighlight: Theme.of(context)
+                        .textTheme
+                        .headline1
+                        .copyWith(color: Theme.of(context).accentColor),
+                  ),
+                ],
               ),
             ),
-            busStopModel.distanceInMeters != null
-                ? Center(
-                    child: Text(
-                      '${busStopModel.distanceInMeters.toString()} m',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  )
-                : Text('')
+            if (busStopModel.distanceInMeters != null)
+              Center(
+                child: Text(
+                  '${busStopModel.distanceInMeters.toString()} m',
+                  style: const TextStyle(fontSize: 15),
+                ),
+              )
           ],
         ),
         trailing: Icon(

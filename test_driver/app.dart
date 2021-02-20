@@ -32,6 +32,7 @@ Future<void> main() async {
 
   Logger.root.level = logLevel;
   Logger.root.onRecord.listen((record) {
+    // ignore: avoid_print
     print('[${record.loggerName}]: ${record.level.name}: '
         '${record.time}: ${record.message}');
   });
@@ -60,8 +61,8 @@ Future<void> main() async {
           LocalStorageService(sharedPreferences),
         )
       ],
-      child: MyApp(),
       observers: [ProviderLogger()],
+      child: const MyApp(),
     ));
   });
 }

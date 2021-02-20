@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'models/bus_arrival_service_model.dart';
+import 'models/next_bus_model.dart';
 import 'tag.dart';
 
 /// Show a single card of with all information related to a bus arrival
@@ -34,14 +35,14 @@ class BusArrivalServiceCard extends StatelessWidget {
         : '${arrivalInMinutes.toString()}$suffix';
   }
 
-  Widget _displayBusFeature(feature, arrivalTime) {
+  Widget _displayBusFeature(String feature, String arrivalTime) {
     if (feature != 'WAB' && arrivalTime != '') {
       return Container(
-        margin: EdgeInsets.only(left: 5),
-        child: Icon(
+        margin: const EdgeInsets.only(left: 5),
+        child: const Icon(
           Icons.accessible,
           color: Color(0xFFEF3340),
-          size: 18.0,
+          size: 18,
         ),
       );
     }
@@ -49,8 +50,8 @@ class BusArrivalServiceCard extends StatelessWidget {
     return const Text('');
   }
 
-  Widget _displayBusLoad(dynamic load, isSmallScreen) {
-    var backgroundColor = Color(0xFFF4F7F8);
+  Widget _displayBusLoad(String load, bool isSmallScreen) {
+    var backgroundColor = const Color(0xFFF4F7F8);
     final _busLoad = {
       'SEA': 'Seats avail.',
       'SDA': isSmallScreen ? 'Standing\navail.' : 'Standing avail.',
@@ -58,11 +59,11 @@ class BusArrivalServiceCard extends StatelessWidget {
     };
 
     if (load == 'SEA') {
-      backgroundColor = Color(0x26009B60);
+      backgroundColor = const Color(0x26009B60);
     } else if (load == 'SDA') {
-      backgroundColor = Color(0x26FA6B00);
+      backgroundColor = const Color(0x26FA6B00);
     } else {
-      backgroundColor = Color(0x26FF0000);
+      backgroundColor = const Color(0x26FF0000);
     }
 
     return load != ''
@@ -70,11 +71,15 @@ class BusArrivalServiceCard extends StatelessWidget {
             text: _busLoad[load],
             color: backgroundColor,
           )
-        : Text('');
+        : const Text('');
   }
 
-  Widget _displayBusInfo(model, isSmallScreen, {displayBorder}) {
-    var hasBorder =
+  Widget _displayBusInfo(
+    NextBusModel model,
+    bool isSmallScreen, {
+    bool displayBorder,
+  }) {
+    final hasBorder =
         !isSmallScreen && displayBorder == (true && displayBorder != null);
 
     return Container(
@@ -83,7 +88,6 @@ class BusArrivalServiceCard extends StatelessWidget {
         border: Border(
           left: BorderSide(
             color: hasBorder ? Colors.grey[300] : Colors.white,
-            width: 1.0,
           ),
         ),
       ),
@@ -91,7 +95,7 @@ class BusArrivalServiceCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 5),
+            margin: const EdgeInsets.only(bottom: 5),
             child: Row(
               children: [
                 Text(
@@ -116,12 +120,10 @@ class BusArrivalServiceCard extends StatelessWidget {
   }
 
   Widget _displayNotInOperation() {
-    return Container(
-      child: Text(
-        'Not in operation',
-        style: const TextStyle(
-          fontSize: 15,
-        ),
+    return const Text(
+      'Not in operation',
+      style: TextStyle(
+        fontSize: 15,
       ),
     );
   }
@@ -131,7 +133,7 @@ class BusArrivalServiceCard extends StatelessWidget {
     final isSmallScreen = MediaQuery.of(context).size.width < 340;
 
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -139,17 +141,18 @@ class BusArrivalServiceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColorDark,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
                   ),
                 ),
                 child: Text(
-                  '${busArrivalServiceModel.serviceNo}',
-                  style: TextStyle(
+                  busArrivalServiceModel.serviceNo,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -160,54 +163,51 @@ class BusArrivalServiceCard extends StatelessWidget {
             ],
           ),
           Container(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(10.0),
-                    bottomRight: Radius.circular(10.0),
-                    bottomLeft: Radius.circular(10.0)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 0,
-                    blurRadius: 3,
-                    offset: Offset(0, 1),
-                  ),
-                ],
-              ),
-              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-              child: busArrivalServiceModel.nextBus != null &&
-                      busArrivalServiceModel.nextBus2 != null &&
-                      busArrivalServiceModel.nextBus3 != null
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: _displayBusInfo(
-                            busArrivalServiceModel.nextBus,
-                            isSmallScreen,
-                          ),
-                        ),
-                        Expanded(
-                          child: _displayBusInfo(
-                            busArrivalServiceModel.nextBus2,
-                            isSmallScreen,
-                            displayBorder: true,
-                          ),
-                        ),
-                        Expanded(
-                          child: _displayBusInfo(
-                            busArrivalServiceModel.nextBus3,
-                            isSmallScreen,
-                            displayBorder: true,
-                          ),
-                        ),
-                      ],
-                    )
-                  : _displayNotInOperation(),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 3,
+                  offset: const Offset(0, 1),
+                ),
+              ],
             ),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+            child: busArrivalServiceModel.nextBus != null &&
+                    busArrivalServiceModel.nextBus2 != null &&
+                    busArrivalServiceModel.nextBus3 != null
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: _displayBusInfo(
+                          busArrivalServiceModel.nextBus,
+                          isSmallScreen,
+                        ),
+                      ),
+                      Expanded(
+                        child: _displayBusInfo(
+                          busArrivalServiceModel.nextBus2,
+                          isSmallScreen,
+                          displayBorder: true,
+                        ),
+                      ),
+                      Expanded(
+                        child: _displayBusInfo(
+                          busArrivalServiceModel.nextBus3,
+                          isSmallScreen,
+                          displayBorder: true,
+                        ),
+                      ),
+                    ],
+                  )
+                : _displayNotInOperation(),
           )
         ],
       ),
@@ -217,33 +217,30 @@ class BusArrivalServiceCard extends StatelessWidget {
   Container _buildDisplayDestination() {
     if (busArrivalServiceModel.destinationName != null) {
       return Container(
-        margin: EdgeInsets.only(left: 1),
-        padding: EdgeInsets.fromLTRB(7, 4, 10, 4),
+        margin: const EdgeInsets.only(left: 1),
+        padding: const EdgeInsets.fromLTRB(7, 4, 10, 4),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(10.0),
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(10),
           ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.35),
-              spreadRadius: 0,
               blurRadius: 3,
-              offset: Offset(0, -1),
+              offset: const Offset(0, -1),
             ),
           ],
         ),
         child: Text(
           'to ${busArrivalServiceModel.destinationName}',
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 13,
           ),
         ),
       );
     }
-    return Container(
-      child: Text(''),
-    );
+    return Container();
   }
 }

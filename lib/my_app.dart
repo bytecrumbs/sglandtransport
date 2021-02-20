@@ -24,6 +24,9 @@ final appInitFutureProvider = FutureProvider<void>((ref) async {
 /// The main class, which will first initiate firebase and other things that
 /// need to be done on start up.
 class MyApp extends HookWidget {
+  /// Default constructor
+  const MyApp({Key key}) : super(key: key);
+
   /// The Firebase analytics reference
   static FirebaseAnalytics analytics = FirebaseAnalytics();
 
@@ -42,11 +45,11 @@ class MyApp extends HookWidget {
           builder: (context, extendedNav) => Theme(
             data: ThemeData(
               brightness: Brightness.light,
-              primaryColorDark: Color(0xFF25304D),
-              primaryColor: Color(0xFF969CAE),
-              accentColor: Color(0xFFEF3340),
-              scaffoldBackgroundColor: Color(0xFFE2EFF5),
-              textTheme: TextTheme(
+              primaryColorDark: const Color(0xFF25304D),
+              primaryColor: const Color(0xFF969CAE),
+              accentColor: const Color(0xFFEF3340),
+              scaffoldBackgroundColor: const Color(0xFFE2EFF5),
+              textTheme: const TextTheme(
                 headline1: TextStyle(
                   color: Color(0xFF25304D),
                   fontSize: 18,
@@ -63,10 +66,10 @@ class MyApp extends HookWidget {
           ),
         ),
       ),
-      loading: () => MaterialApp(
+      loading: () => const MaterialApp(
         home: Scaffold(),
       ),
-      error: (err, stack) => MaterialApp(
+      error: (err, stack) => const MaterialApp(
         home: Scaffold(
           body: Center(child: Text('Something went wrong')),
         ),

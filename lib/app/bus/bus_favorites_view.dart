@@ -14,20 +14,23 @@ import 'models/bus_stop_model.dart';
 final favoriteBusStopsFutureProvider =
     FutureProvider<List<BusStopModel>>((ref) async {
   final vm = ref.read(busFavoritesViewModelProvider);
-  return await vm.getFavoriteBusStops();
+  return vm.getFavoriteBusStops();
 });
 
 /// The main view that shows favorite Bus Stops
 class BusFavoritesView extends HookWidget {
+  /// The default constructor
+  const BusFavoritesView({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final favoriteBusStops = useProvider(favoriteBusStopsFutureProvider);
-    var busFavVMProvider = useProvider(busFavoritesViewModelProvider);
+    final busFavVMProvider = useProvider(busFavoritesViewModelProvider);
     return favoriteBusStops.when(
       data: (favoriteBusStops) {
         return favoriteBusStops.isEmpty
-            ? Padding(
-                padding: const EdgeInsets.only(top: 30),
+            ? const Padding(
+                padding: EdgeInsets.only(top: 30),
                 child: Center(
                   child: Text(
                     'No favorite bus stops found...',
@@ -40,7 +43,7 @@ class BusFavoritesView extends HookWidget {
                   context: context,
                   removeTop: true,
                   child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: favoriteBusStops.length,
                     itemBuilder: (context, index) {
@@ -55,29 +58,25 @@ class BusFavoritesView extends HookWidget {
                           // ignore: missing_return
                           confirmDismiss: (direction) async {
                             if (direction == DismissDirection.endToStart) {
-                              final res = await showDialog(
+                              return showDialog(
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    content: Text(
-                                        "Are you sure you want to delete?"),
+                                    content: const Text(
+                                        'Are you sure you want to delete?'),
                                     actions: <Widget>[
                                       FlatButton(
-                                        child: Text(
-                                          "Cancel",
-                                          style: TextStyle(color: Colors.black),
-                                        ),
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                         },
+                                        child: const Text(
+                                          'Cancel',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
                                       ),
                                       FlatButton(
-                                        child: Text(
-                                          "Delete",
-                                          style: TextStyle(color: Colors.red),
-                                        ),
                                         onPressed: () async {
-                                          var removedItem =
+                                          final removedItem =
                                               favoriteBusStops.removeAt(index);
                                           await busFavVMProvider
                                               .removeBusStopFromFavorites(
@@ -86,12 +85,15 @@ class BusFavoritesView extends HookWidget {
                                               busFavoritesViewModelProvider);
                                           Navigator.of(context).pop();
                                         },
+                                        child: const Text(
+                                          'Delete',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
                                       ),
                                     ],
                                   );
                                 },
                               );
-                              return res;
                             } else {}
                           },
                           child: BusStopCard(
@@ -110,7 +112,9 @@ class BusFavoritesView extends HookWidget {
         if (err is Failure) {
           return ErrorView(message: err.message);
         }
-        return ErrorView();
+        return const ErrorView(
+          message: 'Something unexpected happened!',
+        );
       },
     );
   }
@@ -118,15 +122,16 @@ class BusFavoritesView extends HookWidget {
   Widget _slideBackgroundWidget() => Container(
         color: Colors.red,
         child: Align(
+          alignment: Alignment.centerRight,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
+            children: const <Widget>[
               Icon(
                 Icons.delete,
                 color: Colors.white,
               ),
               Text(
-                " Delete",
+                ' Delete',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
@@ -138,7 +143,6 @@ class BusFavoritesView extends HookWidget {
               ),
             ],
           ),
-          alignment: Alignment.centerRight,
         ),
       );
 }

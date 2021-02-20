@@ -4,13 +4,16 @@ import 'package:url_launcher/url_launcher.dart';
 
 /// Shows the content of the App Drawer
 class AboutView extends StatelessWidget {
+  /// Default constructor
+  const AboutView({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    var bodyText22 = Theme.of(context).textTheme.bodyText2;
+    final bodyText22 = Theme.of(context).textTheme.bodyText2;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         RichText(
           text: TextSpan(
             children: [
@@ -30,7 +33,7 @@ class AboutView extends StatelessWidget {
             ],
           ),
         ),
-        AboutHeader(
+        const AboutHeader(
           headerText: 'Official Links',
         ),
         RichText(
@@ -89,7 +92,7 @@ class AboutView extends StatelessWidget {
             ],
           ),
         ),
-        AboutHeader(
+        const AboutHeader(
           headerText: 'Privacy Policy',
         ),
         RichText(
@@ -109,7 +112,7 @@ class AboutView extends StatelessWidget {
   TextSpan _buildTextSpanWithTapGesture(String title, String url) {
     return TextSpan(
       text: title,
-      style: TextStyle(color: Colors.blue),
+      style: const TextStyle(color: Colors.blue),
       recognizer: TapGestureRecognizer()
         ..onTap = () async {
           if (await canLaunch(url)) {
@@ -125,7 +128,7 @@ class AboutView extends StatelessWidget {
 /// Shows a header section of the about view
 class AboutHeader extends StatelessWidget {
   /// Constructor of the about header
-  AboutHeader({@required this.headerText});
+  const AboutHeader({Key key, @required this.headerText}) : super(key: key);
 
   /// The text to be shown as a header
   final String headerText;
