@@ -78,7 +78,7 @@ class BusArrivalViewModel {
     _log.info('toggling $busStopCode on Favorites');
     final localStorageService = read(localStorageServiceProvider);
     var currentFavorites =
-        await localStorageService.getStringList(Constants.favoriteBusStopsKey);
+        localStorageService.getStringList(Constants.favoriteBusStopsKey);
     if (currentFavorites.contains(busStopCode)) {
       _log.info('removing from Favorites, as bus stop already exists');
       await localStorageService.removeStringFromList(
@@ -94,9 +94,9 @@ class BusArrivalViewModel {
   }
 
   /// checks if a bus stop is a favorite bus stop
-  Future<bool> isFavoriteBusStop(String busStopCode) async {
+  bool isFavoriteBusStop(String busStopCode) {
     final localStorageService = read(localStorageServiceProvider);
-    return await localStorageService.containsValueInList(
+    return localStorageService.containsValueInList(
         Constants.favoriteBusStopsKey, busStopCode);
   }
 }
