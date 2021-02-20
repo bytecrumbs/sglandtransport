@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'search_result_view.dart';
 
 /// The Search function that extends the native Material search
-class CustomSearchDelegate extends SearchDelegate {
+class CustomSearchDelegate extends SearchDelegate<dynamic> {
   /// Firebase Analytics reference
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   @override

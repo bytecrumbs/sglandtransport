@@ -222,7 +222,7 @@ class DatabaseService {
     await db.transaction((txn) async {
       final batch = txn.batch();
       for (final listItem in listToInsert) {
-        batch.insert(tableName, listItem.toJson());
+        batch.insert(tableName, listItem.toJson() as Map<String, dynamic>);
       }
       await batch.commit(noResult: true, continueOnError: true);
       _log.info('inserting ${listToInsert.length} records into table '

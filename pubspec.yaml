@@ -48,6 +48,7 @@ dependencies:
   flare_flutter: ^2.0.6
   progress_indicators: ^0.1.5
   share: ">=0.6.5+4 <2.0.0"
+  pedantic: ^1.9.2
 
 dev_dependencies:
   flutter_test:

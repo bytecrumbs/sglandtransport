@@ -46,7 +46,8 @@ class Api {
 
       for (final response in parallelFetch) {
         // If the call to the server was successful, parse the JSON.
-        final busStopListModel = BusStopListModel.fromJson(response.data);
+        final busStopListModel =
+            BusStopListModel.fromJson(response.data as Map<String, dynamic>);
         result = result + busStopListModel.value;
       }
     }
@@ -77,7 +78,8 @@ class Api {
 
       for (final response in parallelFetch) {
         // If the call to the server was successful, parse the JSON.
-        final busRouteListModel = BusRouteListModel.fromJson(response.data);
+        final busRouteListModel =
+            BusRouteListModel.fromJson(response.data as Map<String, dynamic>);
         result = result + busRouteListModel.value;
       }
     }
@@ -97,7 +99,9 @@ class Api {
       },
     );
 
-    return BusArrivalServiceListModel.fromJson(response.data).services;
+    return BusArrivalServiceListModel.fromJson(
+      response.data as Map<String, dynamic>,
+    ).services;
   }
 
   Future<Response<dynamic>> _get(
@@ -108,7 +112,7 @@ class Api {
     _log.info('Fetching data for path $path and params $queryParameters');
 
     try {
-      return await dio.get(path,
+      return await dio.get<Map<String, dynamic>>(path,
           options: Options(
             headers: <String, String>{
               'AccountKey': EnvironmentConfig.ltaDatamallApiKey,

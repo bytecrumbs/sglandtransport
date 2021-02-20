@@ -102,7 +102,7 @@ class BusArrivalView extends HookWidget {
               onPressed: () async {
                 await mv.toggleFavoriteBusStop(busStopCode);
                 isFavorite.state = !isFavorite.state;
-                context.refresh(favoriteBusStopsFutureProvider);
+                await context.refresh(favoriteBusStopsFutureProvider);
               },
             ),
           ),
@@ -132,7 +132,9 @@ class BusArrivalView extends HookWidget {
           if (err is Failure) {
             return ErrorView(message: err.message);
           }
-          return ErrorView();
+          return const ErrorView(
+            message: 'Something unexpected happened',
+          );
         },
       ),
     );

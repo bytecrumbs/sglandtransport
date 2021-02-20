@@ -43,7 +43,7 @@ class BusStopView extends HookWidget {
     return RateMyAppBuilder(
       builder: (context) => Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        drawer: AppDrawerView(),
+        drawer: const AppDrawerView(),
         body: SliverView(
           title: 'Buses',
           child: _getViewForIndex(
@@ -63,11 +63,11 @@ class BusStopView extends HookWidget {
             bottomBarIndex.state = i;
           },
           items: const [
-            TabItem(
+            TabItem<IconData>(
               icon: Icons.location_searching,
               title: 'Nearby',
             ),
-            TabItem(
+            TabItem<IconData>(
               icon: Icons.favorite,
               title: 'Favorites',
             )

@@ -23,16 +23,16 @@ class LocalStorageService {
 
   /// Adds a string to a list for a given key
   Future<List<String>> addStringToList(String key, String value) async {
-    final stringList = sharedPreferences.getStringList(key) ?? <String>[];
-    stringList.add(value);
+    final stringList = sharedPreferences.getStringList(key) ?? <String>[]
+      ..add(value);
     await sharedPreferences.setStringList(key, stringList);
     return sharedPreferences.getStringList(key);
   }
 
   /// Removes a string from a list for a given key
   Future<List<String>> removeStringFromList(String key, String value) async {
-    final stringList = sharedPreferences.getStringList(key) ?? <String>[];
-    stringList.remove(value);
+    final stringList = sharedPreferences.getStringList(key) ?? <String>[]
+      ..remove(value);
     await sharedPreferences.setStringList(key, stringList);
     return sharedPreferences.getStringList(key);
   }

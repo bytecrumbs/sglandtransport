@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:pedantic/pedantic.dart';
 
 import 'my_app_initializer.dart';
 import 'routing/router.gr.dart' as auto_route;
@@ -18,7 +19,7 @@ final appInitFutureProvider = FutureProvider<void>((ref) async {
   await initializer.initLayout();
 
   // no need to await here, as this can run in the background
-  initializer.initDatabaseLoad();
+  unawaited(initializer.initDatabaseLoad());
 });
 
 /// The main class, which will first initiate firebase and other things that

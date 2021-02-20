@@ -37,15 +37,14 @@ Future<void> main() async {
         '${record.time}: ${record.message}');
   });
 
-  warmupFlare().then((_) {
-    runApp(ProviderScope(
-      overrides: [
-        localStorageServiceProvider.overrideWithValue(
-          LocalStorageService(sharedPreferences),
-        )
-      ],
-      observers: [ProviderLogger()],
-      child: MyApp(),
-    ));
-  });
+  await warmupFlare();
+  runApp(ProviderScope(
+    overrides: [
+      localStorageServiceProvider.overrideWithValue(
+        LocalStorageService(sharedPreferences),
+      )
+    ],
+    observers: [ProviderLogger()],
+    child: const MyApp(),
+  ));
 }

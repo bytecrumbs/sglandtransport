@@ -66,8 +66,8 @@ class BusArrivalViewModel {
     }
 
     newBusArrivalServiceListModel.sort((var a, var b) =>
-        int.parse(a.serviceNo.replaceAll(RegExp('\\D'), ''))
-            .compareTo(int.parse(b.serviceNo.replaceAll(RegExp('\\D'), ''))));
+        int.parse(a.serviceNo.replaceAll(RegExp(r'\D'), ''))
+            .compareTo(int.parse(b.serviceNo.replaceAll(RegExp(r'\D'), ''))));
 
     return newBusArrivalServiceListModel;
   }

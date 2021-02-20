@@ -72,7 +72,7 @@ class SliverView extends HookWidget {
                 key: const ValueKey('searchIconButton'),
                 icon: const Icon(Icons.search, size: 27),
                 onPressed: () {
-                  showSearch(
+                  showSearch<dynamic>(
                     context: context,
                     delegate: CustomSearchDelegate(),
                   );

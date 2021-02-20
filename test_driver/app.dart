@@ -49,20 +49,19 @@ Future<void> main() async {
     );
   });
 
-  warmupFlare().then((_) {
-    runApp(ProviderScope(
-      overrides: [
-        locationStreamProvider.overrideWithProvider(
-          fakeLocationStreamProvider,
-        ),
-        isFlareAnimationLoopStateProvider
-            .overrideWithValue(StateController(false)),
-        localStorageServiceProvider.overrideWithValue(
-          LocalStorageService(sharedPreferences),
-        )
-      ],
-      observers: [ProviderLogger()],
-      child: const MyApp(),
-    ));
-  });
+  await warmupFlare();
+  runApp(ProviderScope(
+    overrides: [
+      locationStreamProvider.overrideWithProvider(
+        fakeLocationStreamProvider,
+      ),
+      isFlareAnimationLoopStateProvider
+          .overrideWithValue(StateController(false)),
+      localStorageServiceProvider.overrideWithValue(
+        LocalStorageService(sharedPreferences),
+      )
+    ],
+    observers: [ProviderLogger()],
+    child: const MyApp(),
+  ));
 }
