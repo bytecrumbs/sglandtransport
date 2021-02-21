@@ -49,56 +49,60 @@ class BusFavoritesView extends HookWidget {
                     itemBuilder: (context, index) {
                       return StaggeredAnimation(
                         index: index,
-                        child: Dismissible(
-                          key: Key(
-                            favoriteBusStops[index].toString(),
-                          ),
-                          background: _slideBackgroundWidget(),
-                          direction: DismissDirection.endToStart,
-                          // ignore: missing_return
-                          confirmDismiss: (direction) async {
-                            if (direction == DismissDirection.endToStart) {
-                              return showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    content: const Text(
-                                        'Are you sure you want to delete?'),
-                                    actions: <Widget>[
-                                      FlatButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text(
-                                          'Cancel',
-                                          style: TextStyle(color: Colors.black),
+                        child: Card(
+                          margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                          child: Dismissible(
+                            key: Key(
+                              favoriteBusStops[index].toString(),
+                            ),
+                            background: _slideBackgroundWidget(),
+                            direction: DismissDirection.endToStart,
+                            // ignore: missing_return
+                            confirmDismiss: (direction) async {
+                              if (direction == DismissDirection.endToStart) {
+                                return showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      content: const Text(
+                                          'Are you sure you want to delete?'),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text(
+                                            'Cancel',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
                                         ),
-                                      ),
-                                      FlatButton(
-                                        onPressed: () async {
-                                          final removedItem =
-                                              favoriteBusStops.removeAt(index);
-                                          await busFavVMProvider
-                                              .removeBusStopFromFavorites(
-                                                  removedItem);
-                                          context.refresh(
-                                              busFavoritesViewModelProvider);
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text(
-                                          'Delete',
-                                          style: TextStyle(color: Colors.red),
+                                        FlatButton(
+                                          onPressed: () async {
+                                            final removedItem = favoriteBusStops
+                                                .removeAt(index);
+                                            await busFavVMProvider
+                                                .removeBusStopFromFavorites(
+                                                    removedItem);
+                                            context.refresh(
+                                                busFavoritesViewModelProvider);
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text(
+                                            'Delete',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            } else {}
-                          },
-                          child: BusStopCard(
-                            busStopModel: favoriteBusStops[index],
-                            key: ValueKey<String>('busStopCard-$index'),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {}
+                            },
+                            child: BusStopCard(
+                              busStopModel: favoriteBusStops[index],
+                              key: ValueKey<String>('busStopCard-$index'),
+                            ),
                           ),
                         ),
                       );
@@ -121,28 +125,26 @@ class BusFavoritesView extends HookWidget {
 
   Widget _slideBackgroundWidget() => Container(
         color: Colors.red,
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: const <Widget>[
-              Icon(
-                Icons.delete,
+        alignment: AlignmentDirectional.centerEnd,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: const <Widget>[
+            Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            Text(
+              ' Delete',
+              style: TextStyle(
                 color: Colors.white,
+                fontWeight: FontWeight.w700,
               ),
-              Text(
-                ' Delete',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.right,
-              ),
-              SizedBox(
-                width: 20,
-              ),
-            ],
-          ),
+              textAlign: TextAlign.right,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+          ],
         ),
       );
 }

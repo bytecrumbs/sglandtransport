@@ -75,9 +75,12 @@ class BusNearbyView extends HookWidget {
               itemBuilder: (context, index) {
                 return StaggeredAnimation(
                   index: index,
-                  child: BusStopCard(
-                    busStopModel: busStopModelList[index],
-                    key: ValueKey<String>('busStopCard-$index'),
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                    child: BusStopCard(
+                      busStopModel: busStopModelList[index],
+                      key: ValueKey<String>('busStopCard-$index'),
+                    ),
                   ),
                 );
               },
