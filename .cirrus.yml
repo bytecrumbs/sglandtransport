@@ -27,8 +27,11 @@ integration_test_task:
     - echo $IOS_GOOGLE_SERVICES > ./ios/GoogleService-Info.plist
     - echo $ANDROID_GOOGLE_SERVICES > ./android/app/google-services.json
   integration_test_script:
+    # list available devices
     - xcrun simctl list
-    - xcrun simctl boot 2EB7256A-920E-43B0-BC35-0A23E9E18385
+    # boot an available device (overwrite the below if the script failes becuase
+    # the device is invalid)
+    - xcrun simctl boot A3B8BCEE-5ACB-43F8-A5B7-3E1542762B92
     - flutter drive --target=test_driver/app.dart --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
 
 android_beta_upload_task:
