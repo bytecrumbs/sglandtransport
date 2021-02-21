@@ -26,6 +26,8 @@ integration_test_task:
   add_firebase_files_script:
     - echo $IOS_GOOGLE_SERVICES > ./ios/GoogleService-Info.plist
     - echo $ANDROID_GOOGLE_SERVICES > ./android/app/google-services.json
+  update_flutter_script:
+    - flutter upgrade
   integration_test_script:
     # list available devices
     - xcrun simctl list
