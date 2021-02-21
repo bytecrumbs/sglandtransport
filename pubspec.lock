@@ -362,7 +362,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.12.4"
   flutter_staggered_animations:
     dependency: "direct main"
     description:
@@ -426,7 +426,7 @@ packages:
       name: hooks_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.12.4"
   http:
     dependency: transitive
     description:
@@ -722,7 +722,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.12.4"
   screenshots:
     dependency: "direct overridden"
     description:
