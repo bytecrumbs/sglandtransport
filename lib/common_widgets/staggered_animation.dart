@@ -22,7 +22,7 @@ class StaggeredAnimation extends StatelessWidget {
       position: index,
       duration: const Duration(milliseconds: 250),
       child: SlideAnimation(
-        verticalOffset: 30.0,
+        verticalOffset: 30,
         child: FadeInAnimation(
           child: child,
         ),

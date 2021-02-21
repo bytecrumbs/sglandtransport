@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'search_result_view.dart';
 
 /// The Search function that extends the native Material search
-class CustomSearchDelegate extends SearchDelegate {
+class CustomSearchDelegate extends SearchDelegate<dynamic> {
   /// Firebase Analytics reference
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   @override
   ThemeData appBarTheme(BuildContext context) {
-    assert(context != null);
+    assert(context != null, 'context cannot be null');
     final theme = Theme.of(context);
-    assert(theme != null);
+    assert(theme != null, 'Theme cannot be null');
     return theme.copyWith(
-      inputDecorationTheme: InputDecorationTheme(
+      inputDecorationTheme: const InputDecorationTheme(
         hintStyle: TextStyle(color: Color(0xB3FFFFFF)),
       ),
       primaryColor: theme.primaryColorDark,
@@ -30,7 +30,7 @@ class CustomSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
         onPressed: () {
           analytics.logSearch(
             searchTerm: query,
@@ -44,7 +44,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
       onPressed: () {
         analytics.logSearch(
           searchTerm: query,

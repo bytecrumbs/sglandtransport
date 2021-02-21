@@ -5,7 +5,7 @@ class ErrorView extends StatelessWidget {
   /// The default constructor of the class
   const ErrorView({
     Key key,
-    this.message,
+    @required this.message,
   })  : assert(message != null, 'A non-null String must be provided'),
         super(key: key);
 
@@ -18,7 +18,7 @@ class ErrorView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Oops, something unexpected happened!'),
+          const Text('Oops, something unexpected happened!'),
           Text(message),
         ],
       ),

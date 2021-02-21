@@ -4,7 +4,8 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pedantic/pedantic.dart';
 
 import 'my_app_initializer.dart';
 import 'routing/router.gr.dart' as auto_route;
@@ -18,12 +19,15 @@ final appInitFutureProvider = FutureProvider<void>((ref) async {
   await initializer.initLayout();
 
   // no need to await here, as this can run in the background
-  initializer.initDatabaseLoad();
+  unawaited(initializer.initDatabaseLoad());
 });
 
 /// The main class, which will first initiate firebase and other things that
 /// need to be done on start up.
 class MyApp extends HookWidget {
+  /// Default constructor
+  const MyApp({Key key}) : super(key: key);
+
   /// The Firebase analytics reference
   static FirebaseAnalytics analytics = FirebaseAnalytics();
 
@@ -42,11 +46,11 @@ class MyApp extends HookWidget {
           builder: (context, extendedNav) => Theme(
             data: ThemeData(
               brightness: Brightness.light,
-              primaryColorDark: Color(0xFF25304D),
-              primaryColor: Color(0xFF969CAE),
-              accentColor: Color(0xFFEF3340),
-              scaffoldBackgroundColor: Color(0xFFE2EFF5),
-              textTheme: TextTheme(
+              primaryColorDark: const Color(0xFF25304D),
+              primaryColor: const Color(0xFF969CAE),
+              accentColor: const Color(0xFFEF3340),
+              scaffoldBackgroundColor: const Color(0xFFE2EFF5),
+              textTheme: const TextTheme(
                 headline1: TextStyle(
                   color: Color(0xFF25304D),
                   fontSize: 18,
@@ -63,10 +67,10 @@ class MyApp extends HookWidget {
           ),
         ),
       ),
-      loading: () => MaterialApp(
+      loading: () => const MaterialApp(
         home: Scaffold(),
       ),
-      error: (err, stack) => MaterialApp(
+      error: (err, stack) => const MaterialApp(
         home: Scaffold(
           body: Center(child: Text('Something went wrong')),
         ),

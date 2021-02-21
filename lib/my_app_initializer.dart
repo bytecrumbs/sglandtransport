@@ -12,15 +12,15 @@ import 'services/database_service.dart';
 final myAppInitializerProvider = Provider((ref) => MyAppInitializer(ref.read));
 
 // Toggle this for testing Crashlytics in your app locally.
-final _kTestingCrashlytics = false;
+const _kTestingCrashlytics = false;
 
 /// The view model for the MyApp class
 class MyAppInitializer {
-  /// A reader that enables reading other provdiders
-  final Reader read;
-
   /// The default constructor of this class
   MyAppInitializer(this.read);
+
+  /// A reader that enables reading other provdiders
+  final Reader read;
 
   static final _log = Logger('MyAppViewModel');
 
@@ -40,7 +40,7 @@ class MyAppInitializer {
     }
 
     // Pass all uncaught errors to Crashlytics.
-    Function originalOnError = FlutterError.onError;
+    final Function originalOnError = FlutterError.onError;
     FlutterError.onError = (var errorDetails) async {
       await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
       // Forward to original handler.
@@ -64,8 +64,8 @@ class MyAppInitializer {
     final creationDateRecord =
         await _databaseService.getCreationDateOfBusRoutes();
     if (creationDateRecord.isNotEmpty) {
-      final int creationDateMillisecondsSinceEpoch =
-          creationDateRecord.first['creationTimeSinceEpoch'];
+      final creationDateMillisecondsSinceEpoch =
+          creationDateRecord.first['creationTimeSinceEpoch'] as int;
       final creationDate = DateTime.fromMillisecondsSinceEpoch(
           creationDateMillisecondsSinceEpoch);
       final differenceInDays = DateTime.now().difference(creationDate).inDays;

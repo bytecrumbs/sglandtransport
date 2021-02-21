@@ -33,7 +33,7 @@ class Router extends RouterBase {
   final _pagesMap = <Type, AutoRouteFactory>{
     BusStopView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => BusStopView(),
+        builder: (context) => const BusStopView(),
         settings: data,
       );
     },

@@ -13,32 +13,32 @@ final busArrivalViewModelProvider =
 
 /// The viewmodel for the BusArrival screen
 class BusArrivalViewModel {
-  static final _log = Logger('BusArrivalViewModel');
+  /// constructor for the model
+  BusArrivalViewModel(this.read);
 
   /// a reader that enables reading other providers
   final Reader read;
 
-  /// constructor for the model
-  BusArrivalViewModel(this.read);
+  static final _log = Logger('BusArrivalViewModel');
 
   /// returns bus arrival services, sorted by bus number
   Future<List<BusArrivalServiceModel>> getBusArrivalServiceList(
       String busStopCode) async {
     final _api = read(apiProvider);
     final _databaseService = read(databaseServiceProvider);
-    var busArrivalList = await _api.fetchBusArrivalList(busStopCode);
-    var busServicesFromApi = busArrivalList;
+    final busArrivalList = await _api.fetchBusArrivalList(busStopCode);
+    final busServicesFromApi = busArrivalList;
 
     _log.info('getting all bus services for $busStopCode from bus routes DB');
-    var busServicesFromBusRoutes =
+    final busServicesFromBusRoutes =
         await _databaseService.getBusRoutes(busStopCode);
 
     final newBusArrivalServiceListModel = <BusArrivalServiceModel>[];
 
-    for (var item in busServicesFromApi) {
-      var busStop =
+    for (final item in busServicesFromApi) {
+      final busStop =
           await _databaseService.getBusStops([item.nextBus.destinationCode]);
-      var busService = item.copyWith(destinationName: busStop[0].description);
+      final busService = item.copyWith(destinationName: busStop[0].description);
       newBusArrivalServiceListModel.add(busService);
     }
 
@@ -56,7 +56,7 @@ class BusArrivalViewModel {
           .toList();
 
       // busNoDifferences.forEach((element) {
-      for (var element in busNoDifferences) {
+      for (final element in busNoDifferences) {
         final missingBusArrivalServiceModel = BusArrivalServiceModel(
           serviceNo: element,
           inService: false,
@@ -66,8 +66,8 @@ class BusArrivalViewModel {
     }
 
     newBusArrivalServiceListModel.sort((var a, var b) =>
-        int.parse(a.serviceNo.replaceAll(RegExp('\\D'), ''))
-            .compareTo(int.parse(b.serviceNo.replaceAll(RegExp('\\D'), ''))));
+        int.parse(a.serviceNo.replaceAll(RegExp(r'\D'), ''))
+            .compareTo(int.parse(b.serviceNo.replaceAll(RegExp(r'\D'), ''))));
 
     return newBusArrivalServiceListModel;
   }
@@ -77,8 +77,8 @@ class BusArrivalViewModel {
   Future<List<String>> toggleFavoriteBusStop(String busStopCode) async {
     _log.info('toggling $busStopCode on Favorites');
     final localStorageService = read(localStorageServiceProvider);
-    var currentFavorites =
-        await localStorageService.getStringList(Constants.favoriteBusStopsKey);
+    final currentFavorites =
+        localStorageService.getStringList(Constants.favoriteBusStopsKey);
     if (currentFavorites.contains(busStopCode)) {
       _log.info('removing from Favorites, as bus stop already exists');
       await localStorageService.removeStringFromList(
@@ -94,9 +94,9 @@ class BusArrivalViewModel {
   }
 
   /// checks if a bus stop is a favorite bus stop
-  Future<bool> isFavoriteBusStop(String busStopCode) async {
+  bool isFavoriteBusStop(String busStopCode) {
     final localStorageService = read(localStorageServiceProvider);
-    return await localStorageService.containsValueInList(
+    return localStorageService.containsValueInList(
         Constants.favoriteBusStopsKey, busStopCode);
   }
 }

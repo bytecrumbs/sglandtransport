@@ -51,11 +51,10 @@ class DatabaseService {
     final path = join(dbPath, 'sgLandTransportDB.db');
 
     _log.info('opening database');
-    return await openDatabase(path, version: 2, onCreate: _onCreate);
+    return openDatabase(path, version: 2, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database database, int version) async {
-    _log.info('creating database');
     _log.info('creating $busRoutesTableName table');
     await _createBusRoutesTable(database);
     _log.info('creating $busStopsTableName table');
@@ -66,41 +65,41 @@ class DatabaseService {
 
   Future<void> _createBusRoutesTable(Database database) async {
     await database.execute(
-      'CREATE TABLE $busRoutesTableName ('
-      'ServiceNo TEXT,'
-      'Operator TEXT,'
-      'Direction INTEGER,'
-      'StopSequence INTEGER,'
-      'BusStopCode TEXT,'
-      'Distance REAL,'
-      'WD_FirstBus TEXT,'
-      'WD_LastBus TEXT,'
-      'SAT_FirstBus TEXT,'
-      'SAT_LastBus TEXT,'
-      'SUN_firstBus TEXT,'
-      'SUN_LastBus TEXT'
+      'CREATE TABLE $busRoutesTableName ( '
+      'ServiceNo TEXT, '
+      'Operator TEXT, '
+      'Direction INTEGER, '
+      'StopSequence INTEGER, '
+      'BusStopCode TEXT, '
+      'Distance REAL, '
+      'WD_FirstBus TEXT, '
+      'WD_LastBus TEXT, '
+      'SAT_FirstBus TEXT, '
+      'SAT_LastBus TEXT, '
+      'SUN_firstBus TEXT, '
+      'SUN_LastBus TEXT '
       ')',
     );
   }
 
   Future<void> _createBusStopsTable(Database database) async {
     await database.execute(
-      'CREATE TABLE $busStopsTableName ('
-      'BusStopCode TEXT PRIMARY KEY,'
-      'RoadName TEXT,'
-      'Description TEXT,'
-      'Latitude REAL,'
-      'Longitude REAL,'
-      'distanceInMeters INT'
+      'CREATE TABLE $busStopsTableName ( '
+      'BusStopCode TEXT PRIMARY KEY, '
+      'RoadName TEXT, '
+      'Description TEXT, '
+      'Latitude REAL, '
+      'Longitude REAL, '
+      'distanceInMeters INT '
       ')',
     );
   }
 
   Future<void> _createTableCreationTable(Database database) async {
     await database.execute(
-      'CREATE TABLE $tableCreationTableName ('
-      'tableName TEXT,'
-      'creationTimeSinceEpoch INT'
+      'CREATE TABLE $tableCreationTableName ( '
+      'tableName TEXT, '
+      'creationTimeSinceEpoch INT '
       ')',
     );
   }
@@ -108,19 +107,19 @@ class DatabaseService {
   /// Selects all bus stops stored in the bus stops table. A list of bus stop
   /// codes can be provided as a filter
   Future<List<BusStopModel>> getBusStops([List<String> busStopCodes]) async {
-    var busStopList = <BusStopModel>[];
+    final busStopList = <BusStopModel>[];
     final db = await database;
     var busStopCodeInFilter = '';
     if (busStopCodes != null) {
       busStopCodeInFilter =
-          'WHERE BusStopCode IN (\'${busStopCodes.join("','")}\')';
+          "WHERE BusStopCode IN ('${busStopCodes.join("','")}')";
     }
-    var queryString = 'SELECT * FROM $busStopsTableName $busStopCodeInFilter';
+    final queryString = 'SELECT * FROM $busStopsTableName $busStopCodeInFilter';
     _log.info('getting bus stops with query: $queryString');
-    var busStops = await db.rawQuery(queryString);
+    final busStops = await db.rawQuery(queryString);
 
-    for (var currentBusStop in busStops) {
-      var busStopModel = BusStopModel.fromJson(currentBusStop);
+    for (final currentBusStop in busStops) {
+      final busStopModel = BusStopModel.fromJson(currentBusStop);
       busStopList.add(busStopModel);
     }
 
@@ -130,16 +129,16 @@ class DatabaseService {
   /// Selects all bus routes stored in the bus routes table for a given bus
   /// stop.
   Future<List<BusRouteModel>> getBusRoutes(String busStopCode) async {
-    var busRouteList = <BusRouteModel>[];
+    final busRouteList = <BusRouteModel>[];
     final db = await database;
     _log.info('getting bus routes');
-    var busRoutes = await db.rawQuery(
+    final busRoutes = await db.rawQuery(
       'SELECT * FROM $busRoutesTableName WHERE BusStopCode = ?',
-      [busStopCode],
+      <String>[busStopCode],
     );
 
-    for (var currentBusRoute in busRoutes) {
-      var busRouteModel = BusRouteModel.fromJson(currentBusRoute);
+    for (final currentBusRoute in busRoutes) {
+      final busRouteModel = BusRouteModel.fromJson(currentBusRoute);
       busRouteList.add(busRouteModel);
     }
 
@@ -149,15 +148,15 @@ class DatabaseService {
   /// Selects bus stops based on a given list of bus stop codes
   Future<List<BusStopModel>> getFavouriteBusStops(
       List<String> busStopCodes) async {
-    var busStopList = <BusStopModel>[];
+    final busStopList = <BusStopModel>[];
     final db = await database;
     final rawQuery = 'SELECT * FROM $busStopsTableName WHERE BusStopCode '
-        'in (\'${busStopCodes.join("','")}\')';
+        "in ('${busStopCodes.join("','")}')";
     _log.info('getting favorite bus stops ($rawQuery)');
-    var busStops = await db.rawQuery(rawQuery);
+    final busStops = await db.rawQuery(rawQuery);
 
-    for (var currentBusStop in busStops) {
-      var busStopModel = BusStopModel.fromJson(currentBusStop);
+    for (final currentBusStop in busStops) {
+      final busStopModel = BusStopModel.fromJson(currentBusStop);
       busStopList.add(busStopModel);
     }
 
@@ -181,7 +180,7 @@ class DatabaseService {
   Future<int> insertBusStopsTableCreationDate({
     int millisecondsSinceEpoch,
   }) async {
-    return await _insertTableCreationDate(
+    return _insertTableCreationDate(
       tableName: busStopsTableName,
       millisecondsSinceEpoch: millisecondsSinceEpoch,
     );
@@ -192,7 +191,7 @@ class DatabaseService {
   Future<int> insertBusRoutesTableCreationDate({
     int millisecondsSinceEpoch,
   }) async {
-    return await _insertTableCreationDate(
+    return _insertTableCreationDate(
       tableName: busRoutesTableName,
       millisecondsSinceEpoch: millisecondsSinceEpoch,
     );
@@ -205,13 +204,13 @@ class DatabaseService {
     final db = await database;
     _log.info('Deleting $tableName row');
     await db.delete(tableCreationTableName,
-        where: 'tableName = ?', whereArgs: [tableName]);
+        where: 'tableName = ?', whereArgs: <String>[tableName]);
     _log.info(
         'Inserting timestamp into $tableCreationTableName for $tableName');
-    return await db.rawInsert(
+    return db.rawInsert(
       'INSERT INTO $tableCreationTableName(tableName, creationTimeSinceEpoch) '
       'VALUES(?, ?)',
-      [
+      <dynamic>[
         tableName,
         millisecondsSinceEpoch,
       ],
@@ -221,9 +220,9 @@ class DatabaseService {
   Future<void> _insertList(String tableName, List<dynamic> listToInsert) async {
     final db = await database;
     await db.transaction((txn) async {
-      var batch = txn.batch();
-      for (var listItem in listToInsert) {
-        batch.insert(tableName, listItem.toJson());
+      final batch = txn.batch();
+      for (final listItem in listToInsert) {
+        batch.insert(tableName, listItem.toJson() as Map<String, dynamic>);
       }
       await batch.commit(noResult: true, continueOnError: true);
       _log.info('inserting ${listToInsert.length} records into table '
@@ -233,38 +232,38 @@ class DatabaseService {
 
   /// Gets back the details of when the bus stop table has been created
   Future<List<Map<String, dynamic>>> getCreationDateOfBusStops() async {
-    return await _getCreationDate(tableName: busStopsTableName);
+    return _getCreationDate(tableName: busStopsTableName);
   }
 
   /// Gets back the details of when the bus routes table has been created
   Future<List<Map<String, dynamic>>> getCreationDateOfBusRoutes() async {
-    return await _getCreationDate(tableName: busRoutesTableName);
+    return _getCreationDate(tableName: busRoutesTableName);
   }
 
   Future<List<Map<String, dynamic>>> _getCreationDate(
       {String tableName}) async {
     final db = await database;
-    return await db.query(
+    return db.query(
       tableCreationTableName,
       columns: ['creationTimeSinceEpoch'],
       where: 'tableName = ?',
-      whereArgs: [tableName],
+      whereArgs: <String>[tableName],
     );
   }
 
   /// Deletes all records from the bus routes table
   Future<int> deleteBusRoutes() async {
-    return await _deleteTable(busRoutesTableName);
+    return _deleteTable(busRoutesTableName);
   }
 
   /// Deletes all records from the bus stop table
   Future<int> deleteBusStops() async {
-    return await _deleteTable(busStopsTableName);
+    return _deleteTable(busStopsTableName);
   }
 
   Future<int> _deleteTable(String tableName) async {
     final db = await database;
     _log.info('Deleting all records in table $tableName');
-    return await db.delete(tableName);
+    return db.delete(tableName);
   }
 }

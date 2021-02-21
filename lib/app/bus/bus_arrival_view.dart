@@ -37,7 +37,7 @@ final timerProvider = Provider.autoDispose
   Timer _timer;
 
   _timer = Timer.periodic(
-    Duration(minutes: 1),
+    const Duration(minutes: 1),
     (timer) => timerProviderParameter.context.refresh(
         busArrivalServiceListFutureProvider(
             timerProviderParameter.busStopCode)),
@@ -48,28 +48,22 @@ final timerProvider = Provider.autoDispose
 });
 
 /// checks if a given bus stop is already added as a favorite bus stop
-final isFavoriteFutureProvider =
-    FutureProvider.family<bool, String>((ref, busStopCode) async {
+final isFavoriteStateProvider =
+    StateProvider.autoDispose.family<bool, String>((ref, busStopCode) {
   final vm = ref.read(busArrivalViewModelProvider);
-  return await vm.isFavoriteBusStop(busStopCode);
+  return vm.isFavoriteBusStop(busStopCode);
 });
 
 /// retrieves the list of bus arrival services
 final busArrivalServiceListFutureProvider = FutureProvider.autoDispose
     .family<List<BusArrivalServiceModel>, String>((ref, busStopCode) async {
   final vm = ref.read(busArrivalViewModelProvider);
-  return await vm.getBusArrivalServiceList(busStopCode);
+  return vm.getBusArrivalServiceList(busStopCode);
 });
 
 /// The main class that shows the page with all the bus arrival information
 /// for a given bus stop
 class BusArrivalView extends HookWidget {
-  /// the bus stop code for which we want to fetch arrival information
-  final String busStopCode;
-
-  /// the description of the bus stop
-  final String description;
-
   /// the constructor for the bus arrival view
   const BusArrivalView({
     Key key,
@@ -77,16 +71,22 @@ class BusArrivalView extends HookWidget {
     this.description,
   }) : super(key: key);
 
+  /// the bus stop code for which we want to fetch arrival information
+  final String busStopCode;
+
+  /// the description of the bus stop
+  final String description;
+
   @override
   Widget build(BuildContext context) {
     useProvider(timerProvider(TimerProviderParameter(
       context: context,
       busStopCode: busStopCode,
     )));
-    var busArrivalServiceList =
+    final busArrivalServiceList =
         useProvider(busArrivalServiceListFutureProvider(busStopCode));
-    var isFavorite = useProvider(isFavoriteFutureProvider(busStopCode));
-    var mv = useProvider(busArrivalViewModelProvider);
+    final isFavorite = useProvider(isFavoriteStateProvider(busStopCode));
+    final mv = useProvider(busArrivalViewModelProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
@@ -94,19 +94,17 @@ class BusArrivalView extends HookWidget {
         title: Text(description),
         actions: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: isFavorite.when(
-                data: (isFavorite) => IconButton(
-                    key: const ValueKey('favouriteIconButton'),
-                    icon: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_outline),
-                    onPressed: () async {
-                      await mv.toggleFavoriteBusStop(busStopCode);
-                      context.refresh(isFavoriteFutureProvider(busStopCode));
-                      context.refresh(favoriteBusStopsFutureProvider);
-                    }),
-                loading: () => Icon(Icons.favorite_outline),
-                error: (error, stack) => Icon(Icons.favorite_outline)),
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              key: const ValueKey('favouriteIconButton'),
+              icon: Icon(
+                  isFavorite.state ? Icons.favorite : Icons.favorite_outline),
+              onPressed: () async {
+                await mv.toggleFavoriteBusStop(busStopCode);
+                isFavorite.state = !isFavorite.state;
+                await context.refresh(favoriteBusStopsFutureProvider);
+              },
+            ),
           ),
         ],
       ),
@@ -129,12 +127,14 @@ class BusArrivalView extends HookWidget {
             ),
           ),
         ),
-        loading: () => Center(child: CircularProgressIndicator()),
+        loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) {
           if (err is Failure) {
             return ErrorView(message: err.message);
           }
-          return ErrorView();
+          return const ErrorView(
+            message: 'Something unexpected happened',
+          );
         },
       ),
     );

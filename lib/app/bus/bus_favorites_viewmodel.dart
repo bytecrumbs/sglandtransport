@@ -28,7 +28,19 @@ class BusFavoritesViewModel {
     final databaseService = read(databaseServiceProvider);
     final localStorageService = read(localStorageServiceProvider);
     final favoriteBusStopStringList =
-        await localStorageService.getStringList(Constants.favoriteBusStopsKey);
-    return await databaseService.getBusStops(favoriteBusStopStringList);
+        localStorageService.getStringList(Constants.favoriteBusStopsKey);
+    return databaseService.getBusStops(favoriteBusStopStringList);
+  }
+
+  /// Remove bus stop from favorited bus stops
+  Future<void> removeBusStopFromFavorites(BusStopModel busStop) async {
+    final localStorageService = read(localStorageServiceProvider);
+    final currentFavorites =
+        localStorageService.getStringList(Constants.favoriteBusStopsKey);
+    if (currentFavorites.contains(busStop.busStopCode)) {
+      await localStorageService.removeStringFromList(
+          Constants.favoriteBusStopsKey, busStop.busStopCode);
+      currentFavorites.remove(busStop.busStopCode);
+    }
   }
 }

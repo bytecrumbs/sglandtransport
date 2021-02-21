@@ -34,19 +34,20 @@ class Api {
   /// Fetches all the available bus stops (unfiltered).
   Future<List<BusStopModel>> fetchBusStopList() async {
     var result = <BusStopModel>[];
-    final fetchURL = '$endPoint/ltaodataservice/BusStops';
+    const fetchURL = '$endPoint/ltaodataservice/BusStops';
 
     for (var i = 0; i <= 5000; i = i + 1000) {
-      var secondSkip = i + 500;
+      final secondSkip = i + 500;
 
-      var parallelFetch = await Future.wait([
+      final parallelFetch = await Future.wait([
         _get('$fetchURL?\$skip=$i'),
         _get('$fetchURL?\$skip=$secondSkip'),
       ]);
 
-      for (var response in parallelFetch) {
+      for (final response in parallelFetch) {
         // If the call to the server was successful, parse the JSON.
-        final busStopListModel = BusStopListModel.fromJson(response.data);
+        final busStopListModel =
+            BusStopListModel.fromJson(response.data as Map<String, dynamic>);
         result = result + busStopListModel.value;
       }
     }
@@ -57,16 +58,16 @@ class Api {
   /// Fetches all the available bus routes (unfiltered).
   Future<List<BusRouteModel>> fetchBusRouteList() async {
     var result = <BusRouteModel>[];
-    final fetchURL = '$endPoint/ltaodataservice/BusRoutes';
+    const fetchURL = '$endPoint/ltaodataservice/BusRoutes';
 
     for (var i = 0; i <= 26000; i = i + 3000) {
-      var secondSkip = i + 500;
-      var thirdSkip = i + 1000;
-      var fourthSkip = i + 1500;
-      var fifthSkip = i + 2000;
-      var sixthSkip = i + 2500;
+      final secondSkip = i + 500;
+      final thirdSkip = i + 1000;
+      final fourthSkip = i + 1500;
+      final fifthSkip = i + 2000;
+      final sixthSkip = i + 2500;
 
-      var parallelFetch = await Future.wait([
+      final parallelFetch = await Future.wait([
         _get('$fetchURL?\$skip=$i'),
         _get('$fetchURL?\$skip=$secondSkip'),
         _get('$fetchURL?\$skip=$thirdSkip'),
@@ -75,9 +76,10 @@ class Api {
         _get('$fetchURL?\$skip=$sixthSkip'),
       ]);
 
-      for (var response in parallelFetch) {
+      for (final response in parallelFetch) {
         // If the call to the server was successful, parse the JSON.
-        final busRouteListModel = BusRouteListModel.fromJson(response.data);
+        final busRouteListModel =
+            BusRouteListModel.fromJson(response.data as Map<String, dynamic>);
         result = result + busRouteListModel.value;
       }
     }
@@ -88,7 +90,7 @@ class Api {
   /// Fetches the bus arrival details for a given bus stop
   Future<List<BusArrivalServiceModel>> fetchBusArrivalList(
       String busStopCode) async {
-    final fetchUrl = '$endPoint/ltaodataservice/BusArrivalv2';
+    const fetchUrl = '$endPoint/ltaodataservice/BusArrivalv2';
 
     final response = await _get(
       fetchUrl,
@@ -97,7 +99,9 @@ class Api {
       },
     );
 
-    return BusArrivalServiceListModel.fromJson(response.data).services;
+    return BusArrivalServiceListModel.fromJson(
+      response.data as Map<String, dynamic>,
+    ).services;
   }
 
   Future<Response<dynamic>> _get(
@@ -108,9 +112,9 @@ class Api {
     _log.info('Fetching data for path $path and params $queryParameters');
 
     try {
-      return await dio.get(path,
+      return await dio.get<Map<String, dynamic>>(path,
           options: Options(
-            headers: {
+            headers: <String, String>{
               'AccountKey': EnvironmentConfig.ltaDatamallApiKey,
             },
           ),

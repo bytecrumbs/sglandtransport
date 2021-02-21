@@ -10,23 +10,26 @@ import '../routing/router.gr.dart' as auto_route;
 
 /// The main app drawer that is shown throughout the app
 class AppDrawerView extends StatelessWidget {
+  /// Default constructor
+  const AppDrawerView({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           ListTile(
-            leading: Icon(Icons.directions_bus),
-            title: Text('Buses'),
+            leading: const Icon(Icons.directions_bus),
+            title: const Text('Buses'),
             onTap: () {
               ExtendedNavigator.root.push(auto_route.Routes.busStopView);
             },
           ),
-          AboutListTile(
+          const AboutListTile(
             icon: Icon(Icons.info_outline),
             applicationName: 'SG Land Transport',
             applicationVersion: Constants.currentVersion,
@@ -36,7 +39,7 @@ class AppDrawerView extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Platform.isAndroid ? Icons.share : Icons.ios_share),
-            title: Text('Share'),
+            title: const Text('Share'),
             onTap: () async {
               await Share.share(
                 'Check out SG Land Transport here: https://sglandtransport.app',

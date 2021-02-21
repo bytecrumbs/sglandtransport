@@ -14,19 +14,23 @@ import 'models/bus_stop_model.dart';
 final favoriteBusStopsFutureProvider =
     FutureProvider<List<BusStopModel>>((ref) async {
   final vm = ref.read(busFavoritesViewModelProvider);
-  return await vm.getFavoriteBusStops();
+  return vm.getFavoriteBusStops();
 });
 
 /// The main view that shows favorite Bus Stops
 class BusFavoritesView extends HookWidget {
+  /// The default constructor
+  const BusFavoritesView({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final favoriteBusStops = useProvider(favoriteBusStopsFutureProvider);
+    final busFavVMProvider = useProvider(busFavoritesViewModelProvider);
     return favoriteBusStops.when(
       data: (favoriteBusStops) {
         return favoriteBusStops.isEmpty
-            ? Padding(
-                padding: const EdgeInsets.only(top: 30),
+            ? const Padding(
+                padding: EdgeInsets.only(top: 30),
                 child: Center(
                   child: Text(
                     'No favorite bus stops found...',
@@ -39,15 +43,67 @@ class BusFavoritesView extends HookWidget {
                   context: context,
                   removeTop: true,
                   child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: favoriteBusStops.length,
                     itemBuilder: (context, index) {
                       return StaggeredAnimation(
                         index: index,
-                        child: BusStopCard(
-                          busStopModel: favoriteBusStops[index],
-                          key: ValueKey<String>('busStopCard-$index'),
+                        child: Card(
+                          margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                          child: Dismissible(
+                            key: Key(
+                              favoriteBusStops[index].toString(),
+                            ),
+                            background: _slideBackgroundWidget(),
+                            direction: DismissDirection.endToStart,
+                            // ignore: missing_return
+                            confirmDismiss: (direction) async {
+                              if (direction == DismissDirection.endToStart) {
+                                return showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      content: const Text(
+                                          'Are you sure you want to delete?'),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text(
+                                            'Cancel',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ),
+                                        FlatButton(
+                                          onPressed: () async {
+                                            final removedItem = favoriteBusStops
+                                                .removeAt(index);
+                                            await busFavVMProvider
+                                                .removeBusStopFromFavorites(
+                                                    removedItem);
+                                            context.refresh(
+                                                busFavoritesViewModelProvider);
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text(
+                                            'Delete',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {}
+                            },
+                            child: BusStopCard(
+                              busStopModel: favoriteBusStops[index],
+                              key: ValueKey<String>('busStopCard-$index'),
+                            ),
+                          ),
                         ),
                       );
                     },
@@ -60,8 +116,35 @@ class BusFavoritesView extends HookWidget {
         if (err is Failure) {
           return ErrorView(message: err.message);
         }
-        return ErrorView();
+        return const ErrorView(
+          message: 'Something unexpected happened!',
+        );
       },
     );
   }
+
+  Widget _slideBackgroundWidget() => Container(
+        color: Colors.red,
+        alignment: AlignmentDirectional.centerEnd,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: const <Widget>[
+            Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            Text(
+              ' Delete',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.right,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+          ],
+        ),
+      );
 }

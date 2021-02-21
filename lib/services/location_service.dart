@@ -33,12 +33,6 @@ class LocationService {
     });
   }
 
-  /// Gets the current location of the device
-  Future<LocationData> getLocation() async {
-    _checkLocationServiceAndPermission();
-    return await _location.getLocation();
-  }
-
   /// Returns a stream of location information of the device
   Stream<LocationData> getLocationStream() {
     _checkLocationServiceAndPermission();

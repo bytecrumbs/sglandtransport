@@ -9,16 +9,16 @@ final searchResultViewModelProvider =
 
 /// The view model for the SearchResultView class
 class SearchResultViewModel {
-  /// A reader that enables reading other providers
-  final Reader read;
-
   /// Constructor for the model
   SearchResultViewModel(this.read);
 
+  /// A reader that enables reading other providers
+  final Reader read;
+
   bool _containsSearchText(String value, String searchText) {
-    value = value.toLowerCase();
-    searchText = searchText.toLowerCase();
-    return value.contains(searchText);
+    final lowerCaseValue = value.toLowerCase();
+    final lowerCaseSearchText = searchText.toLowerCase();
+    return lowerCaseValue.contains(lowerCaseSearchText);
   }
 
   /// Searches the database for bus stops containing a given search text.
@@ -32,7 +32,7 @@ class SearchResultViewModel {
     final allBusStops = await databaseService.getBusStops();
 
     if (searchText.isNotEmpty) {
-      for (var currentBusStop in allBusStops) {
+      for (final currentBusStop in allBusStops) {
         final isTextMatching =
             _containsSearchText(currentBusStop.busStopCode, searchText) ||
                 _containsSearchText(currentBusStop.description, searchText) ||

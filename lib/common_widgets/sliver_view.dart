@@ -15,10 +15,11 @@ final isFlareAnimationLoopStateProvider = StateProvider<bool>((ref) => true);
 /// Main Sliver view, which can be used to wrap a child in it.
 class SliverView extends HookWidget {
   /// The default constructor of the class
-  SliverView({
+  const SliverView({
+    Key key,
     @required this.title,
     @required this.child,
-  });
+  }) : super(key: key);
 
   /// The title to be shown in the app bar
   final String title;
@@ -34,7 +35,7 @@ class SliverView extends HookWidget {
 
     final screenHeight = MediaQuery.of(context).size.height;
     final _sliverAnimationHeight = screenHeight * 0.32;
-    var appBarColor =
+    final appBarColor =
         isExpanded.value ? Theme.of(context).primaryColorDark : Colors.white;
 
     return NotificationListener<ScrollNotification>(
@@ -42,7 +43,6 @@ class SliverView extends HookWidget {
         isExpanded.value =
             scrollState.metrics.pixels < _sliverAnimationHeight / 1.5;
         isPartiallyExpanded.value = scrollState.metrics.pixels < 40;
-        ;
         return isExpanded.value;
       },
       child: CustomScrollView(
@@ -55,8 +55,6 @@ class SliverView extends HookWidget {
               style: TextStyle(color: appBarColor),
             ),
             pinned: true,
-            floating: false,
-            snap: false,
             expandedHeight: _sliverAnimationHeight,
             backgroundColor: isPartiallyExpanded.value
                 ? Theme.of(context).scaffoldBackgroundColor
@@ -71,10 +69,10 @@ class SliverView extends HookWidget {
             ),
             actions: <Widget>[
               IconButton(
-                key: ValueKey('searchIconButton'),
-                icon: Icon(Icons.search, size: 27),
+                key: const ValueKey('searchIconButton'),
+                icon: const Icon(Icons.search, size: 27),
                 onPressed: () {
-                  showSearch(
+                  showSearch<dynamic>(
                     context: context,
                     delegate: CustomSearchDelegate(),
                   );

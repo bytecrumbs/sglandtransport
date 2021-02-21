@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// Shows the load of the bus
 class Tag extends StatelessWidget {
   /// The default constructor of the class
-  Tag({@required this.text, this.color});
+  const Tag({Key key, @required this.text, this.color}) : super(key: key);
 
   /// The text that is shown, indicating the bus load
   final String text;
@@ -11,7 +11,7 @@ class Tag extends StatelessWidget {
   /// The color that the text should be shown in
   final Color color;
 
-  Widget _displayTagForSmallDevice(context) {
+  Widget _displayTagForSmallDevice() {
     return Container(
       margin: const EdgeInsets.only(right: 7),
       child: Text(
@@ -30,7 +30,7 @@ class Tag extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmall = screenWidth < 340;
     return isSmall
-        ? _displayTagForSmallDevice(context)
+        ? _displayTagForSmallDevice()
         : Container(
             margin: const EdgeInsets.only(right: 7),
             padding: const EdgeInsets.only(

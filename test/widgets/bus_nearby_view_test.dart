@@ -23,7 +23,7 @@ void main() {
       overrides: [
         nearbyBusStopsProvider.overrideWithProvider(fakeNearbyBusStopsProvider)
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: Scaffold(
           body: BusNearbyView(),
         ),

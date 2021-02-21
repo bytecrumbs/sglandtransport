@@ -17,11 +17,14 @@ final searchResultFutureProvider = FutureProvider.autoDispose
 
 /// Shows the serach results
 class SearchResultView extends HookWidget {
+  /// Constructor for the class
+  const SearchResultView({
+    Key key,
+    @required this.searchTerm,
+  }) : super(key: key);
+
   /// The term the bus stop should be searched for
   final String searchTerm;
-
-  /// Constructor for the class
-  SearchResultView({@required this.searchTerm});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class SearchResultView extends HookWidget {
     return searchResult.when(
       data: (searchResult) {
         return ListView.builder(
-          padding: const EdgeInsets.only(top: 15.0),
+          padding: const EdgeInsets.only(top: 15),
           itemCount: searchResult.length,
           itemBuilder: (context, index) => BusStopCard(
             busStopModel: searchResult[index],
@@ -43,7 +46,9 @@ class SearchResultView extends HookWidget {
         if (err is Failure) {
           return ErrorView(message: err.message);
         }
-        return ErrorView();
+        return const ErrorView(
+          message: 'Something unexpected happened',
+        );
       },
     );
   }
