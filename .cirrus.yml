@@ -27,6 +27,7 @@ integration_test_task:
     - echo $IOS_GOOGLE_SERVICES > ./ios/GoogleService-Info.plist
     - echo $ANDROID_GOOGLE_SERVICES > ./android/app/google-services.json
   integration_test_script:
+    - xcrun simctl list
     - xcrun simctl boot 2EB7256A-920E-43B0-BC35-0A23E9E18385
     - flutter drive --target=test_driver/app.dart --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
 
