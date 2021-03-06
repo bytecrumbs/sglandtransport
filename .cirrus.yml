@@ -38,8 +38,8 @@ integration_test_task:
 android_beta_upload_task:
   only_if: $CIRRUS_BRANCH == 'master'
   depends_on:
-    - analyze
-    - unit_test
+    # - analyze
+    # - unit_test
     - integration_test
   osx_instance:
     image: big-sur-xcode
@@ -69,8 +69,8 @@ android_beta_upload_task:
 ios_testflight_task:
   only_if: $CIRRUS_BRANCH == 'master'
   depends_on:
-    - analyze
-    - unit_test
+    # - analyze
+    # - unit_test
     - integration_test
   osx_instance:
     image: big-sur-xcode
