@@ -2,7 +2,8 @@ analyze_task:
   container:
     image: cirrusci/flutter:latest
   analyze_script:
-    - flutter version v1.22.6
+    - flutter channel stable
+    - flutter downgrade
     - flutter analyze
 
 unit_test_task:
@@ -11,7 +12,8 @@ unit_test_task:
   pub_cache:
     folder: ~/.pub-cache
   test_script:
-    - flutter version v1.22.6
+    - flutter channel stable
+    - flutter downgrade
     - flutter test --coverage
     - lcov --list coverage/lcov.info
 
