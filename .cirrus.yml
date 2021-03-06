@@ -2,7 +2,7 @@ analyze_task:
   container:
     image: cirrusci/flutter:latest
   analyze_script:
-    - flutter downgrade
+    - flutter version v1.22.6
     - flutter analyze
 
 unit_test_task:
@@ -11,7 +11,7 @@ unit_test_task:
   pub_cache:
     folder: ~/.pub-cache
   test_script:
-    - flutter downgrade
+    - flutter version v1.22.6
     - flutter test --coverage
     - lcov --list coverage/lcov.info
 
@@ -27,8 +27,8 @@ integration_test_task:
   add_firebase_files_script:
     - echo $IOS_GOOGLE_SERVICES > ./ios/GoogleService-Info.plist
     - echo $ANDROID_GOOGLE_SERVICES > ./android/app/google-services.json
-  update_flutter_script:
-    - flutter upgrade
+  # update_flutter_script:
+  #   - flutter upgrade
   integration_test_script:
     # list available devices
     - xcrun simctl list
