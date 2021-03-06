@@ -34,7 +34,7 @@ integration_test_task:
     - xcrun simctl list
     # boot an available device (overwrite the below if the script failes becuase
     # the device is invalid)
-    - xcrun simctl boot A3B8BCEE-5ACB-43F8-A5B7-3E1542762B92
+    - xcrun simctl boot 2E922621-D758-48D1-9994-A4CF9182B512
     - flutter drive --target=test_driver/app.dart --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
 
 android_beta_upload_task:
