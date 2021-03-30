@@ -9,7 +9,7 @@ class BusArrivalServiceCard extends StatelessWidget {
   /// The constructor for the bus arrival service card
   const BusArrivalServiceCard({
     Key? key,
-    @required this.busArrivalServiceModel,
+    required this.busArrivalServiceModel,
   }) : super(key: key);
 
   /// The model that is passed in and holds all the information for the bus
@@ -18,7 +18,7 @@ class BusArrivalServiceCard extends StatelessWidget {
 
   /// returns the arrival time in minutes
   String getTimeToBusArrival({
-    @required String arrivalTime,
+    required String arrivalTime,
     bool isSuffixShown = false,
   }) {
     if (arrivalTime == '' || arrivalTime == null) {

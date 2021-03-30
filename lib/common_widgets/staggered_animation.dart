@@ -6,8 +6,8 @@ class StaggeredAnimation extends StatelessWidget {
   /// constructor for the class
   const StaggeredAnimation({
     Key? key,
-    @required this.index,
-    @required this.child,
+    required this.index,
+    required this.child,
   }) : super(key: key);
 
   /// the current index of the animated card

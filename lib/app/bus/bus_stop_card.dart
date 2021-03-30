@@ -10,7 +10,7 @@ class BusStopCard extends StatelessWidget {
   /// The constructor for the BusStopCard
   const BusStopCard({
     Key? key,
-    @required this.busStopModel,
+    required this.busStopModel,
     this.searchTerm = '',
   }) : super(key: key);
 

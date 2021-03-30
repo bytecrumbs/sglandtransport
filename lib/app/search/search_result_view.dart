@@ -20,7 +20,7 @@ class SearchResultView extends HookWidget {
   /// Constructor for the class
   const SearchResultView({
     Key? key,
-    @required this.searchTerm,
+    required this.searchTerm,
   }) : super(key: key);
 
   /// The term the bus stop should be searched for

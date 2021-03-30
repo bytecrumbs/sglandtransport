@@ -128,7 +128,10 @@ class AboutView extends StatelessWidget {
 /// Shows a header section of the about view
 class AboutHeader extends StatelessWidget {
   /// Constructor of the about header
-  const AboutHeader({Key? key, @required this.headerText}) : super(key: key);
+  const AboutHeader({
+    Key? key,
+    required this.headerText,
+  }) : super(key: key);
 
   /// The text to be shown as a header
   final String headerText;
