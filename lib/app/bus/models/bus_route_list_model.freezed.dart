@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bus_route_list_model.dart';
 
@@ -8,6 +8,10 @@ part of 'bus_route_list_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 BusRouteListModel _$BusRouteListModelFromJson(Map<String, dynamic> json) {
   return _BusRouteListModel.fromJson(json);
 }
@@ -16,35 +20,33 @@ BusRouteListModel _$BusRouteListModelFromJson(Map<String, dynamic> json) {
 class _$BusRouteListModelTearOff {
   const _$BusRouteListModelTearOff();
 
-// ignore: unused_element
   _BusRouteListModel call(
-      {@JsonKey(name: 'odata.metadata') String odataMetadata,
-      List<BusRouteModel> value}) {
+      {@JsonKey(name: 'odata.metadata') required String odataMetadata,
+      required List<BusRouteModel> value}) {
     return _BusRouteListModel(
       odataMetadata: odataMetadata,
       value: value,
     );
   }
 
-// ignore: unused_element
   BusRouteListModel fromJson(Map<String, Object> json) {
     return BusRouteListModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $BusRouteListModel = _$BusRouteListModelTearOff();
 
 /// @nodoc
 mixin _$BusRouteListModel {
   @JsonKey(name: 'odata.metadata')
-  String get odataMetadata;
-  List<BusRouteModel> get value;
+  String get odataMetadata => throw _privateConstructorUsedError;
+  List<BusRouteModel> get value => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BusRouteListModelCopyWith<BusRouteListModel> get copyWith;
+  $BusRouteListModelCopyWith<BusRouteListModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -68,14 +70,18 @@ class _$BusRouteListModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object odataMetadata = freezed,
-    Object value = freezed,
+    Object? odataMetadata = freezed,
+    Object? value = freezed,
   }) {
     return _then(_value.copyWith(
       odataMetadata: odataMetadata == freezed
           ? _value.odataMetadata
-          : odataMetadata as String,
-      value: value == freezed ? _value.value : value as List<BusRouteModel>,
+          : odataMetadata // ignore: cast_nullable_to_non_nullable
+              as String,
+      value: value == freezed
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as List<BusRouteModel>,
     ));
   }
 }
@@ -105,14 +111,18 @@ class __$BusRouteListModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object odataMetadata = freezed,
-    Object value = freezed,
+    Object? odataMetadata = freezed,
+    Object? value = freezed,
   }) {
     return _then(_BusRouteListModel(
       odataMetadata: odataMetadata == freezed
           ? _value.odataMetadata
-          : odataMetadata as String,
-      value: value == freezed ? _value.value : value as List<BusRouteModel>,
+          : odataMetadata // ignore: cast_nullable_to_non_nullable
+              as String,
+      value: value == freezed
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as List<BusRouteModel>,
     ));
   }
 }
@@ -124,7 +134,8 @@ class _$_BusRouteListModel
     with DiagnosticableTreeMixin
     implements _BusRouteListModel {
   _$_BusRouteListModel(
-      {@JsonKey(name: 'odata.metadata') this.odataMetadata, this.value});
+      {@JsonKey(name: 'odata.metadata') required this.odataMetadata,
+      required this.value});
 
   factory _$_BusRouteListModel.fromJson(Map<String, dynamic> json) =>
       _$_$_BusRouteListModelFromJson(json);
@@ -179,18 +190,19 @@ class _$_BusRouteListModel
 
 abstract class _BusRouteListModel implements BusRouteListModel {
   factory _BusRouteListModel(
-      {@JsonKey(name: 'odata.metadata') String odataMetadata,
-      List<BusRouteModel> value}) = _$_BusRouteListModel;
+      {@JsonKey(name: 'odata.metadata') required String odataMetadata,
+      required List<BusRouteModel> value}) = _$_BusRouteListModel;
 
   factory _BusRouteListModel.fromJson(Map<String, dynamic> json) =
       _$_BusRouteListModel.fromJson;
 
   @override
   @JsonKey(name: 'odata.metadata')
-  String get odataMetadata;
+  String get odataMetadata => throw _privateConstructorUsedError;
   @override
-  List<BusRouteModel> get value;
+  List<BusRouteModel> get value => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$BusRouteListModelCopyWith<_BusRouteListModel> get copyWith;
+  _$BusRouteListModelCopyWith<_BusRouteListModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -9,8 +9,8 @@ part of 'bus_arrival_service_model.dart';
 _$_BusArrivalServiceModel _$_$_BusArrivalServiceModelFromJson(
     Map<String, dynamic> json) {
   return _$_BusArrivalServiceModel(
-    serviceNo: json['ServiceNo'] as String,
-    busOperator: json['Operator'] as String,
+    serviceNo: json['ServiceNo'] as String?,
+    busOperator: json['Operator'] as String?,
     nextBus: json['NextBus'] == null
         ? null
         : NextBusModel.fromJson(json['NextBus'] as Map<String, dynamic>),
@@ -20,8 +20,8 @@ _$_BusArrivalServiceModel _$_$_BusArrivalServiceModelFromJson(
     nextBus3: json['NextBus3'] == null
         ? null
         : NextBusModel.fromJson(json['NextBus3'] as Map<String, dynamic>),
-    inService: json['inService'] as bool ?? true,
-    destinationName: json['destinationName'] as String,
+    inService: json['inService'] as bool? ?? true,
+    destinationName: json['destinationName'] as String?,
   );
 }
 
