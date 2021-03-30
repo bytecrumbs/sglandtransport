@@ -17,48 +17,47 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
+  auto_route: ^1.0.2
+  convex_bottom_bar: ^3.0.0
   dio: ^4.0.0
-  firebase_core: ^1.0.2
   firebase_analytics: ^8.0.0-dev.0
+  firebase_core: ^1.0.2
   firebase_crashlytics: ^1.0.0
   firebase_performance: ^0.6.0+1
+  flare_flutter: ^3.0.0
+  flutter:
+    sdk: flutter
   flutter_hooks: ^0.16.0
-  hooks_riverpod: ^0.13.1+1
-  convex_bottom_bar: ^3.0.0
-  logging: ^1.0.1
-  url_launcher: ^6.0.3
-  injectable: ^1.2.2
-  json_annotation: ^4.0.1
-  location: ^4.1.1
-  sqflite: ^2.0.0+3
-  path: ^1.8.0
-  latlong2: ^0.8.0
-  shared_preferences: ^2.0.5
   flutter_staggered_animations: ^1.0.0
   freezed_annotation: ^0.14.1
-  # substring_highlight: ^0.1.2
   highlight_text: ^1.0.0
-  # screenshots: ^2.1.1
-  rate_my_app: ^1.1.0+1
-  #navigation
-  auto_route: ^1.0.2
-  #stack service
-  flare_flutter: ^3.0.0
-  share: ^2.0.1
+  hooks_riverpod: ^0.13.1+1
+  injectable: ^1.2.2
+  json_annotation: ^4.0.1
+  latlong2: ^0.8.0
+  location: ^4.1.1
+  logging: ^1.0.1
+  path: ^1.8.0
   pedantic: ^1.11.0
+  rate_my_app: ^1.1.0+1
+  share: ^2.0.1
+  shared_preferences: ^2.0.5
+  sqflite: ^2.0.0+3
+  url_launcher: ^6.0.3
+  # substring_highlight: ^0.1.2
+  # screenshots: ^2.1.1
+  #navigation
+  #stack service
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   auto_route_generator: ^1.0.2
   build_runner: ^1.12.2
+  flutter_test:
+    sdk: flutter
+  freezed: ^0.14.1+1
   injectable_generator: ^1.2.2
   json_serializable: ^4.1.0
   mockito: ^5.0.3
-  freezed: ^0.14.1+1
 
 # dependency_overrides:
 #   screenshots:
