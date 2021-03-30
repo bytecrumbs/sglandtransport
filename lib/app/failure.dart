@@ -5,22 +5,22 @@ class Failure implements Exception {
   /// Constructor for errors from Dio
   Failure.fromDioError(DioError dioError) {
     switch (dioError.type) {
-      case DioErrorType.CANCEL:
+      case DioErrorType.cancel:
         message = 'Request to API server was cancelled';
         break;
-      case DioErrorType.CONNECT_TIMEOUT:
+      case DioErrorType.connectTimeout:
         message = 'Connection timeout with API server';
         break;
-      case DioErrorType.DEFAULT:
+      case DioErrorType.other:
         message = 'Connection to API server failed due to internet connection';
         break;
-      case DioErrorType.RECEIVE_TIMEOUT:
+      case DioErrorType.receiveTimeout:
         message = 'Received timeout in connection with API server';
         break;
-      case DioErrorType.RESPONSE:
-        message = _handleError(dioError.response.statusCode);
+      case DioErrorType.response:
+        message = _handleError(dioError.response?.statusCode);
         break;
-      case DioErrorType.SEND_TIMEOUT:
+      case DioErrorType.sendTimeout:
         message = 'Send timeout in connection with API server';
         break;
       default:
@@ -30,9 +30,9 @@ class Failure implements Exception {
   }
 
   /// The error message that should be shown
-  String message;
+  String? message;
 
-  String _handleError(int statusCode) {
+  String _handleError(int? statusCode) {
     switch (statusCode) {
       case 400:
         return 'Bad request';
