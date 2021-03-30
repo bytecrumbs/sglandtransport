@@ -66,7 +66,7 @@ final busArrivalServiceListFutureProvider = FutureProvider.autoDispose
 class BusArrivalView extends HookWidget {
   /// the constructor for the bus arrival view
   const BusArrivalView({
-    Key key,
+    Key? key,
     this.busStopCode,
     this.description,
   }) : super(key: key);

@@ -20,7 +20,7 @@ final favoriteBusStopsFutureProvider =
 /// The main view that shows favorite Bus Stops
 class BusFavoritesView extends HookWidget {
   /// The default constructor
-  const BusFavoritesView({Key key}) : super(key: key);
+  const BusFavoritesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

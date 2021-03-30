@@ -9,7 +9,7 @@ import 'models/bus_stop_model.dart';
 class BusStopCard extends StatelessWidget {
   /// The constructor for the BusStopCard
   const BusStopCard({
-    Key key,
+    Key? key,
     @required this.busStopModel,
     this.searchTerm = '',
   }) : super(key: key);

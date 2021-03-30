@@ -40,7 +40,7 @@ final nearbyBusStopsProvider =
 /// The main view that shows nearby bus stops
 class BusNearbyView extends HookWidget {
   /// Default Constructor
-  const BusNearbyView({Key key}) : super(key: key);
+  const BusNearbyView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

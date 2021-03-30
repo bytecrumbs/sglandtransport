@@ -8,7 +8,7 @@ import 'tag.dart';
 class BusArrivalServiceCard extends StatelessWidget {
   /// The constructor for the bus arrival service card
   const BusArrivalServiceCard({
-    Key key,
+    Key? key,
     @required this.busArrivalServiceModel,
   }) : super(key: key);
 

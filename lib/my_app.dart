@@ -26,7 +26,7 @@ final appInitFutureProvider = FutureProvider<void>((ref) async {
 /// need to be done on start up.
 class MyApp extends HookWidget {
   /// Default constructor
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   /// The Firebase analytics reference
   static FirebaseAnalytics analytics = FirebaseAnalytics();

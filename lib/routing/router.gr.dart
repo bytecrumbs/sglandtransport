@@ -59,7 +59,7 @@ class Router extends RouterBase {
 
 /// BusArrivalView arguments holder class
 class BusArrivalViewArguments {
-  final Key key;
+  final Key? key;
   final String busStopCode;
   final String description;
   BusArrivalViewArguments({this.key, this.busStopCode, this.description});

@@ -16,7 +16,7 @@ final isFlareAnimationLoopStateProvider = StateProvider<bool>((ref) => true);
 class SliverView extends HookWidget {
   /// The default constructor of the class
   const SliverView({
-    Key key,
+    Key? key,
     @required this.title,
     @required this.child,
   }) : super(key: key);

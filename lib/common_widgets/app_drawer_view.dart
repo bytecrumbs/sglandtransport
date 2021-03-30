@@ -11,7 +11,7 @@ import '../routing/router.gr.dart' as auto_route;
 /// The main app drawer that is shown throughout the app
 class AppDrawerView extends StatelessWidget {
   /// Default constructor
-  const AppDrawerView({Key key}) : super(key: key);
+  const AppDrawerView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

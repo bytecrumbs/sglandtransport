@@ -22,7 +22,7 @@ final bottomBarIndexStateProvider = StateProvider<int>((ref) {
 /// favorite bus stops
 class BusStopView extends HookWidget {
   /// Default constructor
-  const BusStopView({Key key}) : super(key: key);
+  const BusStopView({Key? key}) : super(key: key);
 
   static final _log = Logger('BusStopView');
   Widget _getViewForIndex(int index) {

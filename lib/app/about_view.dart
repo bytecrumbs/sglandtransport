@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// Shows the content of the App Drawer
 class AboutView extends StatelessWidget {
   /// Default constructor
-  const AboutView({Key key}) : super(key: key);
+  const AboutView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +128,7 @@ class AboutView extends StatelessWidget {
 /// Shows a header section of the about view
 class AboutHeader extends StatelessWidget {
   /// Constructor of the about header
-  const AboutHeader({Key key, @required this.headerText}) : super(key: key);
+  const AboutHeader({Key? key, @required this.headerText}) : super(key: key);
 
   /// The text to be shown as a header
   final String headerText;

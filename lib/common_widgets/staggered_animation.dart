@@ -5,7 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 class StaggeredAnimation extends StatelessWidget {
   /// constructor for the class
   const StaggeredAnimation({
-    Key key,
+    Key? key,
     @required this.index,
     @required this.child,
   }) : super(key: key);
