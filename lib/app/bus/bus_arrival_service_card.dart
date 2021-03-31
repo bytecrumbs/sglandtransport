@@ -18,7 +18,7 @@ class BusArrivalServiceCard extends StatelessWidget {
 
   /// returns the arrival time in minutes
   String getTimeToBusArrival({
-    required String arrivalTime,
+    String? arrivalTime,
     bool isSuffixShown = false,
   }) {
     if (arrivalTime == '' || arrivalTime == null) {
@@ -35,7 +35,7 @@ class BusArrivalServiceCard extends StatelessWidget {
         : '${arrivalInMinutes.toString()}$suffix';
   }
 
-  Widget _displayBusFeature(String feature, String arrivalTime) {
+  Widget _displayBusFeature(String? feature, String? arrivalTime) {
     if (feature != 'WAB' && arrivalTime != '') {
       return Container(
         margin: const EdgeInsets.only(left: 5),
@@ -50,7 +50,7 @@ class BusArrivalServiceCard extends StatelessWidget {
     return const Text('');
   }
 
-  Widget _displayBusLoad(String load, bool isSmallScreen) {
+  Widget _displayBusLoad(String? load, bool isSmallScreen) {
     var backgroundColor = const Color(0xFFF4F7F8);
     final _busLoad = {
       'SEA': 'Seats avail.',
@@ -68,7 +68,7 @@ class BusArrivalServiceCard extends StatelessWidget {
 
     return load != ''
         ? Tag(
-            text: _busLoad[load],
+            text: _busLoad[load] ?? '',
             color: backgroundColor,
           )
         : const Text('');
@@ -77,7 +77,7 @@ class BusArrivalServiceCard extends StatelessWidget {
   Widget _displayBusInfo(
     NextBusModel model,
     bool isSmallScreen, {
-    bool displayBorder,
+    bool? displayBorder,
   }) {
     final hasBorder =
         !isSmallScreen && displayBorder == (true && displayBorder != null);
@@ -87,7 +87,7 @@ class BusArrivalServiceCard extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           left: BorderSide(
-            color: hasBorder ? Colors.grey[300] : Colors.white,
+            color: hasBorder ? Colors.grey[300] ?? Colors.grey : Colors.white,
           ),
         ),
       ),
@@ -151,7 +151,7 @@ class BusArrivalServiceCard extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  busArrivalServiceModel.serviceNo,
+                  busArrivalServiceModel.serviceNo ?? '',
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -187,20 +187,20 @@ class BusArrivalServiceCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: _displayBusInfo(
-                          busArrivalServiceModel.nextBus,
+                          busArrivalServiceModel.nextBus!,
                           isSmallScreen,
                         ),
                       ),
                       Expanded(
                         child: _displayBusInfo(
-                          busArrivalServiceModel.nextBus2,
+                          busArrivalServiceModel.nextBus2!,
                           isSmallScreen,
                           displayBorder: true,
                         ),
                       ),
                       Expanded(
                         child: _displayBusInfo(
-                          busArrivalServiceModel.nextBus3,
+                          busArrivalServiceModel.nextBus3!,
                           isSmallScreen,
                           displayBorder: true,
                         ),
