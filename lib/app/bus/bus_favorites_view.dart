@@ -67,7 +67,7 @@ class BusFavoritesView extends HookWidget {
                                       content: const Text(
                                           'Are you sure you want to delete?'),
                                       actions: <Widget>[
-                                        FlatButton(
+                                        TextButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
@@ -77,7 +77,7 @@ class BusFavoritesView extends HookWidget {
                                                 TextStyle(color: Colors.black),
                                           ),
                                         ),
-                                        FlatButton(
+                                        TextButton(
                                           onPressed: () async {
                                             final removedItem = favoriteBusStops
                                                 .removeAt(index);
