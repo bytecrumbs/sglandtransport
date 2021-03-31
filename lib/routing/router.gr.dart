@@ -10,8 +10,8 @@ import 'package:flutter/material.dart' as _i4;
 import '../app/bus/bus_arrival_view.dart' as _i3;
 import '../app/bus/bus_stop_view.dart' as _i2;
 
-class Router extends _i1.RootStackRouter {
-  Router();
+class AppRouter extends _i1.RootStackRouter {
+  AppRouter();
 
   @override
   final Map<String, _i1.PageFactory> pagesMap = {

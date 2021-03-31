@@ -8,7 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 
 import 'my_app_initializer.dart';
-import 'routing/router.gr.dart' as auto_route;
+import 'routing/router.gr.dart';
 
 /// Initializes things that need to be done prior to app start
 final appInitFutureProvider = FutureProvider<void>((ref) async {
@@ -21,6 +21,8 @@ final appInitFutureProvider = FutureProvider<void>((ref) async {
   // no need to await here, as this can run in the background
   unawaited(initializer.initDatabaseLoad());
 });
+
+final _appRouter = AppRouter();
 
 /// The main class, which will first initiate firebase and other things that
 /// need to be done on start up.
@@ -38,32 +40,28 @@ class MyApp extends HookWidget {
   Widget build(BuildContext context) {
     final appInit = useProvider(appInitFutureProvider);
     return appInit.when(
-      data: (appInit) => MaterialApp(
+      data: (appInit) => MaterialApp.router(
+        routeInformationParser: _appRouter.defaultRouteParser(),
+        routerDelegate: _appRouter
+            .delegate(navigatorObservers: <NavigatorObserver>[observer]),
         title: 'GitLab Mobile',
-        builder: ExtendedNavigator.builder(
-          router: auto_route.Router(),
-          observers: <NavigatorObserver>[observer],
-          builder: (context, extendedNav) => Theme(
-            data: ThemeData(
-              brightness: Brightness.light,
-              primaryColorDark: const Color(0xFF25304D),
-              primaryColor: const Color(0xFF969CAE),
-              accentColor: const Color(0xFFEF3340),
-              scaffoldBackgroundColor: const Color(0xFFE2EFF5),
-              textTheme: const TextTheme(
-                headline1: TextStyle(
-                  color: Color(0xFF25304D),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
-                headline2: TextStyle(
-                  color: Color(0xFF8C8C91),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColorDark: const Color(0xFF25304D),
+          primaryColor: const Color(0xFF969CAE),
+          accentColor: const Color(0xFFEF3340),
+          scaffoldBackgroundColor: const Color(0xFFE2EFF5),
+          textTheme: const TextTheme(
+            headline1: TextStyle(
+              color: Color(0xFF25304D),
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
             ),
-            child: extendedNav,
+            headline2: TextStyle(
+              color: Color(0xFF8C8C91),
+              fontSize: 16,
+              fontWeight: FontWeight.w300,
+            ),
           ),
         ),
       ),
