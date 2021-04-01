@@ -25,14 +25,14 @@ final nearbyBusStopsProvider =
     StreamProvider.autoDispose<List<BusStopModel>>((ref) async* {
   final vm = ref.read(busNearbyViewModelProvider);
 
-  final allBusStops = await vm.getBusStops() ?? <BusStopModel>[];
+  final allBusStops = await vm.getBusStops();
 
   // filter and yield a value whenever a new location is provided via the
   // location stream
   final locationStream = ref.watch(locationStreamProvider.stream);
   await for (final locationData in locationStream) {
     yield vm.filterBusStopsByLocation(
-        allBusStops, locationData.latitude, locationData.longitude);
+        allBusStops, locationData.latitude ?? 0, locationData.longitude ?? 0);
   }
 });
 
