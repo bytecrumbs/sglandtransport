@@ -39,7 +39,7 @@ class BusFavoritesViewModel {
         localStorageService.getStringList(Constants.favoriteBusStopsKey);
     if (currentFavorites.contains(busStop.busStopCode)) {
       await localStorageService.removeStringFromList(
-          Constants.favoriteBusStopsKey, busStop.busStopCode);
+          Constants.favoriteBusStopsKey, busStop.busStopCode ?? '');
       currentFavorites.remove(busStop.busStopCode);
     }
   }

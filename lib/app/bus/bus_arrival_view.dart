@@ -67,8 +67,8 @@ class BusArrivalView extends HookWidget {
   /// the constructor for the bus arrival view
   const BusArrivalView({
     Key? key,
-    this.busStopCode,
-    this.description,
+    required this.busStopCode,
+    required this.description,
   }) : super(key: key);
 
   /// the bus stop code for which we want to fetch arrival information

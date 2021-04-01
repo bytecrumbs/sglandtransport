@@ -19,8 +19,7 @@ class AppRouter extends _i1.RootStackRouter {
       return _i1.MaterialPageX(entry: entry, child: const _i2.BusStopView());
     },
     BusArrivalViewRoute.name: (entry) {
-      var args = entry.routeData.argsAs<BusArrivalViewRouteArgs>(
-          orElse: () => BusArrivalViewRouteArgs());
+      var args = entry.routeData.argsAs<BusArrivalViewRouteArgs>();
       return _i1.MaterialPageX(
           entry: entry,
           child: _i3.BusArrivalView(
@@ -44,7 +43,8 @@ class BusStopViewRoute extends _i1.PageRouteInfo {
 }
 
 class BusArrivalViewRoute extends _i1.PageRouteInfo<BusArrivalViewRouteArgs> {
-  BusArrivalViewRoute({_i4.Key? key, String busStopCode, String description})
+  BusArrivalViewRoute(
+      {_i4.Key? key, required String busStopCode, required String description})
       : super(name,
             path: '/bus-arrival-view',
             args: BusArrivalViewRouteArgs(
@@ -54,7 +54,8 @@ class BusArrivalViewRoute extends _i1.PageRouteInfo<BusArrivalViewRouteArgs> {
 }
 
 class BusArrivalViewRouteArgs {
-  const BusArrivalViewRouteArgs({this.key, this.busStopCode, this.description});
+  const BusArrivalViewRouteArgs(
+      {this.key, required this.busStopCode, required this.description});
 
   final _i4.Key? key;
 

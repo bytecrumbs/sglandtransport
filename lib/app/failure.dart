@@ -30,7 +30,7 @@ class Failure implements Exception {
   }
 
   /// The error message that should be shown
-  String? message;
+  String message = '';
 
   String _handleError(int? statusCode) {
     switch (statusCode) {

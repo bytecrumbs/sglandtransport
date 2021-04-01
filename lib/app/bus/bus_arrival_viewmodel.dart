@@ -36,8 +36,8 @@ class BusArrivalViewModel {
     final newBusArrivalServiceListModel = <BusArrivalServiceModel>[];
 
     for (final item in busServicesFromApi) {
-      final busStop =
-          await _databaseService.getBusStops([item.nextBus.destinationCode]);
+      final busStop = await _databaseService
+          .getBusStops([item.nextBus?.destinationCode ?? '']);
       final busService = item.copyWith(destinationName: busStop[0].description);
       newBusArrivalServiceListModel.add(busService);
     }
@@ -66,8 +66,8 @@ class BusArrivalViewModel {
     }
 
     newBusArrivalServiceListModel.sort((var a, var b) =>
-        int.parse(a.serviceNo.replaceAll(RegExp(r'\D'), ''))
-            .compareTo(int.parse(b.serviceNo.replaceAll(RegExp(r'\D'), ''))));
+        int.parse((a.serviceNo ?? '').replaceAll(RegExp(r'\D'), '')).compareTo(
+            int.parse((b.serviceNo ?? '').replaceAll(RegExp(r'\D'), ''))));
 
     return newBusArrivalServiceListModel;
   }
