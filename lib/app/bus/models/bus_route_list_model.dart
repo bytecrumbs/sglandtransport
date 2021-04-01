@@ -12,8 +12,8 @@ part 'bus_route_list_model.g.dart';
 class BusRouteListModel with _$BusRouteListModel {
   /// Factory constructor for freezed model
   factory BusRouteListModel({
-    @JsonKey(name: 'odata.metadata') required String odataMetadata,
-    required List<BusRouteModel> value,
+    @JsonKey(name: 'odata.metadata') String? odataMetadata,
+    List<BusRouteModel?>? value,
   }) = _BusRouteListModel;
 
   /// Named constructor to convert from Json to a proper model
