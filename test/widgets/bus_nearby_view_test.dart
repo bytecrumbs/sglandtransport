@@ -31,14 +31,16 @@ void main() {
     ));
 
     // The first frame is a loading state.
-    expect(find.byType(JumpingText), findsOneWidget);
+    // expect(find.byType(JumpingText), findsOneWidget);
+    expect(find.byType(Text), findsOneWidget);
 
     // Re-render. TodoListProvider should have finished fetching the todos
     // by now
     await tester.pump();
 
     // No-longer loading
-    expect(find.byType(JumpingText), findsNothing);
+    // expect(find.byType(JumpingText), findsNothing);
+    expect(find.byType(Text), findsNothing);
 
     // Rendered one TodoItem with the data returned by FakeRepository
     expect(tester.widgetList(find.byType(BusStopCard)), [

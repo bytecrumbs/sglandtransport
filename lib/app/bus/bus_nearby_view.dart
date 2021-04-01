@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:location/location.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../common_widgets/error_view.dart';
 import '../../common_widgets/staggered_animation.dart';
@@ -52,14 +51,14 @@ class BusNearbyView extends HookWidget {
           Padding(
             padding: const EdgeInsets.only(top: 30),
             child: Column(
-              children: <Widget>[
-                const Center(
+              children: const <Widget>[
+                Center(
                   child: CircularProgressIndicator(),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 20,
                 ),
-                JumpingText('Looking for nearby bus stops...'),
+                Text('Looking for nearby bus stops...'),
               ],
             ),
           );
@@ -89,7 +88,7 @@ class BusNearbyView extends HookWidget {
         );
       },
       loading: () =>
-          Center(child: JumpingText('Looking for nearby bus stops...')),
+          const Center(child: Text('Looking for nearby bus stops...')),
       error: (err, stack) {
         if (err is Failure) {
           return ErrorView(message: err.message);
