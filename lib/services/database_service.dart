@@ -166,13 +166,35 @@ class DatabaseService {
   /// Inserts bus stops into the bus stop table, based on a given list of bus
   /// stops
   Future<void> insertBusStops(List<BusStopModel> busStops) async {
-    await _insertList(busStopsTableName, busStops);
+    final db = await database;
+    await db.transaction(
+      (txn) async {
+        final batch = txn.batch();
+        for (final busStop in busStops) {
+          batch.insert(busStopsTableName, busStop.toJson());
+        }
+        await batch.commit(noResult: true, continueOnError: true);
+        _log.info('inserting ${busStops.length} records into table '
+            '$busStopsTableName complete...');
+      },
+    );
   }
 
   /// Inserts bus stops into the bus stop table, based on a given list of bus
   /// stops
   Future<void> insertBusRoutes(List<BusRouteModel> busRoutes) async {
-    await _insertList(busRoutesTableName, busRoutes);
+    final db = await database;
+    await db.transaction(
+      (txn) async {
+        final batch = txn.batch();
+        for (final busRoute in busRoutes) {
+          batch.insert(busRoutesTableName, busRoute.toJson());
+        }
+        await batch.commit(noResult: true, continueOnError: true);
+        _log.info('inserting ${busRoutes.length} records into table '
+            '$busRoutesTableName complete...');
+      },
+    );
   }
 
   /// Inserts the timestamp (as "milliseconds since epoch") of when the bus
@@ -215,19 +237,6 @@ class DatabaseService {
         millisecondsSinceEpoch,
       ],
     );
-  }
-
-  Future<void> _insertList(String tableName, List<dynamic> listToInsert) async {
-    final db = await database;
-    await db.transaction((txn) async {
-      final batch = txn.batch();
-      for (final listItem in listToInsert) {
-        batch.insert(tableName, listItem.toJson() as Map<String, dynamic>);
-      }
-      await batch.commit(noResult: true, continueOnError: true);
-      _log.info('inserting ${listToInsert.length} records into table '
-          '$tableName complete...');
-    });
   }
 
   /// Gets back the details of when the bus stop table has been created
