@@ -40,12 +40,7 @@ class MyAppInitializer {
     }
 
     // Pass all uncaught errors to Crashlytics.
-    final Function originalOnError = FlutterError.onError;
-    FlutterError.onError = (var errorDetails) async {
-      await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
-      // Forward to original handler.
-      originalOnError(errorDetails);
-    };
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   }
 
   /// Sets up layout constraints before the app fully loads
