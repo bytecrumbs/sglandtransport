@@ -87,7 +87,7 @@ class BusNearbyViewModel {
     }
     // sort result by distance
     nearbyBusStops.sort(
-        (var a, var b) => a.distanceInMeters.compareTo(b.distanceInMeters));
+        (var a, var b) => a.distanceInMeters!.compareTo(b.distanceInMeters!));
 
     return nearbyBusStops;
   }
