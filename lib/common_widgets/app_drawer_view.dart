@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:share/share.dart';
 
 import 'package:auto_route/auto_route.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../app/about_view.dart';
 import '../constants.dart';
-import '../routing/router.gr.dart' as auto_route;
+import '../routing/router.gr.dart';
 
 /// The main app drawer that is shown throughout the app
 class AppDrawerView extends StatelessWidget {
@@ -26,7 +27,7 @@ class AppDrawerView extends StatelessWidget {
             leading: const Icon(Icons.directions_bus),
             title: const Text('Buses'),
             onTap: () {
-              ExtendedNavigator.root.push(auto_route.Routes.busStopView);
+              context.router.push(const BusStopViewRoute());
             },
           ),
           const AboutListTile(
