@@ -8,11 +8,11 @@ part of 'bus_stop_model.dart';
 
 _$_BusStopModel _$_$_BusStopModelFromJson(Map<String, dynamic> json) {
   return _$_BusStopModel(
-    busStopCode: json['BusStopCode'] as String?,
-    roadName: json['RoadName'] as String?,
+    busStopCode: json['BusStopCode'] as String,
+    roadName: json['RoadName'] as String,
     description: json['Description'] as String?,
-    latitude: (json['Latitude'] as num?)?.toDouble(),
-    longitude: (json['Longitude'] as num?)?.toDouble(),
+    latitude: (json['Latitude'] as num).toDouble(),
+    longitude: (json['Longitude'] as num).toDouble(),
     distanceInMeters: json['distanceInMeters'] as int?,
   );
 }

@@ -22,9 +22,12 @@ class _$BusArrivalServiceListModelTearOff {
   const _$BusArrivalServiceListModelTearOff();
 
   _BusArrivalServiceListModel call(
-      {@JsonKey(name: 'odata.metadata') String? odataMetadata,
-      @JsonKey(name: 'BusStopCode') String? busStopCode,
-      @JsonKey(name: 'Services') List<BusArrivalServiceModel?>? services}) {
+      {@JsonKey(name: 'odata.metadata')
+          required String odataMetadata,
+      @JsonKey(name: 'BusStopCode')
+          required String busStopCode,
+      @JsonKey(name: 'Services')
+          required List<BusArrivalServiceModel?> services}) {
     return _BusArrivalServiceListModel(
       odataMetadata: odataMetadata,
       busStopCode: busStopCode,
@@ -43,11 +46,11 @@ const $BusArrivalServiceListModel = _$BusArrivalServiceListModelTearOff();
 /// @nodoc
 mixin _$BusArrivalServiceListModel {
   @JsonKey(name: 'odata.metadata')
-  String? get odataMetadata => throw _privateConstructorUsedError;
+  String get odataMetadata => throw _privateConstructorUsedError;
   @JsonKey(name: 'BusStopCode')
-  String? get busStopCode => throw _privateConstructorUsedError;
+  String get busStopCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'Services')
-  List<BusArrivalServiceModel?>? get services =>
+  List<BusArrivalServiceModel?> get services =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -62,9 +65,9 @@ abstract class $BusArrivalServiceListModelCopyWith<$Res> {
           $Res Function(BusArrivalServiceListModel) then) =
       _$BusArrivalServiceListModelCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'odata.metadata') String? odataMetadata,
-      @JsonKey(name: 'BusStopCode') String? busStopCode,
-      @JsonKey(name: 'Services') List<BusArrivalServiceModel?>? services});
+      {@JsonKey(name: 'odata.metadata') String odataMetadata,
+      @JsonKey(name: 'BusStopCode') String busStopCode,
+      @JsonKey(name: 'Services') List<BusArrivalServiceModel?> services});
 }
 
 /// @nodoc
@@ -86,15 +89,15 @@ class _$BusArrivalServiceListModelCopyWithImpl<$Res>
       odataMetadata: odataMetadata == freezed
           ? _value.odataMetadata
           : odataMetadata // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       busStopCode: busStopCode == freezed
           ? _value.busStopCode
           : busStopCode // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       services: services == freezed
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
-              as List<BusArrivalServiceModel?>?,
+              as List<BusArrivalServiceModel?>,
     ));
   }
 }
@@ -108,9 +111,9 @@ abstract class _$BusArrivalServiceListModelCopyWith<$Res>
       __$BusArrivalServiceListModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'odata.metadata') String? odataMetadata,
-      @JsonKey(name: 'BusStopCode') String? busStopCode,
-      @JsonKey(name: 'Services') List<BusArrivalServiceModel?>? services});
+      {@JsonKey(name: 'odata.metadata') String odataMetadata,
+      @JsonKey(name: 'BusStopCode') String busStopCode,
+      @JsonKey(name: 'Services') List<BusArrivalServiceModel?> services});
 }
 
 /// @nodoc
@@ -135,15 +138,15 @@ class __$BusArrivalServiceListModelCopyWithImpl<$Res>
       odataMetadata: odataMetadata == freezed
           ? _value.odataMetadata
           : odataMetadata // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       busStopCode: busStopCode == freezed
           ? _value.busStopCode
           : busStopCode // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       services: services == freezed
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
-              as List<BusArrivalServiceModel?>?,
+              as List<BusArrivalServiceModel?>,
     ));
   }
 }
@@ -155,22 +158,22 @@ class _$_BusArrivalServiceListModel
     with DiagnosticableTreeMixin
     implements _BusArrivalServiceListModel {
   _$_BusArrivalServiceListModel(
-      {@JsonKey(name: 'odata.metadata') this.odataMetadata,
-      @JsonKey(name: 'BusStopCode') this.busStopCode,
-      @JsonKey(name: 'Services') this.services});
+      {@JsonKey(name: 'odata.metadata') required this.odataMetadata,
+      @JsonKey(name: 'BusStopCode') required this.busStopCode,
+      @JsonKey(name: 'Services') required this.services});
 
   factory _$_BusArrivalServiceListModel.fromJson(Map<String, dynamic> json) =>
       _$_$_BusArrivalServiceListModelFromJson(json);
 
   @override
   @JsonKey(name: 'odata.metadata')
-  final String? odataMetadata;
+  final String odataMetadata;
   @override
   @JsonKey(name: 'BusStopCode')
-  final String? busStopCode;
+  final String busStopCode;
   @override
   @JsonKey(name: 'Services')
-  final List<BusArrivalServiceModel?>? services;
+  final List<BusArrivalServiceModel?> services;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -224,9 +227,12 @@ class _$_BusArrivalServiceListModel
 abstract class _BusArrivalServiceListModel
     implements BusArrivalServiceListModel {
   factory _BusArrivalServiceListModel(
-          {@JsonKey(name: 'odata.metadata') String? odataMetadata,
-          @JsonKey(name: 'BusStopCode') String? busStopCode,
-          @JsonKey(name: 'Services') List<BusArrivalServiceModel?>? services}) =
+          {@JsonKey(name: 'odata.metadata')
+              required String odataMetadata,
+          @JsonKey(name: 'BusStopCode')
+              required String busStopCode,
+          @JsonKey(name: 'Services')
+              required List<BusArrivalServiceModel?> services}) =
       _$_BusArrivalServiceListModel;
 
   factory _BusArrivalServiceListModel.fromJson(Map<String, dynamic> json) =
@@ -234,13 +240,13 @@ abstract class _BusArrivalServiceListModel
 
   @override
   @JsonKey(name: 'odata.metadata')
-  String? get odataMetadata => throw _privateConstructorUsedError;
+  String get odataMetadata => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'BusStopCode')
-  String? get busStopCode => throw _privateConstructorUsedError;
+  String get busStopCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Services')
-  List<BusArrivalServiceModel?>? get services =>
+  List<BusArrivalServiceModel?> get services =>
       throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

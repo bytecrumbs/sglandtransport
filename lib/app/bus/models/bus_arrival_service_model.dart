@@ -12,11 +12,11 @@ part 'bus_arrival_service_model.g.dart';
 class BusArrivalServiceModel with _$BusArrivalServiceModel {
   /// Factory constructor for freezed model
   factory BusArrivalServiceModel({
-    @JsonKey(name: 'ServiceNo') String? serviceNo,
-    @JsonKey(name: 'Operator') String? busOperator,
-    @JsonKey(name: 'NextBus') NextBusModel? nextBus,
-    @JsonKey(name: 'NextBus2') NextBusModel? nextBus2,
-    @JsonKey(name: 'NextBus3') NextBusModel? nextBus3,
+    @JsonKey(name: 'ServiceNo') required String serviceNo,
+    @JsonKey(name: 'Operator') required String busOperator,
+    @JsonKey(name: 'NextBus') required NextBusModel nextBus,
+    @JsonKey(name: 'NextBus2') required NextBusModel nextBus2,
+    @JsonKey(name: 'NextBus3') required NextBusModel nextBus3,
     @Default(true) bool inService,
     String? destinationName,
   }) = _BusArrivalServiceModel;
