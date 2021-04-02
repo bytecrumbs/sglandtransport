@@ -30,7 +30,7 @@ class DatabaseService {
   /// created
   static const tableCreationTableName = 'tableCreation';
 
-  Database _database;
+  Database? _database;
 
   /// Gets the database instance. If it does not exist yet, it will initialize
   /// the database first
@@ -38,11 +38,11 @@ class DatabaseService {
     _log.info('getting database');
     if (_database != null) {
       _log.info('returning existing database instance');
-      return _database;
+      return _database!;
     }
     _database = await _initDB();
     _log.info('returning new database instance');
-    return _database;
+    return _database!;
   }
 
   Future<Database> _initDB() async {
@@ -106,7 +106,7 @@ class DatabaseService {
 
   /// Selects all bus stops stored in the bus stops table. A list of bus stop
   /// codes can be provided as a filter
-  Future<List<BusStopModel>> getBusStops([List<String> busStopCodes]) async {
+  Future<List<BusStopModel>> getBusStops([List<String>? busStopCodes]) async {
     final busStopList = <BusStopModel>[];
     final db = await database;
     var busStopCodeInFilter = '';
@@ -178,7 +178,7 @@ class DatabaseService {
   /// Inserts the timestamp (as "milliseconds since epoch") of when the bus
   /// stops table has been created and populated
   Future<int> insertBusStopsTableCreationDate({
-    int millisecondsSinceEpoch,
+    required int millisecondsSinceEpoch,
   }) async {
     return _insertTableCreationDate(
       tableName: busStopsTableName,
@@ -189,7 +189,7 @@ class DatabaseService {
   /// Inserts the timestamp (as "milliseconds since epoch") of when the bus
   /// routes table has been created and populated
   Future<int> insertBusRoutesTableCreationDate({
-    int millisecondsSinceEpoch,
+    required int millisecondsSinceEpoch,
   }) async {
     return _insertTableCreationDate(
       tableName: busRoutesTableName,
@@ -198,8 +198,8 @@ class DatabaseService {
   }
 
   Future<int> _insertTableCreationDate({
-    String tableName,
-    int millisecondsSinceEpoch,
+    required String tableName,
+    required int millisecondsSinceEpoch,
   }) async {
     final db = await database;
     _log.info('Deleting $tableName row');
@@ -241,7 +241,7 @@ class DatabaseService {
   }
 
   Future<List<Map<String, dynamic>>> _getCreationDate(
-      {String tableName}) async {
+      {required String tableName}) async {
     final db = await database;
     return db.query(
       tableCreationTableName,

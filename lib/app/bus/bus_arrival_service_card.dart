@@ -151,7 +151,7 @@ class BusArrivalServiceCard extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  busArrivalServiceModel.serviceNo ?? '',
+                  busArrivalServiceModel.serviceNo,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -179,28 +179,26 @@ class BusArrivalServiceCard extends StatelessWidget {
               ],
             ),
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-            child: busArrivalServiceModel.nextBus != null &&
-                    busArrivalServiceModel.nextBus2 != null &&
-                    busArrivalServiceModel.nextBus3 != null
+            child: busArrivalServiceModel.inService
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: _displayBusInfo(
-                          busArrivalServiceModel.nextBus!,
+                          busArrivalServiceModel.nextBus,
                           isSmallScreen,
                         ),
                       ),
                       Expanded(
                         child: _displayBusInfo(
-                          busArrivalServiceModel.nextBus2!,
+                          busArrivalServiceModel.nextBus2,
                           isSmallScreen,
                           displayBorder: true,
                         ),
                       ),
                       Expanded(
                         child: _displayBusInfo(
-                          busArrivalServiceModel.nextBus3!,
+                          busArrivalServiceModel.nextBus3,
                           isSmallScreen,
                           displayBorder: true,
                         ),

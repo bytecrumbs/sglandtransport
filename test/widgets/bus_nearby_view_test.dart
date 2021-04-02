@@ -4,14 +4,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lta_datamall_flutter/app/bus/bus_nearby_view.dart';
 import 'package:lta_datamall_flutter/app/bus/bus_stop_card.dart';
 import 'package:lta_datamall_flutter/app/bus/models/bus_stop_model.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 
 final busStopModel = BusStopModel(
-  busStopCode: '01012',
-  description: 'Hotel Grand Pacific',
-  roadName: 'Victoria Street',
-  distanceInMeters: 100,
-);
+    busStopCode: '01012',
+    description: 'Hotel Grand Pacific',
+    roadName: 'Victoria Street',
+    distanceInMeters: 100,
+    longitude: 0,
+    latitude: 0);
 
 final fakeNearbyBusStopsProvider = StreamProvider<List<BusStopModel>>(
   (ref) => Stream.value([busStopModel]),
