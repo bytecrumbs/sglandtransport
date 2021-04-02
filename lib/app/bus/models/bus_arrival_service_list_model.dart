@@ -14,7 +14,7 @@ class BusArrivalServiceListModel with _$BusArrivalServiceListModel {
   factory BusArrivalServiceListModel({
     @JsonKey(name: 'odata.metadata') required String odataMetadata,
     @JsonKey(name: 'BusStopCode') required String busStopCode,
-    @JsonKey(name: 'Services') required List<BusArrivalServiceModel?> services,
+    @JsonKey(name: 'Services') required List<BusArrivalServiceModel> services,
   }) = _BusArrivalServiceListModel;
 
   /// Named constructor to convert from Json to a proper model

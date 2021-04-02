@@ -12,9 +12,7 @@ _$_BusArrivalServiceListModel _$_$_BusArrivalServiceListModelFromJson(
     odataMetadata: json['odata.metadata'] as String,
     busStopCode: json['BusStopCode'] as String,
     services: (json['Services'] as List<dynamic>)
-        .map((e) => e == null
-            ? null
-            : BusArrivalServiceModel.fromJson(e as Map<String, dynamic>))
+        .map((e) => BusArrivalServiceModel.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }

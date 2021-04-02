@@ -10,9 +10,7 @@ _$_BusRouteListModel _$_$_BusRouteListModelFromJson(Map<String, dynamic> json) {
   return _$_BusRouteListModel(
     odataMetadata: json['odata.metadata'] as String,
     value: (json['value'] as List<dynamic>)
-        .map((e) => e == null
-            ? null
-            : BusRouteModel.fromJson(e as Map<String, dynamic>))
+        .map((e) => BusRouteModel.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }

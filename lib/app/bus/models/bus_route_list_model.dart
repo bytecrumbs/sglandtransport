@@ -13,7 +13,7 @@ class BusRouteListModel with _$BusRouteListModel {
   /// Factory constructor for freezed model
   factory BusRouteListModel({
     @JsonKey(name: 'odata.metadata') required String odataMetadata,
-    required List<BusRouteModel?> value,
+    required List<BusRouteModel> value,
   }) = _BusRouteListModel;
 
   /// Named constructor to convert from Json to a proper model

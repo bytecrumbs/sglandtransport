@@ -22,7 +22,7 @@ class _$BusStopListModelTearOff {
 
   _BusStopListModel call(
       {@JsonKey(name: 'odata.metadata') required String odataMetadata,
-      required List<BusStopModel?> value}) {
+      required List<BusStopModel> value}) {
     return _BusStopListModel(
       odataMetadata: odataMetadata,
       value: value,
@@ -41,7 +41,7 @@ const $BusStopListModel = _$BusStopListModelTearOff();
 mixin _$BusStopListModel {
   @JsonKey(name: 'odata.metadata')
   String get odataMetadata => throw _privateConstructorUsedError;
-  List<BusStopModel?> get value => throw _privateConstructorUsedError;
+  List<BusStopModel> get value => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,7 +56,7 @@ abstract class $BusStopListModelCopyWith<$Res> {
       _$BusStopListModelCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'odata.metadata') String odataMetadata,
-      List<BusStopModel?> value});
+      List<BusStopModel> value});
 }
 
 /// @nodoc
@@ -81,7 +81,7 @@ class _$BusStopListModelCopyWithImpl<$Res>
       value: value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as List<BusStopModel?>,
+              as List<BusStopModel>,
     ));
   }
 }
@@ -95,7 +95,7 @@ abstract class _$BusStopListModelCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: 'odata.metadata') String odataMetadata,
-      List<BusStopModel?> value});
+      List<BusStopModel> value});
 }
 
 /// @nodoc
@@ -122,7 +122,7 @@ class __$BusStopListModelCopyWithImpl<$Res>
       value: value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as List<BusStopModel?>,
+              as List<BusStopModel>,
     ));
   }
 }
@@ -144,7 +144,7 @@ class _$_BusStopListModel
   @JsonKey(name: 'odata.metadata')
   final String odataMetadata;
   @override
-  final List<BusStopModel?> value;
+  final List<BusStopModel> value;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -191,7 +191,7 @@ class _$_BusStopListModel
 abstract class _BusStopListModel implements BusStopListModel {
   factory _BusStopListModel(
       {@JsonKey(name: 'odata.metadata') required String odataMetadata,
-      required List<BusStopModel?> value}) = _$_BusStopListModel;
+      required List<BusStopModel> value}) = _$_BusStopListModel;
 
   factory _BusStopListModel.fromJson(Map<String, dynamic> json) =
       _$_BusStopListModel.fromJson;
@@ -200,7 +200,7 @@ abstract class _BusStopListModel implements BusStopListModel {
   @JsonKey(name: 'odata.metadata')
   String get odataMetadata => throw _privateConstructorUsedError;
   @override
-  List<BusStopModel?> get value => throw _privateConstructorUsedError;
+  List<BusStopModel> get value => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$BusStopListModelCopyWith<_BusStopListModel> get copyWith =>

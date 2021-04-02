@@ -27,7 +27,7 @@ class _$BusArrivalServiceListModelTearOff {
       @JsonKey(name: 'BusStopCode')
           required String busStopCode,
       @JsonKey(name: 'Services')
-          required List<BusArrivalServiceModel?> services}) {
+          required List<BusArrivalServiceModel> services}) {
     return _BusArrivalServiceListModel(
       odataMetadata: odataMetadata,
       busStopCode: busStopCode,
@@ -50,7 +50,7 @@ mixin _$BusArrivalServiceListModel {
   @JsonKey(name: 'BusStopCode')
   String get busStopCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'Services')
-  List<BusArrivalServiceModel?> get services =>
+  List<BusArrivalServiceModel> get services =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -67,7 +67,7 @@ abstract class $BusArrivalServiceListModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'odata.metadata') String odataMetadata,
       @JsonKey(name: 'BusStopCode') String busStopCode,
-      @JsonKey(name: 'Services') List<BusArrivalServiceModel?> services});
+      @JsonKey(name: 'Services') List<BusArrivalServiceModel> services});
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class _$BusArrivalServiceListModelCopyWithImpl<$Res>
       services: services == freezed
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
-              as List<BusArrivalServiceModel?>,
+              as List<BusArrivalServiceModel>,
     ));
   }
 }
@@ -113,7 +113,7 @@ abstract class _$BusArrivalServiceListModelCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'odata.metadata') String odataMetadata,
       @JsonKey(name: 'BusStopCode') String busStopCode,
-      @JsonKey(name: 'Services') List<BusArrivalServiceModel?> services});
+      @JsonKey(name: 'Services') List<BusArrivalServiceModel> services});
 }
 
 /// @nodoc
@@ -146,7 +146,7 @@ class __$BusArrivalServiceListModelCopyWithImpl<$Res>
       services: services == freezed
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
-              as List<BusArrivalServiceModel?>,
+              as List<BusArrivalServiceModel>,
     ));
   }
 }
@@ -173,7 +173,7 @@ class _$_BusArrivalServiceListModel
   final String busStopCode;
   @override
   @JsonKey(name: 'Services')
-  final List<BusArrivalServiceModel?> services;
+  final List<BusArrivalServiceModel> services;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -232,7 +232,7 @@ abstract class _BusArrivalServiceListModel
           @JsonKey(name: 'BusStopCode')
               required String busStopCode,
           @JsonKey(name: 'Services')
-              required List<BusArrivalServiceModel?> services}) =
+              required List<BusArrivalServiceModel> services}) =
       _$_BusArrivalServiceListModel;
 
   factory _BusArrivalServiceListModel.fromJson(Map<String, dynamic> json) =
@@ -246,7 +246,7 @@ abstract class _BusArrivalServiceListModel
   String get busStopCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Services')
-  List<BusArrivalServiceModel?> get services =>
+  List<BusArrivalServiceModel> get services =>
       throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
