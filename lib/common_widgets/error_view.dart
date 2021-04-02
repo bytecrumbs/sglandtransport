@@ -6,8 +6,7 @@ class ErrorView extends StatelessWidget {
   const ErrorView({
     Key? key,
     required this.message,
-  })   : assert(message != null, 'A non-null String must be provided'),
-        super(key: key);
+  }) : super(key: key);
 
   /// The detailed error message that should be shown
   final String message;
