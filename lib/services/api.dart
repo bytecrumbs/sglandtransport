@@ -106,7 +106,7 @@ class Api {
 
   Future<Response<dynamic>> _get(
     String path, {
-    Map<String, Object> queryParameters,
+    Map<String, Object>? queryParameters,
   }) async {
     final dio = read(dioProvider);
     _log.info('Fetching data for path $path and params $queryParameters');
