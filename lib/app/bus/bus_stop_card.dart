@@ -32,7 +32,8 @@ class BusStopCard extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.only(bottom: 5),
-                  child: Text(busStopModel.description ?? ''),
+                  child: Text(busStopModel.description ?? '',
+                      style: Theme.of(context).textTheme.headline1),
                 ),
                 Text(
                   '${busStopModel.busStopCode} | '
