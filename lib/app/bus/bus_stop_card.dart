@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:lta_datamall_flutter/common_widgets/substring_highlight.dart';
 
 import '../../routing/router.gr.dart';
 import 'models/bus_stop_model.dart';
@@ -32,12 +33,25 @@ class BusStopCard extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.only(bottom: 5),
-                  child: Text(busStopModel.description ?? '',
-                      style: Theme.of(context).textTheme.headline1),
+                  child: SubstringHighlight(
+                    text: busStopModel.description ?? '',
+                    term: searchTerm,
+                    textStyle: Theme.of(context).textTheme.headline1!,
+                    textStyleHighlight: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(color: Theme.of(context).accentColor),
+                  ),
                 ),
-                Text(
-                  '${busStopModel.busStopCode} | '
-                  '${busStopModel.roadName}',
+                SubstringHighlight(
+                  text: '${busStopModel.busStopCode} | '
+                      '${busStopModel.roadName}',
+                  term: searchTerm,
+                  textStyle: Theme.of(context).textTheme.headline2!,
+                  textStyleHighlight: Theme.of(context)
+                      .textTheme
+                      .headline2!
+                      .copyWith(color: Theme.of(context).accentColor),
                 ),
               ],
             ),
