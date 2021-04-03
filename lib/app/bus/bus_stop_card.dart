@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/common_widgets/substring_highlight.dart';
 
+import '../../common_widgets/substring_highlight.dart';
 import '../../routing/router.gr.dart';
 import 'models/bus_stop_model.dart';
 

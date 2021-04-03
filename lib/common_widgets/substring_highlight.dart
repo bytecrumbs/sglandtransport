@@ -1,10 +1,22 @@
 library substring_highlight;
 
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 /// Widget that renders a string with sub-string highlighting.
 class SubstringHighlight extends StatelessWidget {
+  /// Default constructor of the class
+  const SubstringHighlight({
+    Key? key,
+    required this.text,
+    required this.term,
+    this.textStyle = const TextStyle(
+      color: Colors.black,
+    ),
+    this.textStyleHighlight = const TextStyle(
+      color: Colors.red,
+    ),
+  }) : super(key: key);
+
   /// The String searched by {SubstringHighlight.term}.
   final String text;
 
@@ -16,18 +28,6 @@ class SubstringHighlight extends StatelessWidget {
 
   /// The {TextStyle} of the {SubstringHighlight.term}s found.
   final TextStyle textStyleHighlight;
-
-  SubstringHighlight({
-    Key? key,
-    required this.text,
-    required this.term,
-    this.textStyle = const TextStyle(
-      color: Colors.black,
-    ),
-    this.textStyleHighlight = const TextStyle(
-      color: Colors.red,
-    ),
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
