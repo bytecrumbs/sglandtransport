@@ -59,7 +59,7 @@ class BusArrivalViewModel {
       // busNoDifferences.forEach((element) {
       for (final element in busNoDifferences) {
         final missingBusArrivalServiceModel = BusArrivalServiceModel(
-          serviceNo: element,
+          serviceNo: element ?? '',
           busOperator: '',
           inService: false,
           nextBus: NextBusModel(),

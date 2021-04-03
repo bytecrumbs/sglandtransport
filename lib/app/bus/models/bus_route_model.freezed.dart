@@ -21,18 +21,18 @@ class _$BusRouteModelTearOff {
   const _$BusRouteModelTearOff();
 
   _BusRouteModel call(
-      {@JsonKey(name: 'ServiceNo') required String serviceNo,
-      @JsonKey(name: 'Operator') required String busOperator,
-      @JsonKey(name: 'Direction') required int direction,
-      @JsonKey(name: 'StopSequence') required int stopSequence,
-      @JsonKey(name: 'BusStopCode') required String busStopCode,
-      @JsonKey(name: 'Distance') required double distance,
-      @JsonKey(name: 'WD_FirstBus') required String wdFirstBus,
-      @JsonKey(name: 'WD_LastBus') required String wdLastBus,
-      @JsonKey(name: 'SAT_FirstBus') required String satFirstBus,
-      @JsonKey(name: 'SAT_LastBus') required String satLastBus,
-      @JsonKey(name: 'SUN_FirstBus') required String sunFirstBus,
-      @JsonKey(name: 'SUN_LastBus') required String sunLastBus}) {
+      {@JsonKey(name: 'ServiceNo') String? serviceNo,
+      @JsonKey(name: 'Operator') String? busOperator,
+      @JsonKey(name: 'Direction') int? direction,
+      @JsonKey(name: 'StopSequence') int? stopSequence,
+      @JsonKey(name: 'BusStopCode') String? busStopCode,
+      @JsonKey(name: 'Distance') double? distance,
+      @JsonKey(name: 'WD_FirstBus') String? wdFirstBus,
+      @JsonKey(name: 'WD_LastBus') String? wdLastBus,
+      @JsonKey(name: 'SAT_FirstBus') String? satFirstBus,
+      @JsonKey(name: 'SAT_LastBus') String? satLastBus,
+      @JsonKey(name: 'SUN_FirstBus') String? sunFirstBus,
+      @JsonKey(name: 'SUN_LastBus') String? sunLastBus}) {
     return _BusRouteModel(
       serviceNo: serviceNo,
       busOperator: busOperator,
@@ -60,29 +60,29 @@ const $BusRouteModel = _$BusRouteModelTearOff();
 /// @nodoc
 mixin _$BusRouteModel {
   @JsonKey(name: 'ServiceNo')
-  String get serviceNo => throw _privateConstructorUsedError;
+  String? get serviceNo => throw _privateConstructorUsedError;
   @JsonKey(name: 'Operator')
-  String get busOperator => throw _privateConstructorUsedError;
+  String? get busOperator => throw _privateConstructorUsedError;
   @JsonKey(name: 'Direction')
-  int get direction => throw _privateConstructorUsedError;
+  int? get direction => throw _privateConstructorUsedError;
   @JsonKey(name: 'StopSequence')
-  int get stopSequence => throw _privateConstructorUsedError;
+  int? get stopSequence => throw _privateConstructorUsedError;
   @JsonKey(name: 'BusStopCode')
-  String get busStopCode => throw _privateConstructorUsedError;
+  String? get busStopCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'Distance')
-  double get distance => throw _privateConstructorUsedError;
+  double? get distance => throw _privateConstructorUsedError;
   @JsonKey(name: 'WD_FirstBus')
-  String get wdFirstBus => throw _privateConstructorUsedError;
+  String? get wdFirstBus => throw _privateConstructorUsedError;
   @JsonKey(name: 'WD_LastBus')
-  String get wdLastBus => throw _privateConstructorUsedError;
+  String? get wdLastBus => throw _privateConstructorUsedError;
   @JsonKey(name: 'SAT_FirstBus')
-  String get satFirstBus => throw _privateConstructorUsedError;
+  String? get satFirstBus => throw _privateConstructorUsedError;
   @JsonKey(name: 'SAT_LastBus')
-  String get satLastBus => throw _privateConstructorUsedError;
+  String? get satLastBus => throw _privateConstructorUsedError;
   @JsonKey(name: 'SUN_FirstBus')
-  String get sunFirstBus => throw _privateConstructorUsedError;
+  String? get sunFirstBus => throw _privateConstructorUsedError;
   @JsonKey(name: 'SUN_LastBus')
-  String get sunLastBus => throw _privateConstructorUsedError;
+  String? get sunLastBus => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -96,18 +96,18 @@ abstract class $BusRouteModelCopyWith<$Res> {
           BusRouteModel value, $Res Function(BusRouteModel) then) =
       _$BusRouteModelCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'ServiceNo') String serviceNo,
-      @JsonKey(name: 'Operator') String busOperator,
-      @JsonKey(name: 'Direction') int direction,
-      @JsonKey(name: 'StopSequence') int stopSequence,
-      @JsonKey(name: 'BusStopCode') String busStopCode,
-      @JsonKey(name: 'Distance') double distance,
-      @JsonKey(name: 'WD_FirstBus') String wdFirstBus,
-      @JsonKey(name: 'WD_LastBus') String wdLastBus,
-      @JsonKey(name: 'SAT_FirstBus') String satFirstBus,
-      @JsonKey(name: 'SAT_LastBus') String satLastBus,
-      @JsonKey(name: 'SUN_FirstBus') String sunFirstBus,
-      @JsonKey(name: 'SUN_LastBus') String sunLastBus});
+      {@JsonKey(name: 'ServiceNo') String? serviceNo,
+      @JsonKey(name: 'Operator') String? busOperator,
+      @JsonKey(name: 'Direction') int? direction,
+      @JsonKey(name: 'StopSequence') int? stopSequence,
+      @JsonKey(name: 'BusStopCode') String? busStopCode,
+      @JsonKey(name: 'Distance') double? distance,
+      @JsonKey(name: 'WD_FirstBus') String? wdFirstBus,
+      @JsonKey(name: 'WD_LastBus') String? wdLastBus,
+      @JsonKey(name: 'SAT_FirstBus') String? satFirstBus,
+      @JsonKey(name: 'SAT_LastBus') String? satLastBus,
+      @JsonKey(name: 'SUN_FirstBus') String? sunFirstBus,
+      @JsonKey(name: 'SUN_LastBus') String? sunLastBus});
 }
 
 /// @nodoc
@@ -138,51 +138,51 @@ class _$BusRouteModelCopyWithImpl<$Res>
       serviceNo: serviceNo == freezed
           ? _value.serviceNo
           : serviceNo // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       busOperator: busOperator == freezed
           ? _value.busOperator
           : busOperator // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       direction: direction == freezed
           ? _value.direction
           : direction // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       stopSequence: stopSequence == freezed
           ? _value.stopSequence
           : stopSequence // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       busStopCode: busStopCode == freezed
           ? _value.busStopCode
           : busStopCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       distance: distance == freezed
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       wdFirstBus: wdFirstBus == freezed
           ? _value.wdFirstBus
           : wdFirstBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       wdLastBus: wdLastBus == freezed
           ? _value.wdLastBus
           : wdLastBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       satFirstBus: satFirstBus == freezed
           ? _value.satFirstBus
           : satFirstBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       satLastBus: satLastBus == freezed
           ? _value.satLastBus
           : satLastBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       sunFirstBus: sunFirstBus == freezed
           ? _value.sunFirstBus
           : sunFirstBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       sunLastBus: sunLastBus == freezed
           ? _value.sunLastBus
           : sunLastBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -195,18 +195,18 @@ abstract class _$BusRouteModelCopyWith<$Res>
       __$BusRouteModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'ServiceNo') String serviceNo,
-      @JsonKey(name: 'Operator') String busOperator,
-      @JsonKey(name: 'Direction') int direction,
-      @JsonKey(name: 'StopSequence') int stopSequence,
-      @JsonKey(name: 'BusStopCode') String busStopCode,
-      @JsonKey(name: 'Distance') double distance,
-      @JsonKey(name: 'WD_FirstBus') String wdFirstBus,
-      @JsonKey(name: 'WD_LastBus') String wdLastBus,
-      @JsonKey(name: 'SAT_FirstBus') String satFirstBus,
-      @JsonKey(name: 'SAT_LastBus') String satLastBus,
-      @JsonKey(name: 'SUN_FirstBus') String sunFirstBus,
-      @JsonKey(name: 'SUN_LastBus') String sunLastBus});
+      {@JsonKey(name: 'ServiceNo') String? serviceNo,
+      @JsonKey(name: 'Operator') String? busOperator,
+      @JsonKey(name: 'Direction') int? direction,
+      @JsonKey(name: 'StopSequence') int? stopSequence,
+      @JsonKey(name: 'BusStopCode') String? busStopCode,
+      @JsonKey(name: 'Distance') double? distance,
+      @JsonKey(name: 'WD_FirstBus') String? wdFirstBus,
+      @JsonKey(name: 'WD_LastBus') String? wdLastBus,
+      @JsonKey(name: 'SAT_FirstBus') String? satFirstBus,
+      @JsonKey(name: 'SAT_LastBus') String? satLastBus,
+      @JsonKey(name: 'SUN_FirstBus') String? sunFirstBus,
+      @JsonKey(name: 'SUN_LastBus') String? sunLastBus});
 }
 
 /// @nodoc
@@ -239,51 +239,51 @@ class __$BusRouteModelCopyWithImpl<$Res>
       serviceNo: serviceNo == freezed
           ? _value.serviceNo
           : serviceNo // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       busOperator: busOperator == freezed
           ? _value.busOperator
           : busOperator // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       direction: direction == freezed
           ? _value.direction
           : direction // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       stopSequence: stopSequence == freezed
           ? _value.stopSequence
           : stopSequence // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       busStopCode: busStopCode == freezed
           ? _value.busStopCode
           : busStopCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       distance: distance == freezed
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       wdFirstBus: wdFirstBus == freezed
           ? _value.wdFirstBus
           : wdFirstBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       wdLastBus: wdLastBus == freezed
           ? _value.wdLastBus
           : wdLastBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       satFirstBus: satFirstBus == freezed
           ? _value.satFirstBus
           : satFirstBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       satLastBus: satLastBus == freezed
           ? _value.satLastBus
           : satLastBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       sunFirstBus: sunFirstBus == freezed
           ? _value.sunFirstBus
           : sunFirstBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       sunLastBus: sunLastBus == freezed
           ? _value.sunLastBus
           : sunLastBus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -293,58 +293,58 @@ class __$BusRouteModelCopyWithImpl<$Res>
 /// @nodoc
 class _$_BusRouteModel with DiagnosticableTreeMixin implements _BusRouteModel {
   _$_BusRouteModel(
-      {@JsonKey(name: 'ServiceNo') required this.serviceNo,
-      @JsonKey(name: 'Operator') required this.busOperator,
-      @JsonKey(name: 'Direction') required this.direction,
-      @JsonKey(name: 'StopSequence') required this.stopSequence,
-      @JsonKey(name: 'BusStopCode') required this.busStopCode,
-      @JsonKey(name: 'Distance') required this.distance,
-      @JsonKey(name: 'WD_FirstBus') required this.wdFirstBus,
-      @JsonKey(name: 'WD_LastBus') required this.wdLastBus,
-      @JsonKey(name: 'SAT_FirstBus') required this.satFirstBus,
-      @JsonKey(name: 'SAT_LastBus') required this.satLastBus,
-      @JsonKey(name: 'SUN_FirstBus') required this.sunFirstBus,
-      @JsonKey(name: 'SUN_LastBus') required this.sunLastBus});
+      {@JsonKey(name: 'ServiceNo') this.serviceNo,
+      @JsonKey(name: 'Operator') this.busOperator,
+      @JsonKey(name: 'Direction') this.direction,
+      @JsonKey(name: 'StopSequence') this.stopSequence,
+      @JsonKey(name: 'BusStopCode') this.busStopCode,
+      @JsonKey(name: 'Distance') this.distance,
+      @JsonKey(name: 'WD_FirstBus') this.wdFirstBus,
+      @JsonKey(name: 'WD_LastBus') this.wdLastBus,
+      @JsonKey(name: 'SAT_FirstBus') this.satFirstBus,
+      @JsonKey(name: 'SAT_LastBus') this.satLastBus,
+      @JsonKey(name: 'SUN_FirstBus') this.sunFirstBus,
+      @JsonKey(name: 'SUN_LastBus') this.sunLastBus});
 
   factory _$_BusRouteModel.fromJson(Map<String, dynamic> json) =>
       _$_$_BusRouteModelFromJson(json);
 
   @override
   @JsonKey(name: 'ServiceNo')
-  final String serviceNo;
+  final String? serviceNo;
   @override
   @JsonKey(name: 'Operator')
-  final String busOperator;
+  final String? busOperator;
   @override
   @JsonKey(name: 'Direction')
-  final int direction;
+  final int? direction;
   @override
   @JsonKey(name: 'StopSequence')
-  final int stopSequence;
+  final int? stopSequence;
   @override
   @JsonKey(name: 'BusStopCode')
-  final String busStopCode;
+  final String? busStopCode;
   @override
   @JsonKey(name: 'Distance')
-  final double distance;
+  final double? distance;
   @override
   @JsonKey(name: 'WD_FirstBus')
-  final String wdFirstBus;
+  final String? wdFirstBus;
   @override
   @JsonKey(name: 'WD_LastBus')
-  final String wdLastBus;
+  final String? wdLastBus;
   @override
   @JsonKey(name: 'SAT_FirstBus')
-  final String satFirstBus;
+  final String? satFirstBus;
   @override
   @JsonKey(name: 'SAT_LastBus')
-  final String satLastBus;
+  final String? satLastBus;
   @override
   @JsonKey(name: 'SUN_FirstBus')
-  final String sunFirstBus;
+  final String? sunFirstBus;
   @override
   @JsonKey(name: 'SUN_LastBus')
-  final String sunLastBus;
+  final String? sunLastBus;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -441,59 +441,58 @@ class _$_BusRouteModel with DiagnosticableTreeMixin implements _BusRouteModel {
 
 abstract class _BusRouteModel implements BusRouteModel {
   factory _BusRouteModel(
-          {@JsonKey(name: 'ServiceNo') required String serviceNo,
-          @JsonKey(name: 'Operator') required String busOperator,
-          @JsonKey(name: 'Direction') required int direction,
-          @JsonKey(name: 'StopSequence') required int stopSequence,
-          @JsonKey(name: 'BusStopCode') required String busStopCode,
-          @JsonKey(name: 'Distance') required double distance,
-          @JsonKey(name: 'WD_FirstBus') required String wdFirstBus,
-          @JsonKey(name: 'WD_LastBus') required String wdLastBus,
-          @JsonKey(name: 'SAT_FirstBus') required String satFirstBus,
-          @JsonKey(name: 'SAT_LastBus') required String satLastBus,
-          @JsonKey(name: 'SUN_FirstBus') required String sunFirstBus,
-          @JsonKey(name: 'SUN_LastBus') required String sunLastBus}) =
-      _$_BusRouteModel;
+      {@JsonKey(name: 'ServiceNo') String? serviceNo,
+      @JsonKey(name: 'Operator') String? busOperator,
+      @JsonKey(name: 'Direction') int? direction,
+      @JsonKey(name: 'StopSequence') int? stopSequence,
+      @JsonKey(name: 'BusStopCode') String? busStopCode,
+      @JsonKey(name: 'Distance') double? distance,
+      @JsonKey(name: 'WD_FirstBus') String? wdFirstBus,
+      @JsonKey(name: 'WD_LastBus') String? wdLastBus,
+      @JsonKey(name: 'SAT_FirstBus') String? satFirstBus,
+      @JsonKey(name: 'SAT_LastBus') String? satLastBus,
+      @JsonKey(name: 'SUN_FirstBus') String? sunFirstBus,
+      @JsonKey(name: 'SUN_LastBus') String? sunLastBus}) = _$_BusRouteModel;
 
   factory _BusRouteModel.fromJson(Map<String, dynamic> json) =
       _$_BusRouteModel.fromJson;
 
   @override
   @JsonKey(name: 'ServiceNo')
-  String get serviceNo => throw _privateConstructorUsedError;
+  String? get serviceNo => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Operator')
-  String get busOperator => throw _privateConstructorUsedError;
+  String? get busOperator => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Direction')
-  int get direction => throw _privateConstructorUsedError;
+  int? get direction => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'StopSequence')
-  int get stopSequence => throw _privateConstructorUsedError;
+  int? get stopSequence => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'BusStopCode')
-  String get busStopCode => throw _privateConstructorUsedError;
+  String? get busStopCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Distance')
-  double get distance => throw _privateConstructorUsedError;
+  double? get distance => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'WD_FirstBus')
-  String get wdFirstBus => throw _privateConstructorUsedError;
+  String? get wdFirstBus => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'WD_LastBus')
-  String get wdLastBus => throw _privateConstructorUsedError;
+  String? get wdLastBus => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'SAT_FirstBus')
-  String get satFirstBus => throw _privateConstructorUsedError;
+  String? get satFirstBus => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'SAT_LastBus')
-  String get satLastBus => throw _privateConstructorUsedError;
+  String? get satLastBus => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'SUN_FirstBus')
-  String get sunFirstBus => throw _privateConstructorUsedError;
+  String? get sunFirstBus => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'SUN_LastBus')
-  String get sunLastBus => throw _privateConstructorUsedError;
+  String? get sunLastBus => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$BusRouteModelCopyWith<_BusRouteModel> get copyWith =>

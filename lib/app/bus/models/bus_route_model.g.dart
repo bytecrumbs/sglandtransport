@@ -8,18 +8,18 @@ part of 'bus_route_model.dart';
 
 _$_BusRouteModel _$_$_BusRouteModelFromJson(Map<String, dynamic> json) {
   return _$_BusRouteModel(
-    serviceNo: json['ServiceNo'] as String,
-    busOperator: json['Operator'] as String,
-    direction: json['Direction'] as int,
-    stopSequence: json['StopSequence'] as int,
-    busStopCode: json['BusStopCode'] as String,
-    distance: (json['Distance'] as num).toDouble(),
-    wdFirstBus: json['WD_FirstBus'] as String,
-    wdLastBus: json['WD_LastBus'] as String,
-    satFirstBus: json['SAT_FirstBus'] as String,
-    satLastBus: json['SAT_LastBus'] as String,
-    sunFirstBus: json['SUN_FirstBus'] as String,
-    sunLastBus: json['SUN_LastBus'] as String,
+    serviceNo: json['ServiceNo'] as String?,
+    busOperator: json['Operator'] as String?,
+    direction: json['Direction'] as int?,
+    stopSequence: json['StopSequence'] as int?,
+    busStopCode: json['BusStopCode'] as String?,
+    distance: (json['Distance'] as num?)?.toDouble(),
+    wdFirstBus: json['WD_FirstBus'] as String?,
+    wdLastBus: json['WD_LastBus'] as String?,
+    satFirstBus: json['SAT_FirstBus'] as String?,
+    satLastBus: json['SAT_LastBus'] as String?,
+    sunFirstBus: json['SUN_FirstBus'] as String?,
+    sunLastBus: json['SUN_LastBus'] as String?,
   );
 }
 
