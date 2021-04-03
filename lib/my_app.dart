@@ -64,6 +64,7 @@ class MyApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    // populate the bus routes in the background
     unawaited(
       _initDatabaseLoad(
         useProvider(databaseServiceProvider),
