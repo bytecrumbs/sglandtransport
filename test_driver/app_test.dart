@@ -1,3 +1,8 @@
+// INTEGRATION TEST DEPENDENCY
+// It currently doesn't work with the latest_build runner, but the change
+// has already been added to the master branch of flutter. See here for more
+// details: https://github.com/flutter/flutter/issues/78124
+
 // import 'package:flutter_driver/flutter_driver.dart';
 // import 'package:screenshots/screenshots.dart';
 // import 'package:test/test.dart';
