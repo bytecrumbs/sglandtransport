@@ -30,7 +30,6 @@ dependencies:
   flutter_hooks: ^0.16.0
   flutter_staggered_animations: ^1.0.0
   freezed_annotation: ^0.14.1
-  highlight_text: ^1.0.0
   hooks_riverpod: ^0.13.1+1
   injectable: ^1.2.2
   json_annotation: ^4.0.1

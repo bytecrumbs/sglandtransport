@@ -1,8 +1,5 @@
-import 'dart:collection';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:highlight_text/highlight_text.dart';
 
 import '../../routing/router.gr.dart';
 import 'models/bus_stop_model.dart';
@@ -24,16 +21,6 @@ class BusStopCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final words = {
-      searchTerm: HighlightedWord(
-        onTap: () {},
-        textStyle: Theme.of(context)
-            .textTheme
-            .headline1!
-            .copyWith(color: Theme.of(context).accentColor),
-      ),
-    };
-
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(vertical: 7, horizontal: 12),
       title: Row(
@@ -45,16 +32,12 @@ class BusStopCard extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.only(bottom: 5),
-                  child: TextHighlight(
-                    text: busStopModel.description ?? '',
-                    words: words as LinkedHashMap<String, HighlightedWord>,
-                  ),
+                  child: Text(busStopModel.description ?? ''),
                 ),
-                TextHighlight(
-                  text: '${busStopModel.busStopCode} | '
-                      '${busStopModel.roadName}',
-                  words: words,
-                )
+                Text(
+                  '${busStopModel.busStopCode} | '
+                  '${busStopModel.roadName}',
+                ),
               ],
             ),
           ),
