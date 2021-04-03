@@ -9,11 +9,11 @@ part 'bus_stop_list_model.g.dart';
 @freezed
 
 /// Freezed model of BusStopListModel
-abstract class BusStopListModel with _$BusStopListModel {
+class BusStopListModel with _$BusStopListModel {
   /// Factory constructor for freezed model
   factory BusStopListModel({
-    @JsonKey(name: 'odata.metadata') String odataMetadata,
-    List<BusStopModel> value,
+    @JsonKey(name: 'odata.metadata') required String odataMetadata,
+    required List<BusStopModel> value,
   }) = _BusStopListModel;
 
   /// Named constructor to convert from Json to a proper model

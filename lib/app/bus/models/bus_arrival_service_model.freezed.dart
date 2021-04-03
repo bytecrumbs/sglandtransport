@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bus_arrival_service_model.dart';
 
@@ -8,6 +8,10 @@ part of 'bus_arrival_service_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 BusArrivalServiceModel _$BusArrivalServiceModelFromJson(
     Map<String, dynamic> json) {
   return _BusArrivalServiceModel.fromJson(json);
@@ -17,15 +21,14 @@ BusArrivalServiceModel _$BusArrivalServiceModelFromJson(
 class _$BusArrivalServiceModelTearOff {
   const _$BusArrivalServiceModelTearOff();
 
-// ignore: unused_element
   _BusArrivalServiceModel call(
-      {@JsonKey(name: 'ServiceNo') String serviceNo,
-      @JsonKey(name: 'Operator') String busOperator,
-      @JsonKey(name: 'NextBus') NextBusModel nextBus,
-      @JsonKey(name: 'NextBus2') NextBusModel nextBus2,
-      @JsonKey(name: 'NextBus3') NextBusModel nextBus3,
+      {@JsonKey(name: 'ServiceNo') required String serviceNo,
+      @JsonKey(name: 'Operator') required String busOperator,
+      @JsonKey(name: 'NextBus') required NextBusModel nextBus,
+      @JsonKey(name: 'NextBus2') required NextBusModel nextBus2,
+      @JsonKey(name: 'NextBus3') required NextBusModel nextBus3,
       bool inService = true,
-      String destinationName}) {
+      String? destinationName}) {
     return _BusArrivalServiceModel(
       serviceNo: serviceNo,
       busOperator: busOperator,
@@ -37,34 +40,33 @@ class _$BusArrivalServiceModelTearOff {
     );
   }
 
-// ignore: unused_element
   BusArrivalServiceModel fromJson(Map<String, Object> json) {
     return BusArrivalServiceModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $BusArrivalServiceModel = _$BusArrivalServiceModelTearOff();
 
 /// @nodoc
 mixin _$BusArrivalServiceModel {
   @JsonKey(name: 'ServiceNo')
-  String get serviceNo;
+  String get serviceNo => throw _privateConstructorUsedError;
   @JsonKey(name: 'Operator')
-  String get busOperator;
+  String get busOperator => throw _privateConstructorUsedError;
   @JsonKey(name: 'NextBus')
-  NextBusModel get nextBus;
+  NextBusModel get nextBus => throw _privateConstructorUsedError;
   @JsonKey(name: 'NextBus2')
-  NextBusModel get nextBus2;
+  NextBusModel get nextBus2 => throw _privateConstructorUsedError;
   @JsonKey(name: 'NextBus3')
-  NextBusModel get nextBus3;
-  bool get inService;
-  String get destinationName;
+  NextBusModel get nextBus3 => throw _privateConstructorUsedError;
+  bool get inService => throw _privateConstructorUsedError;
+  String? get destinationName => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BusArrivalServiceModelCopyWith<BusArrivalServiceModel> get copyWith;
+  $BusArrivalServiceModelCopyWith<BusArrivalServiceModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -79,7 +81,7 @@ abstract class $BusArrivalServiceModelCopyWith<$Res> {
       @JsonKey(name: 'NextBus2') NextBusModel nextBus2,
       @JsonKey(name: 'NextBus3') NextBusModel nextBus3,
       bool inService,
-      String destinationName});
+      String? destinationName});
 
   $NextBusModelCopyWith<$Res> get nextBus;
   $NextBusModelCopyWith<$Res> get nextBus2;
@@ -97,35 +99,48 @@ class _$BusArrivalServiceModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object serviceNo = freezed,
-    Object busOperator = freezed,
-    Object nextBus = freezed,
-    Object nextBus2 = freezed,
-    Object nextBus3 = freezed,
-    Object inService = freezed,
-    Object destinationName = freezed,
+    Object? serviceNo = freezed,
+    Object? busOperator = freezed,
+    Object? nextBus = freezed,
+    Object? nextBus2 = freezed,
+    Object? nextBus3 = freezed,
+    Object? inService = freezed,
+    Object? destinationName = freezed,
   }) {
     return _then(_value.copyWith(
-      serviceNo: serviceNo == freezed ? _value.serviceNo : serviceNo as String,
-      busOperator:
-          busOperator == freezed ? _value.busOperator : busOperator as String,
-      nextBus: nextBus == freezed ? _value.nextBus : nextBus as NextBusModel,
-      nextBus2:
-          nextBus2 == freezed ? _value.nextBus2 : nextBus2 as NextBusModel,
-      nextBus3:
-          nextBus3 == freezed ? _value.nextBus3 : nextBus3 as NextBusModel,
-      inService: inService == freezed ? _value.inService : inService as bool,
+      serviceNo: serviceNo == freezed
+          ? _value.serviceNo
+          : serviceNo // ignore: cast_nullable_to_non_nullable
+              as String,
+      busOperator: busOperator == freezed
+          ? _value.busOperator
+          : busOperator // ignore: cast_nullable_to_non_nullable
+              as String,
+      nextBus: nextBus == freezed
+          ? _value.nextBus
+          : nextBus // ignore: cast_nullable_to_non_nullable
+              as NextBusModel,
+      nextBus2: nextBus2 == freezed
+          ? _value.nextBus2
+          : nextBus2 // ignore: cast_nullable_to_non_nullable
+              as NextBusModel,
+      nextBus3: nextBus3 == freezed
+          ? _value.nextBus3
+          : nextBus3 // ignore: cast_nullable_to_non_nullable
+              as NextBusModel,
+      inService: inService == freezed
+          ? _value.inService
+          : inService // ignore: cast_nullable_to_non_nullable
+              as bool,
       destinationName: destinationName == freezed
           ? _value.destinationName
-          : destinationName as String,
+          : destinationName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
   @override
   $NextBusModelCopyWith<$Res> get nextBus {
-    if (_value.nextBus == null) {
-      return null;
-    }
     return $NextBusModelCopyWith<$Res>(_value.nextBus, (value) {
       return _then(_value.copyWith(nextBus: value));
     });
@@ -133,9 +148,6 @@ class _$BusArrivalServiceModelCopyWithImpl<$Res>
 
   @override
   $NextBusModelCopyWith<$Res> get nextBus2 {
-    if (_value.nextBus2 == null) {
-      return null;
-    }
     return $NextBusModelCopyWith<$Res>(_value.nextBus2, (value) {
       return _then(_value.copyWith(nextBus2: value));
     });
@@ -143,9 +155,6 @@ class _$BusArrivalServiceModelCopyWithImpl<$Res>
 
   @override
   $NextBusModelCopyWith<$Res> get nextBus3 {
-    if (_value.nextBus3 == null) {
-      return null;
-    }
     return $NextBusModelCopyWith<$Res>(_value.nextBus3, (value) {
       return _then(_value.copyWith(nextBus3: value));
     });
@@ -166,7 +175,7 @@ abstract class _$BusArrivalServiceModelCopyWith<$Res>
       @JsonKey(name: 'NextBus2') NextBusModel nextBus2,
       @JsonKey(name: 'NextBus3') NextBusModel nextBus3,
       bool inService,
-      String destinationName});
+      String? destinationName});
 
   @override
   $NextBusModelCopyWith<$Res> get nextBus;
@@ -189,27 +198,43 @@ class __$BusArrivalServiceModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object serviceNo = freezed,
-    Object busOperator = freezed,
-    Object nextBus = freezed,
-    Object nextBus2 = freezed,
-    Object nextBus3 = freezed,
-    Object inService = freezed,
-    Object destinationName = freezed,
+    Object? serviceNo = freezed,
+    Object? busOperator = freezed,
+    Object? nextBus = freezed,
+    Object? nextBus2 = freezed,
+    Object? nextBus3 = freezed,
+    Object? inService = freezed,
+    Object? destinationName = freezed,
   }) {
     return _then(_BusArrivalServiceModel(
-      serviceNo: serviceNo == freezed ? _value.serviceNo : serviceNo as String,
-      busOperator:
-          busOperator == freezed ? _value.busOperator : busOperator as String,
-      nextBus: nextBus == freezed ? _value.nextBus : nextBus as NextBusModel,
-      nextBus2:
-          nextBus2 == freezed ? _value.nextBus2 : nextBus2 as NextBusModel,
-      nextBus3:
-          nextBus3 == freezed ? _value.nextBus3 : nextBus3 as NextBusModel,
-      inService: inService == freezed ? _value.inService : inService as bool,
+      serviceNo: serviceNo == freezed
+          ? _value.serviceNo
+          : serviceNo // ignore: cast_nullable_to_non_nullable
+              as String,
+      busOperator: busOperator == freezed
+          ? _value.busOperator
+          : busOperator // ignore: cast_nullable_to_non_nullable
+              as String,
+      nextBus: nextBus == freezed
+          ? _value.nextBus
+          : nextBus // ignore: cast_nullable_to_non_nullable
+              as NextBusModel,
+      nextBus2: nextBus2 == freezed
+          ? _value.nextBus2
+          : nextBus2 // ignore: cast_nullable_to_non_nullable
+              as NextBusModel,
+      nextBus3: nextBus3 == freezed
+          ? _value.nextBus3
+          : nextBus3 // ignore: cast_nullable_to_non_nullable
+              as NextBusModel,
+      inService: inService == freezed
+          ? _value.inService
+          : inService // ignore: cast_nullable_to_non_nullable
+              as bool,
       destinationName: destinationName == freezed
           ? _value.destinationName
-          : destinationName as String,
+          : destinationName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -221,14 +246,13 @@ class _$_BusArrivalServiceModel
     with DiagnosticableTreeMixin
     implements _BusArrivalServiceModel {
   _$_BusArrivalServiceModel(
-      {@JsonKey(name: 'ServiceNo') this.serviceNo,
-      @JsonKey(name: 'Operator') this.busOperator,
-      @JsonKey(name: 'NextBus') this.nextBus,
-      @JsonKey(name: 'NextBus2') this.nextBus2,
-      @JsonKey(name: 'NextBus3') this.nextBus3,
+      {@JsonKey(name: 'ServiceNo') required this.serviceNo,
+      @JsonKey(name: 'Operator') required this.busOperator,
+      @JsonKey(name: 'NextBus') required this.nextBus,
+      @JsonKey(name: 'NextBus2') required this.nextBus2,
+      @JsonKey(name: 'NextBus3') required this.nextBus3,
       this.inService = true,
-      this.destinationName})
-      : assert(inService != null);
+      this.destinationName});
 
   factory _$_BusArrivalServiceModel.fromJson(Map<String, dynamic> json) =>
       _$_$_BusArrivalServiceModelFromJson(json);
@@ -252,7 +276,7 @@ class _$_BusArrivalServiceModel
   @override
   final bool inService;
   @override
-  final String destinationName;
+  final String? destinationName;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -325,37 +349,38 @@ class _$_BusArrivalServiceModel
 
 abstract class _BusArrivalServiceModel implements BusArrivalServiceModel {
   factory _BusArrivalServiceModel(
-      {@JsonKey(name: 'ServiceNo') String serviceNo,
-      @JsonKey(name: 'Operator') String busOperator,
-      @JsonKey(name: 'NextBus') NextBusModel nextBus,
-      @JsonKey(name: 'NextBus2') NextBusModel nextBus2,
-      @JsonKey(name: 'NextBus3') NextBusModel nextBus3,
+      {@JsonKey(name: 'ServiceNo') required String serviceNo,
+      @JsonKey(name: 'Operator') required String busOperator,
+      @JsonKey(name: 'NextBus') required NextBusModel nextBus,
+      @JsonKey(name: 'NextBus2') required NextBusModel nextBus2,
+      @JsonKey(name: 'NextBus3') required NextBusModel nextBus3,
       bool inService,
-      String destinationName}) = _$_BusArrivalServiceModel;
+      String? destinationName}) = _$_BusArrivalServiceModel;
 
   factory _BusArrivalServiceModel.fromJson(Map<String, dynamic> json) =
       _$_BusArrivalServiceModel.fromJson;
 
   @override
   @JsonKey(name: 'ServiceNo')
-  String get serviceNo;
+  String get serviceNo => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Operator')
-  String get busOperator;
+  String get busOperator => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'NextBus')
-  NextBusModel get nextBus;
+  NextBusModel get nextBus => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'NextBus2')
-  NextBusModel get nextBus2;
+  NextBusModel get nextBus2 => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'NextBus3')
-  NextBusModel get nextBus3;
+  NextBusModel get nextBus3 => throw _privateConstructorUsedError;
   @override
-  bool get inService;
+  bool get inService => throw _privateConstructorUsedError;
   @override
-  String get destinationName;
+  String? get destinationName => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$BusArrivalServiceModelCopyWith<_BusArrivalServiceModel> get copyWith;
+  _$BusArrivalServiceModelCopyWith<_BusArrivalServiceModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }

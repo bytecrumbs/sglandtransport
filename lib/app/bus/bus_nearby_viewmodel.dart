@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../services/api.dart';
 import '../../services/database_service.dart';
@@ -87,7 +87,7 @@ class BusNearbyViewModel {
     }
     // sort result by distance
     nearbyBusStops.sort(
-        (var a, var b) => a.distanceInMeters.compareTo(b.distanceInMeters));
+        (var a, var b) => a.distanceInMeters!.compareTo(b.distanceInMeters!));
 
     return nearbyBusStops;
   }

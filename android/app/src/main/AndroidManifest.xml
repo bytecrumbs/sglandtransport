@@ -27,5 +27,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="io.flutter.network-policy"
+             android:resource="@xml/network_security_config"/>
     </application>
 </manifest>

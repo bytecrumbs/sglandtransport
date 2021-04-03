@@ -30,7 +30,7 @@ class DatabaseService {
   /// created
   static const tableCreationTableName = 'tableCreation';
 
-  Database _database;
+  Database? _database;
 
   /// Gets the database instance. If it does not exist yet, it will initialize
   /// the database first
@@ -38,11 +38,11 @@ class DatabaseService {
     _log.info('getting database');
     if (_database != null) {
       _log.info('returning existing database instance');
-      return _database;
+      return _database!;
     }
     _database = await _initDB();
     _log.info('returning new database instance');
-    return _database;
+    return _database!;
   }
 
   Future<Database> _initDB() async {
@@ -106,7 +106,7 @@ class DatabaseService {
 
   /// Selects all bus stops stored in the bus stops table. A list of bus stop
   /// codes can be provided as a filter
-  Future<List<BusStopModel>> getBusStops([List<String> busStopCodes]) async {
+  Future<List<BusStopModel>> getBusStops([List<String>? busStopCodes]) async {
     final busStopList = <BusStopModel>[];
     final db = await database;
     var busStopCodeInFilter = '';
@@ -166,19 +166,41 @@ class DatabaseService {
   /// Inserts bus stops into the bus stop table, based on a given list of bus
   /// stops
   Future<void> insertBusStops(List<BusStopModel> busStops) async {
-    await _insertList(busStopsTableName, busStops);
+    final db = await database;
+    await db.transaction(
+      (txn) async {
+        final batch = txn.batch();
+        for (final busStop in busStops) {
+          batch.insert(busStopsTableName, busStop.toJson());
+        }
+        await batch.commit(noResult: true, continueOnError: true);
+        _log.info('inserting ${busStops.length} records into table '
+            '$busStopsTableName complete...');
+      },
+    );
   }
 
   /// Inserts bus stops into the bus stop table, based on a given list of bus
   /// stops
   Future<void> insertBusRoutes(List<BusRouteModel> busRoutes) async {
-    await _insertList(busRoutesTableName, busRoutes);
+    final db = await database;
+    await db.transaction(
+      (txn) async {
+        final batch = txn.batch();
+        for (final busRoute in busRoutes) {
+          batch.insert(busRoutesTableName, busRoute.toJson());
+        }
+        await batch.commit(noResult: true, continueOnError: true);
+        _log.info('inserting ${busRoutes.length} records into table '
+            '$busRoutesTableName complete...');
+      },
+    );
   }
 
   /// Inserts the timestamp (as "milliseconds since epoch") of when the bus
   /// stops table has been created and populated
   Future<int> insertBusStopsTableCreationDate({
-    int millisecondsSinceEpoch,
+    required int millisecondsSinceEpoch,
   }) async {
     return _insertTableCreationDate(
       tableName: busStopsTableName,
@@ -189,7 +211,7 @@ class DatabaseService {
   /// Inserts the timestamp (as "milliseconds since epoch") of when the bus
   /// routes table has been created and populated
   Future<int> insertBusRoutesTableCreationDate({
-    int millisecondsSinceEpoch,
+    required int millisecondsSinceEpoch,
   }) async {
     return _insertTableCreationDate(
       tableName: busRoutesTableName,
@@ -198,8 +220,8 @@ class DatabaseService {
   }
 
   Future<int> _insertTableCreationDate({
-    String tableName,
-    int millisecondsSinceEpoch,
+    required String tableName,
+    required int millisecondsSinceEpoch,
   }) async {
     final db = await database;
     _log.info('Deleting $tableName row');
@@ -217,19 +239,6 @@ class DatabaseService {
     );
   }
 
-  Future<void> _insertList(String tableName, List<dynamic> listToInsert) async {
-    final db = await database;
-    await db.transaction((txn) async {
-      final batch = txn.batch();
-      for (final listItem in listToInsert) {
-        batch.insert(tableName, listItem.toJson() as Map<String, dynamic>);
-      }
-      await batch.commit(noResult: true, continueOnError: true);
-      _log.info('inserting ${listToInsert.length} records into table '
-          '$tableName complete...');
-    });
-  }
-
   /// Gets back the details of when the bus stop table has been created
   Future<List<Map<String, dynamic>>> getCreationDateOfBusStops() async {
     return _getCreationDate(tableName: busStopsTableName);
@@ -241,7 +250,7 @@ class DatabaseService {
   }
 
   Future<List<Map<String, dynamic>>> _getCreationDate(
-      {String tableName}) async {
+      {required String tableName}) async {
     final db = await database;
     return db.query(
       tableCreationTableName,

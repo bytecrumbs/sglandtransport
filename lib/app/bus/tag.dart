@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 /// Shows the load of the bus
 class Tag extends StatelessWidget {
   /// The default constructor of the class
-  const Tag({Key key, @required this.text, this.color}) : super(key: key);
+  const Tag({Key? key, required this.text, required this.color})
+      : super(key: key);
 
   /// The text that is shown, indicating the bus load
   final String text;

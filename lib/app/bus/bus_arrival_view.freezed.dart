@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bus_arrival_view.dart';
 
@@ -9,12 +9,15 @@ part of 'bus_arrival_view.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$TimerProviderParameterTearOff {
   const _$TimerProviderParameterTearOff();
 
-// ignore: unused_element
-  _TimerProviderParameter call({BuildContext context, String busStopCode}) {
+  _TimerProviderParameter call(
+      {required BuildContext context, required String busStopCode}) {
     return _TimerProviderParameter(
       context: context,
       busStopCode: busStopCode,
@@ -23,16 +26,16 @@ class _$TimerProviderParameterTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $TimerProviderParameter = _$TimerProviderParameterTearOff();
 
 /// @nodoc
 mixin _$TimerProviderParameter {
-  BuildContext get context;
-  String get busStopCode;
+  BuildContext get context => throw _privateConstructorUsedError;
+  String get busStopCode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $TimerProviderParameterCopyWith<TimerProviderParameter> get copyWith;
+  $TimerProviderParameterCopyWith<TimerProviderParameter> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -54,13 +57,18 @@ class _$TimerProviderParameterCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object context = freezed,
-    Object busStopCode = freezed,
+    Object? context = freezed,
+    Object? busStopCode = freezed,
   }) {
     return _then(_value.copyWith(
-      context: context == freezed ? _value.context : context as BuildContext,
-      busStopCode:
-          busStopCode == freezed ? _value.busStopCode : busStopCode as String,
+      context: context == freezed
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+      busStopCode: busStopCode == freezed
+          ? _value.busStopCode
+          : busStopCode // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -88,20 +96,25 @@ class __$TimerProviderParameterCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object context = freezed,
-    Object busStopCode = freezed,
+    Object? context = freezed,
+    Object? busStopCode = freezed,
   }) {
     return _then(_TimerProviderParameter(
-      context: context == freezed ? _value.context : context as BuildContext,
-      busStopCode:
-          busStopCode == freezed ? _value.busStopCode : busStopCode as String,
+      context: context == freezed
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+      busStopCode: busStopCode == freezed
+          ? _value.busStopCode
+          : busStopCode // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 class _$_TimerProviderParameter implements _TimerProviderParameter {
-  _$_TimerProviderParameter({this.context, this.busStopCode});
+  _$_TimerProviderParameter({required this.context, required this.busStopCode});
 
   @override
   final BuildContext context;
@@ -139,14 +152,16 @@ class _$_TimerProviderParameter implements _TimerProviderParameter {
 }
 
 abstract class _TimerProviderParameter implements TimerProviderParameter {
-  factory _TimerProviderParameter({BuildContext context, String busStopCode}) =
-      _$_TimerProviderParameter;
+  factory _TimerProviderParameter(
+      {required BuildContext context,
+      required String busStopCode}) = _$_TimerProviderParameter;
 
   @override
-  BuildContext get context;
+  BuildContext get context => throw _privateConstructorUsedError;
   @override
-  String get busStopCode;
+  String get busStopCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$TimerProviderParameterCopyWith<_TimerProviderParameter> get copyWith;
+  _$TimerProviderParameterCopyWith<_TimerProviderParameter> get copyWith =>
+      throw _privateConstructorUsedError;
 }

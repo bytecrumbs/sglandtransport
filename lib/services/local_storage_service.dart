@@ -22,7 +22,7 @@ class LocalStorageService {
   }
 
   /// Adds a string to a list for a given key
-  Future<List<String>> addStringToList(String key, String value) async {
+  Future<List<String>?> addStringToList(String key, String value) async {
     final stringList = sharedPreferences.getStringList(key) ?? <String>[]
       ..add(value);
     await sharedPreferences.setStringList(key, stringList);
@@ -30,7 +30,7 @@ class LocalStorageService {
   }
 
   /// Removes a string from a list for a given key
-  Future<List<String>> removeStringFromList(String key, String value) async {
+  Future<List<String>?> removeStringFromList(String key, String value) async {
     final stringList = sharedPreferences.getStringList(key) ?? <String>[]
       ..remove(value);
     await sharedPreferences.setStringList(key, stringList);
@@ -50,7 +50,7 @@ class LocalStorageService {
   }
 
   /// gets an integer value based on a key from the local storage of the device
-  int getInt(String key) {
+  int? getInt(String key) {
     return sharedPreferences.getInt(key);
   }
 }

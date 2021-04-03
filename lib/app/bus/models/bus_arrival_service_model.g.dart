@@ -11,17 +11,11 @@ _$_BusArrivalServiceModel _$_$_BusArrivalServiceModelFromJson(
   return _$_BusArrivalServiceModel(
     serviceNo: json['ServiceNo'] as String,
     busOperator: json['Operator'] as String,
-    nextBus: json['NextBus'] == null
-        ? null
-        : NextBusModel.fromJson(json['NextBus'] as Map<String, dynamic>),
-    nextBus2: json['NextBus2'] == null
-        ? null
-        : NextBusModel.fromJson(json['NextBus2'] as Map<String, dynamic>),
-    nextBus3: json['NextBus3'] == null
-        ? null
-        : NextBusModel.fromJson(json['NextBus3'] as Map<String, dynamic>),
-    inService: json['inService'] as bool ?? true,
-    destinationName: json['destinationName'] as String,
+    nextBus: NextBusModel.fromJson(json['NextBus'] as Map<String, dynamic>),
+    nextBus2: NextBusModel.fromJson(json['NextBus2'] as Map<String, dynamic>),
+    nextBus3: NextBusModel.fromJson(json['NextBus3'] as Map<String, dynamic>),
+    inService: json['inService'] as bool? ?? true,
+    destinationName: json['destinationName'] as String?,
   );
 }
 

@@ -33,10 +33,10 @@ class SearchResultViewModel {
 
     if (searchText.isNotEmpty) {
       for (final currentBusStop in allBusStops) {
-        final isTextMatching =
-            _containsSearchText(currentBusStop.busStopCode, searchText) ||
-                _containsSearchText(currentBusStop.description, searchText) ||
-                _containsSearchText(currentBusStop.roadName, searchText);
+        final isTextMatching = _containsSearchText(
+                currentBusStop.busStopCode, searchText) ||
+            _containsSearchText(currentBusStop.description ?? '', searchText) ||
+            _containsSearchText(currentBusStop.roadName, searchText);
         if (isTextMatching) {
           busStopSearchList.add(currentBusStop);
         }

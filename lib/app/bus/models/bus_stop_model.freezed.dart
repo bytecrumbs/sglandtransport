@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bus_stop_model.dart';
 
@@ -8,6 +8,10 @@ part of 'bus_stop_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 BusStopModel _$BusStopModelFromJson(Map<String, dynamic> json) {
   return _BusStopModel.fromJson(json);
 }
@@ -16,14 +20,13 @@ BusStopModel _$BusStopModelFromJson(Map<String, dynamic> json) {
 class _$BusStopModelTearOff {
   const _$BusStopModelTearOff();
 
-// ignore: unused_element
   _BusStopModel call(
-      {@JsonKey(name: 'BusStopCode') String busStopCode,
-      @JsonKey(name: 'RoadName') String roadName,
-      @JsonKey(name: 'Description') String description,
-      @JsonKey(name: 'Latitude') double latitude,
-      @JsonKey(name: 'Longitude') double longitude,
-      int distanceInMeters}) {
+      {@JsonKey(name: 'BusStopCode') required String busStopCode,
+      @JsonKey(name: 'RoadName') required String roadName,
+      @JsonKey(name: 'Description') String? description,
+      @JsonKey(name: 'Latitude') required double latitude,
+      @JsonKey(name: 'Longitude') required double longitude,
+      int? distanceInMeters}) {
     return _BusStopModel(
       busStopCode: busStopCode,
       roadName: roadName,
@@ -34,33 +37,32 @@ class _$BusStopModelTearOff {
     );
   }
 
-// ignore: unused_element
   BusStopModel fromJson(Map<String, Object> json) {
     return BusStopModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $BusStopModel = _$BusStopModelTearOff();
 
 /// @nodoc
 mixin _$BusStopModel {
   @JsonKey(name: 'BusStopCode')
-  String get busStopCode;
+  String get busStopCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'RoadName')
-  String get roadName;
+  String get roadName => throw _privateConstructorUsedError;
   @JsonKey(name: 'Description')
-  String get description;
+  String? get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'Latitude')
-  double get latitude;
+  double get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'Longitude')
-  double get longitude;
-  int get distanceInMeters;
+  double get longitude => throw _privateConstructorUsedError;
+  int? get distanceInMeters => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BusStopModelCopyWith<BusStopModel> get copyWith;
+  $BusStopModelCopyWith<BusStopModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -71,10 +73,10 @@ abstract class $BusStopModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'BusStopCode') String busStopCode,
       @JsonKey(name: 'RoadName') String roadName,
-      @JsonKey(name: 'Description') String description,
+      @JsonKey(name: 'Description') String? description,
       @JsonKey(name: 'Latitude') double latitude,
       @JsonKey(name: 'Longitude') double longitude,
-      int distanceInMeters});
+      int? distanceInMeters});
 }
 
 /// @nodoc
@@ -87,24 +89,38 @@ class _$BusStopModelCopyWithImpl<$Res> implements $BusStopModelCopyWith<$Res> {
 
   @override
   $Res call({
-    Object busStopCode = freezed,
-    Object roadName = freezed,
-    Object description = freezed,
-    Object latitude = freezed,
-    Object longitude = freezed,
-    Object distanceInMeters = freezed,
+    Object? busStopCode = freezed,
+    Object? roadName = freezed,
+    Object? description = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? distanceInMeters = freezed,
   }) {
     return _then(_value.copyWith(
-      busStopCode:
-          busStopCode == freezed ? _value.busStopCode : busStopCode as String,
-      roadName: roadName == freezed ? _value.roadName : roadName as String,
-      description:
-          description == freezed ? _value.description : description as String,
-      latitude: latitude == freezed ? _value.latitude : latitude as double,
-      longitude: longitude == freezed ? _value.longitude : longitude as double,
+      busStopCode: busStopCode == freezed
+          ? _value.busStopCode
+          : busStopCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      roadName: roadName == freezed
+          ? _value.roadName
+          : roadName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
       distanceInMeters: distanceInMeters == freezed
           ? _value.distanceInMeters
-          : distanceInMeters as int,
+          : distanceInMeters // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -119,10 +135,10 @@ abstract class _$BusStopModelCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'BusStopCode') String busStopCode,
       @JsonKey(name: 'RoadName') String roadName,
-      @JsonKey(name: 'Description') String description,
+      @JsonKey(name: 'Description') String? description,
       @JsonKey(name: 'Latitude') double latitude,
       @JsonKey(name: 'Longitude') double longitude,
-      int distanceInMeters});
+      int? distanceInMeters});
 }
 
 /// @nodoc
@@ -137,24 +153,38 @@ class __$BusStopModelCopyWithImpl<$Res> extends _$BusStopModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object busStopCode = freezed,
-    Object roadName = freezed,
-    Object description = freezed,
-    Object latitude = freezed,
-    Object longitude = freezed,
-    Object distanceInMeters = freezed,
+    Object? busStopCode = freezed,
+    Object? roadName = freezed,
+    Object? description = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? distanceInMeters = freezed,
   }) {
     return _then(_BusStopModel(
-      busStopCode:
-          busStopCode == freezed ? _value.busStopCode : busStopCode as String,
-      roadName: roadName == freezed ? _value.roadName : roadName as String,
-      description:
-          description == freezed ? _value.description : description as String,
-      latitude: latitude == freezed ? _value.latitude : latitude as double,
-      longitude: longitude == freezed ? _value.longitude : longitude as double,
+      busStopCode: busStopCode == freezed
+          ? _value.busStopCode
+          : busStopCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      roadName: roadName == freezed
+          ? _value.roadName
+          : roadName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
       distanceInMeters: distanceInMeters == freezed
           ? _value.distanceInMeters
-          : distanceInMeters as int,
+          : distanceInMeters // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -164,11 +194,11 @@ class __$BusStopModelCopyWithImpl<$Res> extends _$BusStopModelCopyWithImpl<$Res>
 /// @nodoc
 class _$_BusStopModel with DiagnosticableTreeMixin implements _BusStopModel {
   _$_BusStopModel(
-      {@JsonKey(name: 'BusStopCode') this.busStopCode,
-      @JsonKey(name: 'RoadName') this.roadName,
+      {@JsonKey(name: 'BusStopCode') required this.busStopCode,
+      @JsonKey(name: 'RoadName') required this.roadName,
       @JsonKey(name: 'Description') this.description,
-      @JsonKey(name: 'Latitude') this.latitude,
-      @JsonKey(name: 'Longitude') this.longitude,
+      @JsonKey(name: 'Latitude') required this.latitude,
+      @JsonKey(name: 'Longitude') required this.longitude,
       this.distanceInMeters});
 
   factory _$_BusStopModel.fromJson(Map<String, dynamic> json) =>
@@ -182,7 +212,7 @@ class _$_BusStopModel with DiagnosticableTreeMixin implements _BusStopModel {
   final String roadName;
   @override
   @JsonKey(name: 'Description')
-  final String description;
+  final String? description;
   @override
   @JsonKey(name: 'Latitude')
   final double latitude;
@@ -190,7 +220,7 @@ class _$_BusStopModel with DiagnosticableTreeMixin implements _BusStopModel {
   @JsonKey(name: 'Longitude')
   final double longitude;
   @override
-  final int distanceInMeters;
+  final int? distanceInMeters;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -257,34 +287,35 @@ class _$_BusStopModel with DiagnosticableTreeMixin implements _BusStopModel {
 
 abstract class _BusStopModel implements BusStopModel {
   factory _BusStopModel(
-      {@JsonKey(name: 'BusStopCode') String busStopCode,
-      @JsonKey(name: 'RoadName') String roadName,
-      @JsonKey(name: 'Description') String description,
-      @JsonKey(name: 'Latitude') double latitude,
-      @JsonKey(name: 'Longitude') double longitude,
-      int distanceInMeters}) = _$_BusStopModel;
+      {@JsonKey(name: 'BusStopCode') required String busStopCode,
+      @JsonKey(name: 'RoadName') required String roadName,
+      @JsonKey(name: 'Description') String? description,
+      @JsonKey(name: 'Latitude') required double latitude,
+      @JsonKey(name: 'Longitude') required double longitude,
+      int? distanceInMeters}) = _$_BusStopModel;
 
   factory _BusStopModel.fromJson(Map<String, dynamic> json) =
       _$_BusStopModel.fromJson;
 
   @override
   @JsonKey(name: 'BusStopCode')
-  String get busStopCode;
+  String get busStopCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'RoadName')
-  String get roadName;
+  String get roadName => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Description')
-  String get description;
+  String? get description => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Latitude')
-  double get latitude;
+  double get latitude => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Longitude')
-  double get longitude;
+  double get longitude => throw _privateConstructorUsedError;
   @override
-  int get distanceInMeters;
+  int? get distanceInMeters => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$BusStopModelCopyWith<_BusStopModel> get copyWith;
+  _$BusStopModelCopyWith<_BusStopModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }

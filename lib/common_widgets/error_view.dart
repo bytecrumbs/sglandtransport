@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 class ErrorView extends StatelessWidget {
   /// The default constructor of the class
   const ErrorView({
-    Key key,
-    @required this.message,
-  })  : assert(message != null, 'A non-null String must be provided'),
-        super(key: key);
+    Key? key,
+    required this.message,
+  }) : super(key: key);
 
   /// The detailed error message that should be shown
   final String message;
