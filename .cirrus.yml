@@ -2,13 +2,13 @@ analyze_task:
   osx_instance:
     image: big-sur-xcode
   my_script:
-    - ruby --version
-    - rbenv install 2.7.2
-    - rbenv local 2.7.2
-    - ruby --version
+    # - ruby --version
+    # - rbenv install 2.7.2
+    # - rbenv local 2.7.2
+    # - ruby --version
     - cd ios
-    - gem install bundler:1.17.2
-    - bundle update
+    # - gem install bundler:1.17.2
+    # - bundle update
     - fastlane -v
 
 # analyze_task:
