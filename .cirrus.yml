@@ -4,7 +4,10 @@ analyze_task:
   my_script:
     - ruby --version
     - rbenv install 2.7.2
+    - rbenv global 2.7.2
     - ruby --version
+    - cd ios
+    - bundle update
 
 # analyze_task:
 #   container:
