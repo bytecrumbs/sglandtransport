@@ -1,8 +1,14 @@
 analyze_task:
-  container:
-    image: cirrusci/flutter:latest
-  analyze_script:
-    - flutter analyze
+  osx_instance:
+    image: big-sur-xcode
+  my_script:
+    - ruby --version
+
+# analyze_task:
+#   container:
+#     image: cirrusci/flutter:latest
+#   analyze_script:
+#     - flutter analyze
 
 # unit_test_task:
 #   container:
