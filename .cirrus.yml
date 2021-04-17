@@ -2,7 +2,8 @@ analyze_task:
   osx_instance:
     image: big-sur-xcode
   my_script:
-    - which ruby
+    - ruby --version
+    - rbenv install 2.7.2
     - ruby --version
 
 # analyze_task:
