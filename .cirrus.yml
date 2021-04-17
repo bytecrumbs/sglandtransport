@@ -3,7 +3,7 @@ analyze_task:
     image: big-sur-xcode
   my_script:
     - ruby --version
-    - rbenv install 2.7.2
+    # - rbenv install 2.7.2
     - rbenv global 2.7.2
     - ruby --version
     - cd ios
