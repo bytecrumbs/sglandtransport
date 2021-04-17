@@ -2,6 +2,7 @@ analyze_task:
   osx_instance:
     image: big-sur-xcode
   my_script:
+    - which ruby
     - ruby --version
 
 # analyze_task:
