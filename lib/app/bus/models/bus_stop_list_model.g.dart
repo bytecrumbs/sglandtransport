@@ -9,10 +9,9 @@ part of 'bus_stop_list_model.dart';
 _$_BusStopListModel _$_$_BusStopListModelFromJson(Map<String, dynamic> json) {
   return _$_BusStopListModel(
     odataMetadata: json['odata.metadata'] as String,
-    value: (json['value'] as List)
-        ?.map((e) =>
-            e == null ? null : BusStopModel.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    value: (json['value'] as List<dynamic>)
+        .map((e) => BusStopModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 

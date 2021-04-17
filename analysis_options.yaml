@@ -51,10 +51,6 @@ linter:
     # and `@required Widget child` last.
     always_put_required_named_parameters_first: false
 
-    # `as` is not that bad (especially with the upcoming non-nullable types).
-    # Explicit exceptions is better than implicit exceptions.
-    avoid_as: false
-
     # This project doesn't use Flutter-style todos
     flutter_style_todos: false
 
@@ -66,3 +62,7 @@ linter:
 
     # Disabled for now until we have NNBD as it otherwise conflicts with `missing_return`
     no_default_cases: false
+
+    # Not necessary to describe all public members for the main app. This only
+    # seems useful for packages
+    public_member_api_docs: false

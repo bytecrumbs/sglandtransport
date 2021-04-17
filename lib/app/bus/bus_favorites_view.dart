@@ -20,7 +20,7 @@ final favoriteBusStopsFutureProvider =
 /// The main view that shows favorite Bus Stops
 class BusFavoritesView extends HookWidget {
   /// The default constructor
-  const BusFavoritesView({Key key}) : super(key: key);
+  const BusFavoritesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class BusFavoritesView extends HookWidget {
                                       content: const Text(
                                           'Are you sure you want to delete?'),
                                       actions: <Widget>[
-                                        FlatButton(
+                                        TextButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
@@ -77,7 +77,7 @@ class BusFavoritesView extends HookWidget {
                                                 TextStyle(color: Colors.black),
                                           ),
                                         ),
-                                        FlatButton(
+                                        TextButton(
                                           onPressed: () async {
                                             final removedItem = favoriteBusStops
                                                 .removeAt(index);

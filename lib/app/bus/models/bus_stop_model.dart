@@ -7,15 +7,15 @@ part 'bus_stop_model.g.dart';
 @freezed
 
 /// Freezed model of BusStopListModel
-abstract class BusStopModel with _$BusStopModel {
+class BusStopModel with _$BusStopModel {
   /// Factory constructor for freezed model
   factory BusStopModel({
-    @JsonKey(name: 'BusStopCode') String busStopCode,
-    @JsonKey(name: 'RoadName') String roadName,
-    @JsonKey(name: 'Description') String description,
-    @JsonKey(name: 'Latitude') double latitude,
-    @JsonKey(name: 'Longitude') double longitude,
-    int distanceInMeters,
+    @JsonKey(name: 'BusStopCode') required String busStopCode,
+    @JsonKey(name: 'RoadName') required String roadName,
+    @JsonKey(name: 'Description') String? description,
+    @JsonKey(name: 'Latitude') required double latitude,
+    @JsonKey(name: 'Longitude') required double longitude,
+    int? distanceInMeters,
   }) = _BusStopModel;
 
   /// Named constructor to convert from Json to a proper model

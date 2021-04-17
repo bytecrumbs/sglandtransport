@@ -13,7 +13,7 @@ import 'bus_favorites_view.dart';
 import 'bus_nearby_view.dart';
 
 /// Stores the selected index of the bottom bar
-final bottomBarIndexStateProvider = StateProvider<int>((ref) {
+final bottomBarIndexStateProvider = StateProvider<int?>((ref) {
   final localStorage = ref.read(localStorageServiceProvider);
   return localStorage.getInt(Constants.bottomBarIndexKey);
 });
@@ -22,10 +22,10 @@ final bottomBarIndexStateProvider = StateProvider<int>((ref) {
 /// favorite bus stops
 class BusStopView extends HookWidget {
   /// Default constructor
-  const BusStopView({Key key}) : super(key: key);
+  const BusStopView({Key? key}) : super(key: key);
 
   static final _log = Logger('BusStopView');
-  Widget _getViewForIndex(int index) {
+  Widget _getViewForIndex(int? index) {
     switch (index) {
       case 0:
         return const BusNearbyView();

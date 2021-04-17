@@ -1,8 +1,8 @@
-# analyze_task:
-#   container:
-#     image: cirrusci/flutter:latest
-#   analyze_script:
-#     - flutter analyze
+analyze_task:
+  container:
+    image: cirrusci/flutter:latest
+  analyze_script:
+    - flutter analyze
 
 # unit_test_task:
 #   container:
@@ -13,34 +13,34 @@
 #     - flutter test --coverage
 #     - lcov --list coverage/lcov.info
 
-integration_test_task:
-  osx_instance:
-    image: big-sur-xcode
-  pub_cache:
-    folder: ~/.pub-cache
-  environment:
-    - LTA_DATAMALL_API_KEY: ENCRYPTED[7c5c36fa21b1913320ef471077914da5f765a3a7b902e1d5224ade79635c6ee9b1842b2c677295a4094253a6587cb27b]
-    - IOS_GOOGLE_SERVICES: ENCRYPTED[c9045648b38fd2f3e4f496e34ef789580e6a50fad8f3941edb3ba10fb044794b5924754277316e0d31826e225b2145e8]
-    - ANDROID_GOOGLE_SERVICES: ENCRYPTED[c68bca2da6df1ca61c46e8fc83162895e5cfe4d364c53be6ef118c65ab75f918427d460326cf9eb980f55ddf8ecb115b]
-  add_firebase_files_script:
-    - echo $IOS_GOOGLE_SERVICES > ./ios/GoogleService-Info.plist
-    - echo $ANDROID_GOOGLE_SERVICES > ./android/app/google-services.json
-  # update_flutter_script:
-  #   - flutter upgrade
-  integration_test_script:
-    # list available devices
-    - xcrun simctl list
-    # boot an available device (overwrite the below if the script failes becuase
-    # the device is invalid)
-    - xcrun simctl boot 2E922621-D758-48D1-9994-A4CF9182B512
-    - flutter drive --target=test_driver/app.dart --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
+# integration_test_task:
+#   osx_instance:
+#     image: big-sur-xcode
+#   pub_cache:
+#     folder: ~/.pub-cache
+#   environment:
+#     - LTA_DATAMALL_API_KEY: ENCRYPTED[7c5c36fa21b1913320ef471077914da5f765a3a7b902e1d5224ade79635c6ee9b1842b2c677295a4094253a6587cb27b]
+#     - IOS_GOOGLE_SERVICES: ENCRYPTED[c9045648b38fd2f3e4f496e34ef789580e6a50fad8f3941edb3ba10fb044794b5924754277316e0d31826e225b2145e8]
+#     - ANDROID_GOOGLE_SERVICES: ENCRYPTED[c68bca2da6df1ca61c46e8fc83162895e5cfe4d364c53be6ef118c65ab75f918427d460326cf9eb980f55ddf8ecb115b]
+#   add_firebase_files_script:
+#     - echo $IOS_GOOGLE_SERVICES > ./ios/GoogleService-Info.plist
+#     - echo $ANDROID_GOOGLE_SERVICES > ./android/app/google-services.json
+#   # update_flutter_script:
+#   #   - flutter upgrade
+#   integration_test_script:
+#     # list available devices
+#     - xcrun simctl list
+#     # boot an available device (overwrite the below if the script failes becuase
+#     # the device is invalid)
+#     - xcrun simctl boot 2E922621-D758-48D1-9994-A4CF9182B512
+#     - flutter drive --target=test_driver/app.dart --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
 
 android_beta_upload_task:
   only_if: $CIRRUS_BRANCH == 'master'
   depends_on:
-    # - analyze
+    - analyze
     # - unit_test
-    - integration_test
+    # - integration_test
   osx_instance:
     image: big-sur-xcode
   environment:
@@ -60,6 +60,8 @@ android_beta_upload_task:
     - echo "storePassword=$RELEASE_KEYSTORE_PASSWORD" >> android/key.properties
     - echo "keyAlias=$RELEASE_KEYSTORE_ALIAS" >> android/key.properties
     - echo "keyPassword=$RELEASE_KEYSTORE_KEY_PASSWORD" >> android/key.properties
+  update_flutter_script:
+    - flutter upgrade
   build_app_bundle_script:
     - flutter build appbundle --dart-define=LTA_DATAMALL_API_KEY=$LTA_DATAMALL_API_KEY
   fastlane_script:
@@ -69,9 +71,9 @@ android_beta_upload_task:
 ios_testflight_task:
   only_if: $CIRRUS_BRANCH == 'master'
   depends_on:
-    # - analyze
+    - analyze
     # - unit_test
-    - integration_test
+    # - integration_test
   osx_instance:
     image: big-sur-xcode
   environment:
@@ -81,9 +83,9 @@ ios_testflight_task:
     - MATCH_PASSWORD: ENCRYPTED[2daa383a60a84c13dd9d6386326447aa8a38dcc96eab3e90be82cbbd846e00a23500283858fc1d5cbb288e6b9d8d293a]
     - MATCH_GIT_PRIVATE_KEY: ENCRYPTED[1c55aefb94f129b326aa3acce292bb78d01b2d8b151fb1926fb69d7eae118730818779e0b9b18f6c13064b87977ee94c]
     - FASTLANE_PASSWORD: ENCRYPTED[2daa383a60a84c13dd9d6386326447aa8a38dcc96eab3e90be82cbbd846e00a23500283858fc1d5cbb288e6b9d8d293a]
-    - FASTLANE_SESSION: ENCRYPTED[d4a0c1a23fd3680d8b3ba359b1bfcef507870e5349b955b031514ba160e4777bdcac1b3c6cd3fd4e742aebc012f7ff96]
-  # update_flutter_script:
-  #   - flutter upgrade
+    - FASTLANE_SESSION: ENCRYPTED[97757f263219d255fe13caf6ddaaa150f5263851bc84692b76c96f4d7b305b2abf315d996574d831040d2eb9323be882]
+  update_flutter_script:
+    - flutter upgrade
   add_firebase_files_script:
     - echo $IOS_GOOGLE_SERVICES > ios/GoogleService-Info.plist
   build_app_script:

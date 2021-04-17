@@ -23,11 +23,11 @@ part 'bus_arrival_view.freezed.dart';
 /// parameters. Note that this is a freezed class and therefore if you make
 /// changes to this, you need to run "flutter pub run build_runner build" for
 /// it to have take effect
-abstract class TimerProviderParameter with _$TimerProviderParameter {
+class TimerProviderParameter with _$TimerProviderParameter {
   /// Constructor for the freezed class
   factory TimerProviderParameter({
-    BuildContext context,
-    String busStopCode,
+    required BuildContext context,
+    required String busStopCode,
   }) = _TimerProviderParameter;
 }
 
@@ -66,9 +66,9 @@ final busArrivalServiceListFutureProvider = FutureProvider.autoDispose
 class BusArrivalView extends HookWidget {
   /// the constructor for the bus arrival view
   const BusArrivalView({
-    Key key,
-    this.busStopCode,
-    this.description,
+    Key? key,
+    required this.busStopCode,
+    required this.description,
   }) : super(key: key);
 
   /// the bus stop code for which we want to fetch arrival information

@@ -4,63 +4,62 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs
+import 'package:auto_route/auto_route.dart' as _i1;
+import 'package:flutter/material.dart' as _i4;
 
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
+import '../app/bus/bus_arrival_view.dart' as _i3;
+import '../app/bus/bus_stop_view.dart' as _i2;
 
-import '../app/bus/bus_arrival_view.dart';
-import '../app/bus/bus_stop_view.dart';
+class AppRouter extends _i1.RootStackRouter {
+  AppRouter();
 
-class Routes {
-  static const String busStopView = '/';
-  static const String busArrivalView = '/bus-arrival-view';
-  static const all = <String>{
-    busStopView,
-    busArrivalView,
+  @override
+  final Map<String, _i1.PageFactory> pagesMap = {
+    BusStopViewRoute.name: (entry) {
+      return _i1.MaterialPageX(entry: entry, child: const _i2.BusStopView());
+    },
+    BusArrivalViewRoute.name: (entry) {
+      var args = entry.routeData.argsAs<BusArrivalViewRouteArgs>();
+      return _i1.MaterialPageX(
+          entry: entry,
+          child: _i3.BusArrivalView(
+              key: args.key,
+              busStopCode: args.busStopCode,
+              description: args.description));
+    }
   };
+
+  @override
+  List<_i1.RouteConfig> get routes => [
+        _i1.RouteConfig(BusStopViewRoute.name, path: '/'),
+        _i1.RouteConfig(BusArrivalViewRoute.name, path: '/bus-arrival-view')
+      ];
 }
 
-class Router extends RouterBase {
-  @override
-  List<RouteDef> get routes => _routes;
-  final _routes = <RouteDef>[
-    RouteDef(Routes.busStopView, page: BusStopView),
-    RouteDef(Routes.busArrivalView, page: BusArrivalView),
-  ];
-  @override
-  Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
-  final _pagesMap = <Type, AutoRouteFactory>{
-    BusStopView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => const BusStopView(),
-        settings: data,
-      );
-    },
-    BusArrivalView: (data) {
-      final args = data.getArgs<BusArrivalViewArguments>(
-        orElse: () => BusArrivalViewArguments(),
-      );
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => BusArrivalView(
-          key: args.key,
-          busStopCode: args.busStopCode,
-          description: args.description,
-        ),
-        settings: data,
-      );
-    },
-  };
+class BusStopViewRoute extends _i1.PageRouteInfo {
+  const BusStopViewRoute() : super(name, path: '/');
+
+  static const String name = 'BusStopViewRoute';
 }
 
-/// ************************************************************************
-/// Arguments holder classes
-/// *************************************************************************
+class BusArrivalViewRoute extends _i1.PageRouteInfo<BusArrivalViewRouteArgs> {
+  BusArrivalViewRoute(
+      {_i4.Key? key, required String busStopCode, required String description})
+      : super(name,
+            path: '/bus-arrival-view',
+            args: BusArrivalViewRouteArgs(
+                key: key, busStopCode: busStopCode, description: description));
 
-/// BusArrivalView arguments holder class
-class BusArrivalViewArguments {
-  final Key key;
+  static const String name = 'BusArrivalViewRoute';
+}
+
+class BusArrivalViewRouteArgs {
+  const BusArrivalViewRouteArgs(
+      {this.key, required this.busStopCode, required this.description});
+
+  final _i4.Key? key;
+
   final String busStopCode;
+
   final String description;
-  BusArrivalViewArguments({this.key, this.busStopCode, this.description});
 }

@@ -6,6 +6,7 @@ import '../../services/api.dart';
 import '../../services/database_service.dart';
 import '../../services/local_storage_service.dart';
 import 'models/bus_arrival_service_model.dart';
+import 'models/next_bus_model.dart';
 
 /// Provides the BusArrivalViewModel class
 final busArrivalViewModelProvider =
@@ -36,8 +37,8 @@ class BusArrivalViewModel {
     final newBusArrivalServiceListModel = <BusArrivalServiceModel>[];
 
     for (final item in busServicesFromApi) {
-      final busStop =
-          await _databaseService.getBusStops([item.nextBus.destinationCode]);
+      final busStop = await _databaseService
+          .getBusStops([item.nextBus.destinationCode ?? '']);
       final busService = item.copyWith(destinationName: busStop[0].description);
       newBusArrivalServiceListModel.add(busService);
     }
@@ -58,16 +59,20 @@ class BusArrivalViewModel {
       // busNoDifferences.forEach((element) {
       for (final element in busNoDifferences) {
         final missingBusArrivalServiceModel = BusArrivalServiceModel(
-          serviceNo: element,
+          serviceNo: element ?? '',
+          busOperator: '',
           inService: false,
+          nextBus: NextBusModel(),
+          nextBus2: NextBusModel(),
+          nextBus3: NextBusModel(),
         );
         newBusArrivalServiceListModel.add(missingBusArrivalServiceModel);
       }
     }
 
     newBusArrivalServiceListModel.sort((var a, var b) =>
-        int.parse(a.serviceNo.replaceAll(RegExp(r'\D'), ''))
-            .compareTo(int.parse(b.serviceNo.replaceAll(RegExp(r'\D'), ''))));
+        int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
+            .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))));
 
     return newBusArrivalServiceListModel;
   }

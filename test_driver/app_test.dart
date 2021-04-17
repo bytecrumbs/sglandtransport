@@ -1,84 +1,89 @@
-import 'package:flutter_driver/flutter_driver.dart';
-import 'package:screenshots/screenshots.dart';
-import 'package:test/test.dart';
+// INTEGRATION TEST DEPENDENCY
+// It currently doesn't work with the latest_build runner, but the change
+// has already been added to the master branch of flutter. See here for more
+// details: https://github.com/flutter/flutter/issues/78124
 
-import 'utils.dart';
+// import 'package:flutter_driver/flutter_driver.dart';
+// import 'package:screenshots/screenshots.dart';
+// import 'package:test/test.dart';
 
-void main() {
-  group('SG Land Transport App', () {
-    FlutterDriver driver;
+// import 'utils.dart';
 
-    // Connect to the Flutter driver before running any tests.
-    setUpAll(() async {
-      driver = await setupAndGetDriver();
-    });
+// void main() {
+//   group('SG Land Transport App', () {
+//     FlutterDriver driver;
 
-    // Close the connection to the driver after the tests have completed.
-    tearDownAll(() async {
-      if (driver != null) {
-        await driver.close();
-      }
-    });
+//     // Connect to the Flutter driver before running any tests.
+//     setUpAll(() async {
+//       driver = await setupAndGetDriver();
+//     });
 
-    group('Buses', () {
-      final busStopCardFinder = find.byValueKey('busStopCard-0');
-      final busArrivalCardFinder = find.byValueKey('busArrivalCard-0');
-      final nearbyBottomBarFinder = find.text('Nearby');
-      final favouriteBottomBarFinder = find.text('Favorites');
-      final favouriteIconButtonFinder = find.byValueKey('favouriteIconButton');
-      final noFavouriteBusStopsFoundFinder =
-          find.byValueKey('noFavouriteBusStopsFound');
-      final searchIconButtonFinder = find.byValueKey('searchIconButton');
+//     // Close the connection to the driver after the tests have completed.
+//     tearDownAll(() async {
+//       if (driver != null) {
+//         await driver.close();
+//       }
+//     });
 
-      test('Should load the app', () async {
-        final config = Config();
-        await driver.waitFor(busStopCardFinder);
-        await screenshot(driver, config, '01-nearbyBusStops');
-      });
+//     group('Buses', () {
+//       final busStopCardFinder = find.byValueKey('busStopCard-0');
+//       final busArrivalCardFinder = find.byValueKey('busArrivalCard-0');
+//       final nearbyBottomBarFinder = find.text('Nearby');
+//       final favouriteBottomBarFinder = find.text('Favorites');
+//     final favouriteIconButtonFinder = find.byValueKey('favouriteIconButton');
+//       final noFavouriteBusStopsFoundFinder =
+//           find.byValueKey('noFavouriteBusStopsFound');
+//       final searchIconButtonFinder = find.byValueKey('searchIconButton');
 
-      test('Should switch between Nearby and Favorites', () async {
-        await driver.tap(favouriteBottomBarFinder);
-        await driver.tap(nearbyBottomBarFinder);
-        await driver.waitFor(busStopCardFinder);
-      });
+//       test('Should load the app', () async {
+//         final config = Config();
+//         await driver.waitFor(busStopCardFinder);
+//         await screenshot(driver, config, '01-nearbyBusStops');
+//       });
 
-      test('Should show bus arrival times for a given bus stop', () async {
-        final config = Config();
-        await driver.waitFor(busStopCardFinder);
-        await driver.tap(busStopCardFinder);
-        await driver.waitFor(busArrivalCardFinder);
-        await screenshot(driver, config, '03-busArrivals');
-      });
+//       test('Should switch between Nearby and Favorites', () async {
+//         await driver.tap(favouriteBottomBarFinder);
+//         await driver.tap(nearbyBottomBarFinder);
+//         await driver.waitFor(busStopCardFinder);
+//       });
 
-      test('Should add a bus stop to Favorites', () async {
-        final config = Config();
-        await driver.tap(favouriteIconButtonFinder);
-        await driver.tap(find.pageBack());
-        await driver.tap(favouriteBottomBarFinder);
-        await driver.waitFor(busStopCardFinder);
-        await screenshot(driver, config, '02-favouriteBusStops');
-      });
+//       test('Should show bus arrival times for a given bus stop', () async {
+//         final config = Config();
+//         await driver.waitFor(busStopCardFinder);
+//         await driver.tap(busStopCardFinder);
+//         await driver.waitFor(busArrivalCardFinder);
+//         await screenshot(driver, config, '03-busArrivals');
+//       });
 
-      test('Should remove a bus stop from Favorites', () async {
-        await driver.tap(busStopCardFinder);
-        await driver.waitFor(busArrivalCardFinder);
-        await driver.tap(favouriteIconButtonFinder);
-        await driver.tap(find.pageBack());
-        await driver.waitFor(noFavouriteBusStopsFoundFinder);
-      });
+//       test('Should add a bus stop to Favorites', () async {
+//         final config = Config();
+//         await driver.tap(favouriteIconButtonFinder);
+//         await driver.tap(find.pageBack());
+//         await driver.tap(favouriteBottomBarFinder);
+//         await driver.waitFor(busStopCardFinder);
+//         await screenshot(driver, config, '02-favouriteBusStops');
+//       });
 
-      test('Should open Search screen', () async {
-        await driver.tap(searchIconButtonFinder);
-        await driver.waitFor(find.byType('TextField'));
-      });
+//       test('Should remove a bus stop from Favorites', () async {
+//         await driver.tap(busStopCardFinder);
+//         await driver.waitFor(busArrivalCardFinder);
+//         await driver.tap(favouriteIconButtonFinder);
+//         await driver.tap(find.pageBack());
+//         await driver.waitFor(noFavouriteBusStopsFoundFinder);
+//       });
 
-      test('Should show a search result', () async {
-        final config = Config();
-        await driver.tap(find.byType('TextField'));
-        await driver.enterText('hotel');
-        await driver.waitFor(busStopCardFinder);
-        await screenshot(driver, config, '05-searchResult');
-      });
-    });
-  });
-}
+//       test('Should open Search screen', () async {
+//         await driver.tap(searchIconButtonFinder);
+//         await driver.waitFor(find.byType('TextField'));
+//       });
+
+//       test('Should show a search result', () async {
+//         final config = Config();
+//         await driver.tap(find.byType('TextField'));
+//         await driver.enterText('hotel');
+//         await driver.waitFor(busStopCardFinder);
+//         await screenshot(driver, config, '05-searchResult');
+//       });
+//     });
+//   });
+// }

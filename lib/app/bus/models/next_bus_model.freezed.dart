@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'next_bus_model.dart';
 
@@ -8,6 +8,10 @@ part of 'next_bus_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 NextBusModel _$NextBusModelFromJson(Map<String, dynamic> json) {
   return _NextBusModel.fromJson(json);
 }
@@ -16,17 +20,16 @@ NextBusModel _$NextBusModelFromJson(Map<String, dynamic> json) {
 class _$NextBusModelTearOff {
   const _$NextBusModelTearOff();
 
-// ignore: unused_element
   _NextBusModel call(
-      {@JsonKey(name: 'OriginCode') String originCode,
-      @JsonKey(name: 'DestinationCode') String destinationCode,
-      @JsonKey(name: 'EstimatedArrival') String estimatedArrival,
-      @JsonKey(name: 'Latitude') String latitude,
-      @JsonKey(name: 'Longitude') String longitude,
-      @JsonKey(name: 'VisitNumber') String visitNumber,
-      @JsonKey(name: 'Load') String load,
-      @JsonKey(name: 'Feature') String feature,
-      @JsonKey(name: 'Type') String type}) {
+      {@JsonKey(name: 'OriginCode') String? originCode,
+      @JsonKey(name: 'DestinationCode') String? destinationCode,
+      @JsonKey(name: 'EstimatedArrival') String? estimatedArrival,
+      @JsonKey(name: 'Latitude') String? latitude,
+      @JsonKey(name: 'Longitude') String? longitude,
+      @JsonKey(name: 'VisitNumber') String? visitNumber,
+      @JsonKey(name: 'Load') String? load,
+      @JsonKey(name: 'Feature') String? feature,
+      @JsonKey(name: 'Type') String? type}) {
     return _NextBusModel(
       originCode: originCode,
       destinationCode: destinationCode,
@@ -40,40 +43,39 @@ class _$NextBusModelTearOff {
     );
   }
 
-// ignore: unused_element
   NextBusModel fromJson(Map<String, Object> json) {
     return NextBusModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $NextBusModel = _$NextBusModelTearOff();
 
 /// @nodoc
 mixin _$NextBusModel {
   @JsonKey(name: 'OriginCode')
-  String get originCode;
+  String? get originCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'DestinationCode')
-  String get destinationCode;
+  String? get destinationCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'EstimatedArrival')
-  String get estimatedArrival;
+  String? get estimatedArrival => throw _privateConstructorUsedError;
   @JsonKey(name: 'Latitude')
-  String get latitude;
+  String? get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'Longitude')
-  String get longitude;
+  String? get longitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'VisitNumber')
-  String get visitNumber;
+  String? get visitNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'Load')
-  String get load;
+  String? get load => throw _privateConstructorUsedError;
   @JsonKey(name: 'Feature')
-  String get feature;
+  String? get feature => throw _privateConstructorUsedError;
   @JsonKey(name: 'Type')
-  String get type;
+  String? get type => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $NextBusModelCopyWith<NextBusModel> get copyWith;
+  $NextBusModelCopyWith<NextBusModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -82,15 +84,15 @@ abstract class $NextBusModelCopyWith<$Res> {
           NextBusModel value, $Res Function(NextBusModel) then) =
       _$NextBusModelCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'OriginCode') String originCode,
-      @JsonKey(name: 'DestinationCode') String destinationCode,
-      @JsonKey(name: 'EstimatedArrival') String estimatedArrival,
-      @JsonKey(name: 'Latitude') String latitude,
-      @JsonKey(name: 'Longitude') String longitude,
-      @JsonKey(name: 'VisitNumber') String visitNumber,
-      @JsonKey(name: 'Load') String load,
-      @JsonKey(name: 'Feature') String feature,
-      @JsonKey(name: 'Type') String type});
+      {@JsonKey(name: 'OriginCode') String? originCode,
+      @JsonKey(name: 'DestinationCode') String? destinationCode,
+      @JsonKey(name: 'EstimatedArrival') String? estimatedArrival,
+      @JsonKey(name: 'Latitude') String? latitude,
+      @JsonKey(name: 'Longitude') String? longitude,
+      @JsonKey(name: 'VisitNumber') String? visitNumber,
+      @JsonKey(name: 'Load') String? load,
+      @JsonKey(name: 'Feature') String? feature,
+      @JsonKey(name: 'Type') String? type});
 }
 
 /// @nodoc
@@ -103,32 +105,53 @@ class _$NextBusModelCopyWithImpl<$Res> implements $NextBusModelCopyWith<$Res> {
 
   @override
   $Res call({
-    Object originCode = freezed,
-    Object destinationCode = freezed,
-    Object estimatedArrival = freezed,
-    Object latitude = freezed,
-    Object longitude = freezed,
-    Object visitNumber = freezed,
-    Object load = freezed,
-    Object feature = freezed,
-    Object type = freezed,
+    Object? originCode = freezed,
+    Object? destinationCode = freezed,
+    Object? estimatedArrival = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? visitNumber = freezed,
+    Object? load = freezed,
+    Object? feature = freezed,
+    Object? type = freezed,
   }) {
     return _then(_value.copyWith(
-      originCode:
-          originCode == freezed ? _value.originCode : originCode as String,
+      originCode: originCode == freezed
+          ? _value.originCode
+          : originCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       destinationCode: destinationCode == freezed
           ? _value.destinationCode
-          : destinationCode as String,
+          : destinationCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       estimatedArrival: estimatedArrival == freezed
           ? _value.estimatedArrival
-          : estimatedArrival as String,
-      latitude: latitude == freezed ? _value.latitude : latitude as String,
-      longitude: longitude == freezed ? _value.longitude : longitude as String,
-      visitNumber:
-          visitNumber == freezed ? _value.visitNumber : visitNumber as String,
-      load: load == freezed ? _value.load : load as String,
-      feature: feature == freezed ? _value.feature : feature as String,
-      type: type == freezed ? _value.type : type as String,
+          : estimatedArrival // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      visitNumber: visitNumber == freezed
+          ? _value.visitNumber
+          : visitNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      load: load == freezed
+          ? _value.load
+          : load // ignore: cast_nullable_to_non_nullable
+              as String?,
+      feature: feature == freezed
+          ? _value.feature
+          : feature // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -141,15 +164,15 @@ abstract class _$NextBusModelCopyWith<$Res>
       __$NextBusModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'OriginCode') String originCode,
-      @JsonKey(name: 'DestinationCode') String destinationCode,
-      @JsonKey(name: 'EstimatedArrival') String estimatedArrival,
-      @JsonKey(name: 'Latitude') String latitude,
-      @JsonKey(name: 'Longitude') String longitude,
-      @JsonKey(name: 'VisitNumber') String visitNumber,
-      @JsonKey(name: 'Load') String load,
-      @JsonKey(name: 'Feature') String feature,
-      @JsonKey(name: 'Type') String type});
+      {@JsonKey(name: 'OriginCode') String? originCode,
+      @JsonKey(name: 'DestinationCode') String? destinationCode,
+      @JsonKey(name: 'EstimatedArrival') String? estimatedArrival,
+      @JsonKey(name: 'Latitude') String? latitude,
+      @JsonKey(name: 'Longitude') String? longitude,
+      @JsonKey(name: 'VisitNumber') String? visitNumber,
+      @JsonKey(name: 'Load') String? load,
+      @JsonKey(name: 'Feature') String? feature,
+      @JsonKey(name: 'Type') String? type});
 }
 
 /// @nodoc
@@ -164,32 +187,53 @@ class __$NextBusModelCopyWithImpl<$Res> extends _$NextBusModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object originCode = freezed,
-    Object destinationCode = freezed,
-    Object estimatedArrival = freezed,
-    Object latitude = freezed,
-    Object longitude = freezed,
-    Object visitNumber = freezed,
-    Object load = freezed,
-    Object feature = freezed,
-    Object type = freezed,
+    Object? originCode = freezed,
+    Object? destinationCode = freezed,
+    Object? estimatedArrival = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? visitNumber = freezed,
+    Object? load = freezed,
+    Object? feature = freezed,
+    Object? type = freezed,
   }) {
     return _then(_NextBusModel(
-      originCode:
-          originCode == freezed ? _value.originCode : originCode as String,
+      originCode: originCode == freezed
+          ? _value.originCode
+          : originCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       destinationCode: destinationCode == freezed
           ? _value.destinationCode
-          : destinationCode as String,
+          : destinationCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       estimatedArrival: estimatedArrival == freezed
           ? _value.estimatedArrival
-          : estimatedArrival as String,
-      latitude: latitude == freezed ? _value.latitude : latitude as String,
-      longitude: longitude == freezed ? _value.longitude : longitude as String,
-      visitNumber:
-          visitNumber == freezed ? _value.visitNumber : visitNumber as String,
-      load: load == freezed ? _value.load : load as String,
-      feature: feature == freezed ? _value.feature : feature as String,
-      type: type == freezed ? _value.type : type as String,
+          : estimatedArrival // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      visitNumber: visitNumber == freezed
+          ? _value.visitNumber
+          : visitNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      load: load == freezed
+          ? _value.load
+          : load // ignore: cast_nullable_to_non_nullable
+              as String?,
+      feature: feature == freezed
+          ? _value.feature
+          : feature // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -214,31 +258,31 @@ class _$_NextBusModel with DiagnosticableTreeMixin implements _NextBusModel {
 
   @override
   @JsonKey(name: 'OriginCode')
-  final String originCode;
+  final String? originCode;
   @override
   @JsonKey(name: 'DestinationCode')
-  final String destinationCode;
+  final String? destinationCode;
   @override
   @JsonKey(name: 'EstimatedArrival')
-  final String estimatedArrival;
+  final String? estimatedArrival;
   @override
   @JsonKey(name: 'Latitude')
-  final String latitude;
+  final String? latitude;
   @override
   @JsonKey(name: 'Longitude')
-  final String longitude;
+  final String? longitude;
   @override
   @JsonKey(name: 'VisitNumber')
-  final String visitNumber;
+  final String? visitNumber;
   @override
   @JsonKey(name: 'Load')
-  final String load;
+  final String? load;
   @override
   @JsonKey(name: 'Feature')
-  final String feature;
+  final String? feature;
   @override
   @JsonKey(name: 'Type')
-  final String type;
+  final String? type;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -318,47 +362,48 @@ class _$_NextBusModel with DiagnosticableTreeMixin implements _NextBusModel {
 
 abstract class _NextBusModel implements NextBusModel {
   factory _NextBusModel(
-      {@JsonKey(name: 'OriginCode') String originCode,
-      @JsonKey(name: 'DestinationCode') String destinationCode,
-      @JsonKey(name: 'EstimatedArrival') String estimatedArrival,
-      @JsonKey(name: 'Latitude') String latitude,
-      @JsonKey(name: 'Longitude') String longitude,
-      @JsonKey(name: 'VisitNumber') String visitNumber,
-      @JsonKey(name: 'Load') String load,
-      @JsonKey(name: 'Feature') String feature,
-      @JsonKey(name: 'Type') String type}) = _$_NextBusModel;
+      {@JsonKey(name: 'OriginCode') String? originCode,
+      @JsonKey(name: 'DestinationCode') String? destinationCode,
+      @JsonKey(name: 'EstimatedArrival') String? estimatedArrival,
+      @JsonKey(name: 'Latitude') String? latitude,
+      @JsonKey(name: 'Longitude') String? longitude,
+      @JsonKey(name: 'VisitNumber') String? visitNumber,
+      @JsonKey(name: 'Load') String? load,
+      @JsonKey(name: 'Feature') String? feature,
+      @JsonKey(name: 'Type') String? type}) = _$_NextBusModel;
 
   factory _NextBusModel.fromJson(Map<String, dynamic> json) =
       _$_NextBusModel.fromJson;
 
   @override
   @JsonKey(name: 'OriginCode')
-  String get originCode;
+  String? get originCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'DestinationCode')
-  String get destinationCode;
+  String? get destinationCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'EstimatedArrival')
-  String get estimatedArrival;
+  String? get estimatedArrival => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Latitude')
-  String get latitude;
+  String? get latitude => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Longitude')
-  String get longitude;
+  String? get longitude => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'VisitNumber')
-  String get visitNumber;
+  String? get visitNumber => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Load')
-  String get load;
+  String? get load => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Feature')
-  String get feature;
+  String? get feature => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'Type')
-  String get type;
+  String? get type => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$NextBusModelCopyWith<_NextBusModel> get copyWith;
+  _$NextBusModelCopyWith<_NextBusModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }

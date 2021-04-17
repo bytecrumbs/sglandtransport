@@ -5,7 +5,7 @@ import 'package:logging/logging.dart';
 class ProviderLogger extends ProviderObserver {
   static final _log = Logger('ProviderLogger');
   @override
-  void didAddProvider(ProviderBase provider, Object value) {
+  void didAddProvider(ProviderBase provider, Object? value) {
     super.didAddProvider(provider, value);
     _log.info('''
 adding: {
@@ -16,7 +16,7 @@ adding: {
   }
 
   @override
-  void didUpdateProvider(ProviderBase provider, Object newValue) {
+  void didUpdateProvider(ProviderBase provider, Object? newValue) {
     super.didUpdateProvider(provider, newValue);
     _log.info('''
 updating: {

@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:location/location.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../common_widgets/error_view.dart';
 import '../../common_widgets/staggered_animation.dart';
@@ -26,21 +25,21 @@ final nearbyBusStopsProvider =
     StreamProvider.autoDispose<List<BusStopModel>>((ref) async* {
   final vm = ref.read(busNearbyViewModelProvider);
 
-  final allBusStops = await vm.getBusStops() ?? <BusStopModel>[];
+  final allBusStops = await vm.getBusStops();
 
   // filter and yield a value whenever a new location is provided via the
   // location stream
   final locationStream = ref.watch(locationStreamProvider.stream);
   await for (final locationData in locationStream) {
     yield vm.filterBusStopsByLocation(
-        allBusStops, locationData.latitude, locationData.longitude);
+        allBusStops, locationData.latitude ?? 0, locationData.longitude ?? 0);
   }
 });
 
 /// The main view that shows nearby bus stops
 class BusNearbyView extends HookWidget {
   /// Default Constructor
-  const BusNearbyView({Key key}) : super(key: key);
+  const BusNearbyView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +51,14 @@ class BusNearbyView extends HookWidget {
           Padding(
             padding: const EdgeInsets.only(top: 30),
             child: Column(
-              children: <Widget>[
-                const Center(
+              children: const <Widget>[
+                Center(
                   child: CircularProgressIndicator(),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 20,
                 ),
-                JumpingText('Looking for nearby bus stops...'),
+                Text('Looking for nearby bus stops...'),
               ],
             ),
           );
@@ -89,7 +88,7 @@ class BusNearbyView extends HookWidget {
         );
       },
       loading: () =>
-          Center(child: JumpingText('Looking for nearby bus stops...')),
+          const Center(child: Text('Looking for nearby bus stops...')),
       error: (err, stack) {
         if (err is Failure) {
           return ErrorView(message: err.message);

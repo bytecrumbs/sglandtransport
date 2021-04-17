@@ -1,16 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:substring_highlight/substring_highlight.dart';
 
-import '../../routing/router.gr.dart' as auto_route;
+import '../../common_widgets/substring_highlight.dart';
+import '../../routing/router.gr.dart';
 import 'models/bus_stop_model.dart';
 
 /// Shows a single card for bus stop information
 class BusStopCard extends StatelessWidget {
   /// The constructor for the BusStopCard
   const BusStopCard({
-    Key key,
-    @required this.busStopModel,
+    Key? key,
+    required this.busStopModel,
     this.searchTerm = '',
   }) : super(key: key);
 
@@ -34,12 +34,12 @@ class BusStopCard extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(bottom: 5),
                   child: SubstringHighlight(
-                    text: busStopModel.description,
+                    text: busStopModel.description ?? '',
                     term: searchTerm,
-                    textStyle: Theme.of(context).textTheme.headline1,
+                    textStyle: Theme.of(context).textTheme.headline1!,
                     textStyleHighlight: Theme.of(context)
                         .textTheme
-                        .headline1
+                        .headline1!
                         .copyWith(color: Theme.of(context).accentColor),
                   ),
                 ),
@@ -47,10 +47,10 @@ class BusStopCard extends StatelessWidget {
                   text: '${busStopModel.busStopCode} | '
                       '${busStopModel.roadName}',
                   term: searchTerm,
-                  textStyle: Theme.of(context).textTheme.headline2,
+                  textStyle: Theme.of(context).textTheme.headline2!,
                   textStyleHighlight: Theme.of(context)
                       .textTheme
-                      .headline1
+                      .headline2!
                       .copyWith(color: Theme.of(context).accentColor),
                 ),
               ],
@@ -71,11 +71,12 @@ class BusStopCard extends StatelessWidget {
         color: Theme.of(context).primaryColor,
       ),
       onTap: () {
-        ExtendedNavigator.root.push(auto_route.Routes.busArrivalView,
-            arguments: auto_route.BusArrivalViewArguments(
-              busStopCode: busStopModel.busStopCode,
-              description: busStopModel.description,
-            ));
+        context.router.push(
+          BusArrivalViewRoute(
+            busStopCode: busStopModel.busStopCode,
+            description: busStopModel.description ?? '',
+          ),
+        );
       },
     );
   }
