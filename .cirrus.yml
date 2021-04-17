@@ -1,21 +1,8 @@
 analyze_task:
-  osx_instance:
-    image: big-sur-xcode
-  my_script:
-    # - ruby --version
-    # - rbenv install 2.7.2
-    # - rbenv local 2.7.2
-    # - ruby --version
-    - cd ios
-    # - gem install bundler:1.17.2
-    # - bundle update
-    - fastlane -v
-
-# analyze_task:
-#   container:
-#     image: cirrusci/flutter:latest
-#   analyze_script:
-#     - flutter analyze
+  container:
+    image: cirrusci/flutter:latest
+  analyze_script:
+    - flutter analyze
 
 # unit_test_task:
 #   container:
@@ -64,6 +51,12 @@ android_beta_upload_task:
     - RELEASE_KEYSTORE_KEY_PASSWORD: ENCRYPTED[04a65c88e5dca9bbaebda889166be0b8a32d0f6df3272b959a40014fe5a234b984a686d01cf6b5acb1f40515b6048c0d]
     - RELEASE_KEYSTORE_ALIAS: ENCRYPTED[376950c2794bbe8d0bedef4a6dab3210c0e060e85169029fa1e9a095616f4f43a479713a6d9ee744883102bc72ec0f06]
     - ANDROID_GOOGLE_SERVICES: ENCRYPTED[c68bca2da6df1ca61c46e8fc83162895e5cfe4d364c53be6ef118c65ab75f918427d460326cf9eb980f55ddf8ecb115b]
+  install_fastlane_script:
+    - rbenv install 2.7.2
+    - rbenv local 2.7.2
+    - cd ios
+    - gem install bundler:1.17.2
+    - bundle update
   add_firebase_files_script:
     - echo $ANDROID_GOOGLE_SERVICES > android/app/google-services.json
   create_key_script:
@@ -97,6 +90,12 @@ ios_testflight_task:
     - MATCH_GIT_PRIVATE_KEY: ENCRYPTED[1c55aefb94f129b326aa3acce292bb78d01b2d8b151fb1926fb69d7eae118730818779e0b9b18f6c13064b87977ee94c]
     - FASTLANE_PASSWORD: ENCRYPTED[2daa383a60a84c13dd9d6386326447aa8a38dcc96eab3e90be82cbbd846e00a23500283858fc1d5cbb288e6b9d8d293a]
     - FASTLANE_SESSION: ENCRYPTED[97757f263219d255fe13caf6ddaaa150f5263851bc84692b76c96f4d7b305b2abf315d996574d831040d2eb9323be882]
+  install_fastlane_script:
+    - rbenv install 2.7.2
+    - rbenv local 2.7.2
+    - cd ios
+    - gem install bundler:1.17.2
+    - bundle update
   update_flutter_script:
     - flutter upgrade
   add_firebase_files_script:
