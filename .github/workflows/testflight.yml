@@ -15,6 +15,9 @@ jobs:
       with:
         key: ${{ secrets.SSH_KEY }}
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.7.2'
     - run: echo "${{ secrets.IOS_GOOGLE_SERVICES }}" > ios/GoogleService-Info.plist
     # - run: flutter pub get
     # - run: flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }}
