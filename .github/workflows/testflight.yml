@@ -15,9 +15,21 @@ jobs:
       with:
         key: ${{ secrets.SSH_KEY }}
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
-    - uses: actions/setup-ruby@v1
+    - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '2.7.2'
+        ruby-version: 2.7.2
+        bundler-cache: true
     - run: echo "${{ secrets.IOS_GOOGLE_SERVICES }}" > ios/GoogleService-Info.plist
-    # - run: flutter pub get
-    # - run: flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }}
+    - run: flutter pub get
+    - run: flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }}
+    - run: |
+        export LC_ALL=en_US.UTF-8
+        export LANG=en_US.UTF-8
+        cd ios
+        bundle exec fastlane testflight_from_ci
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+        FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
