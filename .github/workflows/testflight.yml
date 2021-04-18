@@ -26,6 +26,7 @@ jobs:
         export LC_ALL=en_US.UTF-8
         export LANG=en_US.UTF-8
         cd ios
+        bundle install
         bundle exec fastlane testflight_from_ci
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
