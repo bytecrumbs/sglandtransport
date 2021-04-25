@@ -32,7 +32,7 @@ jobs:
         export LANG=en_US.UTF-8
         cd ios
         bundle install
-        bundle exec fastlane testflight_from_ci
+        bundle exec fastlane test_match
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
