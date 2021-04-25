@@ -82,14 +82,6 @@ platform :ios do
     )
   end
 
-  lane :test_match do
-    match(
-      type: "appstore",
-      readonly: is_ci,
-      app_identifier: "com.saschaderungs.ltaDatamall"
-    )
-  end
-
   lane :testflight_from_ci do
     match(
       type: "appstore",
