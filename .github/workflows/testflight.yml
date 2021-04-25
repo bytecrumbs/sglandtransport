@@ -30,6 +30,7 @@ jobs:
     - run: |
         export LC_ALL=en_US.UTF-8
         export LANG=en_US.UTF-8
+        git config --global url.ssh://git@github.com/.insteadOf https://github.com/
         cd ios
         bundle install
         bundle exec fastlane test_match
