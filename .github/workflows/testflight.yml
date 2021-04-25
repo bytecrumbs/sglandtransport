@@ -1,5 +1,10 @@
 name: Testflight
-on: [push]
+on:
+  push:
+    branches: [ develop ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 jobs:
   testflight:
     runs-on: macos-latest
@@ -8,9 +13,9 @@ jobs:
     - uses: actions/setup-java@v1
       with:
         java-version: '12.x'
-    - uses: subosito/flutter-action@v1
-      with:
-        flutter-version: '2.0.5'
+    # - uses: subosito/flutter-action@v1
+    #   with:
+    #     flutter-version: '2.0.5'
     - uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secrets.SSH_KEY }}
@@ -20,8 +25,8 @@ jobs:
         ruby-version: 2.7.2
         bundler-cache: true
     - run: echo "${{ secrets.IOS_GOOGLE_SERVICES }}" > ios/GoogleService-Info.plist
-    - run: flutter pub get
-    - run: flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }}
+    # - run: flutter pub get
+    # - run: flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }}
     - run: |
         export LC_ALL=en_US.UTF-8
         export LANG=en_US.UTF-8
