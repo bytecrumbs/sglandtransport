@@ -13,7 +13,8 @@ final busStopModel = BusStopModel(
     longitude: 0,
     latitude: 0);
 
-final fakeNearbyBusStopsProvider = StreamProvider<List<BusStopModel>>(
+final fakeNearbyBusStopsProvider =
+    StreamProvider.autoDispose<List<BusStopModel>>(
   (ref) => Stream.value([busStopModel]),
 );
 
