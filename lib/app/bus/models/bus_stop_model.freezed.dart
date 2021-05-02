@@ -189,9 +189,8 @@ class __$BusStopModelCopyWithImpl<$Res> extends _$BusStopModelCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_BusStopModel with DiagnosticableTreeMixin implements _BusStopModel {
   _$_BusStopModel(
       {@JsonKey(name: 'BusStopCode') required this.busStopCode,

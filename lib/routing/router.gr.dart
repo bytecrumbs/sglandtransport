@@ -4,25 +4,28 @@
 // AutoRouteGenerator
 // **************************************************************************
 
+import 'package:auto_route/annotations.dart' as _i3;
 import 'package:auto_route/auto_route.dart' as _i1;
-import 'package:flutter/material.dart' as _i4;
+import 'package:flutter/material.dart' as _i2;
 
-import '../app/bus/bus_arrival_view.dart' as _i3;
-import '../app/bus/bus_stop_view.dart' as _i2;
+import '../app/bus/bus_arrival_view.dart' as _i5;
+import '../app/bus/bus_stop_view.dart' as _i4;
 
 class AppRouter extends _i1.RootStackRouter {
-  AppRouter();
+  AppRouter([_i2.GlobalKey<_i2.NavigatorState>? navigatorKey])
+      : super(navigatorKey);
 
   @override
   final Map<String, _i1.PageFactory> pagesMap = {
-    BusStopViewRoute.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: const _i2.BusStopView());
+    BusStopViewRoute.name: (routeData) {
+      return _i1.MaterialPageX<_i3.AutoRoute<dynamic>>(
+          routeData: routeData, child: const _i4.BusStopView());
     },
-    BusArrivalViewRoute.name: (entry) {
-      var args = entry.routeData.argsAs<BusArrivalViewRouteArgs>();
-      return _i1.MaterialPageX(
-          entry: entry,
-          child: _i3.BusArrivalView(
+    BusArrivalViewRoute.name: (routeData) {
+      final args = routeData.argsAs<BusArrivalViewRouteArgs>();
+      return _i1.MaterialPageX<_i3.AutoRoute<dynamic>>(
+          routeData: routeData,
+          child: _i5.BusArrivalView(
               key: args.key,
               busStopCode: args.busStopCode,
               description: args.description));
@@ -44,7 +47,7 @@ class BusStopViewRoute extends _i1.PageRouteInfo {
 
 class BusArrivalViewRoute extends _i1.PageRouteInfo<BusArrivalViewRouteArgs> {
   BusArrivalViewRoute(
-      {_i4.Key? key, required String busStopCode, required String description})
+      {_i2.Key? key, required String busStopCode, required String description})
       : super(name,
             path: '/bus-arrival-view',
             args: BusArrivalViewRouteArgs(
@@ -57,7 +60,7 @@ class BusArrivalViewRouteArgs {
   const BusArrivalViewRouteArgs(
       {this.key, required this.busStopCode, required this.description});
 
-  final _i4.Key? key;
+  final _i2.Key? key;
 
   final String busStopCode;
 

@@ -239,9 +239,8 @@ class __$BusArrivalServiceModelCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_BusArrivalServiceModel
     with DiagnosticableTreeMixin
     implements _BusArrivalServiceModel {

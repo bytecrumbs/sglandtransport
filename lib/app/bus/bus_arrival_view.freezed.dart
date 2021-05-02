@@ -113,6 +113,7 @@ class __$TimerProviderParameterCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_TimerProviderParameter implements _TimerProviderParameter {
   _$_TimerProviderParameter({required this.context, required this.busStopCode});
 
