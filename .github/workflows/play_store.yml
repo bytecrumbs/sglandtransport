@@ -54,12 +54,12 @@ jobs:
         ANDROID_GOOGLE_SERVICES: ${{ secrets.ANDROID_GOOGLE_SERVICES }}
     - name: Build appbundle
       run: |
-        export LC_ALL=en_US.UTF-8
-        export LANG=en_US.UTF-8
         flutter pub get
         flutter build appbundle --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }}
-    - name: Fastlane to Play Store Beta
+    - name: Upload to Play Store Test Lane
       run: |
+        export LC_ALL=en_US.UTF-8
+        export LANG=en_US.UTF-8
         cd android
         bundle install
         bundle exec fastlane deploy_internal
