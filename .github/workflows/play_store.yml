@@ -56,3 +56,7 @@ jobs:
       run: |
         flutter pub get
         flutter build appbundle --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }}
+    - name: Fastlane to Play Store Beta
+      run: |
+        cd android
+        fastlane android deploy_internal
