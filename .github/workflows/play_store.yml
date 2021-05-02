@@ -47,7 +47,7 @@ jobs:
         PLAY_CONFIG_JSON: ${{ secrets.PLAY_CONFIG_JSON }}
     - name: Add Google Services file
       run: echo "${{ secrets.ANDROID_GOOGLE_SERVICES }}" > android/app/google-services.json
-    # - name: Build appbundle
-    #   run: |
-    #     flutter pub get
-    #     flutter build appbundle --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }}
+    - name: Build appbundle
+      run: |
+        flutter pub get
+        flutter build appbundle --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }}
