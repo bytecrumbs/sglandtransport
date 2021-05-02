@@ -20,10 +20,10 @@ dependencies:
   auto_route: ^1.0.2
   convex_bottom_bar: ^3.0.0
   dio: ^4.0.0
-  firebase_analytics: ^8.0.0-dev.0
-  firebase_core: ^1.0.3
-  firebase_crashlytics: ^2.0.0
-  firebase_performance: ^0.7.0
+  firebase_analytics: ^8.0.2
+  firebase_core: ^1.1.0
+  firebase_crashlytics: ^2.0.2
+  firebase_performance: ^0.7.0+2
   flare_flutter: ^3.0.0
   flutter:
     sdk: flutter
