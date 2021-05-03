@@ -1,9 +1,7 @@
 # SG Land Transport
 
 ![GitHub][license badge]
-[![Build Status - Cirrus][]][build status]
-[![Build Status - Cirrus analyze][]][build status]
-[![Build Status - Cirrus unit_test][]][build status]
+[![Push to develop](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_develop.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_develop.yml)
 [![Twitter handle][]][twitter badge]
 
 Publc transport made easy, providing screens and functionality based on APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
@@ -249,7 +247,3 @@ screenshots -m archive
 [license badge]: https://img.shields.io/github/license/bytecrumbs/sglandtransport
 [twitter handle]: https://img.shields.io/twitter/follow/sgltapp.svg?style=social&label=Follow
 [twitter badge]: https://twitter.com/intent/follow?screen_name=sgltapp
-[build status - cirrus]: https://api.cirrus-ci.com/github/bytecrumbs/sglandtransport.svg
-[build status - cirrus analyze]: https://api.cirrus-ci.com/github/bytecrumbs/sglandtransport.svg?task=analyze
-[build status - cirrus unit_test]: https://api.cirrus-ci.com/github/bytecrumbs/sglandtransport.svg?task=unit_test
-[build status]: https://cirrus-ci.com/github/bytecrumbs/sglandtransport/master

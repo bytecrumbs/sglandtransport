@@ -127,9 +127,8 @@ class __$BusRouteListModelCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_BusRouteListModel
     with DiagnosticableTreeMixin
     implements _BusRouteListModel {

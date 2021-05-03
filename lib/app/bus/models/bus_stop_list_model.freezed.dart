@@ -127,9 +127,8 @@ class __$BusStopListModelCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_BusStopListModel
     with DiagnosticableTreeMixin
     implements _BusStopListModel {

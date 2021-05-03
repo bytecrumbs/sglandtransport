@@ -238,9 +238,8 @@ class __$NextBusModelCopyWithImpl<$Res> extends _$NextBusModelCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_NextBusModel with DiagnosticableTreeMixin implements _NextBusModel {
   _$_NextBusModel(
       {@JsonKey(name: 'OriginCode') this.originCode,

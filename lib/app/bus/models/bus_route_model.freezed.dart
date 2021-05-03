@@ -288,9 +288,8 @@ class __$BusRouteModelCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_BusRouteModel with DiagnosticableTreeMixin implements _BusRouteModel {
   _$_BusRouteModel(
       {@JsonKey(name: 'ServiceNo') this.serviceNo,

@@ -73,8 +73,8 @@ class MyApp extends HookWidget {
     );
     return MaterialApp.router(
       routeInformationParser: _appRouter.defaultRouteParser(),
-      routerDelegate: _appRouter
-          .delegate(navigatorObservers: <NavigatorObserver>[observer]),
+      routerDelegate: _appRouter.delegate(
+          navigatorObservers: () => <NavigatorObserver>[observer]),
       title: 'GitLab Mobile',
       theme: ThemeData(
         brightness: Brightness.light,
