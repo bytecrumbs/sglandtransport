@@ -2,6 +2,7 @@
 
 ![GitHub][license badge]
 [![Push to develop](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_develop.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_develop.yml)
+[![PR on master](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_master.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_master.yml)
 [![Twitter handle][]][twitter badge]
 
 Publc transport made easy, providing screens and functionality based on APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
