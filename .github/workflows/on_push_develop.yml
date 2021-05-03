@@ -1,9 +1,9 @@
-name: Tests
+name: Push to develop
 on:
   push:
     branches: [ develop ]
 jobs:
-  tests:
+  analyze:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
