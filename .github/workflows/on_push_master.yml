@@ -1,6 +1,6 @@
 name: PR on master
 on:
-  pull_request:
+  push:
     branches: [ master ]
 
 jobs:
