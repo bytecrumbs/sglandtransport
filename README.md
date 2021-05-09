@@ -38,7 +38,7 @@ This key is read during build time from an environment variable named "LTA_DATAM
 flutter run --dart-define=LTA_DATAMALL_API_KEY=<add your key here>
 ```
 
-2. From an environment variable on your CI server (see this project's .cirrus.yml file for an example)
+2. From an environment variable on your CI server
 
 You can generate a key following the guidelines of https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html
 
