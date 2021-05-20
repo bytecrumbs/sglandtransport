@@ -66,3 +66,6 @@ linter:
     # Not necessary to describe all public members for the main app. This only
     # seems useful for packages
     public_member_api_docs: false
+
+    # Marked as experimental, and I do not know how to fix it... :-)
+    use_build_context_synchronously: false
