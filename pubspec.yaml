@@ -20,10 +20,10 @@ dependencies:
   auto_route: ^2.2.0
   convex_bottom_bar: ^3.0.0
   dio: ^4.0.0
-  firebase_analytics: ^8.0.4
-  firebase_core: ^1.1.1
-  firebase_crashlytics: ^2.0.3
-  firebase_performance: ^0.7.0+2
+  firebase_analytics: ^8.1.0
+  firebase_core: ^1.2.0
+  firebase_crashlytics: ^2.0.4
+  firebase_performance: ^0.7.0+3
   flare_flutter: ^3.0.0
   flutter:
     sdk: flutter
@@ -42,7 +42,7 @@ dependencies:
   share: ^2.0.1
   shared_preferences: ^2.0.5
   sqflite: ^2.0.0+3
-  url_launcher: ^6.0.3
+  url_launcher: ^6.0.4
   # substring_highlight: ^0.1.2
   # screenshots: ^2.1.1
   #navigation
@@ -56,7 +56,7 @@ dev_dependencies:
   freezed: ^0.14.2
   injectable_generator: ^1.4.0
   json_serializable: ^4.1.2
-  mockito: ^5.0.7
+  mockito: ^5.0.8
 
 # dependency_overrides:
 #   screenshots:
