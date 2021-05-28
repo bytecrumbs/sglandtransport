@@ -2,6 +2,7 @@
 
 ![GitHub][license badge]
 [![Push to develop](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_develop.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_develop.yml)
+[![PR on master](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_master.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_master.yml)
 [![Twitter handle][]][twitter badge]
 
 Publc transport made easy, providing screens and functionality based on APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
@@ -37,7 +38,7 @@ This key is read during build time from an environment variable named "LTA_DATAM
 flutter run --dart-define=LTA_DATAMALL_API_KEY=<add your key here>
 ```
 
-2. From an environment variable on your CI server (see this project's .cirrus.yml file for an example)
+2. From an environment variable on your CI server
 
 You can generate a key following the guidelines of https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html
 

@@ -88,41 +88,41 @@ platform :ios do
       readonly: is_ci,
       app_identifier: "com.saschaderungs.ltaDatamall"
     )
-    update_code_signing_settings(
-      code_sign_identity: "iPhone Distribution",
-      use_automatic_signing: false
-    )
-    build_ios_app(
-      export_method: "app-store",
-      export_options: {
-        provisioningProfiles: {
-          "com.saschaderungs.ltaDatamall" => "match AppStore com.saschaderungs.ltaDatamall"
-        }
-      },
-      xcargs: {
-        "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall",
-      }
-    )
-    upload_to_testflight
-    # slack(
-    #   message: "Application was built and successfully uploaded to Testflight",
-    #   success: true,
-    #   default_payloads: [:git_branch, :last_git_commit_message]
+    # update_code_signing_settings(
+    #   code_sign_identity: "iPhone Distribution",
+    #   use_automatic_signing: false
     # )
-    upload_to_app_store(
-      submit_for_review: false,
-      automatic_release: false,
-      force: true, # Skip HTMl report verification
-      skip_metadata: false,
-      skip_screenshots: false,
-      skip_binary_upload: true,
-      overwrite_screenshots: true
-    )
-    # slack(
-    #   message: "Latest Meta-Data has been uploaded to App Store",
-    #   success: true,
-    #   default_payloads: [:git_branch, :last_git_commit_message]
+    # build_ios_app(
+    #   export_method: "app-store",
+    #   export_options: {
+    #     provisioningProfiles: {
+    #       "com.saschaderungs.ltaDatamall" => "match AppStore com.saschaderungs.ltaDatamall"
+    #     }
+    #   },
+    #   xcargs: {
+    #     "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall",
+    #   }
     # )
+    # upload_to_testflight
+    # # slack(
+    # #   message: "Application was built and successfully uploaded to Testflight",
+    # #   success: true,
+    # #   default_payloads: [:git_branch, :last_git_commit_message]
+    # # )
+    # upload_to_app_store(
+    #   submit_for_review: false,
+    #   automatic_release: false,
+    #   force: true, # Skip HTMl report verification
+    #   skip_metadata: false,
+    #   skip_screenshots: false,
+    #   skip_binary_upload: true,
+    #   overwrite_screenshots: true
+    # )
+    # # slack(
+    # #   message: "Latest Meta-Data has been uploaded to App Store",
+    # #   success: true,
+    # #   default_payloads: [:git_branch, :last_git_commit_message]
+    # # )
   end
 
   lane :submit_review do

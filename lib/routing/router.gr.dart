@@ -17,19 +17,22 @@ class AppRouter extends _i1.RootStackRouter {
 
   @override
   final Map<String, _i1.PageFactory> pagesMap = {
-    BusStopViewRoute.name: (routeData) {
-      return _i1.MaterialPageX<_i3.AutoRoute<dynamic>>(
-          routeData: routeData, child: const _i4.BusStopView());
-    },
-    BusArrivalViewRoute.name: (routeData) {
-      final args = routeData.argsAs<BusArrivalViewRouteArgs>();
-      return _i1.MaterialPageX<_i3.AutoRoute<dynamic>>(
-          routeData: routeData,
-          child: _i5.BusArrivalView(
-              key: args.key,
-              busStopCode: args.busStopCode,
-              description: args.description));
-    }
+    BusStopViewRoute.name: (routeData) =>
+        _i1.MaterialPageX<_i3.AutoRoute<dynamic>>(
+            routeData: routeData,
+            builder: (_) {
+              return const _i4.BusStopView();
+            }),
+    BusArrivalViewRoute.name: (routeData) =>
+        _i1.MaterialPageX<_i3.AutoRoute<dynamic>>(
+            routeData: routeData,
+            builder: (data) {
+              final args = data.argsAs<BusArrivalViewRouteArgs>();
+              return _i5.BusArrivalView(
+                  key: args.key,
+                  busStopCode: args.busStopCode,
+                  description: args.description);
+            })
   };
 
   @override
