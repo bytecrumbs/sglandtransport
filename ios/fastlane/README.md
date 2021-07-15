@@ -51,11 +51,6 @@ fastlane ios testflight_from_ci
 fastlane ios submit_review
 ```
 
-### ios test_match
-```
-fastlane ios test_match
-```
-
 
 ----
 
