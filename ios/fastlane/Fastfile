@@ -134,11 +134,5 @@ platform :ios do
     )
   end
 
-  lane :test_match do
-    match(
-      type: "appstore",
-      readonly: is_ci,
-    )
 
-  end
 end
