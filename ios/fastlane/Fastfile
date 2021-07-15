@@ -85,8 +85,7 @@ platform :ios do
   lane :testflight_from_ci do
     match(
       type: "appstore",
-      readonly: is_ci,
-      app_identifier: "com.saschaderungs.ltaDatamall"
+      readonly: is_ci
     )
     update_code_signing_settings(
       code_sign_identity: "iPhone Distribution",
@@ -103,7 +102,9 @@ platform :ios do
         "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall",
       }
     )
-    upload_to_testflight
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true
+    )
     upload_to_app_store(
       submit_for_review: false,
       automatic_release: false,
