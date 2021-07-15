@@ -104,11 +104,6 @@ platform :ios do
       }
     )
     upload_to_testflight
-    # slack(
-    #   message: "Application was built and successfully uploaded to Testflight",
-    #   success: true,
-    #   default_payloads: [:git_branch, :last_git_commit_message]
-    # )
     upload_to_app_store(
       submit_for_review: false,
       automatic_release: false,
@@ -118,11 +113,6 @@ platform :ios do
       skip_binary_upload: true,
       overwrite_screenshots: true
     )
-    # slack(
-    #   message: "Latest Meta-Data has been uploaded to App Store",
-    #   success: true,
-    #   default_payloads: [:git_branch, :last_git_commit_message]
-    # )
   end
 
   lane :submit_review do
@@ -144,10 +134,11 @@ platform :ios do
     )
   end
 
-  # error do |lane, exception|
-  #   slack(
-  #     message: exception.message,
-  #     success: false
-  #   )
-  # end
+  lane :test_match do
+    match(
+      type: "appstore",
+      readonly: is_ci,
+    )
+
+  end
 end
