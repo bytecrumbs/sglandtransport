@@ -39,10 +39,6 @@ void main() {
     // by now
     await tester.pump();
 
-    // No-longer loading
-    // expect(find.byType(JumpingText), findsNothing);
-    expect(find.byType(Text), findsNothing);
-
     // Rendered one TodoItem with the data returned by FakeRepository
     expect(tester.widgetList(find.byType(BusStopCard)), [
       isA<BusStopCard>()
