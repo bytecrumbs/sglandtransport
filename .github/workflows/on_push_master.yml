@@ -38,6 +38,7 @@ jobs:
       with:
         ruby-version: 2.7.2
         bundler-cache: true
+        working-directory: android
     - name: Configure Keystore
       run: |
         cd android
@@ -75,7 +76,7 @@ jobs:
         export LC_ALL=en_US.UTF-8
         export LANG=en_US.UTF-8
         cd android
-        bundle install
+
         bundle exec fastlane deploy_internal
   testflight:
     runs-on: macos-latest
@@ -101,6 +102,7 @@ jobs:
       with:
         ruby-version: 2.7.2
         bundler-cache: true
+        working-directory: ios
     - name: Add Google Services file
       run: echo "${{ secrets.IOS_GOOGLE_SERVICES }}" > ios/GoogleService-Info.plist
     - name: Build IPA
@@ -113,7 +115,6 @@ jobs:
         export LANG=en_US.UTF-8
         git config --global url.ssh://git@github.com/.insteadOf https://github.com/
         cd ios
-        bundle install
         bundle exec fastlane testflight_from_ci
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
