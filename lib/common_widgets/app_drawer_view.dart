@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:share/share.dart';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 import '../app/about_view.dart';
 import '../constants.dart';

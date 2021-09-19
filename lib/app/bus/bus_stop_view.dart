@@ -53,7 +53,7 @@ class BusStopView extends HookWidget {
         bottomNavigationBar: ConvexAppBar(
           key: const Key('BottomBar'),
           color: Theme.of(context).primaryColorDark,
-          activeColor: Theme.of(context).accentColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
           backgroundColor: Theme.of(context).bottomAppBarColor,
           top: -25,
           style: TabStyle.react,

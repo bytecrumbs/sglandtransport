@@ -71,28 +71,34 @@ class MyApp extends HookWidget {
         useProvider(apiProvider),
       ),
     );
+
+    final theme = ThemeData(
+      brightness: Brightness.light,
+      primaryColorDark: const Color(0xFF25304D),
+      primaryColor: const Color(0xFF969CAE),
+      scaffoldBackgroundColor: const Color(0xFFE2EFF5),
+      textTheme: const TextTheme(
+        headline1: TextStyle(
+          color: Color(0xFF25304D),
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+        ),
+        headline2: TextStyle(
+          color: Color(0xFF8C8C91),
+          fontSize: 16,
+          fontWeight: FontWeight.w300,
+        ),
+      ),
+    );
+
     return MaterialApp.router(
       routeInformationParser: _appRouter.defaultRouteParser(),
       routerDelegate: _appRouter.delegate(
           navigatorObservers: () => <NavigatorObserver>[observer]),
       title: 'GitLab Mobile',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColorDark: const Color(0xFF25304D),
-        primaryColor: const Color(0xFF969CAE),
-        accentColor: const Color(0xFFEF3340),
-        scaffoldBackgroundColor: const Color(0xFFE2EFF5),
-        textTheme: const TextTheme(
-          headline1: TextStyle(
-            color: Color(0xFF25304D),
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
-          headline2: TextStyle(
-            color: Color(0xFF8C8C91),
-            fontSize: 16,
-            fontWeight: FontWeight.w300,
-          ),
+      theme: theme.copyWith(
+        colorScheme: theme.colorScheme.copyWith(
+          secondary: const Color(0xFFEF3340),
         ),
       ),
     );

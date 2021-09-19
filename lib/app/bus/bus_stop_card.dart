@@ -40,7 +40,8 @@ class BusStopCard extends StatelessWidget {
                     textStyleHighlight: Theme.of(context)
                         .textTheme
                         .headline1!
-                        .copyWith(color: Theme.of(context).accentColor),
+                        .copyWith(
+                            color: Theme.of(context).colorScheme.secondary),
                   ),
                 ),
                 SubstringHighlight(
@@ -51,7 +52,7 @@ class BusStopCard extends StatelessWidget {
                   textStyleHighlight: Theme.of(context)
                       .textTheme
                       .headline2!
-                      .copyWith(color: Theme.of(context).accentColor),
+                      .copyWith(color: Theme.of(context).colorScheme.secondary),
                 ),
               ],
             ),
