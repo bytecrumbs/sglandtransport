@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lta_datamall_flutter/src/bus_stop/bus_database_service.dart';
 import 'package:lta_datamall_flutter/src/bus_stop/widgets/bus_arrival_card.dart';
+import 'package:lta_datamall_flutter/src/shared/common_providers.dart';
 
 import '../shared/custom_exception.dart';
 import '../shared/error_display.dart';
@@ -8,9 +10,12 @@ import '../shared/error_display.dart';
 import 'bus_repository.dart';
 
 final busArrivalFutureProvider = FutureProvider.family
-    .autoDispose<List<BusArrivalDetailsModel>, String>(
+    .autoDispose<List<BusArrivalServicesModel>, String>(
         (ref, busStopCode) async {
   final repository = ref.watch(busRepositoryProvider);
+  final db = ref.watch(busDatabaseServiceProvider);
+  final busRoutes = await db.allBusRouteEntries;
+  ref.watch(loggerProvider).d(busRoutes.length);
   return repository.fetchBusArrivals(busStopCode);
 });
 
@@ -41,8 +46,8 @@ class BusStopPage extends ConsumerWidget {
           if (error is CustomException) {
             return ErrorDisplay(message: error.message);
           }
-          return const ErrorDisplay(
-            message: 'Something unexpected happened',
+          return ErrorDisplay(
+            message: error.toString(),
           );
         },
       ),

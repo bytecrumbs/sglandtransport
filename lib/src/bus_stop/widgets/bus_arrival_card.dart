@@ -8,7 +8,7 @@ class BusArrivalCard extends StatelessWidget {
     required this.busArrivalModel,
   }) : super(key: key);
 
-  final BusArrivalDetailsModel busArrivalModel;
+  final BusArrivalServicesModel busArrivalModel;
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lta_datamall_flutter/src/bus_stop/bus_database_service.dart';
 
 import '../shared/common_providers.dart';
 import '../shared/constants.dart';
@@ -19,11 +20,11 @@ class BusRepository {
 
   final Reader _read;
 
-  Future<List<BusArrivalDetailsModel>> fetchBusArrivals(
+  Future<List<BusArrivalServicesModel>> fetchBusArrivals(
       String busStopCode) async {
     const fetchUrl = '$ltaDatamallApi/BusArrivalv2';
 
-    final response = await _get(
+    final response = await _get<Map<String, Object?>>(
       fetchUrl,
       queryParameters: {
         'BusStopCode': busStopCode,
@@ -31,11 +32,24 @@ class BusRepository {
     );
 
     return BusArrivalModel.fromJson(
-      response.data as Map<String, dynamic>,
+      response.data!,
     ).services;
   }
 
-  Future<Response<dynamic>> _get(
+  Future<List<BusRouteValueModel>> fetchBusRoutes() async {
+    const fetchUrl = '$ltaDatamallApi/BusRoutes';
+
+    final response = await _get<Map<String, Object?>>(
+      fetchUrl,
+      queryParameters: {},
+    );
+
+    return BusRouteModel.fromJson(
+      response.data!,
+    ).value;
+  }
+
+  Future<Response<T>> _get<T>(
     String path, {
     Map<String, Object>? queryParameters,
   }) async {
@@ -44,7 +58,7 @@ class BusRepository {
         .d('GET $path with $queryParameters as query parameters');
 
     try {
-      return await dio.get<Map<String, dynamic>>(path,
+      return await dio.get<T>(path,
           options: Options(
             headers: <String, String>{
               'AccountKey': EnvironmentConfig.ltaDatamallApiKey,
@@ -63,7 +77,7 @@ class BusArrivalModel with _$BusArrivalModel {
   factory BusArrivalModel({
     @JsonKey(name: 'odata.metadata') required String odataMetadata,
     @JsonKey(name: 'BusStopCode') required String busStopCode,
-    @JsonKey(name: 'Services') required List<BusArrivalDetailsModel> services,
+    @JsonKey(name: 'Services') required List<BusArrivalServicesModel> services,
   }) = _BusArrivalModel;
 
   factory BusArrivalModel.fromJson(Map<String, dynamic> json) =>
@@ -71,8 +85,8 @@ class BusArrivalModel with _$BusArrivalModel {
 }
 
 @freezed
-class BusArrivalDetailsModel with _$BusArrivalDetailsModel {
-  factory BusArrivalDetailsModel({
+class BusArrivalServicesModel with _$BusArrivalServicesModel {
+  factory BusArrivalServicesModel({
     @JsonKey(name: 'ServiceNo') required String serviceNo,
     @JsonKey(name: 'Operator') required String busOperator,
     @JsonKey(name: 'NextBus') required NextBusModel nextBus,
@@ -80,11 +94,11 @@ class BusArrivalDetailsModel with _$BusArrivalDetailsModel {
     @JsonKey(name: 'NextBus3') required NextBusModel nextBus3,
     @Default(true) bool inService,
     String? destinationName,
-  }) = _BusArrivalDetailsModel;
+  }) = _BusArrivalServicesModel;
 
   /// Named constructor to convert from Json to a proper model
-  factory BusArrivalDetailsModel.fromJson(Map<String, dynamic> json) =>
-      _$BusArrivalDetailsModelFromJson(json);
+  factory BusArrivalServicesModel.fromJson(Map<String, dynamic> json) =>
+      _$BusArrivalServicesModelFromJson(json);
 }
 
 @freezed
@@ -103,4 +117,38 @@ class NextBusModel with _$NextBusModel {
 
   factory NextBusModel.fromJson(Map<String, dynamic> json) =>
       _$NextBusModelFromJson(json);
+}
+
+@freezed
+class BusRouteModel with _$BusRouteModel {
+  factory BusRouteModel({
+    @JsonKey(name: 'odata.metadata') required String odataMetadata,
+    required List<BusRouteValueModel> value,
+  }) = _BusRouteModel;
+
+  /// Named constructor to convert from Json to a proper model
+  factory BusRouteModel.fromJson(Map<String, dynamic> json) =>
+      _$BusRouteModelFromJson(json);
+}
+
+@freezed
+class BusRouteValueModel with _$BusRouteValueModel {
+  factory BusRouteValueModel({
+    @JsonKey(name: 'ServiceNo') String? serviceNo,
+    @JsonKey(name: 'Operator') String? busOperator,
+    @JsonKey(name: 'Direction') int? direction,
+    @JsonKey(name: 'StopSequence') int? stopSequence,
+    @JsonKey(name: 'BusStopCode') String? busStopCode,
+    @JsonKey(name: 'Distance') double? distance,
+    @JsonKey(name: 'WD_FirstBus') String? wdFirstBus,
+    @JsonKey(name: 'WD_LastBus') String? wdLastBus,
+    @JsonKey(name: 'SAT_FirstBus') String? satFirstBus,
+    @JsonKey(name: 'SAT_LastBus') String? satLastBus,
+    @JsonKey(name: 'SUN_FirstBus') String? sunFirstBus,
+    @JsonKey(name: 'SUN_LastBus') String? sunLastBus,
+  }) = _BusRouteValueModel;
+
+  /// Named constructor to convert from Json to a proper model
+  factory BusRouteValueModel.fromJson(Map<String, dynamic> json) =>
+      _$BusRouteValueModelFromJson(json);
 }
