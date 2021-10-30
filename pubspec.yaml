@@ -17,7 +17,6 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  auto_route: ^2.3.2
   convex_bottom_bar: ^3.0.0
   dio: ^4.0.0
   firebase_analytics: ^8.3.2
@@ -49,7 +48,6 @@ dependencies:
   #stack service
 
 dev_dependencies:
-  auto_route_generator: ^2.3.2
   build_runner: ^2.1.2
   flutter_driver:
     sdk: flutter

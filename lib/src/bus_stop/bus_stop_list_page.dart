@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lta_datamall_flutter/src/arrival/bus_arrival_screen_arguments.dart';
-import '../arrival/bus_arrival_list_view.dart';
+import 'bus_stop_page.dart';
 
-class BusStopListView extends StatelessWidget {
-  const BusStopListView({Key? key}) : super(key: key);
+class BusStopListPage extends StatelessWidget {
+  const BusStopListPage({Key? key}) : super(key: key);
 
   static const routeName = '/';
 
@@ -11,15 +10,16 @@ class BusStopListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Buses'),
+        title: const Text('Buses 2'),
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: () {
             Navigator.restorablePushNamed(
               context,
-              BusArrivalListView.routeName,
-              arguments: {'busStopNumber': 'asdf'},
+              BusStopPage.routeName,
+              // TODO: Hardcoding! check how to change this
+              arguments: {'busStopCode': 'asdf'},
             );
           },
           child: const Text('Bus Arrival'),
