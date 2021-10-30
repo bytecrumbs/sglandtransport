@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lta_datamall_flutter/src/bus_stop/widgets/bus_arrival_card.dart';
 
 import '../shared/custom_exception.dart';
 import '../shared/error_display.dart';
@@ -29,8 +30,11 @@ class BusStopPage extends ConsumerWidget {
         title: const Text('Arrival'),
       ),
       body: busArrival.when(
-        data: (busArrival) => const Center(
-          child: Text('loaded'),
+        data: (busArrival) => ListView.builder(
+          itemCount: busArrival.length,
+          itemBuilder: (_, index) => BusArrivalCard(
+            busArrivalModel: busArrival[index],
+          ),
         ),
         loading: (_) => const Center(child: CircularProgressIndicator()),
         error: (error, stack, _) {
