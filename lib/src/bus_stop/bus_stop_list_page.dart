@@ -18,8 +18,8 @@ class BusStopListPage extends StatelessWidget {
             Navigator.restorablePushNamed(
               context,
               BusStopPage.routeName,
-              // TODO: Hardcoding! check how to change this
-              arguments: {'busStopCode': 'asdf'},
+              // TODO: Hardcoding of argument name! check how to change this
+              arguments: {'busStopCode': '78129'},
             );
           },
           child: const Text('Bus Arrival'),
