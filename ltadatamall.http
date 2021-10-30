@@ -1,0 +1,4 @@
+
+# Bus Arrival
+GET {{baseURL}}/ltaodataservice/BusArrivalv2?BusStopCode=83139
+AccountKey: {{authorization}}
