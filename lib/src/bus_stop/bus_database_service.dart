@@ -141,4 +141,10 @@ class BusDatabaseService extends _$BusDatabaseService {
           ..where((tbl) => tbl.busStopCode.equals(busStopCode)))
         .get();
   }
+
+  Future<List<TableBusStop>> getBusStops() async {
+    _read(loggerProvider).d('Getting Bus Stops from DB');
+
+    return select(tableBusStops).get();
+  }
 }

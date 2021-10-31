@@ -215,6 +215,7 @@ class BusStopValueModel with _$BusStopValueModel {
     @JsonKey(name: 'Description') String? descritption,
     @JsonKey(name: 'Latitude') double? latitude,
     @JsonKey(name: 'Longitude') double? longitude,
+    int? distanceInMeters,
   }) = _BusStopValueModel;
 
   /// Named constructor to convert from Json to a proper model
