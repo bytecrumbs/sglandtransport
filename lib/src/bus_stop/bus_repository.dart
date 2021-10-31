@@ -48,6 +48,19 @@ class BusRepository {
     ).value;
   }
 
+  Future<List<BusStopValueModel>> fetchBusStops({int skip = 0}) async {
+    const fetchUrl = '$ltaDatamallApi/BusStops';
+
+    final response = await _get<Map<String, Object?>>(
+      fetchUrl,
+      queryParameters: {r'$skip': skip},
+    );
+
+    return BusStopModel.fromJson(
+      response.data!,
+    ).value;
+  }
+
   Future<Response<T>> _get<T>(
     String path, {
     Map<String, Object>? queryParameters,
@@ -180,4 +193,31 @@ class BusRouteValueModel with _$BusRouteValueModel {
   /// Named constructor to convert from Json to a proper model
   factory BusRouteValueModel.fromJson(Map<String, dynamic> json) =>
       _$BusRouteValueModelFromJson(json);
+}
+
+@freezed
+class BusStopModel with _$BusStopModel {
+  factory BusStopModel({
+    @JsonKey(name: 'odata.metadata') required String odataMetadata,
+    required List<BusStopValueModel> value,
+  }) = _BusStopModel;
+
+  /// Named constructor to convert from Json to a proper model
+  factory BusStopModel.fromJson(Map<String, dynamic> json) =>
+      _$BusStopModelFromJson(json);
+}
+
+@freezed
+class BusStopValueModel with _$BusStopValueModel {
+  factory BusStopValueModel({
+    @JsonKey(name: 'BusStopCode') String? busStopCode,
+    @JsonKey(name: 'RoadName') String? roadName,
+    @JsonKey(name: 'Description') String? descritption,
+    @JsonKey(name: 'Latitude') double? latitude,
+    @JsonKey(name: 'Longitude') double? longitude,
+  }) = _BusStopValueModel;
+
+  /// Named constructor to convert from Json to a proper model
+  factory BusStopValueModel.fromJson(Map<String, dynamic> json) =>
+      _$BusStopValueModelFromJson(json);
 }

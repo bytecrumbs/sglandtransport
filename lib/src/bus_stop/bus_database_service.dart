@@ -26,6 +26,14 @@ class TableBusRoutes extends Table {
   TextColumn get sunLastBus => text().nullable()();
 }
 
+class TableBusStops extends Table {
+  TextColumn get busStopCode => text().nullable()();
+  TextColumn get roadName => text().nullable()();
+  TextColumn get description => text().nullable()();
+  RealColumn get latitude => real().nullable()();
+  RealColumn get longitude => real().nullable()();
+}
+
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
@@ -37,7 +45,7 @@ LazyDatabase _openConnection() {
 final busDatabaseServiceProvider =
     Provider<BusDatabaseService>((ref) => BusDatabaseService(ref.read));
 
-@DriftDatabase(tables: [TableBusRoutes])
+@DriftDatabase(tables: [TableBusRoutes, TableBusStops])
 class BusDatabaseService extends _$BusDatabaseService {
   // we tell the database where to store the data with this constructor
   BusDatabaseService(this._read) : super(_openConnection());
@@ -53,21 +61,18 @@ class BusDatabaseService extends _$BusDatabaseService {
           // TODO: tables need to be refreshed periodically, not just when it is created the first times
           if (details.wasCreated) {
             _read(loggerProvider).d('Refreshing tables');
-            // this can run in the background, no need to wait for it
+            // add all bus stops into the local database. this has to complete
+            // before we show bus stops, as it is fetched from the local DB
+            // and not directly from the lta datamall API
+            await _refreshBusStops();
+            // bus routes loading can run in the background as it is only used
+            // to add bus services that are not currently in operation for a given
+            // bus stop
             // ignore: unawaited_futures
             _refreshBusRoutes();
           }
         },
       );
-
-  Future<List<TableBusRoute>> getBusServiceNoForBusStopCode(
-      String busStopCode) {
-    _read(loggerProvider)
-        .d('Getting Bus Routes from DB for bus stop $busStopCode');
-    return (select(tableBusRoutes)
-          ..where((tbl) => tbl.busStopCode.equals(busStopCode)))
-        .get();
-  }
 
   Future<void> _refreshBusRoutes() async {
     _read(loggerProvider).d('deleting bus routes from table');
@@ -94,13 +99,46 @@ class BusDatabaseService extends _$BusDatabaseService {
         ),
       );
 
-      // this can run in the background, no need to wait for it
-      // ignore: unawaited_futures
-      batch((batch) {
+      await batch((batch) {
         // functions in a batch don't have to be awaited - just
         // await the whole batch afterwards.
         batch.insertAll(tableBusRoutes, [...busRouteValueTableList]);
       });
     }
+  }
+
+  Future<void> _refreshBusStops() async {
+    _read(loggerProvider).d('deleting bus stops from table');
+    await delete(tableBusStops).go();
+    _read(loggerProvider).d('adding bus stops to table');
+    for (var i = 0; i <= 5000; i = i + 500) {
+      final busStopValueModelList =
+          await _read(busRepositoryProvider).fetchBusStops(skip: i);
+
+      final busStopValueTableList = busStopValueModelList.map(
+        (e) => TableBusStop(
+          busStopCode: e.busStopCode,
+          description: e.descritption,
+          roadName: e.roadName,
+          latitude: e.latitude,
+          longitude: e.longitude,
+        ),
+      );
+
+      await batch((batch) {
+        // functions in a batch don't have to be awaited - just
+        // await the whole batch afterwards.
+        batch.insertAll(tableBusStops, [...busStopValueTableList]);
+      });
+    }
+  }
+
+  Future<List<TableBusRoute>> getBusServicesNoForBusStopCode(
+      String busStopCode) {
+    _read(loggerProvider)
+        .d('Getting Bus Routes from DB for bus stop $busStopCode');
+    return (select(tableBusRoutes)
+          ..where((tbl) => tbl.busStopCode.equals(busStopCode)))
+        .get();
   }
 }
