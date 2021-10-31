@@ -105,7 +105,7 @@ class NextBusModel with _$NextBusModel {
   factory NextBusModel({
     @JsonKey(name: 'OriginCode') String? originCode,
     @JsonKey(name: 'DestinationCode') String? destinationCode,
-    @JsonKey(name: 'EstimatedArrival') String? estimatedArrival,
+    @JsonKey(name: 'EstimatedArrival') String? estimatedArrivalAbsolute,
     @JsonKey(name: 'Latitude') String? latitude,
     @JsonKey(name: 'Longitude') String? longitude,
     @JsonKey(name: 'VisitNumber') String? visitNumber,
@@ -114,8 +114,38 @@ class NextBusModel with _$NextBusModel {
     @JsonKey(name: 'Type') String? type,
   }) = _NextBusModel;
 
+  NextBusModel._();
+
   factory NextBusModel.fromJson(Map<String, dynamic> json) =>
       _$NextBusModelFromJson(json);
+
+  String getEstimatedArrival() {
+    if (estimatedArrivalAbsolute != null) {
+      final arrivalInMinutes = DateTime.parse(estimatedArrivalAbsolute!)
+          .difference(DateTime.now())
+          .inMinutes;
+      if (arrivalInMinutes <= 0) {
+        return 'Arr';
+      } else {
+        return '${arrivalInMinutes}min';
+      }
+    } else {
+      return 'Not in operation';
+    }
+  }
+
+  String getLoadLongDescription() {
+    switch (load) {
+      case 'SEA':
+        return 'Seats Available';
+      case 'SDA':
+        return ' Standing Available';
+      case 'LDS':
+        return ' Limited Standing';
+      default:
+        return '';
+    }
+  }
 }
 
 @freezed

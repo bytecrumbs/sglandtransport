@@ -15,6 +15,13 @@ class BusArrivalCard extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(busArrivalModel.serviceNo),
+        subtitle: Column(
+          children: [
+            Text(busArrivalModel.nextBus.estimatedArrivalAbsolute ?? ''),
+            Text(busArrivalModel.nextBus.getEstimatedArrival()),
+            Text(busArrivalModel.nextBus.getLoadLongDescription()),
+          ],
+        ),
       ),
     );
   }
