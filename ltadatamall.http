@@ -6,3 +6,7 @@ AccountKey: {{authorization}}
 ### Bus Routes
 GET {{baseURL}}/ltaodataservice/BusRoutes?$skip=0
 AccountKey: {{authorization}}
+
+### Bus Stops
+GET {{baseURL}}/ltaodataservice/BusStops?$skip=0
+AccountKey: {{authorization}}
