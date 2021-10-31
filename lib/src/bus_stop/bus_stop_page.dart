@@ -14,11 +14,11 @@ final busArrivalFutureProvider = FutureProvider.family
   final repository = ref.watch(busRepositoryProvider);
   final db = ref.watch(busDatabaseServiceProvider);
   final busRoutes = await db.getBusServiceNoForBusStopCode(busStopCode);
-
-  // use var here as we may add more bus services later below
   final busArrivals = await repository.fetchBusArrivals(busStopCode);
 
-  // add bus services that are not in operation to the result
+  // the BusArrival API only returns bus services that are currently in service,
+  // so we need to add the bus services not currenlty in service manually by
+  // looking up the BusRoutes, which we are storing in the local DB
   if (busRoutes.length > busArrivals.length) {
     // create a list of service numbers, so we can better compare
     final busRoutesServiceNo = busRoutes.map((e) => e.serviceNo).toList();
