@@ -60,10 +60,12 @@ class BusDatabaseService extends _$BusDatabaseService {
         },
       );
 
-  Future<List<TableBusRoute>> get allBusRouteEntries {
-    _read(loggerProvider).d('Getting Bus Routes from DB');
+  Future<List<TableBusRoute>> getBusServiceNoForBusStopCode(
+      String busStopCode) {
+    _read(loggerProvider)
+        .d('Getting Bus Routes from DB for bus stop $busStopCode');
     return (select(tableBusRoutes)
-          ..where((tbl) => tbl.busStopCode.equals('78129')))
+          ..where((tbl) => tbl.busStopCode.equals(busStopCode)))
         .get();
   }
 
