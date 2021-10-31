@@ -13,7 +13,7 @@ final busArrivalFutureProvider = FutureProvider.family
   // fetch info from API and local DB
   final repository = ref.watch(busRepositoryProvider);
   final db = ref.watch(busDatabaseServiceProvider);
-  final busRoutes = await db.getBusServicesNoForBusStopCode(busStopCode);
+  final busRoutes = await db.getBusServiceNosForBusStopCode(busStopCode);
   final busArrivals = await repository.fetchBusArrivals(busStopCode);
 
   // the BusArrival API only returns bus services that are currently in service,
