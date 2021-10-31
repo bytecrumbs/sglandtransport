@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lta_datamall_flutter/src/bus_stop/bus_repository.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 import '../shared/common_providers.dart';
+import 'bus_repository.dart';
 
 part 'bus_database_service.g.dart';
 
@@ -52,7 +52,9 @@ class BusDatabaseService extends _$BusDatabaseService {
         beforeOpen: (details) async {
           // TODO: only do this if the database needs to be refreshed
           _read(loggerProvider).d('Refreshing tables');
-          await _loadBusRoutes();
+          // this can run in the background, no need to wait for it
+          // ignore: unawaited_futures
+          _loadBusRoutes();
         },
       );
 
@@ -62,30 +64,34 @@ class BusDatabaseService extends _$BusDatabaseService {
   }
 
   Future<void> _loadBusRoutes() async {
-    final busRouteValueModelList =
-        await _read(busRepositoryProvider).fetchBusRoutes();
+    for (var i = 0; i <= 26000; i = i + 500) {
+      final busRouteValueModelList =
+          await _read(busRepositoryProvider).fetchBusRoutes(skip: i);
 
-    final busRouteValueTableList = busRouteValueModelList.map(
-      (e) => TableBusRoute(
-        serviceNo: e.serviceNo,
-        operator: e.busOperator,
-        direction: e.direction,
-        stopSequence: e.stopSequence,
-        busStopCode: e.busStopCode,
-        distance: e.distance,
-        wdFirstBus: e.wdFirstBus,
-        wdLastBus: e.wdLastBus,
-        satFirstBus: e.satFirstBus,
-        satLastBus: e.satLastBus,
-        sunFirstBus: e.sunFirstBus,
-        sunLastBus: e.sunLastBus,
-      ),
-    );
+      final busRouteValueTableList = busRouteValueModelList.map(
+        (e) => TableBusRoute(
+          serviceNo: e.serviceNo,
+          operator: e.busOperator,
+          direction: e.direction,
+          stopSequence: e.stopSequence,
+          busStopCode: e.busStopCode,
+          distance: e.distance,
+          wdFirstBus: e.wdFirstBus,
+          wdLastBus: e.wdLastBus,
+          satFirstBus: e.satFirstBus,
+          satLastBus: e.satLastBus,
+          sunFirstBus: e.sunFirstBus,
+          sunLastBus: e.sunLastBus,
+        ),
+      );
 
-    await batch((batch) {
-      // functions in a batch don't have to be awaited - just
-      // await the whole batch afterwards.
-      batch.insertAll(tableBusRoutes, [...busRouteValueTableList]);
-    });
+      // this can run in the background, no need to wait for it
+      // ignore: unawaited_futures
+      batch((batch) {
+        // functions in a batch don't have to be awaited - just
+        // await the whole batch afterwards.
+        batch.insertAll(tableBusRoutes, [...busRouteValueTableList]);
+      });
+    }
   }
 }

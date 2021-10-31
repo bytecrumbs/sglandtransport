@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lta_datamall_flutter/src/bus_stop/bus_database_service.dart';
-import 'package:lta_datamall_flutter/src/bus_stop/widgets/bus_arrival_card.dart';
-import 'package:lta_datamall_flutter/src/shared/common_providers.dart';
 
+import '../shared/common_providers.dart';
 import '../shared/custom_exception.dart';
 import '../shared/error_display.dart';
-
+import 'bus_database_service.dart';
 import 'bus_repository.dart';
+import 'widgets/bus_arrival_card.dart';
 
 final busArrivalFutureProvider = FutureProvider.family
     .autoDispose<List<BusArrivalServicesModel>, String>(

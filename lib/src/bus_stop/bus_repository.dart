@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lta_datamall_flutter/src/bus_stop/bus_database_service.dart';
 
 import '../shared/common_providers.dart';
 import '../shared/constants.dart';
@@ -36,12 +35,12 @@ class BusRepository {
     ).services;
   }
 
-  Future<List<BusRouteValueModel>> fetchBusRoutes() async {
+  Future<List<BusRouteValueModel>> fetchBusRoutes({int skip = 0}) async {
     const fetchUrl = '$ltaDatamallApi/BusRoutes';
 
     final response = await _get<Map<String, Object?>>(
       fetchUrl,
-      queryParameters: {},
+      queryParameters: {r'$skip': skip},
     );
 
     return BusRouteModel.fromJson(
