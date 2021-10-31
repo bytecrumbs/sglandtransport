@@ -50,20 +50,27 @@ class BusDatabaseService extends _$BusDatabaseService {
   @override
   MigrationStrategy get migration => MigrationStrategy(
         beforeOpen: (details) async {
-          // TODO: only do this if the database needs to be refreshed
-          _read(loggerProvider).d('Refreshing tables');
-          // this can run in the background, no need to wait for it
-          // ignore: unawaited_futures
-          _loadBusRoutes();
+          // TODO: tables need to be refreshed periodically, not just when it is created the first times
+          if (details.wasCreated) {
+            _read(loggerProvider).d('Refreshing tables');
+            // this can run in the background, no need to wait for it
+            // ignore: unawaited_futures
+            _refreshBusRoutes();
+          }
         },
       );
 
   Future<List<TableBusRoute>> get allBusRouteEntries {
     _read(loggerProvider).d('Getting Bus Routes from DB');
-    return select(tableBusRoutes).get();
+    return (select(tableBusRoutes)
+          ..where((tbl) => tbl.busStopCode.equals('78129')))
+        .get();
   }
 
-  Future<void> _loadBusRoutes() async {
+  Future<void> _refreshBusRoutes() async {
+    _read(loggerProvider).d('deleting bus routes from table');
+    await delete(tableBusRoutes).go();
+    _read(loggerProvider).d('adding bus routes to table');
     for (var i = 0; i <= 26000; i = i + 500) {
       final busRouteValueModelList =
           await _read(busRepositoryProvider).fetchBusRoutes(skip: i);
