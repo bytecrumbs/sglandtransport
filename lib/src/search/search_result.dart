@@ -9,18 +9,22 @@ import '../shared/error_display.dart';
 
 final searchResultFutureProvider = FutureProvider.autoDispose
     .family<List<BusStopValueModel>, String>((ref, searchTerm) async {
-  final busDatabaseService = ref.watch(busDatabaseServiceProvider);
-  final tableBusStopList = await busDatabaseService.findBusStops(searchTerm);
-  final busStopValueModelList = tableBusStopList
-      .map((e) => BusStopValueModel(
-            busStopCode: e.busStopCode,
-            descritption: e.description,
-            latitude: e.latitude,
-            longitude: e.longitude,
-            roadName: e.roadName,
-          ))
-      .toList();
-  return busStopValueModelList;
+  if (searchTerm.isNotEmpty) {
+    final busDatabaseService = ref.watch(busDatabaseServiceProvider);
+    final tableBusStopList = await busDatabaseService.findBusStops(searchTerm);
+    final busStopValueModelList = tableBusStopList
+        .map((e) => BusStopValueModel(
+              busStopCode: e.busStopCode,
+              descritption: e.description,
+              latitude: e.latitude,
+              longitude: e.longitude,
+              roadName: e.roadName,
+            ))
+        .toList();
+    return busStopValueModelList;
+  } else {
+    return [];
+  }
 });
 
 class SearchResult extends ConsumerWidget {
