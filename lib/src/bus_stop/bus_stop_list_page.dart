@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../shared/custom_exception.dart';
 import '../shared/error_display.dart';
@@ -16,13 +16,14 @@ final busStopsFutureProvider =
   // filter DB result by location
   // TODO: can this somehow be done directly in the where clause of the getBusStops() method instead?
   final nearbyBusStops = <BusStopValueModel>[];
-  const distance = Distance();
   for (final busStop in allBusStops) {
-    final distanceInMeters = distance(
-      // TODO: get location from phone instead of hard-coding here
-      LatLng(1.42117943692586, 103.831477233098),
-      LatLng(busStop.latitude ?? 0, busStop.longitude ?? 0),
+    final distanceInMeters = Geolocator.distanceBetween(
+      1.42117943692586,
+      103.831477233098,
+      busStop.latitude ?? 0,
+      busStop.longitude ?? 0,
     );
+
     if (distanceInMeters <= 500) {
       final newBusStop = BusStopValueModel(
         busStopCode: busStop.busStopCode,
