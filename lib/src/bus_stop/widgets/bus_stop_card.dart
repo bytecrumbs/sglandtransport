@@ -18,7 +18,20 @@ class BusStopCard extends StatelessWidget {
         title: Text(busStopValueModel.descritption ?? ''),
         subtitle: Text(
             '${busStopValueModel.busStopCode ?? ""} | ${busStopValueModel.roadName ?? ""}'),
-        trailing: Text('${busStopValueModel.distanceInMeters.toString()} m'),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (busStopValueModel.distanceInMeters != null)
+              Text('${busStopValueModel.distanceInMeters.toString()} m'),
+            const SizedBox(
+              width: 10,
+            ),
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 15,
+            ),
+          ],
+        ),
         onTap: () {
           Navigator.restorablePushNamed(
             context,
