@@ -58,25 +58,42 @@ class BusStopListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final busStops = ref.watch(busStopsStreamProvider);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Buses 2'),
-      ),
-      body: busStops.when(
-        data: (busStops) => ListView.builder(
-          itemCount: busStops.length,
-          itemBuilder: (_, index) =>
-              BusStopCard(busStopValueModel: busStops[index]),
-        ),
-        error: (error, stack, _) {
-          if (error is CustomException) {
-            return ErrorDisplay(message: error.message);
-          }
-          return ErrorDisplay(
-            message: error.toString(),
-          );
-        },
-        loading: (_) => const Center(child: CircularProgressIndicator()),
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            title: Text('Bus'),
+            expandedHeight: 200,
+          ),
+          busStops.when(
+            data: (busStops) => SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (_, index) => BusStopCard(
+                  busStopValueModel: busStops[index],
+                ),
+                childCount: busStops.length,
+              ),
+            ),
+            error: (error, stack, _) {
+              if (error is CustomException) {
+                return SliverFillRemaining(
+                  child: ErrorDisplay(message: error.message),
+                );
+              }
+              return SliverFillRemaining(
+                child: ErrorDisplay(
+                  message: error.toString(),
+                ),
+              );
+            },
+            loading: (_) => const SliverFillRemaining(
+              child: Center(
+                child: Text('Looking for nearby bus stops...'),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
