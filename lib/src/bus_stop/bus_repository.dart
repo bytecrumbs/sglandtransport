@@ -133,7 +133,7 @@ class NextBusModel with _$NextBusModel {
       _$NextBusModelFromJson(json);
 
   String getEstimatedArrival() {
-    if (estimatedArrivalAbsolute != null) {
+    if (estimatedArrivalAbsolute != null && estimatedArrivalAbsolute != '') {
       final arrivalInMinutes = DateTime.parse(estimatedArrivalAbsolute!)
           .difference(DateTime.now())
           .inMinutes;
