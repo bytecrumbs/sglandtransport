@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../shared/substring_highlight.dart';
 import '../bus_repository.dart';
 import '../bus_stop_page.dart';
 
@@ -7,17 +8,25 @@ class BusStopCard extends StatelessWidget {
   const BusStopCard({
     Key? key,
     required this.busStopValueModel,
+    this.searchTerm = '',
   }) : super(key: key);
 
   final BusStopValueModel busStopValueModel;
+  final String searchTerm;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        title: Text(busStopValueModel.descritption ?? ''),
-        subtitle: Text(
-            '${busStopValueModel.busStopCode ?? ""} | ${busStopValueModel.roadName ?? ""}'),
+        title: SubstringHighlight(
+          text: busStopValueModel.descritption ?? '',
+          term: searchTerm,
+        ),
+        subtitle: SubstringHighlight(
+          text:
+              '${busStopValueModel.busStopCode ?? ""} | ${busStopValueModel.roadName ?? ""}',
+          term: searchTerm,
+        ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

@@ -43,6 +43,7 @@ class SearchResult extends ConsumerWidget {
         itemCount: searchResult.length,
         itemBuilder: (_, index) => BusStopCard(
           busStopValueModel: searchResult[index],
+          searchTerm: searchTerm,
         ),
       ),
       loading: (_) => const Center(child: CircularProgressIndicator()),
