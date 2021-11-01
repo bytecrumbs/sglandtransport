@@ -7,7 +7,7 @@ import 'bus_database_service.dart';
 import 'bus_repository.dart';
 import 'widgets/bus_arrival_card.dart';
 
-final busArrivalFutureProvider = FutureProvider.family
+final busArrivalsFutureProvider = FutureProvider.family
     .autoDispose<List<BusArrivalServicesModel>, String>(
         (ref, busStopCode) async {
   // fetch info from API and local DB
@@ -60,7 +60,7 @@ class BusStopPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final busArrival = ref.watch(busArrivalFutureProvider(busStopCode));
+    final busArrival = ref.watch(busArrivalsFutureProvider(busStopCode));
 
     return Scaffold(
       appBar: AppBar(

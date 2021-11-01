@@ -8,7 +8,7 @@ import 'bus_database_service.dart';
 import 'bus_repository.dart';
 import 'widgets/bus_stop_card.dart';
 
-final busStopFutureProvider =
+final busStopsFutureProvider =
     FutureProvider<List<BusStopValueModel>>((ref) async {
   final db = ref.watch(busDatabaseServiceProvider);
   final allBusStops = await db.getBusStops();
@@ -50,7 +50,7 @@ class BusStopListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final busStops = ref.watch(busStopFutureProvider);
+    final busStops = ref.watch(busStopsFutureProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Buses 2'),
