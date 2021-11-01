@@ -8,40 +8,46 @@ import 'bus_database_service.dart';
 import 'bus_repository.dart';
 import 'widgets/bus_stop_card.dart';
 
-final busStopsFutureProvider =
-    FutureProvider<List<BusStopValueModel>>((ref) async {
+final busStopsStreamProvider =
+    StreamProvider.autoDispose<List<BusStopValueModel>>((ref) async* {
   final db = ref.watch(busDatabaseServiceProvider);
   final allBusStops = await db.getBusStops();
 
-  // filter DB result by location
-  // TODO: can this somehow be done directly in the where clause of the getBusStops() method instead?
-  final nearbyBusStops = <BusStopValueModel>[];
-  for (final busStop in allBusStops) {
-    final distanceInMeters = Geolocator.distanceBetween(
-      1.42117943692586,
-      103.831477233098,
-      busStop.latitude ?? 0,
-      busStop.longitude ?? 0,
-    );
-
-    if (distanceInMeters <= 500) {
-      final newBusStop = BusStopValueModel(
-        busStopCode: busStop.busStopCode,
-        descritption: busStop.description,
-        roadName: busStop.roadName,
-        latitude: busStop.latitude,
-        longitude: busStop.longitude,
-        distanceInMeters: distanceInMeters.round(),
+  // TODO: on the iPhone Simulator, when moving app to background and back to foreground, location is not fetched anymore?
+  final locationStream = Geolocator.getPositionStream();
+  await for (final locationData in locationStream) {
+    // filter DB result by location
+    // TODO: can this somehow be done directly in the where clause of the getBusStops() method instead?
+    final nearbyBusStops = <BusStopValueModel>[];
+    for (final busStop in allBusStops) {
+      final distanceInMeters = Geolocator.distanceBetween(
+        // 1.42117943692586,
+        // 103.831477233098,
+        locationData.latitude,
+        locationData.longitude,
+        busStop.latitude ?? 0,
+        busStop.longitude ?? 0,
       );
 
-      nearbyBusStops.add(newBusStop);
-    }
-  }
-  // sort result by distance
-  nearbyBusStops.sort(
-      (var a, var b) => a.distanceInMeters!.compareTo(b.distanceInMeters!));
+      if (distanceInMeters <= 500) {
+        final newBusStop = BusStopValueModel(
+          busStopCode: busStop.busStopCode,
+          descritption: busStop.description,
+          roadName: busStop.roadName,
+          latitude: busStop.latitude,
+          longitude: busStop.longitude,
+          distanceInMeters: distanceInMeters.round(),
+        );
 
-  return nearbyBusStops;
+        nearbyBusStops.add(newBusStop);
+      }
+    }
+    // sort result by distance
+    nearbyBusStops.sort(
+        (var a, var b) => a.distanceInMeters!.compareTo(b.distanceInMeters!));
+
+    yield nearbyBusStops;
+  }
 });
 
 class BusStopListPage extends ConsumerWidget {
@@ -51,7 +57,7 @@ class BusStopListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final busStops = ref.watch(busStopsFutureProvider);
+    final busStops = ref.watch(busStopsStreamProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Buses 2'),
