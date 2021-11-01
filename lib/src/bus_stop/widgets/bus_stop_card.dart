@@ -19,7 +19,7 @@ class BusStopCard extends StatelessWidget {
     return Card(
       child: ListTile(
         title: SubstringHighlight(
-          text: busStopValueModel.descritption ?? '',
+          text: busStopValueModel.description ?? '',
           term: searchTerm,
         ),
         subtitle: SubstringHighlight(

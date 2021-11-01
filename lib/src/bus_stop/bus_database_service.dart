@@ -118,7 +118,7 @@ class BusDatabaseService extends _$BusDatabaseService {
       final busStopValueTableList = busStopValueModelList.map(
         (e) => TableBusStop(
           busStopCode: e.busStopCode,
-          description: e.descritption,
+          description: e.description,
           roadName: e.roadName,
           latitude: e.latitude,
           longitude: e.longitude,

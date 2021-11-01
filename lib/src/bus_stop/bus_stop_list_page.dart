@@ -33,7 +33,7 @@ final busStopsStreamProvider =
       if (distanceInMeters <= 500) {
         final newBusStop = BusStopValueModel(
           busStopCode: busStop.busStopCode,
-          descritption: busStop.description,
+          description: busStop.description,
           roadName: busStop.roadName,
           latitude: busStop.latitude,
           longitude: busStop.longitude,

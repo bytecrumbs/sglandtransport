@@ -15,7 +15,7 @@ final searchResultFutureProvider = FutureProvider.autoDispose
     final busStopValueModelList = tableBusStopList
         .map((e) => BusStopValueModel(
               busStopCode: e.busStopCode,
-              descritption: e.description,
+              description: e.description,
               latitude: e.latitude,
               longitude: e.longitude,
               roadName: e.roadName,

@@ -212,7 +212,7 @@ class BusStopValueModel with _$BusStopValueModel {
   factory BusStopValueModel({
     @JsonKey(name: 'BusStopCode') String? busStopCode,
     @JsonKey(name: 'RoadName') String? roadName,
-    @JsonKey(name: 'Description') String? descritption,
+    @JsonKey(name: 'Description') String? description,
     @JsonKey(name: 'Latitude') double? latitude,
     @JsonKey(name: 'Longitude') double? longitude,
     int? distanceInMeters,
