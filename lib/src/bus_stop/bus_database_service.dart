@@ -147,4 +147,18 @@ class BusDatabaseService extends _$BusDatabaseService {
 
     return select(tableBusStops).get();
   }
+
+  Future<List<TableBusStop>> findBusStops(String searchTerm) async {
+    _read(loggerProvider)
+        .d('Getting Bus Stops from DB with search term $searchTerm');
+
+    return (select(tableBusStops)
+          ..where(
+            (tbl) =>
+                tbl.description.contains(searchTerm) |
+                tbl.busStopCode.contains(searchTerm) |
+                tbl.roadName.contains(searchTerm),
+          ))
+        .get();
+  }
 }

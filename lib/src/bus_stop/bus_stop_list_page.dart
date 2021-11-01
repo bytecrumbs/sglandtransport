@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../search/custom_search_delegate.dart';
 import '../shared/custom_exception.dart';
 import '../shared/error_display.dart';
 import 'bus_database_service.dart';
@@ -62,9 +63,21 @@ class BusStopListPage extends ConsumerWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
-            title: Text('Bus'),
+          SliverAppBar(
+            title: const Text('Bus'),
             expandedHeight: 200,
+            actions: <Widget>[
+              IconButton(
+                key: const ValueKey('searchIconButton'),
+                icon: const Icon(Icons.search, size: 27),
+                onPressed: () {
+                  showSearch<dynamic>(
+                    context: context,
+                    delegate: CustomSearchDelegate(),
+                  );
+                },
+              ),
+            ],
           ),
           busStops.when(
             data: (busStops) => SliverList(
