@@ -58,10 +58,16 @@ class BusStopPageView extends ConsumerWidget {
         ],
       ),
       body: busArrival.when(
-        data: (busArrival) => ListView.builder(
-          itemCount: busArrival.length,
-          itemBuilder: (_, index) => BusArrivalCard(
-            busArrivalModel: busArrival[index],
+        data: (busArrival) => RefreshIndicator(
+          onRefresh: () {
+            ref.refresh(busArrivalsFutureProvider(busStopCode));
+            return ref.read(busArrivalsFutureProvider(busStopCode).future);
+          },
+          child: ListView.builder(
+            itemCount: busArrival.length,
+            itemBuilder: (_, index) => BusArrivalCard(
+              busArrivalModel: busArrival[index],
+            ),
           ),
         ),
         loading: (_) => const Center(child: CircularProgressIndicator()),
