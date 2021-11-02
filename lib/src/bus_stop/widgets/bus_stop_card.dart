@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../shared/substring_highlight.dart';
+import '../../shared/widgets/substring_highlight.dart';
 import '../bus_repository.dart';
 import '../bus_stop_page.dart';
 

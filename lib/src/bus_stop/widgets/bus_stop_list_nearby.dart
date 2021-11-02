@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../shared/custom_exception.dart';
-import '../../shared/error_display.dart';
+import '../../shared/widgets/error_display.dart';
 import '../bus_database_service.dart';
 import '../bus_repository.dart';
 import 'bus_stop_card.dart';
