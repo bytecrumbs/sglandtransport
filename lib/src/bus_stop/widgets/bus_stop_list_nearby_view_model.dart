@@ -33,6 +33,7 @@ class BusStopListNearbyViewModel {
     // TODO: on the iPhone Simulator, when moving app to background and back to foreground, location is not fetched anymore?
     final locationStream = Geolocator.getPositionStream();
     await for (final locationData in locationStream) {
+      // TODO: on Android emulator, it seems to constantly execute this, although the location doesn't change
       yield busDbService.filterNearbyBusStops(
         currentLatitude: locationData.latitude,
         currentLongitude: locationData.longitude,
