@@ -46,7 +46,10 @@ class BusStopCard extends StatelessWidget {
             context,
             BusStopPage.routeName,
             // TODO: Hardcoding of argument name! check how to change this
-            arguments: {'busStopCode': busStopValueModel.busStopCode ?? ''},
+            arguments: {
+              'busStopCode': busStopValueModel.busStopCode ?? '',
+              'description': busStopValueModel.description ?? ''
+            },
           );
         },
       ),

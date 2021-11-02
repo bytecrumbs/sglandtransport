@@ -52,11 +52,16 @@ final busArrivalsFutureProvider = FutureProvider.family
 });
 
 class BusStopPage extends ConsumerWidget {
-  const BusStopPage({Key? key, required this.busStopCode}) : super(key: key);
+  const BusStopPage({
+    Key? key,
+    required this.busStopCode,
+    required this.description,
+  }) : super(key: key);
 
   static const routeName = '/busStop';
 
   final String busStopCode;
+  final String description;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -64,7 +69,7 @@ class BusStopPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Arrival'),
+        title: Text(description),
       ),
       body: busArrival.when(
         data: (busArrival) => ListView.builder(

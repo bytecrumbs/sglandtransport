@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
                 final args = routeSettings.arguments! as Map<String, String>;
                 return BusStopPage(
                   busStopCode: args['busStopCode']!,
+                  description: args['description']!,
                 );
               default:
                 return const BusStopListPage();
