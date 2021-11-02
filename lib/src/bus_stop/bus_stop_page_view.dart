@@ -38,13 +38,17 @@ class BusStopPageView extends ConsumerWidget {
     final busArrival = ref.watch(busArrivalsFutureProvider(busStopCode));
     final isFavoriteBusStop =
         ref.watch(isFavoriteBusStopStateProvider(busStopCode));
+    final vm = ref.watch(busStopPageViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(description),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              isFavoriteBusStop.state = !isFavoriteBusStop.state;
+              vm.toggleFavoriteBusStop(busStopCode);
+            },
             icon: isFavoriteBusStop.state
                 ? const Icon(Icons.favorite)
                 : const Icon(Icons.favorite_outline),

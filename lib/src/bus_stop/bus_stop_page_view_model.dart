@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../shared/common_providers.dart';
 import '../shared/constants.dart';
 import '../shared/services/local_storage_service.dart';
 import 'bus_database_service.dart';
@@ -60,5 +61,20 @@ class BusStopPageViewModel {
             .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))));
 
     return busArrivals;
+  }
+
+  void toggleFavoriteBusStop(String busStopCode) {
+    final localStorageService = read(localStorageServiceProvider);
+    final currentFavorites =
+        localStorageService.getStringList(favoriteBusStopsKey);
+    if (currentFavorites.contains(busStopCode)) {
+      read(loggerProvider)
+          .d('removing from Favorites, as bus stop already exists');
+      localStorageService.removeStringFromList(
+          favoriteBusStopsKey, busStopCode);
+    } else {
+      read(loggerProvider).d('adding to Favorites, as bus stop does not exist');
+      localStorageService.addStringToList(favoriteBusStopsKey, busStopCode);
+    }
   }
 }

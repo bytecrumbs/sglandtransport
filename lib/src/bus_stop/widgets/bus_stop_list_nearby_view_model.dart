@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:lta_datamall_flutter/src/bus_stop/bus_database_service.dart';
 
+import '../bus_database_service.dart';
 import '../bus_repository.dart';
 
 final busStopListNearbyViewModelProvider =
