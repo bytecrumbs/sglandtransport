@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../shared/constants.dart';
 import '../shared/custom_exception.dart';
+import '../shared/services/local_storage_service.dart';
 import '../shared/widgets/error_display.dart';
 import 'bus_database_service.dart';
 import 'bus_repository.dart';
 import 'widgets/bus_arrival_card.dart';
+
+// checks if a given bus stop is a favorite bus stop
+final isFavoriteBusStopStateProvider =
+    StateProvider.autoDispose.family<bool, String>((ref, busStopCode) {
+  final localStorageService = ref.watch(localStorageServiceProvider);
+  return localStorageService.containsValueInList(
+      favoriteBusStopsKey, busStopCode);
+});
 
 final busArrivalsFutureProvider = FutureProvider.family
     .autoDispose<List<BusArrivalServicesModel>, String>(
@@ -66,10 +76,20 @@ class BusStopPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final busArrival = ref.watch(busArrivalsFutureProvider(busStopCode));
+    final isFavoriteBusStop =
+        ref.watch(isFavoriteBusStopStateProvider(busStopCode));
 
     return Scaffold(
       appBar: AppBar(
         title: Text(description),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: isFavoriteBusStop.state
+                ? const Icon(Icons.favorite)
+                : const Icon(Icons.favorite_outline),
+          ),
+        ],
       ),
       body: busArrival.when(
         data: (busArrival) => ListView.builder(
