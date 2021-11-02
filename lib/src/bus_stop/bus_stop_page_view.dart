@@ -6,6 +6,7 @@ import '../shared/widgets/error_display.dart';
 import 'bus_repository.dart';
 import 'bus_stop_page_view_model.dart';
 import 'widgets/bus_arrival_card.dart';
+import 'widgets/bus_stop_list_favorites_view.dart';
 
 // checks if a given bus stop is a favorite bus stop
 final isFavoriteBusStopStateProvider =
@@ -48,6 +49,7 @@ class BusStopPageView extends ConsumerWidget {
             onPressed: () {
               isFavoriteBusStop.state = !isFavoriteBusStop.state;
               vm.toggleFavoriteBusStop(busStopCode);
+              ref.refresh(favoriteBusStopsFutureProvider);
             },
             icon: isFavoriteBusStop.state
                 ? const Icon(Icons.favorite)
