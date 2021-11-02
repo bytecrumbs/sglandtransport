@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'bus_stop/bus_stop_list_page.dart';
-import 'bus_stop/bus_stop_page.dart';
+import 'bus_stop/bus_stop_list_page_view.dart';
+import 'bus_stop/bus_stop_page_view.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -18,16 +18,16 @@ class MyApp extends StatelessWidget {
           settings: routeSettings,
           builder: (context) {
             switch (routeSettings.name) {
-              case BusStopListPage.routeName:
-                return const BusStopListPage();
-              case BusStopPage.routeName:
+              case BusStopListPageView.routeName:
+                return const BusStopListPageView();
+              case BusStopPageView.routeName:
                 final args = routeSettings.arguments! as Map<String, String>;
-                return BusStopPage(
+                return BusStopPageView(
                   busStopCode: args['busStopCode']!,
                   description: args['description']!,
                 );
               default:
-                return const BusStopListPage();
+                return const BusStopListPageView();
             }
           },
         );

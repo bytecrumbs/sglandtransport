@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../shared/widgets/substring_highlight.dart';
 import '../bus_repository.dart';
-import '../bus_stop_page.dart';
+import '../bus_stop_page_view.dart';
 
 class BusStopCard extends StatelessWidget {
   const BusStopCard({
@@ -44,7 +44,7 @@ class BusStopCard extends StatelessWidget {
         onTap: () {
           Navigator.restorablePushNamed(
             context,
-            BusStopPage.routeName,
+            BusStopPageView.routeName,
             // TODO: Hardcoding of argument name! check how to change this
             arguments: {
               'busStopCode': busStopValueModel.busStopCode ?? '',

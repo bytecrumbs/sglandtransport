@@ -5,27 +5,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../search/custom_search_delegate.dart';
 import '../shared/constants.dart';
 import '../shared/services/local_storage_service.dart';
-import 'widgets/bus_stop_list_favorites.dart';
-import 'widgets/bus_stop_list_nearby.dart';
+import 'bus_stop_list_page_view_model.dart';
+import 'widgets/bus_stop_list_favorites_view.dart';
+import 'widgets/bus_stop_list_nearby_view.dart';
 
 final filterProvider = StateProvider((ref) {
-  final localStorage = ref.watch(localStorageServiceProvider);
-  return localStorage.getInt(bottomBarIndexKey);
+  final vm = ref.watch(busStopListPageViewModelProvider);
+  return vm.bottomNavBarFilter();
 });
 
-class BusStopListPage extends ConsumerWidget {
-  const BusStopListPage({Key? key}) : super(key: key);
+class BusStopListPageView extends ConsumerWidget {
+  const BusStopListPageView({Key? key}) : super(key: key);
 
   static const routeName = '/';
 
   Widget _getViewForIndex(int? index) {
     switch (index) {
       case 0:
-        return const BusStopListNearby();
+        return const BusStopListNearbyView();
       case 1:
-        return const BusStopListFavorites();
+        return const BusStopListFavoritesView();
       default:
-        return const BusStopListNearby();
+        return const BusStopListNearbyView();
     }
   }
 

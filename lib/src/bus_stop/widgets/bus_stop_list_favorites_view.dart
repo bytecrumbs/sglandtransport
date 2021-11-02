@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BusStopListFavorites extends StatelessWidget {
-  const BusStopListFavorites({Key? key}) : super(key: key);
+class BusStopListFavoritesView extends StatelessWidget {
+  const BusStopListFavoritesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
