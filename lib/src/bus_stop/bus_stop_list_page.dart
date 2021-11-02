@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../search/custom_search_delegate.dart';
+import '../shared/constants.dart';
+import '../shared/services/local_storage_service.dart';
 import 'widgets/bus_stop_list_favorites.dart';
 import 'widgets/bus_stop_list_nearby.dart';
 
-final filterProvider = StateProvider((ref) => 0);
+final filterProvider = StateProvider((ref) {
+  final localStorage = ref.watch(localStorageServiceProvider);
+  return localStorage.getInt(bottomBarIndexKey);
+});
 
 class BusStopListPage extends ConsumerWidget {
   const BusStopListPage({Key? key}) : super(key: key);
@@ -27,6 +32,7 @@ class BusStopListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final filter = ref.watch(filterProvider);
+    final localStorage = ref.watch(localStorageServiceProvider);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -60,7 +66,11 @@ class BusStopListPage extends ConsumerWidget {
             title: 'Favorites',
           )
         ],
-        onTap: (clickedItem) => filter.state = clickedItem,
+        initialActiveIndex: filter.state,
+        onTap: (clickedItem) async {
+          await localStorage.setInt(bottomBarIndexKey, clickedItem);
+          filter.state = clickedItem;
+        },
       ),
     );
   }
