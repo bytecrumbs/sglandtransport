@@ -15,9 +15,16 @@ final isFavoriteBusStopStateProvider =
   return vm.isFavoriteBusStop(busStopCode);
 });
 
+final _everyMinuteProvider = StreamProvider<void>((ref) {
+  return Stream.periodic(const Duration(minutes: 1));
+});
+
 final busArrivalsFutureProvider = FutureProvider.family
     .autoDispose<List<BusArrivalServicesModel>, String>(
         (ref, busStopCode) async {
+  // This ensures that the bus arrivals are fetched every minute
+  ref.watch(_everyMinuteProvider);
+
   final vm = ref.watch(busStopPageViewModelProvider);
   return vm.getBusArrivals(busStopCode);
 });
