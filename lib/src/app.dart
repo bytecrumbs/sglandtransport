@@ -1,6 +1,6 @@
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'bus_stop/bus_stop_list_page_view.dart';
 import 'bus_stop/bus_stop_page_view.dart';
