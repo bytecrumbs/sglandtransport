@@ -3,6 +3,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../search/custom_search_delegate.dart';
@@ -27,7 +28,7 @@ final filterProvider = StateProvider((ref) {
 final busStopValueModelProvider =
     Provider<BusStopValueModel>((_) => throw UnimplementedError());
 
-class BusStopListPageView extends ConsumerWidget {
+class BusStopListPageView extends HookConsumerWidget {
   const BusStopListPageView({Key? key}) : super(key: key);
 
   static const routeName = '/';
@@ -52,37 +53,50 @@ class BusStopListPageView extends ConsumerWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final sliverAnimationHeight = screenHeight * 0.32;
 
+    final isExpanded = useState(true);
+    final appBarForegroundColor = isExpanded.value
+        ? kPrimaryColor
+        : Theme.of(context).appBarTheme.foregroundColor;
+
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            elevation: 0,
-            title: const Text('Bus Stops'),
-            pinned: true,
-            expandedHeight: sliverAnimationHeight,
-            actions: <Widget>[
-              IconButton(
-                key: const ValueKey('searchIconButton'),
-                icon: const Icon(Icons.search, size: 27),
-                onPressed: () {
-                  showSearch<dynamic>(
-                    context: context,
-                    delegate: CustomSearchDelegate(),
-                  );
-                },
-              ),
-            ],
-            flexibleSpace: FlexibleSpaceBar(
-              background: FlareActor.asset(
-                AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
-                alignment: Alignment.topCenter,
-                fit: BoxFit.cover,
-                animation: flareAnimation,
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (scrollState) {
+          isExpanded.value =
+              scrollState.metrics.pixels < sliverAnimationHeight / 1.5;
+          return true;
+        },
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              foregroundColor: appBarForegroundColor,
+              elevation: 0,
+              title: const Text('Bus Stops'),
+              pinned: true,
+              expandedHeight: sliverAnimationHeight,
+              actions: <Widget>[
+                IconButton(
+                  key: const ValueKey('searchIconButton'),
+                  icon: const Icon(Icons.search, size: 27),
+                  onPressed: () {
+                    showSearch<dynamic>(
+                      context: context,
+                      delegate: CustomSearchDelegate(),
+                    );
+                  },
+                ),
+              ],
+              flexibleSpace: FlexibleSpaceBar(
+                background: FlareActor.asset(
+                  AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
+                  alignment: Alignment.topCenter,
+                  fit: BoxFit.cover,
+                  animation: flareAnimation,
+                ),
               ),
             ),
-          ),
-          _getViewForIndex(filter.state)
-        ],
+            _getViewForIndex(filter.state)
+          ],
+        ),
       ),
       bottomNavigationBar: ConvexAppBar(
         items: const [
