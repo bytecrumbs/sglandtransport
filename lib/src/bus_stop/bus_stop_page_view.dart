@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lta_datamall_flutter/src/shared/widgets/staggered_animation.dart';
 
 import '../shared/custom_exception.dart';
 import '../shared/widgets/error_display.dart';
@@ -70,10 +72,15 @@ class BusStopPageView extends ConsumerWidget {
             ref.refresh(busArrivalsFutureProvider(busStopCode));
             return ref.read(busArrivalsFutureProvider(busStopCode).future);
           },
-          child: ListView.builder(
-            itemCount: busArrival.length,
-            itemBuilder: (_, index) => BusArrivalCard(
-              busArrivalModel: busArrival[index],
+          child: AnimationLimiter(
+            child: ListView.builder(
+              itemCount: busArrival.length,
+              itemBuilder: (_, index) => StaggeredAnimation(
+                index: index,
+                child: BusArrivalCard(
+                  busArrivalModel: busArrival[index],
+                ),
+              ),
             ),
           ),
         ),
