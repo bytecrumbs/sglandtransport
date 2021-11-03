@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flare_flutter/flare_cache.dart';
+import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,6 +37,11 @@ void main() {
       }
 
       final sharedPreferences = await SharedPreferences.getInstance();
+
+      // Setup flare
+      FlareCache.doesPrune = false;
+      await cachedActor(
+          AssetFlare(bundle: rootBundle, name: 'images/city.flr'));
 
       runApp(
         ProviderScope(

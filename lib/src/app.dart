@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'bus_stop/bus_stop_list_page_view.dart';
 import 'bus_stop/bus_stop_page_view.dart';
 import 'shared/common_providers.dart';
+import 'shared/palette.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({
@@ -15,7 +16,12 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       restorationScopeId: 'app',
-      theme: ThemeData(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: kMainBackgroundColor,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: kPrimaryColor,
+        ),
+      ),
       navigatorObservers: [
         FirebaseAnalyticsObserver(
           analytics: ref.read(analyticsProvider),
