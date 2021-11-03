@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/custom_exception.dart';
 import '../../shared/widgets/error_display.dart';
+import '../../shared/widgets/staggered_animation.dart';
 import '../bus_stop_list_page_view.dart';
 import 'bus_stop_card.dart';
 import 'bus_stop_list_favorites_view_model.dart';
@@ -21,15 +23,21 @@ class BusStopListFavoritesView extends ConsumerWidget {
     return busStops.when(
       data: (busStops) {
         if (busStops.isNotEmpty) {
-          return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (_, index) => ProviderScope(
-                overrides: [
-                  busStopValueModelProvider.overrideWithValue(busStops[index])
-                ],
-                child: const BusStopCard(),
+          return AnimationLimiter(
+            child: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (_, index) => StaggeredAnimation(
+                  index: index,
+                  child: ProviderScope(
+                    overrides: [
+                      busStopValueModelProvider
+                          .overrideWithValue(busStops[index])
+                    ],
+                    child: const BusStopCard(),
+                  ),
+                ),
+                childCount: busStops.length,
               ),
-              childCount: busStops.length,
             ),
           );
         } else {

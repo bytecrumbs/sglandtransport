@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../shared/palette.dart';
 import '../../shared/widgets/substring_highlight.dart';
 import '../bus_stop_list_page_view.dart';
 import '../bus_stop_page_view.dart';
@@ -19,11 +20,13 @@ class BusStopCard extends ConsumerWidget {
       child: ListTile(
         title: SubstringHighlight(
           text: busStopValueModel.description ?? '',
+          textStyle: const TextStyle(fontWeight: FontWeight.bold),
           term: searchTerm,
         ),
         subtitle: SubstringHighlight(
           text:
               '${busStopValueModel.busStopCode ?? ""} | ${busStopValueModel.roadName ?? ""}',
+          textStyle: const TextStyle(color: kSecondaryColor),
           term: searchTerm,
         ),
         trailing: Row(
