@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../search/custom_search_delegate.dart';
 import '../shared/constants.dart';
 import '../shared/services/local_storage_service.dart';
+import 'bus_repository.dart';
 import 'bus_stop_list_page_view_model.dart';
 import 'widgets/bus_stop_list_favorites_view.dart';
 import 'widgets/bus_stop_list_nearby_view.dart';
@@ -13,6 +14,9 @@ final filterProvider = StateProvider((ref) {
   final vm = ref.watch(busStopListPageViewModelProvider);
   return vm.bottomNavBarFilter();
 });
+
+final busStopValueModelProvider =
+    Provider<BusStopValueModel>((_) => throw UnimplementedError());
 
 class BusStopListPageView extends ConsumerWidget {
   const BusStopListPageView({Key? key}) : super(key: key);

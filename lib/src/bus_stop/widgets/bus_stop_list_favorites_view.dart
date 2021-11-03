@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../shared/custom_exception.dart';
 import '../../shared/widgets/error_display.dart';
+import '../bus_stop_list_page_view.dart';
 import 'bus_stop_card.dart';
 import 'bus_stop_list_favorites_view_model.dart';
 
@@ -22,8 +23,11 @@ class BusStopListFavoritesView extends ConsumerWidget {
         if (busStops.isNotEmpty) {
           return SliverList(
             delegate: SliverChildBuilderDelegate(
-              (_, index) => BusStopCard(
-                busStopValueModel: busStops[index],
+              (_, index) => ProviderScope(
+                overrides: [
+                  busStopValueModelProvider.overrideWithValue(busStops[index])
+                ],
+                child: const BusStopCard(),
               ),
               childCount: busStops.length,
             ),

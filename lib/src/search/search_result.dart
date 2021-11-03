@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../bus_stop/bus_database_service.dart';
 import '../bus_stop/bus_repository.dart';
+import '../bus_stop/bus_stop_list_page_view.dart';
 import '../bus_stop/widgets/bus_stop_card.dart';
 import '../shared/custom_exception.dart';
 import '../shared/widgets/error_display.dart';
@@ -41,9 +42,13 @@ class SearchResult extends ConsumerWidget {
     return _searchResult.when(
       data: (searchResult) => ListView.builder(
         itemCount: searchResult.length,
-        itemBuilder: (_, index) => BusStopCard(
-          busStopValueModel: searchResult[index],
-          searchTerm: searchTerm,
+        itemBuilder: (_, index) => ProviderScope(
+          overrides: [
+            busStopValueModelProvider.overrideWithValue(searchResult[index])
+          ],
+          child: BusStopCard(
+            searchTerm: searchTerm,
+          ),
         ),
       ),
       loading: (_) => const Center(child: CircularProgressIndicator()),

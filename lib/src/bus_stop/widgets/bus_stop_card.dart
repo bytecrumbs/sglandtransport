@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../shared/widgets/substring_highlight.dart';
-import '../bus_repository.dart';
+import '../bus_stop_list_page_view.dart';
 import '../bus_stop_page_view.dart';
 
-class BusStopCard extends StatelessWidget {
+class BusStopCard extends ConsumerWidget {
   const BusStopCard({
     Key? key,
-    required this.busStopValueModel,
     this.searchTerm = '',
   }) : super(key: key);
-
-  final BusStopValueModel busStopValueModel;
   final String searchTerm;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final busStopValueModel = ref.watch(busStopValueModelProvider);
     return Card(
       child: ListTile(
         title: SubstringHighlight(
