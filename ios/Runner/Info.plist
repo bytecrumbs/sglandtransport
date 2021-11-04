@@ -41,12 +41,10 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open and in the background.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs access to location when in the background.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>SG Land Tranport uses your current location to search for nearby bus stops.</string>
+	<string>SG Land Transport needs access to location when open.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>SG Land Transport needs access to location when in the background.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

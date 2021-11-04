@@ -17,65 +17,45 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  auto_route: ^2.3.2
   convex_bottom_bar: ^3.0.0
-  dio: ^4.0.0
-  firebase_analytics: ^8.3.2
-  firebase_core: ^1.6.0
-  firebase_crashlytics: ^2.2.1
-  firebase_performance: ^0.7.1+1
+  dio: ^4.0.1
+  drift: ^1.0.1
+  firebase_analytics: ^8.3.4
+  firebase_core: ^1.8.0
+  firebase_crashlytics: ^2.2.4
+  firebase_performance: ^0.7.1+2
   flare_flutter: ^3.0.2
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.17.0
+  flutter_hooks: ^0.18.0
   flutter_staggered_animations: ^1.0.0
-  freezed_annotation: ^0.14.3
-  hooks_riverpod: ^0.14.0+4
+  freezed_annotation: ^0.15.0
+  geolocator: ^7.7.1
+  hooks_riverpod: ^1.0.0-dev.11
   injectable: ^1.5.0
-  json_annotation: ^4.1.0
-  latlong2: ^0.8.0
-  location: ^4.3.0
-  logging: ^1.0.2
+  json_annotation: ^4.3.0
+  logger: ^1.1.0
   path: ^1.8.0
+  path_provider: ^2.0.6
   pedantic: ^1.11.1
   rate_my_app: ^1.1.1
   share: ^2.0.4
   shared_preferences: ^2.0.8
-  sqflite: ^2.0.0+4
-  url_launcher: ^6.0.11
-  # substring_highlight: ^0.1.2
-  # screenshots: ^2.1.1
-  #navigation
-  #stack service
+  sqlite3_flutter_libs: ^0.5.1
+  url_launcher: ^6.0.12
 
 dev_dependencies:
-  auto_route_generator: ^2.3.2
-  build_runner: ^2.1.2
+  build_runner: ^2.1.4
+  drift_dev: ^1.0.2
   flutter_driver:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  freezed: ^0.14.5
+  freezed: ^0.15.0+1
   integration_test:
     sdk: flutter
-  json_serializable: ^5.0.1
+  json_serializable: ^6.0.1
   mockito: ^5.0.16
-
-# dependency_overrides:
-#   screenshots:
-#     git: https://github.com/trygvis/screenshots
-#   tool_base:
-#     git: https://github.com/speaking-in-code/tool_base
-#   tool_base_test:
-#     git: https://github.com/trygvis/tool_base_test
-#   tool_mobile:
-#     git: https://github.com/trygvis/tool_mobile
-#   fake_process_manager:
-#     git: https://github.com/trygvis/fake_process_manager
-# dependency_overrides:
-#   process: ^4.0.0-nullsafety.1
-#   platform: ^3.0.0-nullsafety.1
-#   file: ^6.0.0-nullsafety.1
 
 flutter_icons:
   android: true
