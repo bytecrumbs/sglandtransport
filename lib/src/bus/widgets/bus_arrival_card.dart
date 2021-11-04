@@ -93,13 +93,9 @@ class BusArrivalCard extends StatelessWidget {
                             busArrivalModel.nextBus.getLoadLongDescription(),
                         loadColor: busArrivalModel.nextBus.getLoadColor(),
                       ),
-                      // TODO: figure out why it is not shown in the UI
-                      const VerticalDivider(
-                        color: Colors.grey,
-                        thickness: 1,
-                        indent: 20,
-                        endIndent: 0,
-                        width: 20,
+                      const Icon(
+                        Icons.arrow_back_ios,
+                        size: 15,
                       ),
                       _NextBusDetails(
                         estimatedArrival:
@@ -108,12 +104,9 @@ class BusArrivalCard extends StatelessWidget {
                             busArrivalModel.nextBus2.getLoadLongDescription(),
                         loadColor: busArrivalModel.nextBus2.getLoadColor(),
                       ),
-                      const VerticalDivider(
-                        color: Colors.grey,
-                        thickness: 1,
-                        indent: 20,
-                        endIndent: 0,
-                        width: 20,
+                      const Icon(
+                        Icons.arrow_back_ios,
+                        size: 15,
                       ),
                       _NextBusDetails(
                         estimatedArrival:
