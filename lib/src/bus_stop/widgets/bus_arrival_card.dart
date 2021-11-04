@@ -39,31 +39,32 @@ class BusArrivalCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 1),
-                padding: const EdgeInsets.fromLTRB(7, 4, 10, 4),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(10),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.35),
-                      blurRadius: 3,
-                      offset: const Offset(0, -1),
+              if (busArrivalModel.inService)
+                Container(
+                  margin: const EdgeInsets.only(left: 1),
+                  padding: const EdgeInsets.fromLTRB(7, 4, 10, 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(10),
                     ),
-                  ],
-                ),
-                // TODO: show the destination name, not just the code
-                child: Text(
-                  'to ${busArrivalModel.nextBus.destinationCode ?? ''}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.35),
+                        blurRadius: 3,
+                        offset: const Offset(0, -1),
+                      ),
+                    ],
+                  ),
+                  // TODO: show the destination name, not just the code
+                  child: Text(
+                    'to ${busArrivalModel.nextBus.destinationCode ?? ''}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
           Container(
