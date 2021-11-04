@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../drawer/drawer_view.dart';
 import '../search/custom_search_delegate.dart';
 import '../shared/constants.dart';
 import '../shared/palette.dart';
@@ -59,6 +60,7 @@ class BusStopListPageView extends HookConsumerWidget {
         : Theme.of(context).appBarTheme.foregroundColor;
 
     return Scaffold(
+      drawer: const DrawerView(),
       body: NotificationListener<ScrollNotification>(
         onNotification: (scrollState) {
           isExpanded.value =
