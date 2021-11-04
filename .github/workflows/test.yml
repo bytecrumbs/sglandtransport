@@ -1,0 +1,39 @@
+name: Test
+on:
+  push:
+    branches: [master]
+    paths:
+      - "lib/**"
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "2.5.3"
+      - name: Prepare
+        run: |
+          flutter pub get
+          flutter pub run build_runner build
+      - name: Analyze
+        run: flutter analyze
+      # - name: Ensure complete test covered
+      #   run: sh scripts/import_files_coverage.sh snd_mobile_app
+      - name: Unit Test
+        run: flutter test --coverage
+      # - name: Upload coverage to codecov
+      #   uses: codecov/codecov-action@v2
+      #   with:
+      #     token: ${{ secrets.CODECOV_UPLOAD_TOKEN }}
+      #     files: ./packages/snd_app/coverage/lcov.info
+      #     flags: app
