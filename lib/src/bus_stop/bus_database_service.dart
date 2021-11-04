@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lta_datamall_flutter/src/shared/services/local_storage_service.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -59,8 +60,14 @@ class BusDatabaseService extends _$BusDatabaseService {
   @override
   MigrationStrategy get migration => MigrationStrategy(
         beforeOpen: (details) async {
-          // TODO: tables need to be refreshed periodically, not just when it is created the first times
-          if (details.wasCreated) {
+          const refreshDateKey = 'refreshDateKey';
+          // get the date of when the database needs to be refreshed
+          final refreshDate =
+              _read(localStorageServiceProvider).getInt(refreshDateKey) ?? 0;
+          // refresh the database if it is newly created, or if more than 30
+          // days have passed since last refresh
+          if (details.wasCreated ||
+              refreshDate < DateTime.now().millisecondsSinceEpoch) {
             _read(loggerProvider).d('Refreshing tables');
             // add all bus stops into the local database. this has to complete
             // before we show bus stops, as it is fetched from the local DB
@@ -71,6 +78,13 @@ class BusDatabaseService extends _$BusDatabaseService {
             // bus stop
             // ignore: unawaited_futures
             _refreshBusRoutes();
+            // tables should be refreshed again in 30 days
+            final refreshDate = DateTime.now()
+                .add(const Duration(days: 30))
+                .millisecondsSinceEpoch;
+            // ignore: unawaited_futures
+            _read(localStorageServiceProvider)
+                .setInt(refreshDateKey, refreshDate);
           }
         },
       );
