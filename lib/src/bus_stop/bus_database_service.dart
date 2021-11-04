@@ -4,11 +4,11 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lta_datamall_flutter/src/shared/services/local_storage_service.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 import '../shared/common_providers.dart';
+import '../shared/services/local_storage_service.dart';
 import 'bus_repository.dart';
 
 part 'bus_database_service.g.dart';
