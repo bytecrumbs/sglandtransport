@@ -18,6 +18,7 @@ class BusArrivalCard extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
                 padding:
