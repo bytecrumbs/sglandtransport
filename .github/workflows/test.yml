@@ -30,8 +30,8 @@ jobs:
         run: flutter analyze
       # - name: Ensure complete test covered
       #   run: sh scripts/import_files_coverage.sh snd_mobile_app
-      - name: Unit Test
-        run: flutter test --coverage
+      # - name: Unit Test
+      #   run: flutter test --coverage
       # - name: Upload coverage to codecov
       #   uses: codecov/codecov-action@v2
       #   with:
