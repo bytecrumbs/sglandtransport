@@ -13,6 +13,8 @@ import 'bus_repository.dart';
 
 part 'bus_database_service.g.dart';
 
+// test ci
+
 class TableBusRoutes extends Table {
   TextColumn get serviceNo => text().nullable()();
   TextColumn get operator => text().nullable()();
