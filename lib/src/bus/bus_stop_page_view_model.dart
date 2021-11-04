@@ -22,15 +22,61 @@ class BusStopPageViewModel {
 
   Future<List<BusArrivalServicesModel>> getBusArrivals(
       String busStopCode) async {
-    // fetch info from API and local DB
+    // get arrival times for bus services
     final repository = read(busRepositoryProvider);
-    final db = read(busDatabaseServiceProvider);
-    final busRoutes = await db.getBusServiceNosForBusStopCode(busStopCode);
     final busArrivals = await repository.fetchBusArrivals(busStopCode);
 
-    // the BusArrival API only returns bus services that are currently in service,
-    // so we need to add the bus services not currenlty in service manually by
-    // looking up the BusRoutes, which we are storing in the local DB
+    // add destination description to busArrivals
+    final busArrivalsWithDestination =
+        await _addDestination(busArrivals: busArrivals);
+
+    // add services that are currently not in operation
+    final busArrivalsWithDestinationAndNotInOperation =
+        await _addNotInOperation(
+      busArrivals: busArrivalsWithDestination,
+      busStopCode: busStopCode,
+    );
+
+    // sort result
+    busArrivalsWithDestinationAndNotInOperation.sort((var a, var b) =>
+        int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
+            .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))));
+
+    return busArrivalsWithDestinationAndNotInOperation;
+  }
+
+  Future<List<BusArrivalServicesModel>> _addDestination(
+      {required List<BusArrivalServicesModel> busArrivals}) async {
+    // get a list of all bus service nos
+    final busArrivalsDestinationCode =
+        busArrivals.map((e) => e.nextBus.destinationCode ?? '').toList();
+
+    // fetch all bus stops as per the busArrivals list
+    final busStops = await read(busDatabaseServiceProvider)
+        .getBusStops(favoriteBusStops: busArrivalsDestinationCode);
+
+    // add the destination to the busArrivals list
+    final busArrivalsWithDestination = <BusArrivalServicesModel>[];
+    for (final busArrival in busArrivals) {
+      final destination = busStops
+          .where((element) =>
+              element.busStopCode == busArrival.nextBus.destinationCode)
+          .toList();
+      busArrivalsWithDestination.add(
+          busArrival.copyWith(destinationName: destination[0].description));
+    }
+    return busArrivalsWithDestination;
+  }
+
+  /// the BusArrival API only returns bus services that are currently in service,
+  /// so we need to add the bus services not currenlty in service manually by
+  /// looking up the BusRoutes, which we are storing in the local DB
+  Future<List<BusArrivalServicesModel>> _addNotInOperation({
+    required List<BusArrivalServicesModel> busArrivals,
+    required String busStopCode,
+  }) async {
+    final busRoutes = await read(busDatabaseServiceProvider)
+        .getBusServiceNosForBusStopCode(busStopCode);
     if (busRoutes.length > busArrivals.length) {
       // create a list of service numbers, so we can better compare
       final busRoutesServiceNo = busRoutes.map((e) => e.serviceNo).toList();
@@ -54,12 +100,6 @@ class BusStopPageViewModel {
         busArrivals.add(missingBusArrivalServiceModel);
       }
     }
-
-    // sort result
-    busArrivals.sort((var a, var b) =>
-        int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
-            .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))));
-
     return busArrivals;
   }
 

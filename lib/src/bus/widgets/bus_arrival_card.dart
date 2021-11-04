@@ -56,9 +56,8 @@ class BusArrivalCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // TODO: show the destination name, not just the code
                   child: Text(
-                    'to ${busArrivalModel.nextBus.destinationCode ?? ''}',
+                    'to ${busArrivalModel.destinationName ?? ''}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 13,
