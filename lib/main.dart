@@ -16,8 +16,6 @@ import 'src/shared/services/local_storage_service.dart';
 // Toggle this for testing Crashlytics in the app locally.
 const _kTestingCrashlytics = false;
 
-// TODO: add app review functionality (in_app_review or rate_my_app)
-
 // TODO: investigate the isSmallScreen logic across the app. currently, I have not implemented this.
 
 void main() {
