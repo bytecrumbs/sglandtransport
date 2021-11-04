@@ -92,9 +92,10 @@ class BusArrivalCard extends StatelessWidget {
                             busArrivalModel.nextBus.getLoadLongDescription(),
                         loadColor: busArrivalModel.nextBus.getLoadColor(),
                       ),
+                      // TODO: figure out why it is not shown in the UI
                       const VerticalDivider(
-                        color: Colors.red,
-                        thickness: 5,
+                        color: Colors.grey,
+                        thickness: 1,
                         indent: 20,
                         endIndent: 0,
                         width: 20,
@@ -122,7 +123,11 @@ class BusArrivalCard extends StatelessWidget {
                       ),
                     ],
                   )
-                : const Text('Not in Operation'),
+                : Row(
+                    children: const [
+                      Text('Not In Operation'),
+                    ],
+                  ),
           ),
         ],
       ),
