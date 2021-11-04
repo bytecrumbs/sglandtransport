@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,6 +8,7 @@ import '../shared/common_providers.dart';
 import '../shared/constants.dart';
 import '../shared/custom_exception.dart';
 import '../shared/environment_config.dart';
+import '../shared/palette.dart';
 
 part 'bus_repository.freezed.dart';
 part 'bus_repository.g.dart';
@@ -143,20 +145,33 @@ class NextBusModel with _$NextBusModel {
         return '${arrivalInMinutes}min';
       }
     } else {
-      return 'Not in operation';
+      return 'n/a';
     }
   }
 
   String getLoadLongDescription() {
     switch (load) {
       case 'SEA':
-        return 'Seats Available';
+        return 'Seats Avail.';
       case 'SDA':
-        return ' Standing Available';
+        return ' Standing Avail.';
       case 'LDS':
         return ' Limited Standing';
       default:
         return '';
+    }
+  }
+
+  Color getLoadColor() {
+    switch (load) {
+      case 'SEA':
+        return kLoadSeatsAvailable;
+      case 'SDA':
+        return kLoadStandingAvailable;
+      case 'LDS':
+        return kLoadLimitedStanding;
+      default:
+        return kLoadSeatsAvailable;
     }
   }
 }
