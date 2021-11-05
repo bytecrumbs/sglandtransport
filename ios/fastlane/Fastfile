@@ -105,41 +105,8 @@ platform :ios do
       skip_metadata: false,
       skip_screenshots: false,
       skip_binary_upload: true,
-      overwrite_screenshots: true
-    )
-  end
-
-  lane :testflight_from_ci do
-    match(
-      type: "appstore",
-      readonly: is_ci
-    )
-    update_code_signing_settings(
-      code_sign_identity: "iPhone Distribution",
-      use_automatic_signing: false
-    )
-    build_ios_app(
-      export_method: "app-store",
-      export_options: {
-        provisioningProfiles: {
-          "com.saschaderungs.ltaDatamall" => "match AppStore com.saschaderungs.ltaDatamall"
-        }
-      },
-      xcargs: {
-        "PROVISIONING_PROFILE_SPECIFIER" => "match AppStore com.saschaderungs.ltaDatamall",
-      }
-    )
-    upload_to_testflight(
-      skip_waiting_for_build_processing: true
-    )
-    upload_to_app_store(
-      submit_for_review: false,
-      automatic_release: false,
-      force: true, # Skip HTMl report verification
-      skip_metadata: false,
-      skip_screenshots: false,
-      skip_binary_upload: true,
-      overwrite_screenshots: true
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false
     )
   end
 
@@ -157,7 +124,7 @@ platform :ios do
         add_id_info_serves_ads: false,
         add_id_info_tracks_action: true,
         add_id_info_tracks_install: true,
-        add_id_info_uses_idfa: true
+        add_id_info_uses_idfa: true,
       }
     )
   end
