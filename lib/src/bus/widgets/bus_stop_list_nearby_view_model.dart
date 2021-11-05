@@ -21,11 +21,13 @@ class BusStopListNearbyViewModel {
     final allBusStops = await busDbService.getBusStops();
 
     // this is needed so that the location is fetched again when the location of
-    // the device has not changed since last time it was called
-    final currentLocation = await Geolocator.getCurrentPosition();
+    // the device has not changed since last time it was called. this is also
+    // required as it might take a while until the next precise location
+    // from below stream is being yielded
+    final currentLocation = await Geolocator.getLastKnownPosition();
     yield busDbService.filterNearbyBusStops(
-      currentLatitude: currentLocation.latitude,
-      currentLongitude: currentLocation.longitude,
+      currentLatitude: currentLocation?.latitude ?? 0,
+      currentLongitude: currentLocation?.longitude ?? 0,
       busStopList: allBusStops,
     );
 
