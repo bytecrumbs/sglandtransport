@@ -33,14 +33,6 @@ platform :ios do
     increment_build_number(xcodeproj: "Runner.xcodeproj")
   end
 
-  lane :testflight_from_local do
-    match(type: "appstore", readonly: is_ci)
-    build_ios_app(
-      export_method: "app-store"
-    )
-    upload_to_testflight
-  end
-
   desc "Registers new devices to Dev Portal and auto re-generate the provisioning profile if necessary"
   lane :add_new_devices do
     register_devices(
@@ -79,6 +71,41 @@ platform :ios do
       release_notes: "This is a distribution build!",
       groups: "sglandtransport_internal_test_group",
       debug: true
+    )
+  end
+
+  desc "Sets the version of the bundle to a RELEASE_VERSION passed in as an environment variable"
+  lane :set_release_version do
+      version = ENV["RELEASE_VERSION"]
+      if version
+          UI.message("Setting version to #{version}")
+          increment_version_number(version_number: version)
+          increment_build_number(build_number: Time.now.to_i)
+      else
+          UI.user_error!("Environment variable RELEASE_VERSION not set")
+      end
+  end
+
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    setup_ci
+    app_store_connect_api_key(
+      key_id: ENV['ASCAPI_KEY_ID'],
+      issuer_id: ENV['ASCAPI_ISSUER_ID'],
+      key_content: ENV['ASCAPI_KEY_CONTENT'],
+      is_key_content_base64: true
+    )
+    match(type: "appstore")
+    build_ios_app(export_method: "app-store")
+    testflight(skip_waiting_for_build_processing: is_ci)
+    upload_to_app_store(
+      submit_for_review: false,
+      automatic_release: false,
+      force: true, # Skip HTMl report verification
+      skip_metadata: false,
+      skip_screenshots: false,
+      skip_binary_upload: true,
+      overwrite_screenshots: true
     )
   end
 

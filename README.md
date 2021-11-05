@@ -116,11 +116,57 @@ flutter drive --target=test_driver/app.dart --dart-define=LTA_DATAMALL_API_KEY=<
 
 ## Deployments
 
-### Beta deployments
+### TestFlight
 
-Deployments can be run from your local machine
+#### GitHub Actions
 
-#### iOS TestFlight from Dev Machine:
+TBD
+
+#### Manually from Dev Machine
+
+Ensure you have an SSH key properly set up. You can follow [this guideline from GitHub](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account). When creating the SSH key, ensure to leave the passphrase empty!
+
+To test if you have the necessary rights and all is setup correctly, please try to run `git clone git@github.com:bytecrumbs/certificates.git`, which should complete successfully, without prompting any passphrase.
+
+Once the above works successfully, you can create a new Testflight version manually from your local machine using following steps:
+
+```zsh
+
+# generate required files using build_runner
+flutter pub run build_runner build --delete-conflicting-outputs
+
+# ensure the tests are passing
+flutter test
+
+# ensure you have the correct fastlane version installed
+cd ios
+bundle install
+
+# store the version number in an environment variable
+RELEASE_VERSION=<version_number>
+export RELEASE_VERSION
+
+# configure App Store Connect API
+ASCAPI_KEY_ID=<key_id>
+export ASCAPI_KEY_ID
+ASCAPI_ISSUER_ID=<issuer_id>
+export ASCAPI_ISSUER_ID
+ASCAPI_KEY_CONTENT=<key_content>
+export ASCAPI_KEY_CONTENT
+
+# set new version and build number
+bundle exec fastlane set_release_version
+
+# build a release version of the app
+flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key>
+
+# upload the built version to Testflight
+bundle exec fastlane beta
+```
+
+There is no need to push the changes that `bundle exec fastlane set_release_version` has caused, you can savely discard those changes, as they will be overwritten again with above commands when the next build is produced.
+
+#### BACKUP Manually from Dev Machine:
 
 ```
 cd ios

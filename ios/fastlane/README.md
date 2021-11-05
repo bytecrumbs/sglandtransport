@@ -26,11 +26,6 @@ Push a new beta build to TestFlight
 fastlane ios increment_build_number_ios
 ```
 
-### ios testflight_from_local
-```
-fastlane ios testflight_from_local
-```
-
 ### ios add_new_devices
 ```
 fastlane ios add_new_devices
@@ -41,6 +36,16 @@ Registers new devices to Dev Portal and auto re-generate the provisioning profil
 fastlane ios upload_firebase
 ```
 Upload to Firebase
+### ios set_release_version
+```
+fastlane ios set_release_version
+```
+Sets the version of the bundle to a RELEASE_VERSION passed in as an environment variable
+### ios beta
+```
+fastlane ios beta
+```
+Push a new beta build to TestFlight
 ### ios testflight_from_ci
 ```
 fastlane ios testflight_from_ci
