@@ -1,1 +1,1 @@
-- Stability and performance improvements
+Major changes to underlying architecture, making SG Land Transport ready for new and upcoming features
