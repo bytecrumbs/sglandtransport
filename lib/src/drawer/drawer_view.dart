@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
 import '../about/about_view.dart';
+import '../shared/environment_config.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({Key? key}) : super(key: key);
@@ -22,14 +23,14 @@ class DrawerView extends StatelessWidget {
             title: const Text('Buses'),
             onTap: () {},
           ),
-          const AboutListTile(
-            icon: Icon(Icons.info_outline),
+          AboutListTile(
+            icon: const Icon(Icons.info_outline),
             applicationName: 'SG Land Transport',
-            // TODO: find a better way to read version umber
-            applicationVersion: 'xxx',
+            applicationVersion:
+                '${EnvironmentConfig.buildName} - ${EnvironmentConfig.buildNumber.toString()}',
             applicationLegalese: 'free | ad-free | open-source',
-            applicationIcon: Icon(Icons.info_outline),
-            aboutBoxChildren: <Widget>[AboutView()],
+            applicationIcon: const Icon(Icons.info_outline),
+            aboutBoxChildren: const <Widget>[AboutView()],
           ),
           ListTile(
             leading: Icon(Platform.isAndroid ? Icons.share : Icons.ios_share),

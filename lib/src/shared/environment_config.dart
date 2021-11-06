@@ -5,4 +5,8 @@ class EnvironmentConfig {
   static const ltaDatamallApiKey = String.fromEnvironment(
       'LTA_DATAMALL_API_KEY',
       defaultValue: '<useYourOwnKey>');
+  static const buildName =
+      String.fromEnvironment('BUILD_NAME', defaultValue: '<0.0.0>');
+  static const buildNumber =
+      int.fromEnvironment('BUILD_NUMBER', defaultValue: 123456);
 }
