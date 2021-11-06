@@ -26,8 +26,7 @@ class DrawerView extends StatelessWidget {
           AboutListTile(
             icon: const Icon(Icons.info_outline),
             applicationName: 'SG Land Transport',
-            applicationVersion:
-                '${EnvironmentConfig.buildName} - ${EnvironmentConfig.buildNumber.toString()}',
+            applicationVersion: 'EnvironmentConfig.buildName',
             applicationLegalese: 'free | ad-free | open-source',
             applicationIcon: const Icon(Icons.info_outline),
             aboutBoxChildren: const <Widget>[AboutView()],
