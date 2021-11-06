@@ -1,0 +1,53 @@
+name: Deploy to Testflight
+on:
+  release:
+    types: [created]
+
+jobs:
+  testflight:
+    name: Deploy
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "2.5.3"
+      - name: Setup SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          if_key_exists: replace
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+      - name: Set Release Version
+        run: bundle exec fastlane set_release_version
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+      - name: Prepare for build
+        run: |
+          flutter pub get
+          flutter pub run build_runner build
+          flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=${{secrets.LTA_DATAMALL_API_KEY}} --dart-define=BUILD_NAME=$RELEASE_VERSION
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+      - name: TestFlight
+        run: bundle exec fastlane beta
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          ASCAPI_KEY_ID: ${{ secrets.ASCAPI_KEY_ID }}
+          ASCAPI_ISSUER_ID: ${{ secrets.ASCAPI_ISSUER_ID }}
+          ASCAPI_KEY_CONTENT: ${{ secrets.ASCAPI_KEY_CONTENT }}
+          # FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+          # FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+          # FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+          # FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
