@@ -21,7 +21,7 @@ class AboutView extends StatelessWidget {
               ),
               _buildTextSpanWithTapGesture(
                 'LTA Data Mall',
-                'https://www.mytransport.sg/content/mytransport/home/dataMall.html',
+                'https://datamall.lta.gov.sg/content/datamall/en.html',
               ),
               TextSpan(
                 text: ' to facilitate usage of public and private transport in '
