@@ -31,6 +31,7 @@ jobs:
           bundler-cache: true
           working-directory: ios
       - name: Set Release Version
+        working-directory: ios
         run: bundle exec fastlane set_release_version
         env:
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
@@ -42,6 +43,7 @@ jobs:
         env:
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
       - name: TestFlight
+        working-directory: ios
         run: bundle exec fastlane beta
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
