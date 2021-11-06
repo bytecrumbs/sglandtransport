@@ -47,7 +47,8 @@ class BusStopListPageView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(filterProvider);
+    final filterState = ref.watch(filterProvider);
+    final filterController = ref.watch(filterProvider.notifier);
     final localStorage = ref.watch(localStorageServiceProvider);
     final flareAnimation = ref.watch(flareAnimationProvider);
 
@@ -96,7 +97,7 @@ class BusStopListPageView extends HookConsumerWidget {
                 ),
               ),
             ),
-            _getViewForIndex(filter.state)
+            _getViewForIndex(filterState)
           ],
         ),
       ),
@@ -111,10 +112,10 @@ class BusStopListPageView extends HookConsumerWidget {
             title: 'Favorites',
           )
         ],
-        initialActiveIndex: filter.state,
+        initialActiveIndex: filterState,
         onTap: (clickedItem) async {
           await localStorage.setInt(bottomBarIndexKey, clickedItem);
-          filter.state = clickedItem;
+          filterController.state = clickedItem;
         },
         backgroundColor: Theme.of(context).bottomAppBarColor,
         color: kPrimaryColor,

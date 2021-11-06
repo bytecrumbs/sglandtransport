@@ -46,8 +46,10 @@ class BusStopPageView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final busArrival = ref.watch(busArrivalsFutureProvider(busStopCode));
-    final isFavoriteBusStop =
+    final isFavoriteBusStopState =
         ref.watch(isFavoriteBusStopStateProvider(busStopCode));
+    final isFavoriteBusStopController =
+        ref.watch(isFavoriteBusStopStateProvider(busStopCode).notifier);
     final vm = ref.watch(busStopPageViewModelProvider);
 
     return Scaffold(
@@ -56,11 +58,11 @@ class BusStopPageView extends ConsumerWidget {
         actions: [
           IconButton(
             onPressed: () {
-              isFavoriteBusStop.state = !isFavoriteBusStop.state;
+              isFavoriteBusStopController.state = !isFavoriteBusStopState;
               vm.toggleFavoriteBusStop(busStopCode);
               ref.refresh(favoriteBusStopsFutureProvider);
             },
-            icon: isFavoriteBusStop.state
+            icon: isFavoriteBusStopState
                 ? const Icon(Icons.favorite)
                 : const Icon(Icons.favorite_outline),
           ),
@@ -84,8 +86,8 @@ class BusStopPageView extends ConsumerWidget {
             ),
           ),
         ),
-        loading: (_) => const Center(child: CircularProgressIndicator()),
-        error: (error, stack, _) {
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) {
           if (error is CustomException) {
             return ErrorDisplay(message: error.message);
           }

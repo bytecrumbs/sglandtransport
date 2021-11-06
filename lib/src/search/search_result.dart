@@ -51,8 +51,8 @@ class SearchResult extends ConsumerWidget {
           ),
         ),
       ),
-      loading: (_) => const Center(child: CircularProgressIndicator()),
-      error: (error, stack, _) {
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stack) {
         if (error is CustomException) {
           return ErrorDisplay(message: error.message);
         }

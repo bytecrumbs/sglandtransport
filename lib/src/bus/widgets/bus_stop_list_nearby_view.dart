@@ -39,7 +39,7 @@ class BusStopListNearbyView extends ConsumerWidget {
           ),
         ),
       ),
-      error: (error, stack, _) {
+      error: (error, stack) {
         if (error is CustomException) {
           return SliverFillRemaining(
             child: ErrorDisplay(message: error.message),
@@ -51,7 +51,7 @@ class BusStopListNearbyView extends ConsumerWidget {
           ),
         );
       },
-      loading: (_) => const SliverFillRemaining(
+      loading: () => const SliverFillRemaining(
         child: Center(
           child: Text('Looking for nearby bus stops...'),
         ),

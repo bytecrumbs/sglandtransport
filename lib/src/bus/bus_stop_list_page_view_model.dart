@@ -11,8 +11,8 @@ class BusStopListPageViewModel {
 
   final Reader read;
 
-  int? bottomNavBarFilter() {
+  int bottomNavBarFilter() {
     final localStorage = read(localStorageServiceProvider);
-    return localStorage.getInt(bottomBarIndexKey);
+    return localStorage.getInt(bottomBarIndexKey) ?? 0;
   }
 }
