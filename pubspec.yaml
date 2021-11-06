@@ -39,7 +39,7 @@ dependencies:
   path_provider: ^2.0.6
   pedantic: ^1.11.1
   rate_my_app: ^1.1.1
-  share: ^2.0.4
+  share_plus: ^3.0.4
   shared_preferences: ^2.0.8
   sqlite3_flutter_libs: ^0.5.1
   url_launcher: ^6.0.12
