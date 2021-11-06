@@ -20,7 +20,10 @@ class BusStopCard extends ConsumerWidget {
       child: ListTile(
         title: SubstringHighlight(
           text: busStopValueModel.description ?? '',
-          textStyle: const TextStyle(fontWeight: FontWeight.bold),
+          textStyle: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: kPrimaryColor,
+          ),
           term: searchTerm,
         ),
         subtitle: SubstringHighlight(
