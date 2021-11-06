@@ -29,6 +29,7 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
+          working-directory: ios
       - name: Set Release Version
         run: bundle exec fastlane set_release_version
         env:
