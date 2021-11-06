@@ -23,13 +23,13 @@ class DrawerView extends StatelessWidget {
             title: const Text('Buses'),
             onTap: () {},
           ),
-          AboutListTile(
-            icon: const Icon(Icons.info_outline),
+          const AboutListTile(
+            icon: Icon(Icons.info_outline),
             applicationName: 'SG Land Transport',
             applicationVersion: 'EnvironmentConfig.buildName',
             applicationLegalese: 'free | ad-free | open-source',
-            applicationIcon: const Icon(Icons.info_outline),
-            aboutBoxChildren: const <Widget>[AboutView()],
+            applicationIcon: Icon(Icons.info_outline),
+            aboutBoxChildren: <Widget>[AboutView()],
           ),
           ListTile(
             leading: Icon(Platform.isAndroid ? Icons.share : Icons.ios_share),
