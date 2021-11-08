@@ -34,7 +34,6 @@ class BusStopListNearbyViewModel {
     // Get a stream of locations and filter the bus stops based on it
     final locationStream = Geolocator.getPositionStream();
     await for (final locationData in locationStream) {
-      // TODO: on Android emulator, it seems to constantly execute this, although the location doesn't change
       yield busDbService.filterNearbyBusStops(
         currentLatitude: locationData.latitude,
         currentLongitude: locationData.longitude,
