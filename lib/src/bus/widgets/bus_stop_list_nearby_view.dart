@@ -16,11 +16,56 @@ final busStopsStreamProvider =
   return vm.streamBusStops();
 });
 
-class BusStopListNearbyView extends ConsumerWidget {
+// class BusStopListNearbyView extends StatefulWidget {
+//   const BusStopListNearbyView({ Key? key }) : super(key: key);
+
+//   @override
+//   _BusStopListNearbyViewState createState() => _BusStopListNearbyViewState();
+// }
+
+// class _BusStopListNearbyViewState extends State<BusStopListNearbyView> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+
+//     );
+//   }
+// }
+
+class BusStopListNearbyView extends ConsumerStatefulWidget {
   const BusStopListNearbyView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  BusStopListNearbyViewState createState() => BusStopListNearbyViewState();
+}
+
+class BusStopListNearbyViewState extends ConsumerState<BusStopListNearbyView>
+    with
+        // ignore: prefer_mixin
+        WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  // Ensure location starts to stream again, when the app comes back from the
+  // background
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ref.refresh(busStopsStreamProvider);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final busStops = ref.watch(busStopsStreamProvider);
     return busStops.when(
       data: (busStops) => AnimationLimiter(
