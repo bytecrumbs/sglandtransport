@@ -3,6 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../shared/custom_exception.dart';
+import '../shared/palette.dart';
 import '../shared/widgets/error_display.dart';
 import '../shared/widgets/staggered_animation.dart';
 import 'bus_repository.dart';
@@ -68,33 +69,81 @@ class BusStopPageView extends ConsumerWidget {
           ),
         ],
       ),
-      body: busArrival.when(
-        data: (busArrival) => RefreshIndicator(
-          onRefresh: () {
-            ref.refresh(busArrivalsFutureProvider(busStopCode));
-            return ref.read(busArrivalsFutureProvider(busStopCode).future);
-          },
-          child: AnimationLimiter(
-            child: ListView.builder(
-              itemCount: busArrival.length,
-              itemBuilder: (_, index) => StaggeredAnimation(
-                index: index,
-                child: BusArrivalCard(
-                  busArrivalModel: busArrival[index],
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: kLoadSeatsAvailable,
+                        width: 6, // Underline thickness
+                      ),
+                    ),
+                  ),
+                  child: const Text('Seats Avail.'),
                 ),
-              ),
+                Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: kLoadStandingAvailable,
+                        width: 6, // Underline thickness
+                      ),
+                    ),
+                  ),
+                  child: const Text('Standing Avail.'),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: kLoadLimitedStanding,
+                        width: 6, // Underline thickness
+                      ),
+                    ),
+                  ),
+                  child: const Text('Limited Standing'),
+                ),
+              ],
             ),
           ),
-        ),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) {
-          if (error is CustomException) {
-            return ErrorDisplay(message: error.message);
-          }
-          return ErrorDisplay(
-            message: error.toString(),
-          );
-        },
+          Expanded(
+            child: busArrival.when(
+              data: (busArrival) => RefreshIndicator(
+                onRefresh: () {
+                  ref.refresh(busArrivalsFutureProvider(busStopCode));
+                  return ref
+                      .read(busArrivalsFutureProvider(busStopCode).future);
+                },
+                child: AnimationLimiter(
+                  child: ListView.builder(
+                    itemCount: busArrival.length,
+                    itemBuilder: (_, index) => StaggeredAnimation(
+                      index: index,
+                      child: BusArrivalCard(
+                        busArrivalModel: busArrival[index],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, stack) {
+                if (error is CustomException) {
+                  return ErrorDisplay(message: error.message);
+                }
+                return ErrorDisplay(
+                  message: error.toString(),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

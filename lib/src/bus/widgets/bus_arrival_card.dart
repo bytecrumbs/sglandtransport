@@ -32,11 +32,10 @@ class BusArrivalCard extends StatelessWidget {
                 ),
                 child: Text(
                   busArrivalModel.serviceNo,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(color: Colors.white),
                 ),
               ),
               if (busArrivalModel.inService)
@@ -58,10 +57,6 @@ class BusArrivalCard extends StatelessWidget {
                   ),
                   child: Text(
                     'to ${busArrivalModel.destinationName ?? ''}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13,
-                    ),
                   ),
                 ),
             ],
@@ -146,42 +141,41 @@ class _NextBusDetails extends StatelessWidget {
     return estimatedArrival != 'n/a'
         ? Column(
             children: [
-              Text(
-                estimatedArrival,
-                style: const TextStyle(
-                  color: kPrimaryColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 19,
-                ),
-              ),
               Container(
-                padding: const EdgeInsets.only(
-                  left: 3,
-                  right: 3,
-                  top: 5,
-                  bottom: 5,
-                ),
                 decoration: BoxDecoration(
-                  color: loadColor,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(
-                  loadDescription,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
+                  border: Border(
+                    bottom: BorderSide(
+                      color: loadColor,
+                      width: 6, // Underline thickness
+                    ),
                   ),
                 ),
+                child: Text(
+                  estimatedArrival,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
               ),
+              // Container(
+              //   padding: const EdgeInsets.only(
+              //     left: 3,
+              //     right: 3,
+              //     top: 3,
+              //     bottom: 3,
+              //   ),
+              //   decoration: BoxDecoration(
+              //     color: loadColor,
+              //     borderRadius: BorderRadius.circular(6),
+              //   ),
+              //   child: Text(
+              //     loadDescription,
+              //     style: Theme.of(context).textTheme.caption,
+              //   ),
+              // ),
             ],
           )
-        : const Text(
+        : Text(
             'n/a',
-            style: TextStyle(
-              color: kPrimaryColor,
-              fontWeight: FontWeight.w600,
-              fontSize: 19,
-            ),
+            style: Theme.of(context).textTheme.subtitle1,
           );
   }
 }
