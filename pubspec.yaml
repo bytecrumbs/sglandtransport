@@ -42,6 +42,7 @@ dependencies:
   share_plus: ^3.0.4
   shared_preferences: ^2.0.8
   sqlite3_flutter_libs: ^0.5.1
+  substring_highlight: ^1.0.33
   url_launcher: ^6.0.12
 
 dev_dependencies:
