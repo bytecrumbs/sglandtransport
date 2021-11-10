@@ -55,7 +55,10 @@ jobs:
       - name: Build appbundle
         run: |
           flutter pub get
-          flutter build appbundle --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }}
+          flutter pub run build_runner build
+          flutter build appbundle --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }} --dart-define=BUILD_NAME=$RELEASE_VERSION
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
       - name: Upload to Play Store Test Lane
         run: |
           export LC_ALL=en_US.UTF-8
