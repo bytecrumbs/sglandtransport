@@ -1,4 +1,3 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../bus_database_service.dart';
@@ -12,7 +11,10 @@ class BusStopListNearbyViewModel {
 
   final Reader read;
 
-  Stream<List<BusStopValueModel>> streamBusStops() async* {
+  Future<List<BusStopValueModel>> getNearbyBusStops({
+    required double latitude,
+    required double longitude,
+  }) async {
     final busDbService = read(busDatabaseServiceProvider);
 
     // fetch all bus stops from the database and then filter based on the cached
@@ -20,25 +22,10 @@ class BusStopListNearbyViewModel {
     // every time the location changes, I think... :-)
     final allBusStops = await busDbService.getBusStops();
 
-    // this is needed so that the location is fetched again when the location of
-    // the device has not changed since last time it was called. this is also
-    // required as it might take a while until the next precise location
-    // from below stream is being yielded
-    final currentLocation = await Geolocator.getLastKnownPosition();
-    yield busDbService.filterNearbyBusStops(
-      currentLatitude: currentLocation?.latitude ?? 0,
-      currentLongitude: currentLocation?.longitude ?? 0,
+    return busDbService.filterNearbyBusStops(
+      currentLatitude: latitude,
+      currentLongitude: longitude,
       busStopList: allBusStops,
     );
-
-    // Get a stream of locations and filter the bus stops based on it
-    final locationStream = Geolocator.getPositionStream();
-    await for (final locationData in locationStream) {
-      yield busDbService.filterNearbyBusStops(
-        currentLatitude: locationData.latitude,
-        currentLongitude: locationData.longitude,
-        busStopList: allBusStops,
-      );
-    }
   }
 }

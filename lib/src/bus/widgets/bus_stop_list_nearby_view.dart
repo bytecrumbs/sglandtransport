@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../shared/common_providers.dart';
 import '../../shared/custom_exception.dart';
 import '../../shared/widgets/error_display.dart';
 import '../../shared/widgets/staggered_animation.dart';
@@ -10,27 +14,14 @@ import '../bus_stop_list_page_view.dart';
 import 'bus_stop_card.dart';
 import 'bus_stop_list_nearby_view_model.dart';
 
-final busStopsStreamProvider =
-    StreamProvider.autoDispose<List<BusStopValueModel>>((ref) {
+final busStopsStreamProvider = FutureProvider.autoDispose
+    .family<List<BusStopValueModel>, Position?>((ref, position) async {
   final vm = ref.watch(busStopListNearbyViewModelProvider);
-  return vm.streamBusStops();
+  return vm.getNearbyBusStops(
+    latitude: position?.latitude ?? 0,
+    longitude: position?.longitude ?? 0,
+  );
 });
-
-// class BusStopListNearbyView extends StatefulWidget {
-//   const BusStopListNearbyView({ Key? key }) : super(key: key);
-
-//   @override
-//   _BusStopListNearbyViewState createState() => _BusStopListNearbyViewState();
-// }
-
-// class _BusStopListNearbyViewState extends State<BusStopListNearbyView> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-
-//     );
-//   }
-// }
 
 class BusStopListNearbyView extends ConsumerStatefulWidget {
   const BusStopListNearbyView({Key? key}) : super(key: key);
@@ -43,15 +34,29 @@ class BusStopListNearbyViewState extends ConsumerState<BusStopListNearbyView>
     with
         // ignore: prefer_mixin
         WidgetsBindingObserver {
+  late StreamSubscription _subscription;
+  Position? _position;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
+    ref.read(loggerProvider).d('starting location stream');
+    _subscription = Geolocator.getPositionStream(
+            intervalDuration: const Duration(seconds: 1))
+        .listen((event) {
+      setState(() {
+        _position = event;
+      });
+    });
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
+    _subscription.cancel();
+    // uncomment the below to debug. for some reason, it is throwing error
+    // when trying to use ref.read(loggerProvider)...
+    // print('cancelling location stream');
     super.dispose();
   }
 
@@ -60,13 +65,23 @@ class BusStopListNearbyViewState extends ConsumerState<BusStopListNearbyView>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      ref.refresh(busStopsStreamProvider);
+      ref.read(loggerProvider).d('restarting location stream');
+      _subscription.cancel();
+      _subscription = Geolocator.getPositionStream(
+              intervalDuration: const Duration(seconds: 1))
+          .listen((event) {
+        setState(() {
+          _position = event;
+        });
+      });
+      // ref.refresh(busStopsStreamProvider);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final busStops = ref.watch(busStopsStreamProvider);
+    final busStops = ref.watch(busStopsStreamProvider(_position));
+
     return busStops.when(
       data: (busStops) => AnimationLimiter(
         child: SliverList(
