@@ -1,5 +1,7 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../shared/services/location_service.dart';
 import '../bus_database_service.dart';
 import '../bus_repository.dart';
 
@@ -27,5 +29,10 @@ class BusStopListNearbyViewModel {
       currentLongitude: longitude,
       busStopList: allBusStops,
     );
+  }
+
+  Stream<Position> getLocationStream() {
+    final locationService = read(locationServiceProvider);
+    return locationService.getLocationStream();
   }
 }
