@@ -5,6 +5,9 @@ final locationServiceProvider = Provider((ref) => LocationService());
 
 class LocationService {
   Stream<Position> getLocationStream() {
-    return Geolocator.getPositionStream();
+    return Geolocator.getPositionStream(
+      intervalDuration: const Duration(seconds: 1),
+      distanceFilter: 5,
+    );
   }
 }
