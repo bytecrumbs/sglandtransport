@@ -1,6 +1,6 @@
 
 ### Bus Arrival
-GET {{baseURL}}/ltaodataservice/BusArrivalv2?BusStopCode=78129
+GET {{baseURL}}/ltaodataservice/BusArrivalv2?BusStopCode=77049
 AccountKey: {{authorization}}
 
 ### Bus Routes

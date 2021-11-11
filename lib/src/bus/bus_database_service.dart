@@ -149,7 +149,7 @@ class BusDatabaseService extends _$BusDatabaseService {
   }
 
   Future<List<TableBusRoute>> getBusServiceNosForBusStopCode(
-      String busStopCode) {
+      String busStopCode) async {
     _read(loggerProvider)
         .d('Getting Bus Routes from DB for bus stop $busStopCode');
     return (select(tableBusRoutes)

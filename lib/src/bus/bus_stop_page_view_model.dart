@@ -62,8 +62,12 @@ class BusStopPageViewModel {
           .where((element) =>
               element.busStopCode == busArrival.nextBus.destinationCode)
           .toList();
-      busArrivalsWithDestination.add(
-          busArrival.copyWith(destinationName: destination[0].description));
+      if (destination.isNotEmpty) {
+        busArrivalsWithDestination.add(busArrival.copyWith(
+            destinationName: destination[0].description ?? ''));
+      } else {
+        busArrivalsWithDestination.add(busArrival);
+      }
     }
     return busArrivalsWithDestination;
   }

@@ -18,7 +18,8 @@ import 'widgets/bus_stop_list_nearby_view.dart';
 
 /// Defines whether the flare animation should loop or be idle. It is done like
 /// this (rather than using a useState hook), so that for the integration tests,
-/// this value can easily be overriden
+/// this value can easily be overriden. To ensure the animation is not looping,
+/// specify the value 'Idle'.
 final flareAnimationProvider = Provider((ref) => 'Loop');
 
 final filterProvider = StateProvider((ref) {
