@@ -1,8 +1,9 @@
 # SG Land Transport
 
 ![GitHub][license badge]
-[![Push to develop](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_develop.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_develop.yml)
-[![PR on master](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_master.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/on_push_master.yml)
+[![Test](https://github.com/bytecrumbs/sglandtransport/actions/workflows/test.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/test.yml)
+[![Deploy to Testflight](https://github.com/bytecrumbs/sglandtransport/actions/workflows/testflight.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/testflight.yml)
+[![Deploy to Google play store beta](https://github.com/bytecrumbs/sglandtransport/actions/workflows/playstore.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/playstore.yml)
 [![Twitter handle][]][twitter badge]
 
 Publc transport made easy, providing screens and functionality based on APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
@@ -58,7 +59,7 @@ Example launch.json file:
       "request": "launch",
       "type": "dart",
       "args": [
-        "--dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key goes here"
+        "--dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key goes here>"
       ]
     }
   ]
