@@ -13,6 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'src/app.dart';
 import 'src/shared/services/local_storage_service.dart';
 
+// test ci
+
 // Toggle this for testing Crashlytics in the app locally.
 const _kTestingCrashlytics = false;
 
