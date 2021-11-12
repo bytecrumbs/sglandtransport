@@ -1,12 +1,15 @@
 # SG Land Transport
 
 ![GitHub][license badge]
+[![Twitter handle][]][twitter badge]
+
 [![Test](https://github.com/bytecrumbs/sglandtransport/actions/workflows/test.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/test.yml)
 [![Deploy to Testflight](https://github.com/bytecrumbs/sglandtransport/actions/workflows/testflight.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/testflight.yml)
 [![Deploy to Google play store beta](https://github.com/bytecrumbs/sglandtransport/actions/workflows/playstore.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/playstore.yml)
-[![Twitter handle][]][twitter badge]
 
-Publc transport made easy, providing screens and functionality based on APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
+[![codecov](https://codecov.io/gh/bytecrumbs/sglandtransport/branch/master/graph/badge.svg?token=J6ATK9J4F6)](https://codecov.io/gh/bytecrumbs/sglandtransport)
+
+Public transport made easy, providing screens and functionality based on APIs that are exposed by the LTA Datamall (https://www.mytransport.sg/content/mytransport/home/dataMall.html)
 
 ## Download official apps
 
@@ -25,23 +28,13 @@ Refer to the [Contributing Guidelines](CONTRIBUTING.md).
 
 Our code of conduct is based on the [Contributor Covenant](CODE_OF_CONDUCT.md).
 
-## Setup
+## Prerequisites
 
-### Secret keys
+### Flutter
+
+- Flutter (https://flutter.dev/docs/get-started/install)
 
 #### LTA Datamall API key
-
-This key is read during build time from an environment variable named "LTA_DATAMALL_API_KEY". Environment variables can be read in 2 ways:
-
-1. from command line:
-
-```
-flutter run --dart-define=LTA_DATAMALL_API_KEY=<add your key here>
-```
-
-2. From an environment variable on your CI server
-
-You can generate a key following the guidelines of https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html
 
 If you use VSCode, we recommend you create a launch.json file that launches the flutter run command with this argument, so that you can use the standard debug functionality of VSCode, rather than running your debug build via the command line.
 
@@ -66,15 +59,19 @@ Example launch.json file:
 }
 ```
 
+To run it from command line:
+
+```zsh
+flutter run --dart-define=LTA_DATAMALL_API_KEY=<add your key here>
+```
+
+A key can be generated following the guildeines of
+
+You can generate a key following the guidelines of the [Land Transport Datamall](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html).
+
 ### Google Firebase
 
-Follow the instructions on https://firebase.google.com/docs/flutter/setup?platform=ios (as well as for Android) to add the necessary files related to Google Firebase services.
-
-## Prerequisites
-
-### Flutter
-
-- Flutter (https://flutter.dev/docs/get-started/install)
+Follow [these instructions](https://firebase.google.com/docs/flutter/setup?platform=ios) to add the necessary files related to Google Firebase services.
 
 ## Code Generation
 
@@ -166,24 +163,6 @@ bundle exec fastlane beta
 ```
 
 There is no need to push the changes that `bundle exec fastlane set_release_version` has caused, you can savely discard those changes, as they will be overwritten again with above commands when the next build is produced.
-
-#### BACKUP Manually from Dev Machine:
-
-```
-cd ios
-bundle exec fastlane increment_build_number_ios
-flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key>
-bundle exec fastlane testflight_from_local
-```
-
-Note: if you have received errors during _flutter build ios_ (i.e. an error relateded to "double-quoted include", please follow instructions in this link: https://github.com/firebase/firebase-ios-sdk/issues/5987)
-
-Upload meta-data:
-
-```
-cd ios
-bundle exec fastlane meta_data
-```
 
 #### iOS TestFlight from CI/CD:
 
