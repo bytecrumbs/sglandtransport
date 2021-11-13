@@ -56,12 +56,13 @@ jobs:
         env:
           ANDROID_GOOGLE_SERVICES: ${{ secrets.ANDROID_GOOGLE_SERVICES }}
       - name: Build appbundle
+        env:
+          BUILD_NUMBER: ${{ steps.random-build-generator.outputs.BUILD_NUMBER }}
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
         run: |
           flutter pub get
           flutter pub run build_runner build
-          flutter build appbundle --release --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }} --build-number=$BUILD_NUMBER --build-name=${{ github.event.release.tag_name }}
-        env:
-          BUILD_NUMBER: ${{ steps.random-build-generator.outputs.BUILD_NUMBER }}
+          flutter build appbundle --release --build-number=$BUILD_NUMBER --build-name=$RELEASE_VERSION --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }} --dart-define=BUILD_NAME=$RELEASE_VERSION
       - name: Upload to Play Store Test Lane
         run: |
           export LC_ALL=en_US.UTF-8
