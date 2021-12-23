@@ -16,18 +16,18 @@ PODS:
     - Firebase/Analytics (= 8.9.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.10.0):
+  - firebase_core (1.10.6):
     - Firebase/CoreOnly (= 8.9.0)
     - Flutter
-  - firebase_crashlytics (2.3.0):
+  - firebase_crashlytics (2.4.4):
     - Firebase/Crashlytics (= 8.9.0)
     - firebase_core
     - Flutter
-  - firebase_performance (0.7.1-4):
+  - firebase_performance (0.7.1-5):
     - Firebase/Performance (= 8.9.0)
     - firebase_core
     - Flutter
-  - FirebaseABTesting (8.9.0):
+  - FirebaseABTesting (8.10.0):
     - FirebaseCore (~> 8.0)
   - FirebaseAnalytics (8.9.1):
     - FirebaseAnalytics/AdIdSupport (= 8.9.1)
@@ -51,7 +51,7 @@ PODS:
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.6)
     - GoogleUtilities/Logger (~> 7.6)
-  - FirebaseCoreDiagnostics (8.9.0):
+  - FirebaseCoreDiagnostics (8.10.0):
     - GoogleDataTransport (~> 9.1)
     - GoogleUtilities/Environment (~> 7.6)
     - GoogleUtilities/Logger (~> 7.6)
@@ -63,7 +63,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.6)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseInstallations (8.9.0):
+  - FirebaseInstallations (8.10.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/Environment (~> 7.6)
     - GoogleUtilities/UserDefaults (~> 7.6)
@@ -77,7 +77,7 @@ PODS:
     - GoogleUtilities/ISASwizzler (~> 7.6)
     - GoogleUtilities/MethodSwizzler (~> 7.6)
     - nanopb (~> 2.30908.0)
-  - FirebaseRemoteConfig (8.9.0):
+  - FirebaseRemoteConfig (8.10.0):
     - FirebaseABTesting (~> 8.0)
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
@@ -137,34 +137,34 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
-  - path_provider (0.0.1):
+  - path_provider_ios (0.0.1):
     - Flutter
   - PromisesObjC (2.0.0)
   - rate_my_app (1.1.1):
     - Flutter
   - share_plus (0.0.1):
     - Flutter
-  - shared_preferences (0.0.1):
+  - shared_preferences_ios (0.0.1):
     - Flutter
-  - sqlite3 (3.36.0):
-    - sqlite3/common (= 3.36.0)
-  - sqlite3/common (3.36.0)
-  - sqlite3/fts5 (3.36.0):
+  - sqlite3 (3.37.0):
+    - sqlite3/common (= 3.37.0)
+  - sqlite3/common (3.37.0)
+  - sqlite3/fts5 (3.37.0):
     - sqlite3/common
-  - sqlite3/json1 (3.36.0):
+  - sqlite3/json1 (3.37.0):
     - sqlite3/common
-  - sqlite3/perf-threadsafe (3.36.0):
+  - sqlite3/perf-threadsafe (3.37.0):
     - sqlite3/common
-  - sqlite3/rtree (3.36.0):
+  - sqlite3/rtree (3.37.0):
     - sqlite3/common
   - sqlite3_flutter_libs (0.0.1):
     - Flutter
-    - sqlite3 (~> 3.36.0)
+    - sqlite3 (~> 3.37.0)
     - sqlite3/fts5
     - sqlite3/json1
     - sqlite3/perf-threadsafe
     - sqlite3/rtree
-  - url_launcher (0.0.1):
+  - url_launcher_ios (0.0.1):
     - Flutter
 
 DEPENDENCIES:
@@ -175,12 +175,12 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
-  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - rate_my_app (from `.symlinks/plugins/rate_my_app/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
-  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/ios`)
-  - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -215,48 +215,48 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/geolocator_apple/ios"
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
-  path_provider:
-    :path: ".symlinks/plugins/path_provider/ios"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
   rate_my_app:
     :path: ".symlinks/plugins/rate_my_app/ios"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
-  shared_preferences:
-    :path: ".symlinks/plugins/shared_preferences/ios"
+  shared_preferences_ios:
+    :path: ".symlinks/plugins/shared_preferences_ios/ios"
   sqlite3_flutter_libs:
     :path: ".symlinks/plugins/sqlite3_flutter_libs/ios"
-  url_launcher:
-    :path: ".symlinks/plugins/url_launcher/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
   Firebase: 13d8d96499e2635428d5bf0ec675df21f95d9a95
   firebase_analytics: 7a7528bb2abf4ca22cff7a57bbf909dcab73e13d
-  firebase_core: f770e033e790657b3505f04be4cb24c482912f11
-  firebase_crashlytics: ed8c1d66dc407d617cbed798f05a5d9115da7494
-  firebase_performance: 5445585e13721b6e0b076027faa6b9a22209043b
-  FirebaseABTesting: 9de50b34bf9eb4a07d4edb7af82c14152fd905aa
+  firebase_core: c263d7daf1dc92fcd9895e6abdc04872b0ee07ff
+  firebase_crashlytics: 9cbd5d9e8560b218f02fce3c7359567ac822d05f
+  firebase_performance: a87be8f45dda8d075c9ae75b1b64353aa33dd49f
+  FirebaseABTesting: fc7255f7e96d3cf7a1131fd68636c47e312cef76
   FirebaseAnalytics: 4ab446ce08a3fe52e8a4303dd997cf26276bf968
   FirebaseCore: 599ee609343eaf4941bd188f85e3aa077ffe325b
-  FirebaseCoreDiagnostics: 5daa63f1c1409d981a2d5007daa100b36eac6a34
+  FirebaseCoreDiagnostics: 56fb7216d87e0e6ec2feddefa9d8a392fe8b2c18
   FirebaseCrashlytics: 40efbd81157dae307ec95612fa1328347284d2c2
-  FirebaseInstallations: caa7c8e0d3e2345b8829d2fa9ca1b4dfbf2fcc85
+  FirebaseInstallations: 830327b45345ffc859eaa9c17bcd5ae893fd5425
   FirebasePerformance: 81f183c3fc593241d000a6367e54fd0f7ed402e3
-  FirebaseRemoteConfig: a75c1bd44ebd3ed4ad3fa1ff09414a8b133be405
+  FirebaseRemoteConfig: 84d3397887d95587f0ee7a0a3989b2756dc2bbf9
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   geolocator_apple: b741765c55dc21950e3e106e8b3584e55cf81ce5
   GoogleAppMeasurement: 837649ad3987936c232f6717c5680216f6243d24
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
-  integration_test: 7db6d89f336f671dcbc7563ee27a5b08f6f8aee1
+  integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  path_provider: d1e9807085df1f9cc9318206cd649dc0b76be3de
+  path_provider_ios: 7d7ce634493af4477d156294792024ec3485acd5
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   rate_my_app: 8e49687f3520c56352f974f0cb401afea07cd496
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
-  shared_preferences: 5033afbb22d372e15aff8ff766df9021b845f273
-  sqlite3: 797b1b1f92baf74716a3179f69d9652ce4a5df3f
-  sqlite3_flutter_libs: a1d040d0c9b60435b50e9626a9e818ddff842487
-  url_launcher: b6e016d912f04be9f5bf6e8e82dc599b7ba59649
+  shared_preferences_ios: aef470a42dc4675a1cdd50e3158b42e3d1232b32
+  sqlite3: b56b05777c433a55d852a3405c1903e2b57be2ce
+  sqlite3_flutter_libs: 83a1fbbabdcee09e4e34511bb246136a8a97c9d6
+  url_launcher_ios: 02f1989d4e14e998335b02b67a7590fa34f971af
 
 PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea
 
