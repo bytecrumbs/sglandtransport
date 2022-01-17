@@ -20,6 +20,14 @@ class BusStopPageViewModel {
         favoriteBusStopsKey, busStopCode);
   }
 
+  Stream<List<BusArrivalServicesModel>> getBusArrivalsStream(
+      String busStopCode) async* {
+    yield await getBusArrivals(busStopCode);
+    yield* Stream.periodic(const Duration(minutes: 1), (_) {
+      return getBusArrivals(busStopCode);
+    }).asyncMap((event) async => event);
+  }
+
   Future<List<BusArrivalServicesModel>> getBusArrivals(
       String busStopCode) async {
     // get arrival times for bus services

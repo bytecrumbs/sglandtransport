@@ -18,18 +18,14 @@ final isFavoriteBusStopStateProvider =
   return vm.isFavoriteBusStop(busStopCode);
 });
 
-final _everyMinuteProvider = StreamProvider<void>((ref) {
-  return Stream.periodic(const Duration(minutes: 1));
-});
-
-final busArrivalsFutureProvider = FutureProvider.family
+final busArrivalsStreamProvider = StreamProvider.family
     .autoDispose<List<BusArrivalServicesModel>, String>(
-        (ref, busStopCode) async {
-  // This ensures that the bus arrivals are fetched every minute
-  ref.watch(_everyMinuteProvider);
-
+        (ref, busStopCode) async* {
   final vm = ref.watch(busStopPageViewModelProvider);
-  return vm.getBusArrivals(busStopCode);
+
+  await for (final result in vm.getBusArrivalsStream(busStopCode)) {
+    yield result;
+  }
 });
 
 class BusStopPageView extends ConsumerWidget {
@@ -46,7 +42,7 @@ class BusStopPageView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final busArrival = ref.watch(busArrivalsFutureProvider(busStopCode));
+    final busArrival = ref.watch(busArrivalsStreamProvider(busStopCode));
     final isFavoriteBusStopState =
         ref.watch(isFavoriteBusStopStateProvider(busStopCode));
     final isFavoriteBusStopController =
@@ -116,9 +112,9 @@ class BusStopPageView extends ConsumerWidget {
             child: busArrival.when(
               data: (busArrival) => RefreshIndicator(
                 onRefresh: () {
-                  ref.refresh(busArrivalsFutureProvider(busStopCode));
+                  ref.refresh(busArrivalsStreamProvider(busStopCode));
                   return ref
-                      .read(busArrivalsFutureProvider(busStopCode).future);
+                      .read(busArrivalsStreamProvider(busStopCode).future);
                 },
                 child: AnimationLimiter(
                   child: ListView.builder(
