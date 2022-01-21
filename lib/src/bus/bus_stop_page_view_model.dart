@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../shared/common_providers.dart';
@@ -6,32 +8,52 @@ import '../shared/services/local_storage_service.dart';
 import 'bus_database_service.dart';
 import 'bus_repository.dart';
 
-final busStopPageViewModelProvider =
-    Provider((ref) => BusStopPageViewModel(ref.read));
+final busStopPageViewModelStateNotifierProvider =
+    StateNotifierProvider.autoDispose.family<BusStopPageViewModel,
+        AsyncValue<List<BusArrivalServicesModel>>, String>(
+  (ref, busStopCode) => BusStopPageViewModel(ref.read, busStopCode),
+);
 
-class BusStopPageViewModel {
-  BusStopPageViewModel(this.read);
-
-  final Reader read;
-
-  bool isFavoriteBusStop(String busStopCode) {
-    final localStorageService = read(localStorageServiceProvider);
-    return localStorageService.containsValueInList(
-        favoriteBusStopsKey, busStopCode);
+class BusStopPageViewModel
+    extends StateNotifier<AsyncValue<List<BusArrivalServicesModel>>> {
+  BusStopPageViewModel(this._read, this._busStopCode)
+      : super(const AsyncValue.loading()) {
+    init();
   }
 
-  Stream<List<BusArrivalServicesModel>> getBusArrivalsStream(
-      String busStopCode) async* {
-    yield await getBusArrivals(busStopCode);
-    yield* Stream.periodic(const Duration(minutes: 1), (_) {
-      return getBusArrivals(busStopCode);
-    }).asyncMap((event) async => event);
+  final Reader _read;
+  final String _busStopCode;
+
+  late final Timer _timer;
+
+  Future<void> init() async {
+    state = AsyncValue.data(await getBusArrivals(_busStopCode));
+    _read(loggerProvider).d('starting timer for bus arrival refresh');
+    _timer = Timer.periodic(
+      const Duration(minutes: 1),
+      (_) async {
+        state = AsyncValue.data(await getBusArrivals(_busStopCode));
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _read(loggerProvider).d('cancelled timer for bus arrival refresh');
+    super.dispose();
+  }
+
+  bool isFavoriteBusStop(String busStopCode) {
+    final localStorageService = _read(localStorageServiceProvider);
+    return localStorageService.containsValueInList(
+        favoriteBusStopsKey, busStopCode);
   }
 
   Future<List<BusArrivalServicesModel>> getBusArrivals(
       String busStopCode) async {
     // get arrival times for bus services
-    final repository = read(busRepositoryProvider);
+    final repository = _read(busRepositoryProvider);
     final busArrivals = await repository.fetchBusArrivals(busStopCode);
 
     // add destination description to busArrivals
@@ -60,7 +82,7 @@ class BusStopPageViewModel {
         busArrivals.map((e) => e.nextBus.destinationCode ?? '').toList();
 
     // fetch all bus stops as per the busArrivals list
-    final busStops = await read(busDatabaseServiceProvider)
+    final busStops = await _read(busDatabaseServiceProvider)
         .getBusStops(favoriteBusStops: busArrivalsDestinationCode);
 
     // add the destination to the busArrivals list
@@ -87,7 +109,7 @@ class BusStopPageViewModel {
     required List<BusArrivalServicesModel> busArrivals,
     required String busStopCode,
   }) async {
-    final busRoutes = await read(busDatabaseServiceProvider)
+    final busRoutes = await _read(busDatabaseServiceProvider)
         .getBusServiceNosForBusStopCode(busStopCode);
     if (busRoutes.length > busArrivals.length) {
       // create a list of service numbers, so we can better compare
@@ -116,16 +138,17 @@ class BusStopPageViewModel {
   }
 
   void toggleFavoriteBusStop(String busStopCode) {
-    final localStorageService = read(localStorageServiceProvider);
+    final localStorageService = _read(localStorageServiceProvider);
     final currentFavorites =
         localStorageService.getStringList(favoriteBusStopsKey);
     if (currentFavorites.contains(busStopCode)) {
-      read(loggerProvider)
+      _read(loggerProvider)
           .d('removing from Favorites, as bus stop already exists');
       localStorageService.removeStringFromList(
           favoriteBusStopsKey, busStopCode);
     } else {
-      read(loggerProvider).d('adding to Favorites, as bus stop does not exist');
+      _read(loggerProvider)
+          .d('adding to Favorites, as bus stop does not exist');
       localStorageService.addStringToList(favoriteBusStopsKey, busStopCode);
     }
   }

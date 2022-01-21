@@ -6,27 +6,8 @@ import '../shared/custom_exception.dart';
 import '../shared/palette.dart';
 import '../shared/widgets/error_display.dart';
 import '../shared/widgets/staggered_animation.dart';
-import 'bus_repository.dart';
 import 'bus_stop_page_view_model.dart';
 import 'widgets/bus_arrival_card.dart';
-import 'widgets/bus_stop_list_favorites_view.dart';
-
-// checks if a given bus stop is a favorite bus stop
-final isFavoriteBusStopStateProvider =
-    StateProvider.autoDispose.family<bool, String>((ref, busStopCode) {
-  final vm = ref.watch(busStopPageViewModelProvider);
-  return vm.isFavoriteBusStop(busStopCode);
-});
-
-final busArrivalsStreamProvider = StreamProvider.family
-    .autoDispose<List<BusArrivalServicesModel>, String>(
-        (ref, busStopCode) async* {
-  final vm = ref.watch(busStopPageViewModelProvider);
-
-  await for (final result in vm.getBusArrivalsStream(busStopCode)) {
-    yield result;
-  }
-});
 
 class BusStopPageView extends ConsumerWidget {
   const BusStopPageView({
@@ -42,26 +23,18 @@ class BusStopPageView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final busArrival = ref.watch(busArrivalsStreamProvider(busStopCode));
-    final isFavoriteBusStopState =
-        ref.watch(isFavoriteBusStopStateProvider(busStopCode));
-    final isFavoriteBusStopController =
-        ref.watch(isFavoriteBusStopStateProvider(busStopCode).notifier);
-    final vm = ref.watch(busStopPageViewModelProvider);
+    final _vm = ref
+        .watch(busStopPageViewModelStateNotifierProvider(busStopCode).notifier);
+    final _vmState =
+        ref.watch(busStopPageViewModelStateNotifierProvider(busStopCode));
 
     return Scaffold(
       appBar: AppBar(
         title: Text(description),
         actions: [
           IconButton(
-            onPressed: () {
-              isFavoriteBusStopController.state = !isFavoriteBusStopState;
-              vm.toggleFavoriteBusStop(busStopCode);
-              ref.refresh(favoriteBusStopsFutureProvider);
-            },
-            icon: isFavoriteBusStopState
-                ? const Icon(Icons.favorite)
-                : const Icon(Icons.favorite_outline),
+            onPressed: () {},
+            icon: const Icon(Icons.favorite_outline),
           ),
         ],
       ),
@@ -109,7 +82,7 @@ class BusStopPageView extends ConsumerWidget {
             ),
           ),
           Expanded(
-            child: busArrival.when(
+            child: _vmState.when(
               data: (busArrival) => AnimationLimiter(
                 child: ListView.builder(
                   itemCount: busArrival.length,
