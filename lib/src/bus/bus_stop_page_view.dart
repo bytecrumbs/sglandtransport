@@ -90,6 +90,12 @@ class BusStopPageView extends ConsumerWidget {
                     index: index,
                     child: BusArrivalCard(
                       busArrivalModel: busArrival[index],
+                      onPressedFavorite: () {
+                        _vm.toggleFavoriteBusService(
+                          busStopCode: busStopCode,
+                          serviceNo: busArrival[index].serviceNo,
+                        );
+                      },
                     ),
                   ),
                 ),

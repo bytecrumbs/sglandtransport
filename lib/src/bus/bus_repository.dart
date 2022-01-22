@@ -20,14 +20,17 @@ class BusRepository {
 
   final Reader _read;
 
-  Future<List<BusArrivalServicesModel>> fetchBusArrivals(
-      String busStopCode) async {
+  Future<List<BusArrivalServicesModel>> fetchBusArrivals({
+    required String busStopCode,
+    String? serviceNo,
+  }) async {
     const fetchUrl = '$ltaDatamallApi/BusArrivalv2';
 
     final response = await _get<Map<String, Object?>>(
       fetchUrl,
       queryParameters: {
         'BusStopCode': busStopCode,
+        if (serviceNo != null) 'ServiceNo': serviceNo,
       },
     );
 
@@ -106,6 +109,7 @@ class BusArrivalServicesModel with _$BusArrivalServicesModel {
     @JsonKey(name: 'NextBus2') required NextBusModel nextBus2,
     @JsonKey(name: 'NextBus3') required NextBusModel nextBus3,
     @Default(true) bool inService,
+    @Default(false) bool isFavorite,
     String? destinationName,
   }) = _BusArrivalServicesModel;
 

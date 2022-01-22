@@ -3,6 +3,10 @@
 GET {{baseURL}}/ltaodataservice/BusArrivalv2?BusStopCode=77049
 AccountKey: {{authorization}}
 
+### Bus Arrival with Bus Service No
+GET {{baseURL}}/ltaodataservice/BusArrivalv2?BusStopCode=01019&ServiceNo=12
+AccountKey: {{authorization}}
+
 ### Bus Routes
 GET {{baseURL}}/ltaodataservice/BusRoutes?$skip=0
 AccountKey: {{authorization}}

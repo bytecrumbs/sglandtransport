@@ -5,44 +5,36 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../shared/custom_exception.dart';
 import '../../shared/widgets/error_display.dart';
 import '../../shared/widgets/staggered_animation.dart';
-import '../bus_stop_list_page_view.dart';
-import 'bus_stop_card.dart';
+import 'bus_arrival_card.dart';
 import 'bus_stop_list_favorites_view_model.dart';
-
-final favoriteBusStopsFutureProvider = FutureProvider.autoDispose((ref) async {
-  final vm = ref.watch(busStopListFavoritesViewModelProvider);
-  return vm.getFavoriteBusStops();
-});
 
 class BusStopListFavoritesView extends ConsumerWidget {
   const BusStopListFavoritesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final busStops = ref.watch(favoriteBusStopsFutureProvider);
-    return busStops.when(
-      data: (busStops) {
-        if (busStops.isNotEmpty) {
+    final _vmState = ref.watch(busStopListFavoritesViewModelStateProvider);
+
+    return _vmState.when(
+      data: (busServices) {
+        if (busServices.isNotEmpty) {
           return AnimationLimiter(
             child: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (_, index) => StaggeredAnimation(
                   index: index,
-                  child: ProviderScope(
-                    overrides: [
-                      busStopValueModelProvider
-                          .overrideWithValue(busStops[index])
-                    ],
-                    child: const BusStopCard(),
+                  child: BusArrivalCard(
+                    busArrivalModel: busServices[index],
+                    onPressedFavorite: () {},
                   ),
                 ),
-                childCount: busStops.length,
+                childCount: busServices.length,
               ),
             ),
           );
         } else {
           return const SliverFillRemaining(
-            child: Center(child: Text('No favorite bus stops found...')),
+            child: Center(child: Text('No favorites found...')),
           );
         }
       },
@@ -60,7 +52,7 @@ class BusStopListFavoritesView extends ConsumerWidget {
       },
       loading: () => const SliverFillRemaining(
         child: Center(
-          child: Text('Looking for favorite bus stops...'),
+          child: Text('Looking for favorites...'),
         ),
       ),
     );

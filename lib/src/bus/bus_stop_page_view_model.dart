@@ -30,7 +30,7 @@ class BusStopPageViewModel
     state = AsyncValue.data(await getBusArrivals(_busStopCode));
     _read(loggerProvider).d('starting timer for bus arrival refresh');
     _timer = Timer.periodic(
-      const Duration(minutes: 1),
+      busArrivalRefreshDuration,
       (_) async {
         state = AsyncValue.data(await getBusArrivals(_busStopCode));
       },
@@ -44,17 +44,12 @@ class BusStopPageViewModel
     super.dispose();
   }
 
-  bool isFavoriteBusStop(String busStopCode) {
-    final localStorageService = _read(localStorageServiceProvider);
-    return localStorageService.containsValueInList(
-        favoriteBusStopsKey, busStopCode);
-  }
-
   Future<List<BusArrivalServicesModel>> getBusArrivals(
       String busStopCode) async {
     // get arrival times for bus services
     final repository = _read(busRepositoryProvider);
-    final busArrivals = await repository.fetchBusArrivals(busStopCode);
+    final busArrivals =
+        await repository.fetchBusArrivals(busStopCode: busStopCode);
 
     // add destination description to busArrivals
     final busArrivalsWithDestination =
@@ -67,12 +62,18 @@ class BusStopPageViewModel
       busStopCode: busStopCode,
     );
 
+    // mark favorite bus service no
+    final busArrivalsWithFavorites = _markFavoriteBusNo(
+      busStopCode: busStopCode,
+      busArrivals: busArrivalsWithDestinationAndNotInOperation,
+    );
+
     // sort result
-    busArrivalsWithDestinationAndNotInOperation.sort((var a, var b) =>
+    busArrivalsWithFavorites.sort((var a, var b) =>
         int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
             .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))));
 
-    return busArrivalsWithDestinationAndNotInOperation;
+    return busArrivalsWithFavorites;
   }
 
   Future<List<BusArrivalServicesModel>> _addDestination(
@@ -137,19 +138,52 @@ class BusStopPageViewModel
     return busArrivals;
   }
 
-  void toggleFavoriteBusStop(String busStopCode) {
+  List<BusArrivalServicesModel> _markFavoriteBusNo({
+    required String busStopCode,
+    required List<BusArrivalServicesModel> busArrivals,
+  }) {
     final localStorageService = _read(localStorageServiceProvider);
+    return busArrivals
+        .map(
+          (e) => e.copyWith(
+            isFavorite: localStorageService.containsValueInList(
+                favoriteServiceNoKey,
+                '$busStopCode$busStopCodeServiceNoDelimiter${e.serviceNo}'),
+          ),
+        )
+        .toList();
+  }
+
+  void toggleFavoriteBusService({
+    required String busStopCode,
+    required String serviceNo,
+  }) {
+    final localStorageService = _read(localStorageServiceProvider);
+    final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
+    bool newIsFavoriteValue;
     final currentFavorites =
-        localStorageService.getStringList(favoriteBusStopsKey);
-    if (currentFavorites.contains(busStopCode)) {
-      _read(loggerProvider)
-          .d('removing from Favorites, as bus stop already exists');
+        localStorageService.getStringList(favoriteServiceNoKey);
+
+    // add or remove the service no from the local storage
+    if (currentFavorites.contains(searchValue)) {
+      _read(loggerProvider).d(
+          'removing from Favorites, as bus stop with service no already exists');
       localStorageService.removeStringFromList(
-          favoriteBusStopsKey, busStopCode);
+          favoriteServiceNoKey, searchValue);
+      newIsFavoriteValue = false;
     } else {
       _read(loggerProvider)
-          .d('adding to Favorites, as bus stop does not exist');
-      localStorageService.addStringToList(favoriteBusStopsKey, busStopCode);
+          .d('adding to Favorites, as bus stop with service no does not exist');
+      localStorageService.addStringToList(favoriteServiceNoKey, searchValue);
+      newIsFavoriteValue = true;
     }
+
+    // update the state with the new favorite value
+    final listToUpate = state.asData!.value;
+    final indexToUpate =
+        listToUpate.indexWhere((element) => element.serviceNo == serviceNo);
+    listToUpate[indexToUpate] =
+        listToUpate[indexToUpate].copyWith(isFavorite: newIsFavoriteValue);
+    state = AsyncValue.data(listToUpate);
   }
 }
