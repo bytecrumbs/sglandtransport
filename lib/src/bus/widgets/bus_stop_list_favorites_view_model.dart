@@ -162,4 +162,15 @@ class BusStopListFavoritesViewModel
     }
     return busArrivalsWithDestination;
   }
+
+  void removeFavorite({
+    required String busStopCode,
+    required String serviceNo,
+  }) {
+    final localStorageService = _read(localStorageServiceProvider);
+    final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
+    _read(loggerProvider).d(
+        'removing from Favorites, as bus stop with service no already exists');
+    localStorageService.removeStringFromList(favoriteServiceNoKey, searchValue);
+  }
 }

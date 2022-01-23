@@ -31,12 +31,6 @@ class BusStopPageView extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(description),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_outline),
-          ),
-        ],
       ),
       body: Column(
         children: [

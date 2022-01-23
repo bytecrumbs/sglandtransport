@@ -20,7 +20,11 @@ class BusArrivalCard extends StatelessWidget {
     required this.nextBus3EstimatedArrival,
     required this.nextBus3LoadDescription,
     required this.nextBus3LoadColor,
+    this.busStopCode,
+    this.description,
+    this.roadName,
     required this.onPressedFavorite,
+    this.onDismissed,
   }) : super(key: key);
 
   // final BusArrivalServicesModel busArrivalModel;
@@ -37,12 +41,20 @@ class BusArrivalCard extends StatelessWidget {
   final String nextBus3EstimatedArrival;
   final String nextBus3LoadDescription;
   final Color nextBus3LoadColor;
+  final String? busStopCode;
+  final String? description;
+  final String? roadName;
   final VoidCallback onPressedFavorite;
+  final VoidCallback? onDismissed;
 
   @override
   Widget build(BuildContext context) {
     return Slidable(
+      key: Key('$busStopCode ?? ""~$serviceNo'),
       startActionPane: ActionPane(
+        dismissible: onDismissed != null
+            ? DismissiblePane(onDismissed: onDismissed!)
+            : null,
         motion: const ScrollMotion(),
         extentRatio: 0.15,
         children: [
@@ -59,7 +71,13 @@ class BusArrivalCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (busStopCode != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
+                child: Text('$busStopCode - $description - $roadName'),
+              ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [

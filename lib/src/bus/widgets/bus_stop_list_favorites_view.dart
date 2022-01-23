@@ -14,6 +14,7 @@ class BusStopListFavoritesView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _vmState = ref.watch(busStopListFavoritesViewModelStateProvider);
+    final _vm = ref.watch(busStopListFavoritesViewModelStateProvider.notifier);
 
     return _vmState.when(
       data: (busArrivalModels) {
@@ -27,53 +28,46 @@ class BusStopListFavoritesView extends ConsumerWidget {
                       currentBusArrivalModel.services[0];
                   return StaggeredAnimation(
                     index: index,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Text(
-                              '${currentBusArrivalModel.busStopCode} - ${currentBusArrivalModel.description} - ${currentBusArrivalModel.roadName}'),
-                        ),
-                        BusArrivalCard(
-                          inService: currentBusArrivalServicesModel.inService,
-                          isFavorite: currentBusArrivalServicesModel.isFavorite,
+                    child: BusArrivalCard(
+                      busStopCode: currentBusArrivalModel.busStopCode,
+                      description: currentBusArrivalModel.description,
+                      roadName: currentBusArrivalModel.roadName,
+                      inService: currentBusArrivalServicesModel.inService,
+                      isFavorite: currentBusArrivalServicesModel.isFavorite,
+                      serviceNo: currentBusArrivalServicesModel.serviceNo,
+                      destinationName:
+                          currentBusArrivalServicesModel.destinationName,
+                      nextBusEstimatedArrival: currentBusArrivalServicesModel
+                          .nextBus
+                          .getEstimatedArrival(),
+                      nextBusLoadDescription: currentBusArrivalServicesModel
+                          .nextBus
+                          .getLoadLongDescription(),
+                      nextBusLoadColor:
+                          currentBusArrivalServicesModel.nextBus.getLoadColor(),
+                      nextBus2EstimatedArrival: currentBusArrivalServicesModel
+                          .nextBus2
+                          .getEstimatedArrival(),
+                      nextBus2LoadDescription: currentBusArrivalServicesModel
+                          .nextBus2
+                          .getLoadLongDescription(),
+                      nextBus2LoadColor: currentBusArrivalServicesModel.nextBus2
+                          .getLoadColor(),
+                      nextBus3EstimatedArrival: currentBusArrivalServicesModel
+                          .nextBus3
+                          .getEstimatedArrival(),
+                      nextBus3LoadDescription: currentBusArrivalServicesModel
+                          .nextBus3
+                          .getLoadLongDescription(),
+                      nextBus3LoadColor: currentBusArrivalServicesModel.nextBus3
+                          .getLoadColor(),
+                      onPressedFavorite: () {},
+                      onDismissed: () {
+                        _vm.removeFavorite(
+                          busStopCode: currentBusArrivalModel.busStopCode,
                           serviceNo: currentBusArrivalServicesModel.serviceNo,
-                          destinationName:
-                              currentBusArrivalServicesModel.destinationName,
-                          nextBusEstimatedArrival:
-                              currentBusArrivalServicesModel.nextBus
-                                  .getEstimatedArrival(),
-                          nextBusLoadDescription: currentBusArrivalServicesModel
-                              .nextBus
-                              .getLoadLongDescription(),
-                          nextBusLoadColor: currentBusArrivalServicesModel
-                              .nextBus
-                              .getLoadColor(),
-                          nextBus2EstimatedArrival:
-                              currentBusArrivalServicesModel.nextBus2
-                                  .getEstimatedArrival(),
-                          nextBus2LoadDescription:
-                              currentBusArrivalServicesModel.nextBus2
-                                  .getLoadLongDescription(),
-                          nextBus2LoadColor: currentBusArrivalServicesModel
-                              .nextBus2
-                              .getLoadColor(),
-                          nextBus3EstimatedArrival:
-                              currentBusArrivalServicesModel.nextBus3
-                                  .getEstimatedArrival(),
-                          nextBus3LoadDescription:
-                              currentBusArrivalServicesModel.nextBus3
-                                  .getLoadLongDescription(),
-                          nextBus3LoadColor: currentBusArrivalServicesModel
-                              .nextBus3
-                              .getLoadColor(),
-                          onPressedFavorite: () {},
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   );
                 },
@@ -82,8 +76,19 @@ class BusStopListFavoritesView extends ConsumerWidget {
             ),
           );
         } else {
-          return const SliverFillRemaining(
-            child: Center(child: Text('No favorites found...')),
+          return SliverFillRemaining(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'To add a bus service to your favorites, swipe right on any '
+                    'bus service tile and tap the favorites icon.',
+                  )
+                ],
+              ),
+            ),
           );
         }
       },
