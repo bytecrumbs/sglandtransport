@@ -20,7 +20,7 @@ class BusRepository {
 
   final Reader _read;
 
-  Future<List<BusArrivalServicesModel>> fetchBusArrivals({
+  Future<BusArrivalModel> fetchBusArrivals({
     required String busStopCode,
     String? serviceNo,
   }) async {
@@ -36,7 +36,7 @@ class BusRepository {
 
     return BusArrivalModel.fromJson(
       response.data!,
-    ).services;
+    );
   }
 
   Future<List<BusRouteValueModel>> fetchBusRoutes({int skip = 0}) async {

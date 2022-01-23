@@ -8,14 +8,13 @@ import '../shared/services/local_storage_service.dart';
 import 'bus_database_service.dart';
 import 'bus_repository.dart';
 
-final busStopPageViewModelStateNotifierProvider =
-    StateNotifierProvider.autoDispose.family<BusStopPageViewModel,
-        AsyncValue<List<BusArrivalServicesModel>>, String>(
+final busStopPageViewModelStateNotifierProvider = StateNotifierProvider
+    .autoDispose
+    .family<BusStopPageViewModel, AsyncValue<BusArrivalModel>, String>(
   (ref, busStopCode) => BusStopPageViewModel(ref.read, busStopCode),
 );
 
-class BusStopPageViewModel
-    extends StateNotifier<AsyncValue<List<BusArrivalServicesModel>>> {
+class BusStopPageViewModel extends StateNotifier<AsyncValue<BusArrivalModel>> {
   BusStopPageViewModel(this._read, this._busStopCode)
       : super(const AsyncValue.loading()) {
     init();
@@ -44,8 +43,7 @@ class BusStopPageViewModel
     super.dispose();
   }
 
-  Future<List<BusArrivalServicesModel>> getBusArrivals(
-      String busStopCode) async {
+  Future<BusArrivalModel> getBusArrivals(String busStopCode) async {
     // get arrival times for bus services
     final repository = _read(busRepositoryProvider);
     final busArrivals =
@@ -53,7 +51,7 @@ class BusStopPageViewModel
 
     // add destination description to busArrivals
     final busArrivalsWithDestination =
-        await _addDestination(busArrivals: busArrivals);
+        await _addDestination(busArrivals: busArrivals.services);
 
     // add services that are currently not in operation
     final busArrivalsWithDestinationAndNotInOperation =
@@ -73,7 +71,7 @@ class BusStopPageViewModel
         int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
             .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))));
 
-    return busArrivalsWithFavorites;
+    return busArrivals.copyWith(services: busArrivalsWithFavorites);
   }
 
   Future<List<BusArrivalServicesModel>> _addDestination(
@@ -179,11 +177,12 @@ class BusStopPageViewModel
     }
 
     // update the state with the new favorite value
-    final listToUpate = state.asData!.value;
+    final resultToUpdate = state.asData!.value;
+    final listToUpate = resultToUpdate.services;
     final indexToUpate =
         listToUpate.indexWhere((element) => element.serviceNo == serviceNo);
     listToUpate[indexToUpate] =
         listToUpate[indexToUpate].copyWith(isFavorite: newIsFavoriteValue);
-    state = AsyncValue.data(listToUpate);
+    state = AsyncValue.data(resultToUpdate.copyWith(services: listToUpate));
   }
 }

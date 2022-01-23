@@ -85,15 +85,15 @@ class BusStopPageView extends ConsumerWidget {
             child: _vmState.when(
               data: (busArrival) => AnimationLimiter(
                 child: ListView.builder(
-                  itemCount: busArrival.length,
+                  itemCount: busArrival.services.length,
                   itemBuilder: (_, index) => StaggeredAnimation(
                     index: index,
                     child: BusArrivalCard(
-                      busArrivalModel: busArrival[index],
+                      busArrivalModel: busArrival.services[index],
                       onPressedFavorite: () {
                         _vm.toggleFavoriteBusService(
                           busStopCode: busStopCode,
-                          serviceNo: busArrival[index].serviceNo,
+                          serviceNo: busArrival.services[index].serviceNo,
                         );
                       },
                     ),

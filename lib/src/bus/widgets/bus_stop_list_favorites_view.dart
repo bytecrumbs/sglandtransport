@@ -16,19 +16,25 @@ class BusStopListFavoritesView extends ConsumerWidget {
     final _vmState = ref.watch(busStopListFavoritesViewModelStateProvider);
 
     return _vmState.when(
-      data: (busServices) {
-        if (busServices.isNotEmpty) {
+      data: (busArrivalModels) {
+        if (busArrivalModels.isNotEmpty) {
           return AnimationLimiter(
             child: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (_, index) => StaggeredAnimation(
                   index: index,
-                  child: BusArrivalCard(
-                    busArrivalModel: busServices[index],
-                    onPressedFavorite: () {},
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(busArrivalModels[index].busStopCode),
+                      BusArrivalCard(
+                        busArrivalModel: busArrivalModels[index].services[0],
+                        onPressedFavorite: () {},
+                      ),
+                    ],
                   ),
                 ),
-                childCount: busServices.length,
+                childCount: busArrivalModels.length,
               ),
             ),
           );

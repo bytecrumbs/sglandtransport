@@ -9,12 +9,12 @@ import '../bus_repository.dart';
 
 final busStopListFavoritesViewModelStateProvider =
     StateNotifierProvider.autoDispose<BusStopListFavoritesViewModel,
-        AsyncValue<List<BusArrivalServicesModel>>>(
+        AsyncValue<List<BusArrivalModel>>>(
   (ref) => BusStopListFavoritesViewModel(ref.read),
 );
 
 class BusStopListFavoritesViewModel
-    extends StateNotifier<AsyncValue<List<BusArrivalServicesModel>>> {
+    extends StateNotifier<AsyncValue<List<BusArrivalModel>>> {
   BusStopListFavoritesViewModel(this._read)
       : super(const AsyncValue.loading()) {
     init();
@@ -42,53 +42,89 @@ class BusStopListFavoritesViewModel
     super.dispose();
   }
 
-  Future<List<BusArrivalServicesModel>> getFavoriteBusServices() async {
+  Future<List<BusArrivalModel>> getFavoriteBusServices() async {
     final localStorageService = _read(localStorageServiceProvider);
-    final currentFavorites =
-        localStorageService.getStringList(favoriteServiceNoKey);
     final repository = _read(busRepositoryProvider);
 
-    final busServices = <BusArrivalServicesModel>[];
+    final currentFavorites =
+        localStorageService.getStringList(favoriteServiceNoKey);
+
+    _sortFavorites(currentFavorites);
+
+    final rawBusArrivalModelList = <BusArrivalModel>[];
 
     for (final favorite in currentFavorites) {
       final busStopCode = favorite.split(busStopCodeServiceNoDelimiter)[0];
       final serviceNo = favorite.split(busStopCodeServiceNoDelimiter)[1];
-      final busArrivalServicesModelList = await repository.fetchBusArrivals(
+      final busArrivalModel = await repository.fetchBusArrivals(
         busStopCode: busStopCode,
         serviceNo: serviceNo,
       );
 
-      // if the bus is not in service, the API will return an empty list
-      if (busArrivalServicesModelList.isEmpty) {
-        busServices.add(
-          BusArrivalServicesModel(
-            serviceNo: serviceNo,
-            busOperator: '',
-            nextBus: NextBusModel(),
-            nextBus2: NextBusModel(),
-            nextBus3: NextBusModel(),
-            inService: false,
+      // if the bus is not in service, the API will return an empty list, so
+      // we are adding a service model marking it as "not in service"
+      if (busArrivalModel.services.isEmpty) {
+        rawBusArrivalModelList.add(
+          busArrivalModel.copyWith(
+            services: [
+              BusArrivalServicesModel(
+                serviceNo: serviceNo,
+                busOperator: '',
+                nextBus: NextBusModel(),
+                nextBus2: NextBusModel(),
+                nextBus3: NextBusModel(),
+                inService: false,
+              ),
+            ],
           ),
         );
       } else {
-        busServices.add(busArrivalServicesModelList[0]);
+        rawBusArrivalModelList.add(busArrivalModel);
       }
     }
 
-    // as [fetchBusArrivals] returns a list, but that list will only have 1
-    // entry because we are fetching based on bus service no, we have to remove
-    // the inner list.
-    // final busServiceNoList = futures.map((e) => e[0]).toList();
+    final enrichedBusArrivalModelList = <BusArrivalModel>[];
+    for (final busArrivalModel in rawBusArrivalModelList) {
+      final busServiceNoListWithDestination =
+          await _addDestination(busArrivals: busArrivalModel.services);
 
-    final busServiceNoListWithDestination =
-        await _addDestination(busArrivals: busServices);
+      // Mark all entires as favorite bus services
+      final busArrivalsWithFavorites = busServiceNoListWithDestination
+          .map((e) => e.copyWith(isFavorite: true))
+          .toList();
 
-    // Mark all entires as favorite bus services
-    final busArrivalsWithFavorites = busServiceNoListWithDestination
-        .map((e) => e.copyWith(isFavorite: true))
-        .toList();
+      enrichedBusArrivalModelList.add(
+        busArrivalModel.copyWith(services: busArrivalsWithFavorites),
+      );
+    }
 
-    return busArrivalsWithFavorites;
+    return enrichedBusArrivalModelList;
+  }
+
+  void _sortFavorites(List<String> list) {
+// sort the list by bus stop code and then bus service no. this is done by
+    // 1. splitting the string into separate fields for bus stop code and bus
+    // service no
+    // 2. remove the letter at the end of the bus service no, if there is one
+    // 3. pad the left side with '0', so that it can be sorted alphabetically
+    // example:
+    // '01012~12e' -> '01012012'
+    // '01012~2 -> 010112002
+    list.sort((a, b) {
+      final aBusStopCode = a.split(busStopCodeServiceNoDelimiter)[0];
+      final bBusStopCode = b.split(busStopCodeServiceNoDelimiter)[0];
+      final aBusServiceNo = a
+          .split(busStopCodeServiceNoDelimiter)[1]
+          .replaceAll(RegExp(r'\D'), '')
+          .padLeft(3, '0');
+      final bBusServiceNo = b
+          .split(busStopCodeServiceNoDelimiter)[1]
+          .replaceAll(RegExp(r'\D'), '')
+          .padLeft(3, '0');
+      final aComparison = '$aBusStopCode$aBusServiceNo';
+      final bComparison = '$bBusStopCode$bBusServiceNo';
+      return aComparison.compareTo(bComparison);
+    });
   }
 
   // TODO: This is an exact duplicate of the same method in [BusStopPageViewModel] and needs to be refactored!
