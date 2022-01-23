@@ -152,7 +152,7 @@ class BusArrivalCard extends StatelessWidget {
                           size: 15,
                         ),
                         _NextBusDetails(
-                          estimatedArrival: nextBusEstimatedArrival,
+                          estimatedArrival: nextBus2EstimatedArrival,
                           loadDescription: nextBus2LoadDescription,
                           loadColor: nextBus2LoadColor,
                         ),
