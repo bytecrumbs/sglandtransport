@@ -94,6 +94,8 @@ class BusArrivalModel with _$BusArrivalModel {
     @JsonKey(name: 'odata.metadata') required String odataMetadata,
     @JsonKey(name: 'BusStopCode') required String busStopCode,
     @JsonKey(name: 'Services') required List<BusArrivalServicesModel> services,
+    String? roadName,
+    String? description,
   }) = _BusArrivalModel;
 
   factory BusArrivalModel.fromJson(Map<String, dynamic> json) =>

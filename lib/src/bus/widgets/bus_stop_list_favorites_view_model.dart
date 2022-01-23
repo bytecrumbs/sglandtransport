@@ -93,8 +93,15 @@ class BusStopListFavoritesViewModel
           .map((e) => e.copyWith(isFavorite: true))
           .toList();
 
+      final busStops = await _read(busDatabaseServiceProvider)
+          .getBusStops(favoriteBusStops: [busArrivalModel.busStopCode]);
+
       enrichedBusArrivalModelList.add(
-        busArrivalModel.copyWith(services: busArrivalsWithFavorites),
+        busArrivalModel.copyWith(
+          services: busArrivalsWithFavorites,
+          roadName: busStops[0].roadName,
+          description: busStops[0].description,
+        ),
       );
     }
 

@@ -26,7 +26,14 @@ class BusStopListFavoritesView extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(busArrivalModels[index].busStopCode),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Text(
+                            '${busArrivalModels[index].busStopCode} - ${busArrivalModels[index].description} - ${busArrivalModels[index].roadName}'),
+                      ),
                       BusArrivalCard(
                         busArrivalModel: busArrivalModels[index].services[0],
                         onPressedFavorite: () {},
