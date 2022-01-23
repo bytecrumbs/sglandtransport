@@ -21,26 +21,62 @@ class BusStopListFavoritesView extends ConsumerWidget {
           return AnimationLimiter(
             child: SliverList(
               delegate: SliverChildBuilderDelegate(
-                (_, index) => StaggeredAnimation(
-                  index: index,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Text(
-                            '${busArrivalModels[index].busStopCode} - ${busArrivalModels[index].description} - ${busArrivalModels[index].roadName}'),
-                      ),
-                      BusArrivalCard(
-                        busArrivalModel: busArrivalModels[index].services[0],
-                        onPressedFavorite: () {},
-                      ),
-                    ],
-                  ),
-                ),
+                (_, index) {
+                  final currentBusArrivalModel = busArrivalModels[index];
+                  final currentBusArrivalServicesModel =
+                      currentBusArrivalModel.services[0];
+                  return StaggeredAnimation(
+                    index: index,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text(
+                              '${currentBusArrivalModel.busStopCode} - ${currentBusArrivalModel.description} - ${currentBusArrivalModel.roadName}'),
+                        ),
+                        BusArrivalCard(
+                          inService: currentBusArrivalServicesModel.inService,
+                          isFavorite: currentBusArrivalServicesModel.isFavorite,
+                          serviceNo: currentBusArrivalServicesModel.serviceNo,
+                          destinationName:
+                              currentBusArrivalServicesModel.destinationName,
+                          nextBusEstimatedArrival:
+                              currentBusArrivalServicesModel.nextBus
+                                  .getEstimatedArrival(),
+                          nextBusLoadDescription: currentBusArrivalServicesModel
+                              .nextBus
+                              .getLoadLongDescription(),
+                          nextBusLoadColor: currentBusArrivalServicesModel
+                              .nextBus
+                              .getLoadColor(),
+                          nextBus2EstimatedArrival:
+                              currentBusArrivalServicesModel.nextBus2
+                                  .getEstimatedArrival(),
+                          nextBus2LoadDescription:
+                              currentBusArrivalServicesModel.nextBus2
+                                  .getLoadLongDescription(),
+                          nextBus2LoadColor: currentBusArrivalServicesModel
+                              .nextBus2
+                              .getLoadColor(),
+                          nextBus3EstimatedArrival:
+                              currentBusArrivalServicesModel.nextBus3
+                                  .getEstimatedArrival(),
+                          nextBus3LoadDescription:
+                              currentBusArrivalServicesModel.nextBus3
+                                  .getLoadLongDescription(),
+                          nextBus3LoadColor: currentBusArrivalServicesModel
+                              .nextBus3
+                              .getLoadColor(),
+                          onPressedFavorite: () {},
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 childCount: busArrivalModels.length,
               ),
             ),

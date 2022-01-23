@@ -2,16 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../shared/palette.dart';
-import '../bus_repository.dart';
 
 class BusArrivalCard extends StatelessWidget {
   const BusArrivalCard({
     Key? key,
-    required this.busArrivalModel,
+    // required this.busArrivalModel,
+    required this.serviceNo,
+    required this.isFavorite,
+    required this.inService,
+    this.destinationName,
+    required this.nextBusEstimatedArrival,
+    required this.nextBusLoadDescription,
+    required this.nextBusLoadColor,
+    required this.nextBus2EstimatedArrival,
+    required this.nextBus2LoadDescription,
+    required this.nextBus2LoadColor,
+    required this.nextBus3EstimatedArrival,
+    required this.nextBus3LoadDescription,
+    required this.nextBus3LoadColor,
     required this.onPressedFavorite,
   }) : super(key: key);
 
-  final BusArrivalServicesModel busArrivalModel;
+  // final BusArrivalServicesModel busArrivalModel;
+  final bool isFavorite;
+  final String serviceNo;
+  final bool inService;
+  final String? destinationName;
+  final String nextBusEstimatedArrival;
+  final String nextBusLoadDescription;
+  final Color nextBusLoadColor;
+  final String nextBus2EstimatedArrival;
+  final String nextBus2LoadDescription;
+  final Color nextBus2LoadColor;
+  final String nextBus3EstimatedArrival;
+  final String nextBus3LoadDescription;
+  final Color nextBus3LoadColor;
   final VoidCallback onPressedFavorite;
 
   @override
@@ -26,9 +51,7 @@ class BusArrivalCard extends StatelessWidget {
             onPressed: (_) {
               onPressedFavorite();
             },
-            icon: busArrivalModel.isFavorite
-                ? Icons.favorite
-                : Icons.favorite_outline,
+            icon: isFavorite ? Icons.favorite : Icons.favorite_outline,
             backgroundColor: kMainBackgroundColor,
           ),
         ],
@@ -51,14 +74,14 @@ class BusArrivalCard extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    busArrivalModel.serviceNo,
+                    serviceNo,
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
                         .copyWith(color: Colors.white),
                   ),
                 ),
-                if (busArrivalModel.inService)
+                if (inService)
                   Container(
                     margin: const EdgeInsets.only(left: 1),
                     padding: const EdgeInsets.fromLTRB(7, 4, 10, 4),
@@ -76,7 +99,7 @@ class BusArrivalCard extends StatelessWidget {
                       ],
                     ),
                     child: Text(
-                      'to ${busArrivalModel.destinationName ?? ''}',
+                      'to ${destinationName ?? ''}',
                     ),
                   ),
               ],
@@ -97,38 +120,32 @@ class BusArrivalCard extends StatelessWidget {
                 ],
               ),
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-              child: busArrivalModel.inService
+              child: inService
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         _NextBusDetails(
-                          estimatedArrival:
-                              busArrivalModel.nextBus.getEstimatedArrival(),
-                          loadDescription:
-                              busArrivalModel.nextBus.getLoadLongDescription(),
-                          loadColor: busArrivalModel.nextBus.getLoadColor(),
+                          estimatedArrival: nextBusEstimatedArrival,
+                          loadDescription: nextBusLoadDescription,
+                          loadColor: nextBusLoadColor,
                         ),
                         const Icon(
                           Icons.arrow_back_ios,
                           size: 15,
                         ),
                         _NextBusDetails(
-                          estimatedArrival:
-                              busArrivalModel.nextBus2.getEstimatedArrival(),
-                          loadDescription:
-                              busArrivalModel.nextBus2.getLoadLongDescription(),
-                          loadColor: busArrivalModel.nextBus2.getLoadColor(),
+                          estimatedArrival: nextBusEstimatedArrival,
+                          loadDescription: nextBus2LoadDescription,
+                          loadColor: nextBus2LoadColor,
                         ),
                         const Icon(
                           Icons.arrow_back_ios,
                           size: 15,
                         ),
                         _NextBusDetails(
-                          estimatedArrival:
-                              busArrivalModel.nextBus3.getEstimatedArrival(),
-                          loadDescription:
-                              busArrivalModel.nextBus3.getLoadLongDescription(),
-                          loadColor: busArrivalModel.nextBus3.getLoadColor(),
+                          estimatedArrival: nextBus3EstimatedArrival,
+                          loadDescription: nextBus3LoadDescription,
+                          loadColor: nextBus3LoadColor,
                         ),
                       ],
                     )

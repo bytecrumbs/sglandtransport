@@ -86,18 +86,52 @@ class BusStopPageView extends ConsumerWidget {
               data: (busArrival) => AnimationLimiter(
                 child: ListView.builder(
                   itemCount: busArrival.services.length,
-                  itemBuilder: (_, index) => StaggeredAnimation(
-                    index: index,
-                    child: BusArrivalCard(
-                      busArrivalModel: busArrival.services[index],
-                      onPressedFavorite: () {
-                        _vm.toggleFavoriteBusService(
-                          busStopCode: busStopCode,
-                          serviceNo: busArrival.services[index].serviceNo,
-                        );
-                      },
-                    ),
-                  ),
+                  itemBuilder: (_, index) {
+                    final currentBusArrivalServicesModel =
+                        busArrival.services[index];
+                    return StaggeredAnimation(
+                      index: index,
+                      child: BusArrivalCard(
+                        inService: currentBusArrivalServicesModel.inService,
+                        isFavorite: currentBusArrivalServicesModel.isFavorite,
+                        serviceNo: currentBusArrivalServicesModel.serviceNo,
+                        destinationName:
+                            currentBusArrivalServicesModel.destinationName,
+                        nextBusEstimatedArrival: currentBusArrivalServicesModel
+                            .nextBus
+                            .getEstimatedArrival(),
+                        nextBusLoadDescription: currentBusArrivalServicesModel
+                            .nextBus
+                            .getLoadLongDescription(),
+                        nextBusLoadColor: currentBusArrivalServicesModel.nextBus
+                            .getLoadColor(),
+                        nextBus2EstimatedArrival: currentBusArrivalServicesModel
+                            .nextBus2
+                            .getEstimatedArrival(),
+                        nextBus2LoadDescription: currentBusArrivalServicesModel
+                            .nextBus2
+                            .getLoadLongDescription(),
+                        nextBus2LoadColor: currentBusArrivalServicesModel
+                            .nextBus2
+                            .getLoadColor(),
+                        nextBus3EstimatedArrival: currentBusArrivalServicesModel
+                            .nextBus3
+                            .getEstimatedArrival(),
+                        nextBus3LoadDescription: currentBusArrivalServicesModel
+                            .nextBus3
+                            .getLoadLongDescription(),
+                        nextBus3LoadColor: currentBusArrivalServicesModel
+                            .nextBus3
+                            .getLoadColor(),
+                        onPressedFavorite: () {
+                          _vm.toggleFavoriteBusService(
+                            busStopCode: busStopCode,
+                            serviceNo: busArrival.services[index].serviceNo,
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
               ),
               loading: () => const Center(child: CircularProgressIndicator()),
