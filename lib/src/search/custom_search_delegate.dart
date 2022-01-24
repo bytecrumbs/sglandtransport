@@ -5,8 +5,6 @@ import 'search_result.dart';
 
 /// The Search function that extends the native Material search
 class CustomSearchDelegate extends SearchDelegate<dynamic> {
-  /// Firebase Analytics reference
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
   @override
   ThemeData appBarTheme(BuildContext context) {
     final theme = Theme.of(context);
@@ -29,8 +27,8 @@ class CustomSearchDelegate extends SearchDelegate<dynamic> {
     return [
       IconButton(
         icon: const Icon(Icons.clear),
-        onPressed: () {
-          analytics.logSearch(
+        onPressed: () async {
+          await FirebaseAnalytics.instance.logSearch(
             searchTerm: query,
           );
           query = '';
@@ -43,8 +41,8 @@ class CustomSearchDelegate extends SearchDelegate<dynamic> {
   Widget buildLeading(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.arrow_back),
-      onPressed: () {
-        analytics.logSearch(
+      onPressed: () async {
+        await FirebaseAnalytics.instance.logSearch(
           searchTerm: query,
         );
         close(context, null);

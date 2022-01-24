@@ -1,4 +1,4 @@
-import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rate_my_app/rate_my_app.dart';
@@ -13,6 +13,10 @@ class MyApp extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final logger = ref.watch(loggerProvider);
@@ -25,11 +29,7 @@ class MyApp extends ConsumerWidget {
             backgroundColor: kPrimaryColor,
           ),
         ),
-        navigatorObservers: [
-          FirebaseAnalyticsObserver(
-            analytics: ref.read(analyticsProvider),
-          ),
-        ],
+        navigatorObservers: <NavigatorObserver>[observer],
         onGenerateRoute: (routeSettings) {
           return MaterialPageRoute<void>(
             settings: routeSettings,
