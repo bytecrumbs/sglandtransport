@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
 import '../../shared/palette.dart';
-import '../bus_stop_list_page_view.dart';
+import '../dashboard_page_view.dart';
 import '../bus_stop_page_view.dart';
 
 class BusStopCard extends ConsumerWidget {

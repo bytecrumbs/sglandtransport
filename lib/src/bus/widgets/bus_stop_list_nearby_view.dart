@@ -6,7 +6,7 @@ import '../../shared/common_providers.dart';
 import '../../shared/custom_exception.dart';
 import '../../shared/widgets/error_display.dart';
 import '../../shared/widgets/staggered_animation.dart';
-import '../bus_stop_list_page_view.dart';
+import '../dashboard_page_view.dart';
 import 'bus_stop_card.dart';
 import 'bus_stop_list_nearby_view_model.dart';
 

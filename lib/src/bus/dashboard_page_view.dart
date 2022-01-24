@@ -12,7 +12,7 @@ import '../shared/constants.dart';
 import '../shared/palette.dart';
 import '../shared/services/local_storage_service.dart';
 import 'bus_repository.dart';
-import 'bus_stop_list_page_view_model.dart';
+import 'dashboard_page_view_model.dart';
 import 'widgets/bus_stop_list_favorites_view.dart';
 import 'widgets/bus_stop_list_nearby_view.dart';
 
@@ -23,15 +23,15 @@ import 'widgets/bus_stop_list_nearby_view.dart';
 final flareAnimationProvider = Provider((ref) => 'Loop');
 
 final filterProvider = StateProvider((ref) {
-  final vm = ref.watch(busStopListPageViewModelProvider);
+  final vm = ref.watch(dashboardPageViewModelProvider);
   return vm.bottomNavBarFilter();
 });
 
 final busStopValueModelProvider =
     Provider<BusStopValueModel>((_) => throw UnimplementedError());
 
-class BusStopListPageView extends HookConsumerWidget {
-  const BusStopListPageView({Key? key}) : super(key: key);
+class DashboardPageView extends HookConsumerWidget {
+  const DashboardPageView({Key? key}) : super(key: key);
 
   static const routeName = '/';
 
