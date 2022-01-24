@@ -18,8 +18,8 @@ environment:
 
 dependencies:
   convex_bottom_bar: ^3.0.0
-  dio: ^4.0.1
-  drift: ^1.0.1
+  dio: ^4.0.4
+  drift: ^1.3.0
   firebase_analytics: ^9.0.5
   firebase_core: ^1.11.0
   firebase_crashlytics: ^2.4.5
@@ -27,37 +27,36 @@ dependencies:
   flare_flutter: ^3.0.2
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.18.0
+  flutter_hooks: ^0.18.2
   flutter_slidable: ^1.2.0
   flutter_staggered_animations: ^1.0.0
-  freezed_annotation: ^0.15.0
+  freezed_annotation: ^1.1.0
   geolocator: ^7.7.1
-  hooks_riverpod: ^1.0.0
-  injectable: ^1.5.0
-  json_annotation: ^4.3.0
+  hooks_riverpod: ^1.0.3
+  injectable: ^1.5.3
+  json_annotation: ^4.4.0
   logger: ^1.1.0
   path: ^1.8.0
-  path_provider: ^2.0.6
+  path_provider: ^2.0.8
   pedantic: ^1.11.1
-  rate_my_app: ^1.1.1
+  rate_my_app: ^1.1.1+1
   share_plus: ^3.0.4
-  shared_preferences: ^2.0.8
-  sqlite3_flutter_libs: ^0.5.1
+  shared_preferences: ^2.0.12
+  sqlite3_flutter_libs: ^0.5.3
   substring_highlight: ^1.0.33
-  url_launcher: ^6.0.12
+  url_launcher: ^6.0.18
 
 dev_dependencies:
-  build_runner: ^2.1.4
-  drift_dev: ^1.0.2
+  build_runner: ^2.1.7
+  drift_dev: ^1.3.0
   flutter_driver:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  freezed: ^0.15.0+1
+  freezed: ^1.1.1
   integration_test:
     sdk: flutter
-  json_serializable: ^6.0.1
-  mockito: ^5.0.16
+  json_serializable: ^6.1.4
 
 flutter_icons:
   android: true
