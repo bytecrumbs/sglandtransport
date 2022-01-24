@@ -14,13 +14,15 @@ final searchResultFutureProvider = FutureProvider.autoDispose
     final busDatabaseService = ref.watch(busDatabaseServiceProvider);
     final tableBusStopList = await busDatabaseService.findBusStops(searchTerm);
     final busStopValueModelList = tableBusStopList
-        .map((e) => BusStopValueModel(
-              busStopCode: e.busStopCode,
-              description: e.description,
-              latitude: e.latitude,
-              longitude: e.longitude,
-              roadName: e.roadName,
-            ))
+        .map(
+          (e) => BusStopValueModel(
+            busStopCode: e.busStopCode,
+            description: e.description,
+            latitude: e.latitude,
+            longitude: e.longitude,
+            roadName: e.roadName,
+          ),
+        )
         .toList();
     return busStopValueModelList;
   } else {

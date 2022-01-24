@@ -41,7 +41,8 @@ void main() {
       // Setup flare
       FlareCache.doesPrune = false;
       await cachedActor(
-          AssetFlare(bundle: rootBundle, name: 'images/city.flr'));
+        AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
+      );
 
       runApp(
         ProviderScope(

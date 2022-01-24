@@ -67,15 +67,17 @@ class BusStopPageViewModel extends StateNotifier<AsyncValue<BusArrivalModel>> {
     );
 
     // sort result
-    busArrivalsWithFavorites.sort((var a, var b) =>
-        int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
-            .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))));
+    busArrivalsWithFavorites.sort(
+      (var a, var b) => int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
+          .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))),
+    );
 
     return busArrivals.copyWith(services: busArrivalsWithFavorites);
   }
 
-  Future<List<BusArrivalServicesModel>> _addDestination(
-      {required List<BusArrivalServicesModel> busArrivals}) async {
+  Future<List<BusArrivalServicesModel>> _addDestination({
+    required List<BusArrivalServicesModel> busArrivals,
+  }) async {
     // get a list of all bus service nos
     final busArrivalsDestinationCode =
         busArrivals.map((e) => e.nextBus.destinationCode ?? '').toList();
@@ -88,12 +90,17 @@ class BusStopPageViewModel extends StateNotifier<AsyncValue<BusArrivalModel>> {
     final busArrivalsWithDestination = <BusArrivalServicesModel>[];
     for (final busArrival in busArrivals) {
       final destination = busStops
-          .where((element) =>
-              element.busStopCode == busArrival.nextBus.destinationCode)
+          .where(
+            (element) =>
+                element.busStopCode == busArrival.nextBus.destinationCode,
+          )
           .toList();
       if (destination.isNotEmpty) {
-        busArrivalsWithDestination.add(busArrival.copyWith(
-            destinationName: destination[0].description ?? ''));
+        busArrivalsWithDestination.add(
+          busArrival.copyWith(
+            destinationName: destination[0].description ?? '',
+          ),
+        );
       } else {
         busArrivalsWithDestination.add(busArrival);
       }
@@ -145,8 +152,9 @@ class BusStopPageViewModel extends StateNotifier<AsyncValue<BusArrivalModel>> {
         .map(
           (e) => e.copyWith(
             isFavorite: localStorageService.containsValueInList(
-                favoriteServiceNoKey,
-                '$busStopCode$busStopCodeServiceNoDelimiter${e.serviceNo}'),
+              favoriteServiceNoKey,
+              '$busStopCode$busStopCodeServiceNoDelimiter${e.serviceNo}',
+            ),
           ),
         )
         .toList();
@@ -165,9 +173,12 @@ class BusStopPageViewModel extends StateNotifier<AsyncValue<BusArrivalModel>> {
     // add or remove the service no from the local storage
     if (currentFavorites.contains(searchValue)) {
       _read(loggerProvider).d(
-          'removing from Favorites, as bus stop with service no already exists');
+        'removing from Favorites, as bus stop with service no already exists',
+      );
       localStorageService.removeStringFromList(
-          favoriteServiceNoKey, searchValue);
+        favoriteServiceNoKey,
+        searchValue,
+      );
       newIsFavoriteValue = false;
     } else {
       _read(loggerProvider)

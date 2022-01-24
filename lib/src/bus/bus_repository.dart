@@ -74,13 +74,15 @@ class BusRepository {
         .d('GET $path with $queryParameters as query parameters');
 
     try {
-      return await dio.get<T>(path,
-          options: Options(
-            headers: <String, String>{
-              'AccountKey': EnvironmentConfig.ltaDatamallApiKey,
-            },
-          ),
-          queryParameters: queryParameters);
+      return await dio.get<T>(
+        path,
+        options: Options(
+          headers: <String, String>{
+            'AccountKey': EnvironmentConfig.ltaDatamallApiKey,
+          },
+        ),
+        queryParameters: queryParameters,
+      );
     } on DioError catch (e) {
       _read(loggerProvider).e('message: ${e.message}; response: ${e.response}');
       throw CustomException.fromDioError(e);

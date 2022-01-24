@@ -149,7 +149,8 @@ class BusDatabaseService extends _$BusDatabaseService {
   }
 
   Future<List<TableBusRoute>> getBusServiceNosForBusStopCode(
-      String busStopCode) async {
+    String busStopCode,
+  ) async {
     _read(loggerProvider)
         .d('Getting Bus Routes from DB for bus stop $busStopCode');
     return (select(tableBusRoutes)
@@ -157,8 +158,9 @@ class BusDatabaseService extends _$BusDatabaseService {
         .get();
   }
 
-  Future<List<TableBusStop>> getBusStops(
-      {List<String>? favoriteBusStops}) async {
+  Future<List<TableBusStop>> getBusStops({
+    List<String>? favoriteBusStops,
+  }) async {
     if (favoriteBusStops != null) {
       _read(loggerProvider).d('Getting Bus Stops $favoriteBusStops from DB');
 
@@ -201,7 +203,8 @@ class BusDatabaseService extends _$BusDatabaseService {
     }
     // sort result by distance
     nearbyBusStops.sort(
-        (var a, var b) => a.distanceInMeters!.compareTo(b.distanceInMeters!));
+      (var a, var b) => a.distanceInMeters!.compareTo(b.distanceInMeters!),
+    );
 
     return nearbyBusStops;
   }

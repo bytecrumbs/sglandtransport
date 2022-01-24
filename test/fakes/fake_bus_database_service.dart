@@ -2,8 +2,9 @@ import 'package:lta_datamall_flutter/src/bus/bus_database_service.dart';
 
 class FakeBusDatabaseService implements BusDatabaseService {
   @override
-  Future<List<TableBusStop>> getBusStops(
-      {List<String>? favoriteBusStops}) async {
+  Future<List<TableBusStop>> getBusStops({
+    List<String>? favoriteBusStops,
+  }) async {
     return [
       TableBusStop(
         busStopCode: '99009',
@@ -30,7 +31,8 @@ class FakeBusDatabaseService implements BusDatabaseService {
 
   @override
   Future<List<TableBusRoute>> getBusServiceNosForBusStopCode(
-      String busStopCode) async {
+    String busStopCode,
+  ) async {
     return [
       TableBusRoute(serviceNo: '39'),
       TableBusRoute(serviceNo: '53'),

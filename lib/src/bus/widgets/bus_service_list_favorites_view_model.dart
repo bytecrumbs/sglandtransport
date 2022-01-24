@@ -136,8 +136,9 @@ class BusServiceListFavoritesViewModel
 
   // TODO: This is an exact duplicate of the same method in [BusStopPageViewModel] and needs to be refactored!
   // I am not sure at this point how to make it reusable! :-(
-  Future<List<BusArrivalServicesModel>> _addDestination(
-      {required List<BusArrivalServicesModel> busArrivals}) async {
+  Future<List<BusArrivalServicesModel>> _addDestination({
+    required List<BusArrivalServicesModel> busArrivals,
+  }) async {
     // get a list of all bus service nos
     final busArrivalsDestinationCode =
         busArrivals.map((e) => e.nextBus.destinationCode ?? '').toList();
@@ -150,12 +151,17 @@ class BusServiceListFavoritesViewModel
     final busArrivalsWithDestination = <BusArrivalServicesModel>[];
     for (final busArrival in busArrivals) {
       final destination = busStops
-          .where((element) =>
-              element.busStopCode == busArrival.nextBus.destinationCode)
+          .where(
+            (element) =>
+                element.busStopCode == busArrival.nextBus.destinationCode,
+          )
           .toList();
       if (destination.isNotEmpty) {
-        busArrivalsWithDestination.add(busArrival.copyWith(
-            destinationName: destination[0].description ?? ''));
+        busArrivalsWithDestination.add(
+          busArrival.copyWith(
+            destinationName: destination[0].description ?? '',
+          ),
+        );
       } else {
         busArrivalsWithDestination.add(busArrival);
       }
@@ -170,7 +176,8 @@ class BusServiceListFavoritesViewModel
     final localStorageService = _read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
     _read(loggerProvider).d(
-        'removing from Favorites, as bus stop with service no already exists');
+      'removing from Favorites, as bus stop with service no already exists',
+    );
     localStorageService.removeStringFromList(favoriteServiceNoKey, searchValue);
   }
 }
