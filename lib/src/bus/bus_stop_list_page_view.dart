@@ -74,7 +74,7 @@ class BusStopListPageView extends HookConsumerWidget {
             SliverAppBar(
               foregroundColor: appBarForegroundColor,
               elevation: 0,
-              title: const Text('Bus Stops'),
+              title: const Text('Dashboard'),
               pinned: true,
               expandedHeight: sliverAnimationHeight,
               actions: <Widget>[
@@ -106,11 +106,11 @@ class BusStopListPageView extends HookConsumerWidget {
         items: const [
           TabItem<IconData>(
             icon: Icons.location_searching,
-            title: 'Nearby',
+            title: 'Nearby Stops',
           ),
           TabItem<IconData>(
             icon: Icons.favorite,
-            title: 'Favorites',
+            title: 'Favorite Buses',
           )
         ],
         initialActiveIndex: filterState,
