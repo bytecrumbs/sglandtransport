@@ -7,15 +7,15 @@ import '../../shared/services/local_storage_service.dart';
 import '../bus_database_service.dart';
 import '../bus_repository.dart';
 
-final busStopListFavoritesViewModelStateProvider =
-    StateNotifierProvider.autoDispose<BusStopListFavoritesViewModel,
+final busServiceListFavoritesViewModelStateProvider =
+    StateNotifierProvider.autoDispose<BusServiceListFavoritesViewModel,
         AsyncValue<List<BusArrivalModel>>>(
-  (ref) => BusStopListFavoritesViewModel(ref.read),
+  (ref) => BusServiceListFavoritesViewModel(ref.read),
 );
 
-class BusStopListFavoritesViewModel
+class BusServiceListFavoritesViewModel
     extends StateNotifier<AsyncValue<List<BusArrivalModel>>> {
-  BusStopListFavoritesViewModel(this._read)
+  BusServiceListFavoritesViewModel(this._read)
       : super(const AsyncValue.loading()) {
     init();
   }

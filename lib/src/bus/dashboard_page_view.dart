@@ -13,7 +13,7 @@ import '../shared/palette.dart';
 import '../shared/services/local_storage_service.dart';
 import 'bus_repository.dart';
 import 'dashboard_page_view_model.dart';
-import 'widgets/bus_stop_list_favorites_view.dart';
+import 'widgets/bus_service_list_favorites_view.dart';
 import 'widgets/bus_stop_list_nearby_view.dart';
 
 /// Defines whether the flare animation should loop or be idle. It is done like
@@ -40,7 +40,7 @@ class DashboardPageView extends HookConsumerWidget {
       case 0:
         return const BusStopListNearbyView();
       case 1:
-        return const BusStopListFavoritesView();
+        return const BusServiceListFavoritesView();
       default:
         return const BusStopListNearbyView();
     }

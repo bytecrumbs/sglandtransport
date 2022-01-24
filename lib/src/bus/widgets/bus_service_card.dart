@@ -3,8 +3,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../shared/palette.dart';
 
-class BusArrivalCard extends StatelessWidget {
-  const BusArrivalCard({
+class BusServiceCard extends StatelessWidget {
+  const BusServiceCard({
     Key? key,
     // required this.busArrivalModel,
     required this.serviceNo,

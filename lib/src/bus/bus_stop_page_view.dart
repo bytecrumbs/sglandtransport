@@ -7,7 +7,7 @@ import '../shared/palette.dart';
 import '../shared/widgets/error_display.dart';
 import '../shared/widgets/staggered_animation.dart';
 import 'bus_stop_page_view_model.dart';
-import 'widgets/bus_arrival_card.dart';
+import 'widgets/bus_service_card.dart';
 
 class BusStopPageView extends ConsumerWidget {
   const BusStopPageView({
@@ -85,7 +85,7 @@ class BusStopPageView extends ConsumerWidget {
                         busArrival.services[index];
                     return StaggeredAnimation(
                       index: index,
-                      child: BusArrivalCard(
+                      child: BusServiceCard(
                         inService: currentBusArrivalServicesModel.inService,
                         isFavorite: currentBusArrivalServicesModel.isFavorite,
                         serviceNo: currentBusArrivalServicesModel.serviceNo,

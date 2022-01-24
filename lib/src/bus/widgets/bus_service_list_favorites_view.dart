@@ -5,16 +5,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../shared/custom_exception.dart';
 import '../../shared/widgets/error_display.dart';
 import '../../shared/widgets/staggered_animation.dart';
-import 'bus_arrival_card.dart';
-import 'bus_stop_list_favorites_view_model.dart';
+import 'bus_service_card.dart';
+import 'bus_service_list_favorites_view_model.dart';
 
-class BusStopListFavoritesView extends ConsumerWidget {
-  const BusStopListFavoritesView({Key? key}) : super(key: key);
+class BusServiceListFavoritesView extends ConsumerWidget {
+  const BusServiceListFavoritesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _vmState = ref.watch(busStopListFavoritesViewModelStateProvider);
-    final _vm = ref.watch(busStopListFavoritesViewModelStateProvider.notifier);
+    final _vmState = ref.watch(busServiceListFavoritesViewModelStateProvider);
+    final _vm =
+        ref.watch(busServiceListFavoritesViewModelStateProvider.notifier);
 
     return _vmState.when(
       data: (busArrivalModels) {
@@ -28,7 +29,7 @@ class BusStopListFavoritesView extends ConsumerWidget {
                       currentBusArrivalModel.services[0];
                   return StaggeredAnimation(
                     index: index,
-                    child: BusArrivalCard(
+                    child: BusServiceCard(
                       busStopCode: currentBusArrivalModel.busStopCode,
                       description: currentBusArrivalModel.description,
                       roadName: currentBusArrivalModel.roadName,
