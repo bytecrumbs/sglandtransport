@@ -43,6 +43,12 @@ class BusServiceListFavoritesViewModel
   }
 
   Future<List<BusArrivalModel>> getFavoriteBusServices() async {
+    // __handleLegacyFavorites is only required temporarily and can be removed
+    // again in a later version, as it migrates the old bus stop favorites
+    // to the new way we are storing bus services in favorites
+    // maybe we can delete this code again after a few releases
+    await _handleLegacyFavorites();
+
     final localStorageService = _read(localStorageServiceProvider);
     final repository = _read(busRepositoryProvider);
 
@@ -106,6 +112,44 @@ class BusServiceListFavoritesViewModel
     }
 
     return enrichedBusArrivalModelList;
+  }
+
+  Future<void> _handleLegacyFavorites() async {
+    final localStorageService = _read(localStorageServiceProvider);
+    final busDatabaseService = _read(busDatabaseServiceProvider);
+
+    final favoriteBusStops =
+        localStorageService.getStringList(favoriteBusStopsKey);
+
+    if (favoriteBusStops.isNotEmpty) {
+      _read(loggerProvider).d('Found favorite bus stops and processing them');
+      for (final favoriteBusStop in favoriteBusStops) {
+        final busStops = await busDatabaseService
+            .getBusServiceNosForBusStopCode(favoriteBusStop);
+
+        _read(loggerProvider).d('Processing bus stop $favoriteBusStop');
+        final existingBusServiceFavorites =
+            localStorageService.getStringList(favoriteServiceNoKey);
+        for (final busStop in busStops) {
+          final valueToAdd =
+              '${busStop.busStopCode}$busStopCodeServiceNoDelimiter${busStop.serviceNo}';
+
+          // only add if it doesn't exist yet
+          if (existingBusServiceFavorites
+              .where((element) => element == valueToAdd)
+              .toList()
+              .isEmpty) {
+            await localStorageService.addStringToList(
+              favoriteServiceNoKey,
+              valueToAdd,
+            );
+          }
+        }
+      }
+      _read(loggerProvider)
+          .d('Removing legacy favoriteBusStop key from local storage');
+      await localStorageService.remove(favoriteBusStopsKey);
+    }
   }
 
   void _sortFavorites(List<String> list) {

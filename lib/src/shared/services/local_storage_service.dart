@@ -30,6 +30,10 @@ class LocalStorageService {
     return sharedPreferences.getStringList(key);
   }
 
+  Future<bool> remove(String key) {
+    return sharedPreferences.remove(key);
+  }
+
   bool containsValueInList(String key, String value) {
     final stringList = sharedPreferences.getStringList(key) ?? <String>[];
     return stringList.contains(value);
