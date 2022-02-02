@@ -30,6 +30,11 @@ class BusStopListNearbyViewModel {
     );
   }
 
+  Future<bool> handleLocationPermission() {
+    final locationService = read(locationServiceProvider);
+    return locationService.handlePermission();
+  }
+
   Stream<UserLocationModel> getLocationStream() {
     final locationService = read(locationServiceProvider);
     return locationService.startLocationStream();

@@ -28,6 +28,11 @@ final busStopsStreamProvider = StreamProvider.autoDispose((ref) async* {
   }
 });
 
+final locationPermissionFutureProvider = FutureProvider<bool>((ref) {
+  final vm = ref.watch(busStopListNearbyViewModelProvider);
+  return vm.handleLocationPermission();
+});
+
 class BusStopListNearbyView extends ConsumerStatefulWidget {
   const BusStopListNearbyView({Key? key}) : super(key: key);
 
@@ -63,40 +68,66 @@ class BusStopListNearbyViewState extends ConsumerState<BusStopListNearbyView>
 
   @override
   Widget build(BuildContext context) {
-    final busStops = ref.watch(busStopsStreamProvider);
+    final hasPermission = ref.watch(locationPermissionFutureProvider);
 
-    return busStops.when(
-      data: (busStops) => AnimationLimiter(
-        child: SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (_, index) => StaggeredAnimation(
-              index: index,
-              child: ProviderScope(
-                overrides: [
-                  busStopValueModelProvider.overrideWithValue(busStops[index]),
-                ],
-                child: const BusStopCard(),
+    return hasPermission.when(
+      data: (hasPermision) {
+        if (!hasPermision) {
+          return const SliverFillRemaining(
+            child: ErrorDisplay(
+              message:
+                  'Permission for location tracking disabled on this device',
+            ),
+          );
+        } else {
+          final busStops = ref.watch(busStopsStreamProvider);
+
+          return busStops.when(
+            data: (busStops) => AnimationLimiter(
+              child: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (_, index) => StaggeredAnimation(
+                    index: index,
+                    child: ProviderScope(
+                      overrides: [
+                        busStopValueModelProvider
+                            .overrideWithValue(busStops[index]),
+                      ],
+                      child: const BusStopCard(),
+                    ),
+                  ),
+                  childCount: busStops.length,
+                ),
               ),
             ),
-            childCount: busStops.length,
-          ),
-        ),
-      ),
-      error: (error, stack) {
-        if (error is CustomException) {
-          return SliverFillRemaining(
-            child: ErrorDisplay(message: error.message),
+            error: (error, stack) {
+              if (error is CustomException) {
+                return SliverFillRemaining(
+                  child: ErrorDisplay(message: error.message),
+                );
+              }
+              return SliverFillRemaining(
+                child: ErrorDisplay(
+                  message: error.toString(),
+                ),
+              );
+            },
+            loading: () => const SliverFillRemaining(
+              child: Center(
+                child: Text('Looking for nearby bus stops...'),
+              ),
+            ),
           );
         }
-        return SliverFillRemaining(
-          child: ErrorDisplay(
-            message: error.toString(),
-          ),
-        );
       },
+      error: (error, stack) => SliverFillRemaining(
+        child: ErrorDisplay(
+          message: error.toString(),
+        ),
+      ),
       loading: () => const SliverFillRemaining(
         child: Center(
-          child: Text('Looking for nearby bus stops...'),
+          child: Text('Checking device permission for location...'),
         ),
       ),
     );
