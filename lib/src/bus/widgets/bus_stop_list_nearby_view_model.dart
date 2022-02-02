@@ -1,4 +1,3 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/services/location_service.dart';
@@ -31,8 +30,13 @@ class BusStopListNearbyViewModel {
     );
   }
 
-  Stream<Position> getLocationStream() {
+  Stream<UserLocationModel> getLocationStream() {
     final locationService = read(locationServiceProvider);
-    return locationService.getLocationStream();
+    return locationService.startLocationStream();
+  }
+
+  void stopLocationStream() {
+    final locationService = read(locationServiceProvider);
+    locationService.stopLocationStream();
   }
 }

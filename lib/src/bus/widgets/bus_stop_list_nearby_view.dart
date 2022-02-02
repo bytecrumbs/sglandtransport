@@ -12,6 +12,7 @@ import 'bus_stop_list_nearby_view_model.dart';
 
 final locationStreamProvider = StreamProvider.autoDispose((ref) {
   final vm = ref.watch(busStopListNearbyViewModelProvider);
+  ref.onDispose(vm.stopLocationStream);
   return vm.getLocationStream();
 });
 
