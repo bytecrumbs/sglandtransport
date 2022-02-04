@@ -23,9 +23,9 @@ class BusStopPageView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _vm = ref
+    final vm = ref
         .watch(busStopPageViewModelStateNotifierProvider(busStopCode).notifier);
-    final _vmState =
+    final vmState =
         ref.watch(busStopPageViewModelStateNotifierProvider(busStopCode));
 
     return Scaffold(
@@ -38,9 +38,9 @@ class BusStopPageView extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
+              children: const [
+                DecoratedBox(
+                  decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
                         color: kLoadSeatsAvailable,
@@ -48,10 +48,10 @@ class BusStopPageView extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  child: const Text('Seats Avail.'),
+                  child: Text('Seats Avail.'),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
+                DecoratedBox(
+                  decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
                         color: kLoadStandingAvailable,
@@ -59,10 +59,10 @@ class BusStopPageView extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  child: const Text('Standing Avail.'),
+                  child: Text('Standing Avail.'),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
+                DecoratedBox(
+                  decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
                         color: kLoadLimitedStanding,
@@ -70,13 +70,13 @@ class BusStopPageView extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  child: const Text('Limited Standing'),
+                  child: Text('Limited Standing'),
                 ),
               ],
             ),
           ),
           Expanded(
-            child: _vmState.when(
+            child: vmState.when(
               data: (busArrival) => AnimationLimiter(
                 child: ListView.builder(
                   itemCount: busArrival.services.length,
@@ -118,7 +118,7 @@ class BusStopPageView extends ConsumerWidget {
                             .nextBus3
                             .getLoadColor(),
                         onPressedFavorite: () {
-                          _vm.toggleFavoriteBusService(
+                          vm.toggleFavoriteBusService(
                             busStopCode: busStopCode,
                             serviceNo: busArrival.services[index].serviceNo,
                           );

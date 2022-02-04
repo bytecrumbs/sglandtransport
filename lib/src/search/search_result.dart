@@ -40,8 +40,8 @@ class SearchResult extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _searchResult = ref.watch(searchResultFutureProvider(searchTerm));
-    return _searchResult.when(
+    final searchResult = ref.watch(searchResultFutureProvider(searchTerm));
+    return searchResult.when(
       data: (searchResult) => ListView.builder(
         itemCount: searchResult.length,
         itemBuilder: (_, index) => ProviderScope(

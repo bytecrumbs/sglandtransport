@@ -13,11 +13,11 @@ class BusServiceListFavoritesView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _vmState = ref.watch(busServiceListFavoritesViewModelStateProvider);
-    final _vm =
+    final vmState = ref.watch(busServiceListFavoritesViewModelStateProvider);
+    final vm =
         ref.watch(busServiceListFavoritesViewModelStateProvider.notifier);
 
-    return _vmState.when(
+    return vmState.when(
       data: (busArrivalModels) {
         if (busArrivalModels.isNotEmpty) {
           return AnimationLimiter(
@@ -64,7 +64,7 @@ class BusServiceListFavoritesView extends ConsumerWidget {
                           .getLoadColor(),
                       onPressedFavorite: () {},
                       onDismissed: () {
-                        _vm.removeFavorite(
+                        vm.removeFavorite(
                           busStopCode: currentBusArrivalModel.busStopCode,
                           serviceNo: currentBusArrivalServicesModel.serviceNo,
                         );

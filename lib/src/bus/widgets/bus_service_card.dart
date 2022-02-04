@@ -198,7 +198,7 @@ class _NextBusDetails extends StatelessWidget {
     return estimatedArrival != 'n/a'
         ? Column(
             children: [
-              Container(
+              DecoratedBox(
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
