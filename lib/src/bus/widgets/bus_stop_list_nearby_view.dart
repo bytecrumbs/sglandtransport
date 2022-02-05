@@ -9,94 +9,45 @@ import '../dashboard_page_view.dart';
 import 'bus_stop_card.dart';
 import 'bus_stop_list_nearby_view_model.dart';
 
-final locationStreamProvider = StreamProvider.autoDispose((ref) {
-  final vm = ref.watch(busStopListNearbyViewModelProvider);
-  ref.onDispose(vm.stopLocationStream);
-  return vm.getLocationStream();
-});
-
-final busStopsStreamProvider = StreamProvider.autoDispose((ref) async* {
-  final locationStream = ref.watch(locationStreamProvider.stream);
-  final vm = ref.watch(busStopListNearbyViewModelProvider);
-
-  await for (final locationData in locationStream) {
-    yield await vm.getNearbyBusStops(
-      latitude: locationData.latitude,
-      longitude: locationData.longitude,
-    );
-  }
-});
-
-final locationPermissionFutureProvider = FutureProvider<bool>((ref) {
-  final vm = ref.watch(busStopListNearbyViewModelProvider);
-  return vm.handleLocationPermission();
-});
-
 class BusStopListNearbyView extends ConsumerWidget {
   const BusStopListNearbyView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hasPermission = ref.watch(locationPermissionFutureProvider);
+    final busStops = ref.watch(busStopListNearbyViewModelStateNotifierProvider);
 
-    return hasPermission.when(
-      data: (hasPermision) {
-        if (!hasPermision) {
-          return const SliverFillRemaining(
-            child: ErrorDisplay(
-              message:
-                  'Permission for location tracking disabled on this device',
-            ),
-          );
-        } else {
-          final busStops = ref.watch(busStopsStreamProvider);
-
-          return busStops.when(
-            data: (busStops) => AnimationLimiter(
-              child: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (_, index) => StaggeredAnimation(
-                    index: index,
-                    child: ProviderScope(
-                      overrides: [
-                        busStopValueModelProvider
-                            .overrideWithValue(busStops[index]),
-                      ],
-                      child: const BusStopCard(),
-                    ),
-                  ),
-                  childCount: busStops.length,
-                ),
+    return busStops.when(
+      data: (busStops) => AnimationLimiter(
+        child: SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (_, index) => StaggeredAnimation(
+              index: index,
+              child: ProviderScope(
+                overrides: [
+                  busStopValueModelProvider.overrideWithValue(busStops[index]),
+                ],
+                child: const BusStopCard(),
               ),
             ),
-            error: (error, stack) {
-              if (error is CustomException) {
-                return SliverFillRemaining(
-                  child: ErrorDisplay(message: error.message),
-                );
-              }
-              return SliverFillRemaining(
-                child: ErrorDisplay(
-                  message: error.toString(),
-                ),
-              );
-            },
-            loading: () => const SliverFillRemaining(
-              child: Center(
-                child: Text('Looking for nearby bus stops...'),
-              ),
-            ),
-          );
-        }
-      },
-      error: (error, stack) => SliverFillRemaining(
-        child: ErrorDisplay(
-          message: error.toString(),
+            childCount: busStops.length,
+          ),
         ),
       ),
+      error: (error, stack) {
+        if (error is CustomException) {
+          return SliverFillRemaining(
+            child: ErrorDisplay(message: error.message),
+          );
+        }
+        return SliverFillRemaining(
+          child: ErrorDisplay(
+            message: error.toString(),
+          ),
+        );
+      },
       loading: () => const SliverFillRemaining(
         child: Center(
-          child: Text('Checking device permission for location...'),
+          child: Text('Looking for nearby bus stops...'),
         ),
       ),
     );
