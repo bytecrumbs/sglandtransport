@@ -33,41 +33,11 @@ final locationPermissionFutureProvider = FutureProvider<bool>((ref) {
   return vm.handleLocationPermission();
 });
 
-class BusStopListNearbyView extends ConsumerStatefulWidget {
+class BusStopListNearbyView extends ConsumerWidget {
   const BusStopListNearbyView({Key? key}) : super(key: key);
 
   @override
-  BusStopListNearbyViewState createState() => BusStopListNearbyViewState();
-}
-
-class BusStopListNearbyViewState extends ConsumerState<BusStopListNearbyView>
-    with
-        // ignore: prefer_mixin
-        WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
-    super.dispose();
-  }
-
-  // Ensure location starts to stream again, when the app comes back from the
-  // background
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      ref.read(loggerProvider).d('restarting location stream');
-      ref.refresh(locationStreamProvider);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final hasPermission = ref.watch(locationPermissionFutureProvider);
 
     return hasPermission.when(
