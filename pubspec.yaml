@@ -31,7 +31,7 @@ dependencies:
   flutter_slidable: ^1.2.0
   flutter_staggered_animations: ^1.0.0
   freezed_annotation: ^1.1.0
-  geolocator: ^8.0.5
+  geolocator: ^8.1.1
   hooks_riverpod: ^1.0.3
   injectable: ^1.5.3
   json_annotation: ^4.4.0
@@ -41,7 +41,7 @@ dependencies:
   pedantic: ^1.11.1
   rate_my_app: ^1.1.1+1
   share_plus: ^3.0.4
-  shared_preferences: ^2.0.12
+  shared_preferences: ^2.0.13
   sqlite3_flutter_libs: ^0.5.3
   substring_highlight: ^1.0.33
   url_launcher: ^6.0.18
