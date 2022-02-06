@@ -19,27 +19,12 @@ class BusStopListNearbyViewModel
   final Reader read;
 
   Future<void> init() async {
-    final hasPermission = await _handleLocationPermission();
-    if (hasPermission) {
-      final locationStream = _getLocationStream();
-
-      await for (final locationData in locationStream) {
-        final busStopList = await _getNearbyBusStops(
-          latitude: locationData.latitude,
-          longitude: locationData.longitude,
-        );
-        state = AsyncValue.data(busStopList);
-      }
-    } else {
-      state = const AsyncValue.error(
-        'Access to location tracking denied by your device',
-      );
-    }
+    await startLocationStream();
   }
 
   @override
   void dispose() {
-    _stopLocationStream();
+    stopLocationStream();
     super.dispose();
   }
 
@@ -66,12 +51,31 @@ class BusStopListNearbyViewModel
     return locationService.handlePermission();
   }
 
+  Future<void> startLocationStream() async {
+    final hasPermission = await _handleLocationPermission();
+    if (hasPermission) {
+      final locationStream = _getLocationStream();
+
+      await for (final locationData in locationStream) {
+        final busStopList = await _getNearbyBusStops(
+          latitude: locationData.latitude,
+          longitude: locationData.longitude,
+        );
+        state = AsyncValue.data(busStopList);
+      }
+    } else {
+      state = const AsyncValue.error(
+        'Access to location tracking denied by your device',
+      );
+    }
+  }
+
   Stream<UserLocationModel> _getLocationStream() {
     final locationService = read(locationServiceProvider);
     return locationService.startLocationStream();
   }
 
-  void _stopLocationStream() {
+  void stopLocationStream() {
     final locationService = read(locationServiceProvider);
     locationService.stopLocationStream();
   }
