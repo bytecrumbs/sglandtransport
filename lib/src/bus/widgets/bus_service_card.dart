@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../shared/palette.dart';
+import 'bus_service_header.dart';
 
 class BusServiceCard extends StatelessWidget {
   const BusServiceCard({
@@ -68,17 +69,18 @@ class BusServiceCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (busStopCode != null)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
-                child: Text('$busStopCode - $description - $roadName'),
-              ),
-            Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (busStopCode != null)
+            BusServiceHeader(
+              busStopCode: busStopCode,
+              description: description,
+              roadName: roadName,
+            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
@@ -122,60 +124,61 @@ class BusServiceCard extends StatelessWidget {
                   ),
               ],
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    blurRadius: 3,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
               ),
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-              child: inService
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        _NextBusDetails(
-                          estimatedArrival: nextBusEstimatedArrival,
-                          loadDescription: nextBusLoadDescription,
-                          loadColor: nextBusLoadColor,
-                        ),
-                        const Icon(
-                          Icons.arrow_back_ios,
-                          size: 15,
-                        ),
-                        _NextBusDetails(
-                          estimatedArrival: nextBus2EstimatedArrival,
-                          loadDescription: nextBus2LoadDescription,
-                          loadColor: nextBus2LoadColor,
-                        ),
-                        const Icon(
-                          Icons.arrow_back_ios,
-                          size: 15,
-                        ),
-                        _NextBusDetails(
-                          estimatedArrival: nextBus3EstimatedArrival,
-                          loadDescription: nextBus3LoadDescription,
-                          loadColor: nextBus3LoadColor,
-                        ),
-                      ],
-                    )
-                  : Row(
-                      children: const [
-                        Text('Not In Operation'),
-                      ],
-                    ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 3,
+                  offset: const Offset(0, 1),
+                ),
+              ],
             ),
-          ],
-        ),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            child: inService
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _NextBusDetails(
+                        estimatedArrival: nextBusEstimatedArrival,
+                        loadDescription: nextBusLoadDescription,
+                        loadColor: nextBusLoadColor,
+                      ),
+                      const Icon(
+                        Icons.arrow_back_ios,
+                        size: 15,
+                      ),
+                      _NextBusDetails(
+                        estimatedArrival: nextBus2EstimatedArrival,
+                        loadDescription: nextBus2LoadDescription,
+                        loadColor: nextBus2LoadColor,
+                      ),
+                      const Icon(
+                        Icons.arrow_back_ios,
+                        size: 15,
+                      ),
+                      _NextBusDetails(
+                        estimatedArrival: nextBus3EstimatedArrival,
+                        loadDescription: nextBus3LoadDescription,
+                        loadColor: nextBus3LoadColor,
+                      ),
+                    ],
+                  )
+                : Row(
+                    children: const [
+                      Text('Not In Operation'),
+                    ],
+                  ),
+          ),
+        ],
       ),
     );
   }
