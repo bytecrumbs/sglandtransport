@@ -274,3 +274,19 @@ screenshots -m archive
 [license badge]: https://img.shields.io/github/license/bytecrumbs/sglandtransport
 [twitter handle]: https://img.shields.io/twitter/follow/sgltapp.svg?style=social&label=Follow
 [twitter badge]: https://twitter.com/intent/follow?screen_name=sgltapp
+
+## Usage of REST Client plugin
+In order to query sample results from the LTA datamall, install the VS Code plugin `REST Client` and create a `settings.json` file inside the `.vscode` folder, like so:
+
+```json
+{
+    "rest-client.environmentVariables": {
+        "local": {
+            "baseURL": "http://datamall2.mytransport.sg",
+            "authorization": "<LTA datamall key>"
+        }
+    }
+}
+```
+
+Once this is done, you can start to query using the `ltadatamall.http` file.
