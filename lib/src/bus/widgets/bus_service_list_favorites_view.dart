@@ -27,10 +27,14 @@ class BusServiceListFavoritesView extends ConsumerWidget {
                   final currentBusArrivalModel = busArrivalModels[index];
                   final currentBusArrivalServicesModel =
                       currentBusArrivalModel.services[0];
+                  final previousBusStopCode = index == 0
+                      ? '0'
+                      : busArrivalModels[index - 1].busStopCode;
                   return StaggeredAnimation(
                     index: index,
                     child: BusServiceCard(
                       busStopCode: currentBusArrivalModel.busStopCode,
+                      previousBusStopCode: previousBusStopCode,
                       description: currentBusArrivalModel.description,
                       roadName: currentBusArrivalModel.roadName,
                       inService: currentBusArrivalServicesModel.inService,

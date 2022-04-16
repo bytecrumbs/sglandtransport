@@ -27,6 +27,7 @@ class BusServiceHeader extends StatelessWidget {
             '$busStopCode - $description - $roadName',
             style: const TextStyle(
               color: kMainBackgroundColor,
+              fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           ),

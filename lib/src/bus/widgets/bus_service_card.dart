@@ -21,6 +21,7 @@ class BusServiceCard extends StatelessWidget {
     required this.nextBus3LoadDescription,
     required this.nextBus3LoadColor,
     this.busStopCode,
+    this.previousBusStopCode,
     this.description,
     this.roadName,
     required this.onPressedFavorite,
@@ -39,6 +40,7 @@ class BusServiceCard extends StatelessWidget {
   final String nextBus3EstimatedArrival;
   final String nextBus3LoadDescription;
   final Color nextBus3LoadColor;
+  final String? previousBusStopCode;
   final String? busStopCode;
   final String? description;
   final String? roadName;
@@ -46,124 +48,128 @@ class BusServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (busStopCode != null)
-          BusServiceHeader(
-            busStopCode: busStopCode,
-            description: description,
-            roadName: roadName,
-          ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                decoration: const BoxDecoration(
-                  color: kPrimaryColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (busStopCode != null && busStopCode != previousBusStopCode)
+            BusServiceHeader(
+              busStopCode: busStopCode,
+              description: description,
+              roadName: roadName,
+            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                  decoration: const BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                  ),
+                  child: Text(
+                    serviceNo,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: Colors.white),
                   ),
                 ),
-                child: Text(
-                  serviceNo,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: Colors.white),
-                ),
-              ),
-              if (inService)
-                Container(
-                  margin: const EdgeInsets.only(left: 1),
-                  padding: const EdgeInsets.fromLTRB(7, 4, 10, 4),
+                if (inService)
+                  Container(
+                    margin: const EdgeInsets.only(left: 1),
+                    padding: const EdgeInsets.fromLTRB(7, 4, 10, 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(10),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.35),
+                          blurRadius: 3,
+                          offset: const Offset(0, -1),
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      'to ${destinationName ?? ''}',
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.35),
+                        color: Colors.grey.withOpacity(0.5),
                         blurRadius: 3,
-                        offset: const Offset(0, -1),
+                        offset: const Offset(0, 1),
                       ),
                     ],
                   ),
-                  child: Text(
-                    'to ${destinationName ?? ''}',
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                  // width: double.infinity,
+                  child: inService
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            _NextBusDetails(
+                              estimatedArrival: nextBusEstimatedArrival,
+                              loadDescription: nextBusLoadDescription,
+                              loadColor: nextBusLoadColor,
+                            ),
+                            const Icon(
+                              Icons.arrow_back_ios,
+                              size: 15,
+                            ),
+                            _NextBusDetails(
+                              estimatedArrival: nextBus2EstimatedArrival,
+                              loadDescription: nextBus2LoadDescription,
+                              loadColor: nextBus2LoadColor,
+                            ),
+                            const Icon(
+                              Icons.arrow_back_ios,
+                              size: 15,
+                            ),
+                            _NextBusDetails(
+                              estimatedArrival: nextBus3EstimatedArrival,
+                              loadDescription: nextBus3LoadDescription,
+                              loadColor: nextBus3LoadColor,
+                            ),
+                          ],
+                        )
+                      : const Text('Not In Operation'),
                 ),
+              ),
+              IconButton(
+                onPressed: onPressedFavorite,
+                icon:
+                    Icon(isFavorite ? Icons.favorite : Icons.favorite_outline),
+              ),
             ],
           ),
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      blurRadius: 3,
-                      offset: const Offset(0, 1),
-                    ),
-                  ],
-                ),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                // width: double.infinity,
-                child: inService
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _NextBusDetails(
-                            estimatedArrival: nextBusEstimatedArrival,
-                            loadDescription: nextBusLoadDescription,
-                            loadColor: nextBusLoadColor,
-                          ),
-                          const Icon(
-                            Icons.arrow_back_ios,
-                            size: 15,
-                          ),
-                          _NextBusDetails(
-                            estimatedArrival: nextBus2EstimatedArrival,
-                            loadDescription: nextBus2LoadDescription,
-                            loadColor: nextBus2LoadColor,
-                          ),
-                          const Icon(
-                            Icons.arrow_back_ios,
-                            size: 15,
-                          ),
-                          _NextBusDetails(
-                            estimatedArrival: nextBus3EstimatedArrival,
-                            loadDescription: nextBus3LoadDescription,
-                            loadColor: nextBus3LoadColor,
-                          ),
-                        ],
-                      )
-                    : const Text('Not In Operation'),
-              ),
-            ),
-            IconButton(
-              onPressed: onPressedFavorite,
-              icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_outline),
-            ),
-          ],
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
