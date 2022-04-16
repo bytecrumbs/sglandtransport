@@ -62,8 +62,7 @@ class BusServiceListFavoritesView extends ConsumerWidget {
                           .getLoadLongDescription(),
                       nextBus3LoadColor: currentBusArrivalServicesModel.nextBus3
                           .getLoadColor(),
-                      onPressedFavorite: () {},
-                      onDismissed: () {
+                      onPressedFavorite: () {
                         vm.removeFavorite(
                           busStopCode: currentBusArrivalModel.busStopCode,
                           serviceNo: currentBusArrivalServicesModel.serviceNo,

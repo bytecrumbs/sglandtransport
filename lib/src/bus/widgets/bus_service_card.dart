@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../shared/palette.dart';
 import 'bus_service_header.dart';
@@ -25,10 +24,8 @@ class BusServiceCard extends StatelessWidget {
     this.description,
     this.roadName,
     required this.onPressedFavorite,
-    this.onDismissed,
   }) : super(key: key);
 
-  // final BusArrivalServicesModel busArrivalModel;
   final bool isFavorite;
   final String serviceNo;
   final bool inService;
@@ -46,140 +43,127 @@ class BusServiceCard extends StatelessWidget {
   final String? description;
   final String? roadName;
   final VoidCallback onPressedFavorite;
-  final VoidCallback? onDismissed;
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      key: Key('$busStopCode ?? ""~$serviceNo'),
-      startActionPane: ActionPane(
-        dismissible: onDismissed != null
-            ? DismissiblePane(onDismissed: onDismissed!)
-            : null,
-        motion: const ScrollMotion(),
-        extentRatio: 0.15,
-        children: [
-          SlidableAction(
-            autoClose: false,
-            onPressed: (_) {
-              onPressedFavorite();
-            },
-            icon: isFavorite ? Icons.favorite : Icons.favorite_outline,
-            backgroundColor: kMainBackgroundColor,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (busStopCode != null)
+          BusServiceHeader(
+            busStopCode: busStopCode,
+            description: description,
+            roadName: roadName,
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (busStopCode != null)
-            BusServiceHeader(
-              busStopCode: busStopCode,
-              description: description,
-              roadName: roadName,
-            ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                decoration: const BoxDecoration(
+                  color: kPrimaryColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  serviceNo,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(color: Colors.white),
+                ),
+              ),
+              if (inService)
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                  decoration: const BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
+                  margin: const EdgeInsets.only(left: 1),
+                  padding: const EdgeInsets.fromLTRB(7, 4, 10, 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(10),
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.35),
+                        blurRadius: 3,
+                        offset: const Offset(0, -1),
+                      ),
+                    ],
                   ),
                   child: Text(
-                    serviceNo,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(color: Colors.white),
+                    'to ${destinationName ?? ''}',
                   ),
                 ),
-                if (inService)
-                  Container(
-                    margin: const EdgeInsets.only(left: 1),
-                    padding: const EdgeInsets.fromLTRB(7, 4, 10, 4),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(10),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.35),
-                          blurRadius: 3,
-                          offset: const Offset(0, -1),
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      'to ${destinationName ?? ''}',
-                    ),
-                  ),
-              ],
-            ),
+            ],
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      blurRadius: 3,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 8),
+                // width: double.infinity,
+                child: inService
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _NextBusDetails(
+                            estimatedArrival: nextBusEstimatedArrival,
+                            loadDescription: nextBusLoadDescription,
+                            loadColor: nextBusLoadColor,
+                          ),
+                          const Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                          ),
+                          _NextBusDetails(
+                            estimatedArrival: nextBus2EstimatedArrival,
+                            loadDescription: nextBus2LoadDescription,
+                            loadColor: nextBus2LoadColor,
+                          ),
+                          const Icon(
+                            Icons.arrow_back_ios,
+                            size: 15,
+                          ),
+                          _NextBusDetails(
+                            estimatedArrival: nextBus3EstimatedArrival,
+                            loadDescription: nextBus3LoadDescription,
+                            loadColor: nextBus3LoadColor,
+                          ),
+                        ],
+                      )
+                    : const Text('Not In Operation'),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  blurRadius: 3,
-                  offset: const Offset(0, 1),
-                ),
-              ],
             ),
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-            child: inService
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _NextBusDetails(
-                        estimatedArrival: nextBusEstimatedArrival,
-                        loadDescription: nextBusLoadDescription,
-                        loadColor: nextBusLoadColor,
-                      ),
-                      const Icon(
-                        Icons.arrow_back_ios,
-                        size: 15,
-                      ),
-                      _NextBusDetails(
-                        estimatedArrival: nextBus2EstimatedArrival,
-                        loadDescription: nextBus2LoadDescription,
-                        loadColor: nextBus2LoadColor,
-                      ),
-                      const Icon(
-                        Icons.arrow_back_ios,
-                        size: 15,
-                      ),
-                      _NextBusDetails(
-                        estimatedArrival: nextBus3EstimatedArrival,
-                        loadDescription: nextBus3LoadDescription,
-                        loadColor: nextBus3LoadColor,
-                      ),
-                    ],
-                  )
-                : Row(
-                    children: const [
-                      Text('Not In Operation'),
-                    ],
-                  ),
-          ),
-        ],
-      ),
+            IconButton(
+              onPressed: onPressedFavorite,
+              icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_outline),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
