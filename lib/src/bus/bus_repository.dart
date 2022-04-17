@@ -176,19 +176,6 @@ class NextBusModel with _$NextBusModel {
     }
   }
 
-  String getLoadLongDescription() {
-    switch (load) {
-      case 'SEA':
-        return 'Seats Avail.';
-      case 'SDA':
-        return ' Standing Avail.';
-      case 'LDS':
-        return ' Limited Standing';
-      default:
-        return '';
-    }
-  }
-
   Color getLoadColor() {
     switch (load) {
       case 'SEA':

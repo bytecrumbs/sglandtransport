@@ -12,13 +12,10 @@ class BusServiceCard extends StatelessWidget {
     required this.inService,
     this.destinationName,
     required this.nextBusEstimatedArrival,
-    required this.nextBusLoadDescription,
     required this.nextBusLoadColor,
     required this.nextBus2EstimatedArrival,
-    required this.nextBus2LoadDescription,
     required this.nextBus2LoadColor,
     required this.nextBus3EstimatedArrival,
-    required this.nextBus3LoadDescription,
     required this.nextBus3LoadColor,
     this.busStopCode,
     this.previousBusStopCode,
@@ -32,13 +29,10 @@ class BusServiceCard extends StatelessWidget {
   final bool inService;
   final String? destinationName;
   final String nextBusEstimatedArrival;
-  final String nextBusLoadDescription;
   final Color nextBusLoadColor;
   final String nextBus2EstimatedArrival;
-  final String nextBus2LoadDescription;
   final Color nextBus2LoadColor;
   final String nextBus3EstimatedArrival;
-  final String nextBus3LoadDescription;
   final Color nextBus3LoadColor;
   final String? previousBusStopCode;
   final String? busStopCode;
@@ -135,7 +129,6 @@ class BusServiceCard extends StatelessWidget {
                           children: [
                             _NextBusDetails(
                               estimatedArrival: nextBusEstimatedArrival,
-                              loadDescription: nextBusLoadDescription,
                               loadColor: nextBusLoadColor,
                             ),
                             const Icon(
@@ -144,7 +137,6 @@ class BusServiceCard extends StatelessWidget {
                             ),
                             _NextBusDetails(
                               estimatedArrival: nextBus2EstimatedArrival,
-                              loadDescription: nextBus2LoadDescription,
                               loadColor: nextBus2LoadColor,
                             ),
                             const Icon(
@@ -153,7 +145,6 @@ class BusServiceCard extends StatelessWidget {
                             ),
                             _NextBusDetails(
                               estimatedArrival: nextBus3EstimatedArrival,
-                              loadDescription: nextBus3LoadDescription,
                               loadColor: nextBus3LoadColor,
                             ),
                           ],
@@ -178,12 +169,10 @@ class _NextBusDetails extends StatelessWidget {
   const _NextBusDetails({
     Key? key,
     required this.estimatedArrival,
-    required this.loadDescription,
     required this.loadColor,
   }) : super(key: key);
 
   final String estimatedArrival;
-  final String loadDescription;
   final Color loadColor;
 
   @override
@@ -205,22 +194,6 @@ class _NextBusDetails extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
-              // Container(
-              //   padding: const EdgeInsets.only(
-              //     left: 3,
-              //     right: 3,
-              //     top: 3,
-              //     bottom: 3,
-              //   ),
-              //   decoration: BoxDecoration(
-              //     color: loadColor,
-              //     borderRadius: BorderRadius.circular(6),
-              //   ),
-              //   child: Text(
-              //     loadDescription,
-              //     style: Theme.of(context).textTheme.caption,
-              //   ),
-              // ),
             ],
           )
         : Text(

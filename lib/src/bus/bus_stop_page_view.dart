@@ -94,26 +94,17 @@ class BusStopPageView extends ConsumerWidget {
                         nextBusEstimatedArrival: currentBusArrivalServicesModel
                             .nextBus
                             .getEstimatedArrival(),
-                        nextBusLoadDescription: currentBusArrivalServicesModel
-                            .nextBus
-                            .getLoadLongDescription(),
                         nextBusLoadColor: currentBusArrivalServicesModel.nextBus
                             .getLoadColor(),
                         nextBus2EstimatedArrival: currentBusArrivalServicesModel
                             .nextBus2
                             .getEstimatedArrival(),
-                        nextBus2LoadDescription: currentBusArrivalServicesModel
-                            .nextBus2
-                            .getLoadLongDescription(),
                         nextBus2LoadColor: currentBusArrivalServicesModel
                             .nextBus2
                             .getLoadColor(),
                         nextBus3EstimatedArrival: currentBusArrivalServicesModel
                             .nextBus3
                             .getEstimatedArrival(),
-                        nextBus3LoadDescription: currentBusArrivalServicesModel
-                            .nextBus3
-                            .getLoadLongDescription(),
                         nextBus3LoadColor: currentBusArrivalServicesModel
                             .nextBus3
                             .getLoadColor(),
