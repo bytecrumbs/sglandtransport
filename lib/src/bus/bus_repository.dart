@@ -141,15 +141,35 @@ class NextBusModel with _$NextBusModel {
   factory NextBusModel.fromJson(Map<String, dynamic> json) =>
       _$NextBusModelFromJson(json);
 
+  // All derived bus arrival duration should be rounded down to the nearest minute.
   String getEstimatedArrival() {
     if (estimatedArrivalAbsolute != null && estimatedArrivalAbsolute != '') {
-      final arrivalInMinutes = DateTime.parse(estimatedArrivalAbsolute!)
-          .difference(DateTime.now())
-          .inMinutes;
-      if (arrivalInMinutes <= 0) {
+      final arrivalDateTime = DateTime.parse(estimatedArrivalAbsolute!);
+      // ignore milliseconds in the calculation
+      final arrivalDateTimeTrimmed = DateTime(
+        arrivalDateTime.year,
+        arrivalDateTime.month,
+        arrivalDateTime.day,
+        arrivalDateTime.hour,
+        arrivalDateTime.minute,
+        arrivalDateTime.second,
+      );
+      final now = DateTime.now().toUtc();
+      // ignore milliseconds in the calculation
+      final nowTrimmed = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        now.hour,
+        now.minute,
+        now.second,
+      );
+      final arrivalInMinutes =
+          arrivalDateTimeTrimmed.difference(nowTrimmed).inSeconds;
+      if (arrivalInMinutes <= 59) {
         return 'Arr';
       } else {
-        return '${arrivalInMinutes}min';
+        return '${arrivalInMinutes ~/ 60}min';
       }
     } else {
       return 'n/a';
