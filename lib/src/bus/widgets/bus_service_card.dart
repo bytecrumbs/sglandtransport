@@ -198,7 +198,7 @@ class _NextBusDetails extends StatelessWidget {
           )
         : Text(
             'n/a',
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.headline6,
           );
   }
 }
