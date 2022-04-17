@@ -87,8 +87,8 @@ class BusServiceListFavoritesView extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Text(
-                    'To add a bus to your favorites, swipe right on any '
-                    'bus arrival tile and tap the favorites icon.',
+                    'Tap the favorites icon on any bus arrival to add '
+                    'a bus to your favorites',
                   )
                 ],
               ),
