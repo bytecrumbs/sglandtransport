@@ -17,7 +17,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: "2.10.3"
+          flutter-version: "2.10.5"
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
