@@ -8,9 +8,9 @@ import '../dashboard_page_view.dart';
 
 class BusStopCard extends ConsumerWidget {
   const BusStopCard({
-    Key? key,
+    super.key,
     this.searchTerm = '',
-  }) : super(key: key);
+  });
   final String searchTerm;
 
   @override

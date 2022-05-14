@@ -11,10 +11,10 @@ import 'widgets/bus_service_card.dart';
 
 class BusStopPageView extends ConsumerWidget {
   const BusStopPageView({
-    Key? key,
+    super.key,
     required this.busStopCode,
     required this.description,
-  }) : super(key: key);
+  });
 
   static const routeName = '/busStop';
 

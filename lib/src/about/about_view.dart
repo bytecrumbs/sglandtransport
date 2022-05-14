@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutView extends StatelessWidget {
-  const AboutView({Key? key}) : super(key: key);
+  const AboutView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -127,9 +127,9 @@ class AboutView extends StatelessWidget {
 class AboutHeader extends StatelessWidget {
   /// Constructor of the about header
   const AboutHeader({
-    Key? key,
+    super.key,
     required this.headerText,
-  }) : super(key: key);
+  });
 
   /// The text to be shown as a header
   final String headerText;

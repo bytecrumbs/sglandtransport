@@ -31,7 +31,7 @@ final busStopValueModelProvider =
     Provider<BusStopValueModel>((_) => throw UnimplementedError());
 
 class DashboardPageView extends HookConsumerWidget {
-  const DashboardPageView({Key? key}) : super(key: key);
+  const DashboardPageView({super.key});
 
   static const routeName = '/';
 

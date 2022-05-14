@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class ErrorDisplay extends StatelessWidget {
   const ErrorDisplay({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
 
   final String message;
 

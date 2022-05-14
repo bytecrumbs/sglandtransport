@@ -10,8 +10,8 @@ import 'shared/palette.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =

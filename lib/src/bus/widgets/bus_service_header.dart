@@ -4,11 +4,11 @@ import '../../shared/palette.dart';
 
 class BusServiceHeader extends StatelessWidget {
   const BusServiceHeader({
-    Key? key,
+    super.key,
     required this.busStopCode,
     required this.description,
     required this.roadName,
-  }) : super(key: key);
+  });
 
   final String? busStopCode;
   final String? description;

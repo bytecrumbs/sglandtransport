@@ -3,10 +3,10 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class StaggeredAnimation extends StatelessWidget {
   const StaggeredAnimation({
-    Key? key,
+    super.key,
     required this.index,
     required this.child,
-  }) : super(key: key);
+  });
 
   final int index;
   final Widget child;

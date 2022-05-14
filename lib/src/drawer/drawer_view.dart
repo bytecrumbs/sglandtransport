@@ -7,7 +7,7 @@ import '../about/about_view.dart';
 import '../shared/environment_config.dart';
 
 class DrawerView extends StatelessWidget {
-  const DrawerView({Key? key}) : super(key: key);
+  const DrawerView({super.key});
 
   @override
   Widget build(BuildContext context) {

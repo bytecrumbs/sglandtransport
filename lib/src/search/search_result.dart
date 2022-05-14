@@ -32,9 +32,9 @@ final searchResultFutureProvider = FutureProvider.autoDispose
 
 class SearchResult extends ConsumerWidget {
   const SearchResult({
-    Key? key,
+    super.key,
     required this.searchTerm,
-  }) : super(key: key);
+  });
 
   final String searchTerm;
 

@@ -9,7 +9,7 @@ import 'bus_service_card.dart';
 import 'bus_service_list_favorites_view_model.dart';
 
 class BusServiceListFavoritesView extends ConsumerWidget {
-  const BusServiceListFavoritesView({Key? key}) : super(key: key);
+  const BusServiceListFavoritesView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

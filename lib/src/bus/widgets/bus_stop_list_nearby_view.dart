@@ -11,7 +11,7 @@ import 'bus_stop_card.dart';
 import 'bus_stop_list_nearby_view_model.dart';
 
 class BusStopListNearbyView extends ConsumerStatefulWidget {
-  const BusStopListNearbyView({Key? key}) : super(key: key);
+  const BusStopListNearbyView({super.key});
 
   @override
   @override

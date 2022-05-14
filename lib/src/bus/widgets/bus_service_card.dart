@@ -5,7 +5,7 @@ import 'bus_service_header.dart';
 
 class BusServiceCard extends StatelessWidget {
   const BusServiceCard({
-    Key? key,
+    super.key,
     // required this.busArrivalModel,
     required this.serviceNo,
     required this.isFavorite,
@@ -22,7 +22,7 @@ class BusServiceCard extends StatelessWidget {
     this.description,
     this.roadName,
     required this.onPressedFavorite,
-  }) : super(key: key);
+  });
 
   final bool isFavorite;
   final String serviceNo;
@@ -167,10 +167,9 @@ class BusServiceCard extends StatelessWidget {
 
 class _NextBusDetails extends StatelessWidget {
   const _NextBusDetails({
-    Key? key,
     required this.estimatedArrival,
     required this.loadColor,
-  }) : super(key: key);
+  });
 
   final String estimatedArrival;
   final Color loadColor;
