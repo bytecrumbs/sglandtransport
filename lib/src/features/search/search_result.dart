@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../shared/widgets/error_display.dart';
+import '../../common_widgets/error_display.dart';
 import '../../utils/custom_exception.dart';
 import '../bus/bus_database_service.dart';
 import '../bus/bus_repository.dart';
