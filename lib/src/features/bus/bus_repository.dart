@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/environment_config.dart';
 import '../../constants/palette.dart';
-import '../../shared/common_providers.dart';
 import '../../shared/custom_exception.dart';
+import '../../shared/services/third_party_providers.dart';
 
 part 'bus_repository.freezed.dart';
 part 'bus_repository.g.dart';

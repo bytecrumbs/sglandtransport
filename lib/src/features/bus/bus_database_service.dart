@@ -7,8 +7,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-import '../../shared/common_providers.dart';
 import '../../shared/services/local_storage_service.dart';
+import '../../shared/services/third_party_providers.dart';
 import 'bus_repository.dart';
 
 part 'bus_database_service.g.dart';

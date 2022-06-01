@@ -6,7 +6,7 @@ import 'package:rate_my_app/rate_my_app.dart';
 import 'constants/palette.dart';
 import 'features/bus/bus_stop_page_view.dart';
 import 'features/bus/dashboard_page_view.dart';
-import 'shared/common_providers.dart';
+import 'shared/services/third_party_providers.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({
