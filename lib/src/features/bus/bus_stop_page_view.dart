@@ -3,9 +3,9 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/palette.dart';
-import '../../shared/custom_exception.dart';
 import '../../shared/widgets/error_display.dart';
 import '../../shared/widgets/staggered_animation.dart';
+import '../../utils/custom_exception.dart';
 import 'bus_stop_page_view_model.dart';
 import 'widgets/bus_service_card.dart';
 
