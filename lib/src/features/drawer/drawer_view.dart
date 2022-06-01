@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../about/about_view.dart';
-import '../shared/environment_config.dart';
+import '../../features/about/about_view.dart';
+import '../../shared/environment_config.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({super.key});

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../shared/custom_exception.dart';
-import '../../shared/widgets/error_display.dart';
-import '../../shared/widgets/staggered_animation.dart';
+import '../../../shared/custom_exception.dart';
+import '../../../shared/widgets/error_display.dart';
+import '../../../shared/widgets/staggered_animation.dart';
 import 'bus_service_card.dart';
 import 'bus_service_list_favorites_view_model.dart';
 

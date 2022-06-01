@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../shared/custom_exception.dart';
+import '../../shared/widgets/error_display.dart';
 import '../bus/bus_database_service.dart';
 import '../bus/bus_repository.dart';
 import '../bus/dashboard_page_view.dart';
 import '../bus/widgets/bus_stop_card.dart';
-import '../shared/custom_exception.dart';
-import '../shared/widgets/error_display.dart';
 
 final searchResultFutureProvider = FutureProvider.autoDispose
     .family<List<BusStopValueModel>, String>((ref, searchTerm) async {

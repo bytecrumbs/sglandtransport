@@ -6,11 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../drawer/drawer_view.dart';
-import '../search/custom_search_delegate.dart';
-import '../shared/constants.dart';
-import '../shared/palette.dart';
-import '../shared/services/local_storage_service.dart';
+import '../../features/drawer/drawer_view.dart';
+import '../../features/search/custom_search_delegate.dart';
+import '../../shared/constants.dart';
+import '../../shared/palette.dart';
+import '../../shared/services/local_storage_service.dart';
 import 'bus_repository.dart';
 import 'dashboard_page_view_model.dart';
 import 'widgets/bus_service_list_favorites_view.dart';

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
-import 'bus/bus_stop_page_view.dart';
-import 'bus/dashboard_page_view.dart';
+import 'features/bus/bus_stop_page_view.dart';
+import 'features/bus/dashboard_page_view.dart';
 import 'shared/common_providers.dart';
 import 'shared/palette.dart';
 
