@@ -1,3 +1,5 @@
+const ltaDatamallApi = 'http://datamall2.mytransport.sg/ltaodataservice';
+
 /// Handles all the configuration that is passed into the build via command
 /// line
 class EnvironmentConfig {

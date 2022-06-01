@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../constants/environment_config.dart';
+import '../../constants/palette.dart';
 import '../../shared/common_providers.dart';
-import '../../shared/constants.dart';
 import '../../shared/custom_exception.dart';
-import '../../shared/environment_config.dart';
-import '../../shared/palette.dart';
 
 part 'bus_repository.freezed.dart';
 part 'bus_repository.g.dart';

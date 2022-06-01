@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../shared/constants.dart';
+import '../../constants/local_storage_keys.dart';
 import '../../shared/services/local_storage_service.dart';
 
 final dashboardPageViewModelProvider =

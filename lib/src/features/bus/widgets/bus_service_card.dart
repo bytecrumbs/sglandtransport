@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../shared/palette.dart';
+import '../../../constants/palette.dart';
 import 'bus_service_header.dart';
 
 class BusServiceCard extends StatelessWidget {

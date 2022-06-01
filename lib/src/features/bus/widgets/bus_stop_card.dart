@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
-import '../../../shared/palette.dart';
+import '../../../constants/palette.dart';
 import '../bus_stop_page_view.dart';
 import '../dashboard_page_view.dart';
 

@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../constants/bus_arrival_config.dart';
+import '../../constants/local_storage_keys.dart';
 import '../../shared/common_providers.dart';
-import '../../shared/constants.dart';
 import '../../shared/services/local_storage_service.dart';
 import 'bus_database_service.dart';
 import 'bus_repository.dart';
