@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class AboutView extends StatelessWidget {
   const AboutView({super.key});
@@ -113,8 +113,8 @@ class AboutView extends StatelessWidget {
       style: const TextStyle(color: Colors.blue),
       recognizer: TapGestureRecognizer()
         ..onTap = () async {
-          if (await canLaunch(url)) {
-            await launch(url);
+          if (await canLaunchUrlString(url)) {
+            await launchUrlString(url);
           } else {
             throw Exception('Could not launch $url');
           }
