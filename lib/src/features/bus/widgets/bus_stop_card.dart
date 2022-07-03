@@ -53,7 +53,6 @@ class BusStopCard extends ConsumerWidget {
           Navigator.restorablePushNamed(
             context,
             BusStopPageView.routeName,
-            // TODO: Hardcoding of argument name! check how to change this
             arguments: {
               'busStopCode': busStopValueModel.busStopCode ?? '',
               'description': busStopValueModel.description ?? ''

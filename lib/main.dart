@@ -16,8 +16,6 @@ import 'src/shared/services/local_storage_service.dart';
 // Toggle this for testing Crashlytics in the app locally.
 const _kTestingCrashlytics = false;
 
-// TODO: investigate the isSmallScreen logic across the app. currently, I have not implemented this.
-
 void main() {
   runZonedGuarded(
     () async {
