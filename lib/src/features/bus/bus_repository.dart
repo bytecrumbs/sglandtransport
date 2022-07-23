@@ -89,7 +89,7 @@ class BusRepository {
   }
 }
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class BusArrivalModel with _$BusArrivalModel {
   factory BusArrivalModel({
     @JsonKey(name: 'odata.metadata') required String odataMetadata,
