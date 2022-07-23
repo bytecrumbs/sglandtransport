@@ -42,10 +42,10 @@ class CustomSearchDelegate extends SearchDelegate<dynamic> {
     return IconButton(
       icon: const Icon(Icons.arrow_back),
       onPressed: () async {
+        close(context, null);
         await FirebaseAnalytics.instance.logSearch(
           searchTerm: query,
         );
-        close(context, null);
       },
     );
   }

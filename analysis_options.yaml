@@ -82,8 +82,5 @@ linter:
     # This is really only required for a package
     public_member_api_docs: false
 
-    # Marked as "experimental" and I'm not sure how to resolve it anyway... :-)
-    use_build_context_synchronously: false
-
     # required to pass in the LTA datamall key
     do_not_use_environment: false
