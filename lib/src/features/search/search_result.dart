@@ -43,6 +43,7 @@ class SearchResult extends ConsumerWidget {
     final searchResult = ref.watch(searchResultFutureProvider(searchTerm));
     return searchResult.when(
       data: (searchResult) => ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 10),
         itemCount: searchResult.length,
         itemBuilder: (_, index) => ProviderScope(
           overrides: [
