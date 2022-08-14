@@ -1,4 +1,4 @@
-/build/
+**/dgph
 *.mode1v3
 *.mode2v3
 *.moved-aside
@@ -19,6 +19,7 @@ Flutter/App.framework
 Flutter/Flutter.framework
 Flutter/Flutter.podspec
 Flutter/Generated.xcconfig
+Flutter/ephemeral/
 Flutter/app.flx
 Flutter/app.zip
 Flutter/flutter_assets/
@@ -31,10 +32,3 @@ Runner/GeneratedPluginRegistrant.*
 !default.mode2v3
 !default.pbxuser
 !default.perspectivev3
-
-# Fastlane exclusions
-**/*.ipa
-**/*.app.dSYM.zip
-**/fastlane/report.xml
-**/fastlane/Preview.html
-**/fastlane/test_output
