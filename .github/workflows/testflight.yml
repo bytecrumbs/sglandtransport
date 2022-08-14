@@ -36,8 +36,6 @@ jobs:
         run: bundle exec fastlane set_release_version
         env:
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
-      - name: Add Google Services file
-        run: echo "${{ secrets.IOS_GOOGLE_SERVICES }}" > ios/GoogleService-Info.plist
       - name: Prepare for build
         run: |
           flutter pub get
@@ -53,7 +51,3 @@ jobs:
           ASCAPI_KEY_ID: ${{ secrets.ASCAPI_KEY_ID }}
           ASCAPI_ISSUER_ID: ${{ secrets.ASCAPI_ISSUER_ID }}
           ASCAPI_KEY_CONTENT: ${{ secrets.ASCAPI_KEY_CONTENT }}
-          # FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-          # FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
-          # FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
-          # FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
