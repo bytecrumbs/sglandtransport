@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'firebase_options.dart';
 import 'src/app.dart';
 import 'src/shared/services/local_storage_service.dart';
 
@@ -21,7 +22,9 @@ void main() {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      await Firebase.initializeApp();
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
       FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
       if (_kTestingCrashlytics) {
         // Force enable crashlytics collection enabled if we're testing it.
