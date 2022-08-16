@@ -45,5 +45,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>SG Land Transport needs access to location when open.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>SG Land Transport needs access to location when in the background.</string>
 </dict>
 </plist>
