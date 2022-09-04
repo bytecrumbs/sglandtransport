@@ -49,13 +49,6 @@ jobs:
       - name: Random build number
         id: random-build-generator
         run: echo "::set-output name=BUILD_NUMBER::$(date +%s)"
-      - name: Add Google Services file
-        run: |
-          cd android
-          echo "$ANDROID_GOOGLE_SERVICES" > google-services.json.b64
-          base64 -d -i google-services.json.b64 > app/google-services.json
-        env:
-          ANDROID_GOOGLE_SERVICES: ${{ secrets.ANDROID_GOOGLE_SERVICES }}
       - name: Build appbundle
         env:
           BUILD_NUMBER: ${{ steps.random-build-generator.outputs.BUILD_NUMBER }}
