@@ -54,6 +54,7 @@ jobs:
           BUILD_NUMBER: ${{ steps.random-build-generator.outputs.BUILD_NUMBER }}
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
         run: |
+          flutter doctor -v
           flutter pub get
           flutter pub run build_runner build
           flutter build appbundle --release --build-number=$BUILD_NUMBER --build-name=$RELEASE_VERSION --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }} --dart-define=BUILD_NAME=$RELEASE_VERSION
