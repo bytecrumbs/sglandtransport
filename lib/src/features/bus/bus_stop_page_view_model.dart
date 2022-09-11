@@ -65,13 +65,10 @@ class BusStopPageViewModel extends StateNotifier<AsyncValue<BusArrivalModel>> {
     final busArrivalsWithFavorites = _markFavoriteBusNo(
       busStopCode: busStopCode,
       busArrivals: busArrivalsWithDestinationAndNotInOperation,
-    );
-
-    // sort result
-    busArrivalsWithFavorites.sort(
-      (var a, var b) => int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
-          .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))),
-    );
+    )..sort(
+        (var a, var b) => int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
+            .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))),
+      );
 
     return busArrivals.copyWith(services: busArrivalsWithFavorites);
   }

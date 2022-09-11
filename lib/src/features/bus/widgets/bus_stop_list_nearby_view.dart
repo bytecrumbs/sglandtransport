@@ -41,17 +41,17 @@ class BusStopListNearbyViewState extends ConsumerState<BusStopListNearbyView>
     // background
     if (state == AppLifecycleState.resumed && streamIsPaused) {
       ref.read(loggerProvider).d('restarting location stream');
-      final vm =
-          ref.read(busStopListNearbyViewModelStateNotifierProvider.notifier);
-      vm.startLocationStream();
+      ref
+          .read(busStopListNearbyViewModelStateNotifierProvider.notifier)
+          .startLocationStream();
       streamIsPaused = false;
 
       // Stop streaming the location when the app goes into the background
     } else if (state == AppLifecycleState.paused) {
       ref.read(loggerProvider).d('stopping location stream');
-      final vm =
-          ref.read(busStopListNearbyViewModelStateNotifierProvider.notifier);
-      vm.stopLocationStream();
+      ref
+          .read(busStopListNearbyViewModelStateNotifierProvider.notifier)
+          .stopLocationStream();
       streamIsPaused = true;
     }
   }

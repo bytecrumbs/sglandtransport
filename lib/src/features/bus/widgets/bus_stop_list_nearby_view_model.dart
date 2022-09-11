@@ -76,7 +76,6 @@ class BusStopListNearbyViewModel
   }
 
   void stopLocationStream() {
-    final locationService = read(locationServiceProvider);
-    locationService.stopLocationStream();
+    read(locationServiceProvider).stopLocationStream();
   }
 }
