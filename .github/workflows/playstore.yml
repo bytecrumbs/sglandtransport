@@ -49,7 +49,7 @@ jobs:
       - name: Random build number
         id: random-build-generator
         run: echo "::set-output name=BUILD_NUMBER::$(date +%s)"
-      name: Add Google Services file
+      - name: Add Google Services file
         run: |
           cd android
           echo "$ANDROID_GOOGLE_SERVICES" > google-services.json.b64
