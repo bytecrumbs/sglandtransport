@@ -61,6 +61,7 @@ class BusServiceListFavoritesView extends ConsumerWidget {
                         vm.removeFavorite(
                           busStopCode: currentBusArrivalModel.busStopCode,
                           serviceNo: currentBusArrivalServicesModel.serviceNo,
+                          index: index,
                         );
                       },
                     ),

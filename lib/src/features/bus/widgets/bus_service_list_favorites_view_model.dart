@@ -216,21 +216,20 @@ class BusServiceListFavoritesViewModel
   }
 
   Future<void> removeFavorite({
+    required int index,
     required String busStopCode,
     required String serviceNo,
   }) async {
     // remove entry from local storage
     final localStorageService = _read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
-    _read(loggerProvider).d(
-      'removing from Favorites, as bus stop with service no already exists',
-    );
     await localStorageService.removeStringFromList(
       favoriteServiceNoKey,
       searchValue,
     );
 
-    // remove entry from state
-    state = AsyncValue.data(await getFavoriteBusServices());
+    // remove entry from list stored in state
+    final newList = state.asData!.value..removeAt(index);
+    state = AsyncValue.data(newList);
   }
 }
