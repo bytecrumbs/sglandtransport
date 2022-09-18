@@ -49,5 +49,7 @@
 	<string>SG Land Transport needs access to location when open.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>SG Land Transport needs access to location when in the background.</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>
