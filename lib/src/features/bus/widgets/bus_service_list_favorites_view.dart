@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -58,6 +59,7 @@ class BusServiceListFavoritesView extends ConsumerWidget {
                       nextBus3LoadColor: currentBusArrivalServicesModel.nextBus3
                           .getLoadColor(),
                       onPressedFavorite: () {
+                        HapticFeedback.mediumImpact();
                         vm.removeFavorite(
                           busStopCode: currentBusArrivalModel.busStopCode,
                           serviceNo: currentBusArrivalServicesModel.serviceNo,

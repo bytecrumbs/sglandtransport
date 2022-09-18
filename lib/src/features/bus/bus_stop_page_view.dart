@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -109,6 +110,7 @@ class BusStopPageView extends ConsumerWidget {
                             .nextBus3
                             .getLoadColor(),
                         onPressedFavorite: () {
+                          HapticFeedback.mediumImpact();
                           vm.toggleFavoriteBusService(
                             busStopCode: busStopCode,
                             serviceNo: busArrival.services[index].serviceNo,
