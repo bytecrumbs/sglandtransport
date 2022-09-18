@@ -16,24 +16,29 @@ class BusServiceHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        Container(
-          color: kPrimaryColor,
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          child: Text(
-            '$busStopCode - $description - $roadName',
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          Text(
+            description ?? '',
             style: const TextStyle(
-              color: kMainBackgroundColor,
+              color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           ),
-        ),
-        const SizedBox(height: 10),
-      ],
+          Text(
+            '$busStopCode | $roadName',
+            style: const TextStyle(
+              color: kPrimaryColor,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
