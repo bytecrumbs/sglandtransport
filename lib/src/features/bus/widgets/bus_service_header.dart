@@ -21,7 +21,6 @@ class BusServiceHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
           Text(
             description ?? '',
             style: const TextStyle(
