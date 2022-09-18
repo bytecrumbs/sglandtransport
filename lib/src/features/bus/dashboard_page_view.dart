@@ -1,4 +1,3 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +11,9 @@ import '../../features/drawer/drawer_view.dart';
 import '../../features/search/custom_search_delegate.dart';
 import '../../shared/services/local_storage_service.dart';
 import 'bus_repository.dart';
-import 'dashboard_page_view_model.dart';
 import 'widgets/bus_service_list_favorites_view.dart';
 import 'widgets/bus_stop_list_nearby_view.dart';
+import 'widgets/main_bottom_app_bar.dart';
 
 /// Defines whether the flare animation should loop or be idle. It is done like
 /// this (rather than using a useState hook), so that for the integration tests,
@@ -22,9 +21,9 @@ import 'widgets/bus_stop_list_nearby_view.dart';
 /// specify the value 'Idle'.
 final flareAnimationProvider = Provider((ref) => 'Loop');
 
-final filterProvider = StateProvider((ref) {
-  final vm = ref.watch(dashboardPageViewModelProvider);
-  return vm.bottomNavBarFilter();
+final bottomBarIndexProvider = StateProvider((ref) {
+  final localStorage = ref.watch(localStorageServiceProvider);
+  return localStorage.getInt(bottomBarIndexKey) ?? 0;
 });
 
 final busStopValueModelProvider =
@@ -48,8 +47,8 @@ class DashboardPageView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filterState = ref.watch(filterProvider);
-    final filterController = ref.watch(filterProvider.notifier);
+    final filterState = ref.watch(bottomBarIndexProvider);
+    final filterController = ref.watch(bottomBarIndexProvider.notifier);
     final localStorage = ref.watch(localStorageServiceProvider);
     final flareAnimation = ref.watch(flareAnimationProvider);
 
@@ -102,27 +101,12 @@ class DashboardPageView extends HookConsumerWidget {
           ],
         ),
       ),
-      bottomNavigationBar: ConvexAppBar(
-        items: const [
-          TabItem<IconData>(
-            icon: Icons.location_searching,
-            title: 'Nearby Stops',
-          ),
-          TabItem<IconData>(
-            icon: Icons.favorite,
-            title: 'Favorite Buses',
-          )
-        ],
-        initialActiveIndex: filterState,
+      bottomNavigationBar: MainBottomAppBar(
+        activeIndex: filterState,
         onTap: (clickedItem) async {
           await localStorage.setInt(bottomBarIndexKey, clickedItem);
           filterController.state = clickedItem;
         },
-        backgroundColor: Theme.of(context).bottomAppBarColor,
-        color: kPrimaryColor,
-        activeColor: kAccentColor,
-        top: -25,
-        style: TabStyle.react,
       ),
     );
   }
