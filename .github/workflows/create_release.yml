@@ -12,3 +12,7 @@ jobs:
     steps:
     - run: |
         echo "Release Name: ${{ github.event.inputs.releaseName }}"
+    - uses: ncipollo/release-action@v1
+      with:
+        token: ${{ secrets.YOUR_GITHUB_TOKEN }}
+        name: ${{ github.event.inputs.releaseName }}
