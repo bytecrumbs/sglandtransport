@@ -1,0 +1,14 @@
+name: Test Release Creation
+on: 
+  workflow_dispatch:
+    inputs:
+      releaseName:
+        description: 'Release Name'     
+        required: true
+
+jobs:
+  printInputs:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Release Name: ${{ github.event.inputs.releaseName }}"
