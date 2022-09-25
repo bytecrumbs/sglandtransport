@@ -16,6 +16,18 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        name: "${{ github.event.inputs.releaseName }}"
-        tag: "${{ github.event.inputs.releaseName }}"
-        allowUpdates: true
+        name: "${{ github.event.inputs.releaseName }}+${{ github.run_number }}"
+        tag: "${{ github.event.inputs.releaseName }}+${{ github.run_number }}"
+  testflight:
+    runs-on: ubuntu-latest
+    needs: createRelease
+    steps:
+    - run: |
+        echo "Running TestFlight job"
+  googlePlay:
+    runs-on: ubuntu-latest
+    needs: createRelease
+    steps:
+    - run: |
+        echo "Running Google Play job"
+       
