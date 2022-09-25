@@ -16,3 +16,4 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         name: ${{ github.event.inputs.releaseName }}
+        tag: ${{ github.event.inputs.releaseName }}
