@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:drift/drift.dart';
@@ -76,15 +77,16 @@ class BusDatabaseService extends _$BusDatabaseService {
             // bus routes loading can run in the background as it is only used
             // to add bus services that are not currently in operation for a given
             // bus stop
-            // ignore: unawaited_futures
-            _refreshBusRoutes();
+            unawaited(_refreshBusRoutes());
             // tables should be refreshed again in 30 days
             final refreshDate = DateTime.now()
                 .add(const Duration(days: 30))
                 .millisecondsSinceEpoch;
-            // ignore: unawaited_futures
-            _read(localStorageServiceProvider)
-                .setInt(refreshDateKey, refreshDate);
+
+            unawaited(
+              _read(localStorageServiceProvider)
+                  .setInt(refreshDateKey, refreshDate),
+            );
           }
         },
       );
