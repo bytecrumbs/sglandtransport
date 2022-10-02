@@ -10,9 +10,6 @@ jobs:
   createRelease:
     runs-on: ubuntu-latest
     steps:
-    - run: |
-        echo "Release Name: v${{ github.event.inputs.releaseName }}+${{ github.run_number }}"
-        echo "Version Name: ${{ github.event.inputs.releaseName }}.0.0+${{ github.run_number }}"
     - uses: ncipollo/release-action@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
