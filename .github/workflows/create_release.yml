@@ -46,14 +46,14 @@ jobs:
         working-directory: ios
         run: bundle exec fastlane set_release_version
         env:
-          RELEASE_VERSION: ${{ github.event.inputs.releaseVersion }}
+          RELEASE_VERSION: "${{ github.event.inputs.releaseVersion }}.0"
       - name: Prepare for build
         run: |
           flutter pub get
           flutter pub run build_runner build
           flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=${{secrets.LTA_DATAMALL_API_KEY}} --dart-define=BUILD_NAME=$RELEASE_VERSION
         env:
-          RELEASE_VERSION: ${{ github.event.inputs.releaseVersion }}
+          RELEASE_VERSION: "${{ github.event.inputs.releaseVersion }}.0"
       - name: TestFlight
         working-directory: ios
         run: bundle exec fastlane beta
@@ -117,7 +117,7 @@ jobs:
       - name: Build appbundle
         env:
           BUILD_NUMBER: ${{ steps.random-build-generator.outputs.BUILD_NUMBER }}
-          RELEASE_VERSION: ${{ github.event.inputs.releaseVersion }}
+          RELEASE_VERSION: "${{ github.event.inputs.releaseVersion }}.0"
         run: |
           flutter pub get
           flutter pub run build_runner build
