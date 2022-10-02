@@ -16,11 +16,52 @@ jobs:
         name: "v${{ github.event.inputs.releaseName }}.0+${{ github.run_number }}"
         tag: "v${{ github.event.inputs.releaseName }}.0+${{ github.run_number }}"
   testflight:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: createRelease
     steps:
-    - run: |
-        echo "Running TestFlight job"
+    - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          architecture: x64
+      - name: Setup SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          if_key_exists: replace
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+          working-directory: ios
+      - name: Set Release Version
+        working-directory: ios
+        run: bundle exec fastlane set_release_version
+        env:
+          RELEASE_VERSION: ${{ github.event.inputs.releaseName }}
+      - name: Prepare for build
+        run: |
+          flutter pub get
+          flutter pub run build_runner build
+          flutter build ios --release --no-codesign --dart-define=LTA_DATAMALL_API_KEY=${{secrets.LTA_DATAMALL_API_KEY}} --dart-define=BUILD_NAME=$RELEASE_VERSION
+        env:
+          RELEASE_VERSION: ${{ github.event.inputs.releaseName }}
+      - name: TestFlight
+        working-directory: ios
+        run: bundle exec fastlane beta
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          ASCAPI_KEY_ID: ${{ secrets.ASCAPI_KEY_ID }}
+          ASCAPI_ISSUER_ID: ${{ secrets.ASCAPI_ISSUER_ID }}
+          ASCAPI_KEY_CONTENT: ${{ secrets.ASCAPI_KEY_CONTENT }}
   googlePlay:
     runs-on: ubuntu-latest
     needs: createRelease
