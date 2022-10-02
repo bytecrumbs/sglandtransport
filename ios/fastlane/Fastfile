@@ -78,7 +78,6 @@ platform :ios do
   lane :set_release_version do
       version = ENV["RELEASE_VERSION"]
       if version
-          UI.message("Setting version to #{version}")
           increment_version_number(version_number: version)
           increment_build_number(build_number: Time.now.to_i)
       else
