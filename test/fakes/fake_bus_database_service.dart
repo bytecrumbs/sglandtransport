@@ -6,23 +6,23 @@ class FakeBusDatabaseService implements BusDatabaseService {
     List<String>? favoriteBusStops,
   }) async {
     return [
-      TableBusStop(
+      const TableBusStop(
         busStopCode: '99009',
         description: 'Dest 99009',
       ),
-      TableBusStop(
+      const TableBusStop(
         busStopCode: '75019',
         description: 'Dest 75019',
       ),
-      TableBusStop(
+      const TableBusStop(
         busStopCode: '77009',
         description: 'Dest 77009',
       ),
-      TableBusStop(
+      const TableBusStop(
         busStopCode: '53009',
         description: 'Dest 53009',
       ),
-      TableBusStop(
+      const TableBusStop(
         busStopCode: '75009',
         description: 'Dest 75009',
       ),
@@ -34,12 +34,12 @@ class FakeBusDatabaseService implements BusDatabaseService {
     String busStopCode,
   ) async {
     return [
-      TableBusRoute(serviceNo: '39'),
-      TableBusRoute(serviceNo: '53'),
-      TableBusRoute(serviceNo: '81'),
-      TableBusRoute(serviceNo: '109'),
-      TableBusRoute(serviceNo: '518'),
-      TableBusRoute(serviceNo: '53A'),
+      const TableBusRoute(serviceNo: '39'),
+      const TableBusRoute(serviceNo: '53'),
+      const TableBusRoute(serviceNo: '81'),
+      const TableBusRoute(serviceNo: '109'),
+      const TableBusRoute(serviceNo: '518'),
+      const TableBusRoute(serviceNo: '53A'),
     ];
   }
 
