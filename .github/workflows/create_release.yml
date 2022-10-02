@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       releaseName:
-        description: 'Release Name'     
+        description: 'Release Version (integer numbers only, e.g. 5 or 24)'     
         required: true
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo "Release Name: v${{ github.event.inputs.releaseName }}+${{ github.run_number }}"
+        echo "Release Name: v${{ github.event.inputs.releaseName }}+${{ github.run_number + 1000 }}"
         echo "Version Name: ${{ github.event.inputs.releaseName }}.0.0+${{ github.run_number }}"
     - uses: ncipollo/release-action@v1
       with:
