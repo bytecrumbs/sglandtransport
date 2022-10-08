@@ -69,10 +69,6 @@ A key can be generated following the guildeines of
 
 You can generate a key following the guidelines of the [Land Transport Datamall](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html).
 
-### Google Firebase
-
-Follow [these instructions](https://firebase.google.com/docs/flutter/setup?platform=ios) to add the necessary files related to Google Firebase services.
-
 ## Code Generation
 
 This project uses build runner to generate Models, Routes and other things.
