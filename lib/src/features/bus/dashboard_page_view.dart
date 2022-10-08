@@ -2,8 +2,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/local_storage_keys.dart';
 import '../../constants/palette.dart';
@@ -29,7 +28,9 @@ final bottomBarIndexProvider = StateProvider((ref) {
 final busStopValueModelProvider =
     Provider<BusStopValueModel>((_) => throw UnimplementedError());
 
-class DashboardPageView extends HookConsumerWidget {
+final isExpandedStateProvider = StateProvider<bool>((ref) => true);
+
+class DashboardPageView extends ConsumerWidget {
   const DashboardPageView({super.key});
 
   static const routeName = '/';
@@ -55,8 +56,10 @@ class DashboardPageView extends HookConsumerWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final sliverAnimationHeight = screenHeight * 0.32;
 
-    final isExpanded = useState(true);
-    final appBarForegroundColor = isExpanded.value
+    final isExpandedState = ref.watch(isExpandedStateProvider);
+    final isExpanded = ref.watch(isExpandedStateProvider.notifier);
+
+    final appBarForegroundColor = isExpandedState
         ? kPrimaryColor
         : Theme.of(context).appBarTheme.foregroundColor;
 
@@ -64,7 +67,7 @@ class DashboardPageView extends HookConsumerWidget {
       drawer: const DrawerView(),
       body: NotificationListener<ScrollNotification>(
         onNotification: (scrollState) {
-          isExpanded.value =
+          isExpanded.state =
               scrollState.metrics.pixels < sliverAnimationHeight / 1.5;
           return true;
         },

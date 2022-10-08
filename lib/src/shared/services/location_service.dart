@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'third_party_providers.dart';
 
 part 'location_service.freezed.dart';

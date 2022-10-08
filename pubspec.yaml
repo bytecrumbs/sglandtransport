@@ -27,11 +27,10 @@ dependencies:
   flare_flutter: ^3.0.2
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.18.5+1
+  flutter_riverpod: ^1.0.4
   flutter_staggered_animations: ^1.1.1
   freezed_annotation: ^2.1.0
   geolocator: ^9.0.2
-  hooks_riverpod: ^1.0.4
   injectable: ^1.5.3
   json_annotation: ^4.7.0
   logger: ^1.1.0

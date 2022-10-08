@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/bus_arrival_config.dart';
 import '../../../constants/local_storage_keys.dart';
