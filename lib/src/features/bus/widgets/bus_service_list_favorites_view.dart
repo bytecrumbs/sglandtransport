@@ -7,6 +7,7 @@ import '../../../common_widgets/error_display.dart';
 import '../../../common_widgets/staggered_animation.dart';
 import '../../../utils/custom_exception.dart';
 import 'bus_service_card.dart';
+import 'bus_service_header.dart';
 import 'bus_service_list_favorites_view_model.dart';
 
 class BusServiceListFavoritesView extends ConsumerWidget {
@@ -33,39 +34,55 @@ class BusServiceListFavoritesView extends ConsumerWidget {
                       : busArrivalModels[index - 1].busStopCode;
                   return StaggeredAnimation(
                     index: index,
-                    child: BusServiceCard(
-                      busStopCode: currentBusArrivalModel.busStopCode,
-                      previousBusStopCode: previousBusStopCode,
-                      description: currentBusArrivalModel.description,
-                      roadName: currentBusArrivalModel.roadName,
-                      inService: currentBusArrivalServicesModel.inService,
-                      isFavorite: currentBusArrivalServicesModel.isFavorite,
-                      serviceNo: currentBusArrivalServicesModel.serviceNo,
-                      destinationName:
-                          currentBusArrivalServicesModel.destinationName,
-                      nextBusEstimatedArrival: currentBusArrivalServicesModel
-                          .nextBus
-                          .getEstimatedArrival(),
-                      nextBusLoadColor:
-                          currentBusArrivalServicesModel.nextBus.getLoadColor(),
-                      nextBus2EstimatedArrival: currentBusArrivalServicesModel
-                          .nextBus2
-                          .getEstimatedArrival(),
-                      nextBus2LoadColor: currentBusArrivalServicesModel.nextBus2
-                          .getLoadColor(),
-                      nextBus3EstimatedArrival: currentBusArrivalServicesModel
-                          .nextBus3
-                          .getEstimatedArrival(),
-                      nextBus3LoadColor: currentBusArrivalServicesModel.nextBus3
-                          .getLoadColor(),
-                      onPressedFavorite: () {
-                        HapticFeedback.mediumImpact();
-                        vm.removeFavorite(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (currentBusArrivalModel.busStopCode !=
+                            previousBusStopCode)
+                          BusServiceHeader(
+                            busStopCode: currentBusArrivalModel.busStopCode,
+                            description: currentBusArrivalModel.description,
+                            roadName: currentBusArrivalModel.roadName,
+                          ),
+                        BusServiceCard(
                           busStopCode: currentBusArrivalModel.busStopCode,
+                          previousBusStopCode: previousBusStopCode,
+                          description: currentBusArrivalModel.description,
+                          roadName: currentBusArrivalModel.roadName,
+                          inService: currentBusArrivalServicesModel.inService,
+                          isFavorite: currentBusArrivalServicesModel.isFavorite,
                           serviceNo: currentBusArrivalServicesModel.serviceNo,
-                          index: index,
-                        );
-                      },
+                          destinationName:
+                              currentBusArrivalServicesModel.destinationName,
+                          nextBusEstimatedArrival:
+                              currentBusArrivalServicesModel.nextBus
+                                  .getEstimatedArrival(),
+                          nextBusLoadColor: currentBusArrivalServicesModel
+                              .nextBus
+                              .getLoadColor(),
+                          nextBus2EstimatedArrival:
+                              currentBusArrivalServicesModel.nextBus2
+                                  .getEstimatedArrival(),
+                          nextBus2LoadColor: currentBusArrivalServicesModel
+                              .nextBus2
+                              .getLoadColor(),
+                          nextBus3EstimatedArrival:
+                              currentBusArrivalServicesModel.nextBus3
+                                  .getEstimatedArrival(),
+                          nextBus3LoadColor: currentBusArrivalServicesModel
+                              .nextBus3
+                              .getLoadColor(),
+                          onPressedFavorite: () {
+                            HapticFeedback.mediumImpact();
+                            vm.removeFavorite(
+                              busStopCode: currentBusArrivalModel.busStopCode,
+                              serviceNo:
+                                  currentBusArrivalServicesModel.serviceNo,
+                              index: index,
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   );
                 },

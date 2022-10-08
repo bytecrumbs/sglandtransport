@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/palette.dart';
-import 'bus_service_header.dart';
 
 class BusServiceCard extends StatelessWidget {
   const BusServiceCard({
@@ -47,12 +46,6 @@ class BusServiceCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (busStopCode != null && busStopCode != previousBusStopCode)
-            BusServiceHeader(
-              busStopCode: busStopCode,
-              description: description,
-              roadName: roadName,
-            ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
