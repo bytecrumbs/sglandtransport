@@ -7,16 +7,16 @@ import '../bus_repository.dart';
 final busStopListNearbyViewModelStateNotifierProvider =
     StateNotifierProvider.autoDispose<BusStopListNearbyViewModel,
         AsyncValue<List<BusStopValueModel>>>(
-  (ref) => BusStopListNearbyViewModel(ref.read),
+  BusStopListNearbyViewModel.new,
 );
 
 class BusStopListNearbyViewModel
     extends StateNotifier<AsyncValue<List<BusStopValueModel>>> {
-  BusStopListNearbyViewModel(this.read) : super(const AsyncValue.loading()) {
+  BusStopListNearbyViewModel(this._ref) : super(const AsyncValue.loading()) {
     init();
   }
 
-  final Reader read;
+  final Ref _ref;
 
   Future<void> init() async {
     await startLocationStream();
@@ -32,7 +32,7 @@ class BusStopListNearbyViewModel
     required double latitude,
     required double longitude,
   }) async {
-    final busDbService = read(busDatabaseServiceProvider);
+    final busDbService = _ref.read(busDatabaseServiceProvider);
 
     // fetch all bus stops from the database and then filter based on the cached
     // result. This is more efficient than querying the local database with a filter
@@ -47,7 +47,7 @@ class BusStopListNearbyViewModel
   }
 
   Future<bool> _handleLocationPermission() {
-    final locationService = read(locationServiceProvider);
+    final locationService = _ref.read(locationServiceProvider);
     return locationService.handlePermission();
   }
 
@@ -64,18 +64,19 @@ class BusStopListNearbyViewModel
         state = AsyncValue.data(busStopList);
       }
     } else {
-      state = const AsyncValue.error(
+      state = AsyncValue.error(
         'Access to location tracking denied by your device',
+        StackTrace.current,
       );
     }
   }
 
   Stream<UserLocationModel> _getLocationStream() {
-    final locationService = read(locationServiceProvider);
+    final locationService = _ref.read(locationServiceProvider);
     return locationService.startLocationStream();
   }
 
   void stopLocationStream() {
-    read(locationServiceProvider).stopLocationStream();
+    _ref.read(locationServiceProvider).stopLocationStream();
   }
 }

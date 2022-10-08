@@ -8,12 +8,12 @@ import 'third_party_providers.dart';
 
 part 'location_service.freezed.dart';
 
-final locationServiceProvider = Provider((ref) => LocationService(ref.read));
+final locationServiceProvider = Provider(LocationService.new);
 
 class LocationService {
-  LocationService(this._read);
+  LocationService(this._ref);
 
-  final Reader _read;
+  final Ref _ref;
 
   StreamSubscription<Position>? _geolocatorStream;
   StreamController<UserLocationModel>? _locationController;
@@ -58,11 +58,11 @@ class LocationService {
   void stopLocationStream() {
     _locationController?.close();
     _geolocatorStream?.cancel();
-    _read(loggerProvider).d('stopped location streams and controllers');
+    _ref.read(loggerProvider).d('stopped location streams and controllers');
   }
 
   Stream<UserLocationModel> startLocationStream() {
-    _read(loggerProvider).d('starting location stream');
+    _ref.read(loggerProvider).d('starting location stream');
     _locationController = StreamController<UserLocationModel>();
 
     late LocationSettings locationSettings;
@@ -87,7 +87,7 @@ class LocationService {
     _geolocatorStream = Geolocator.getPositionStream(
       locationSettings: locationSettings,
     ).listen((position) async {
-      _read(loggerProvider).d('adding new position');
+      _ref.read(loggerProvider).d('adding new position');
       _locationController!.add(
         UserLocationModel(
           latitude: position.latitude,

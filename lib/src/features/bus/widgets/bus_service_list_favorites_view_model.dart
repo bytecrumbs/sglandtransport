@@ -12,23 +12,25 @@ import '../bus_repository.dart';
 final busServiceListFavoritesViewModelStateProvider =
     StateNotifierProvider.autoDispose<BusServiceListFavoritesViewModel,
         AsyncValue<List<BusArrivalModel>>>(
-  (ref) => BusServiceListFavoritesViewModel(ref.read),
+  BusServiceListFavoritesViewModel.new,
 );
 
 class BusServiceListFavoritesViewModel
     extends StateNotifier<AsyncValue<List<BusArrivalModel>>> {
-  BusServiceListFavoritesViewModel(this._read)
+  BusServiceListFavoritesViewModel(this._ref)
       : super(const AsyncValue.loading()) {
     init();
   }
 
-  final Reader _read;
+  final Ref _ref;
 
   late final Timer _timer;
 
   Future<void> init() async {
     state = AsyncValue.data(await getFavoriteBusServices());
-    _read(loggerProvider).d('starting timer for favorite bus arrival refresh');
+    _ref
+        .read(loggerProvider)
+        .d('starting timer for favorite bus arrival refresh');
     _timer = Timer.periodic(
       busArrivalRefreshDuration,
       (_) async {
@@ -40,7 +42,9 @@ class BusServiceListFavoritesViewModel
   @override
   void dispose() {
     _timer.cancel();
-    _read(loggerProvider).d('cancelled timer for favorite bus arrival refresh');
+    _ref
+        .read(loggerProvider)
+        .d('cancelled timer for favorite bus arrival refresh');
     super.dispose();
   }
 
@@ -51,8 +55,8 @@ class BusServiceListFavoritesViewModel
     // maybe we can delete this code again after a few releases
     await _handleLegacyFavorites();
 
-    final localStorageService = _read(localStorageServiceProvider);
-    final repository = _read(busRepositoryProvider);
+    final localStorageService = _ref.read(localStorageServiceProvider);
+    final repository = _ref.read(busRepositoryProvider);
 
     final currentFavorites =
         localStorageService.getStringList(favoriteServiceNoKey);
@@ -101,7 +105,7 @@ class BusServiceListFavoritesViewModel
           .map((e) => e.copyWith(isFavorite: true))
           .toList();
 
-      final busStops = await _read(busDatabaseServiceProvider).getBusStops(
+      final busStops = await _ref.read(busDatabaseServiceProvider).getBusStops(
         favoriteBusStops: [busArrivalModel.busStopCode],
       );
 
@@ -118,19 +122,21 @@ class BusServiceListFavoritesViewModel
   }
 
   Future<void> _handleLegacyFavorites() async {
-    final localStorageService = _read(localStorageServiceProvider);
-    final busDatabaseService = _read(busDatabaseServiceProvider);
+    final localStorageService = _ref.read(localStorageServiceProvider);
+    final busDatabaseService = _ref.read(busDatabaseServiceProvider);
 
     final favoriteBusStops =
         localStorageService.getStringList(favoriteBusStopsKey);
 
     if (favoriteBusStops.isNotEmpty) {
-      _read(loggerProvider).d('Found favorite bus stops and processing them');
+      _ref
+          .read(loggerProvider)
+          .d('Found favorite bus stops and processing them');
       for (final favoriteBusStop in favoriteBusStops) {
         final busStops = await busDatabaseService
             .getBusServiceNosForBusStopCode(favoriteBusStop);
 
-        _read(loggerProvider).d('Processing bus stop $favoriteBusStop');
+        _ref.read(loggerProvider).d('Processing bus stop $favoriteBusStop');
         final existingBusServiceFavorites =
             localStorageService.getStringList(favoriteServiceNoKey);
         for (final busStop in busStops) {
@@ -149,7 +155,8 @@ class BusServiceListFavoritesViewModel
           }
         }
       }
-      _read(loggerProvider)
+      _ref
+          .read(loggerProvider)
           .d('Removing legacy favoriteBusStop key from local storage');
       await localStorageService.remove(favoriteBusStopsKey);
     }
@@ -191,7 +198,8 @@ class BusServiceListFavoritesViewModel
         busArrivals.map((e) => e.nextBus.destinationCode ?? '').toList();
 
     // fetch all bus stops as per the busArrivals list
-    final busStops = await _read(busDatabaseServiceProvider)
+    final busStops = await _ref
+        .read(busDatabaseServiceProvider)
         .getBusStops(favoriteBusStops: busArrivalsDestinationCode);
 
     // add the destination to the busArrivals list
@@ -222,7 +230,7 @@ class BusServiceListFavoritesViewModel
     required String serviceNo,
   }) async {
     // remove entry from local storage
-    final localStorageService = _read(localStorageServiceProvider);
+    final localStorageService = _ref.read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
     await localStorageService.removeStringFromList(
       favoriteServiceNoKey,

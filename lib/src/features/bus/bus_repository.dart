@@ -11,13 +11,12 @@ import '../../utils/custom_exception.dart';
 part 'bus_repository.freezed.dart';
 part 'bus_repository.g.dart';
 
-final busRepositoryProvider =
-    Provider<BusRepository>((ref) => BusRepository(ref.read));
+final busRepositoryProvider = Provider<BusRepository>(BusRepository.new);
 
 class BusRepository {
-  BusRepository(this._read);
+  BusRepository(this._ref);
 
-  final Reader _read;
+  final Ref _ref;
 
   Future<BusArrivalModel> fetchBusArrivals({
     required String busStopCode,
@@ -68,8 +67,9 @@ class BusRepository {
     String path, {
     Map<String, Object>? queryParameters,
   }) async {
-    final dio = _read(dioProvider);
-    _read(loggerProvider)
+    final dio = _ref.read(dioProvider);
+    _ref
+        .read(loggerProvider)
         .d('GET $path with $queryParameters as query parameters');
 
     try {
@@ -83,7 +83,9 @@ class BusRepository {
         queryParameters: queryParameters,
       );
     } on DioError catch (e) {
-      _read(loggerProvider).e('message: ${e.message}; response: ${e.response}');
+      _ref
+          .read(loggerProvider)
+          .e('message: ${e.message}; response: ${e.response}');
       throw CustomException.fromDioError(e);
     }
   }

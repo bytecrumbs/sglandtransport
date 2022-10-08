@@ -46,14 +46,14 @@ LazyDatabase _openConnection() {
 }
 
 final busDatabaseServiceProvider =
-    Provider<BusDatabaseService>((ref) => BusDatabaseService(ref.read));
+    Provider<BusDatabaseService>(BusDatabaseService.new);
 
 @DriftDatabase(tables: [TableBusRoutes, TableBusStops])
 class BusDatabaseService extends _$BusDatabaseService {
   // we tell the database where to store the data with this constructor
-  BusDatabaseService(this._read) : super(_openConnection());
+  BusDatabaseService(this._ref) : super(_openConnection());
 
-  final Reader _read;
+  final Ref _ref;
 
   @override
   int get schemaVersion => 1;
@@ -64,12 +64,13 @@ class BusDatabaseService extends _$BusDatabaseService {
           const refreshDateKey = 'refreshDateKey';
           // get the date of when the database needs to be refreshed
           final refreshDate =
-              _read(localStorageServiceProvider).getInt(refreshDateKey) ?? 0;
+              _ref.read(localStorageServiceProvider).getInt(refreshDateKey) ??
+                  0;
           // refresh the database if it is newly created, or if more than 30
           // days have passed since last refresh
           if (details.wasCreated ||
               refreshDate < DateTime.now().millisecondsSinceEpoch) {
-            _read(loggerProvider).d('Refreshing tables');
+            _ref.read(loggerProvider).d('Refreshing tables');
             // add all bus stops into the local database. this has to complete
             // before we show bus stops, as it is fetched from the local DB
             // and not directly from the lta datamall API
@@ -84,7 +85,8 @@ class BusDatabaseService extends _$BusDatabaseService {
                 .millisecondsSinceEpoch;
 
             unawaited(
-              _read(localStorageServiceProvider)
+              _ref
+                  .read(localStorageServiceProvider)
                   .setInt(refreshDateKey, refreshDate),
             );
           }
@@ -92,12 +94,12 @@ class BusDatabaseService extends _$BusDatabaseService {
       );
 
   Future<void> _refreshBusRoutes() async {
-    _read(loggerProvider).d('deleting bus routes from table');
+    _ref.read(loggerProvider).d('deleting bus routes from table');
     await delete(tableBusRoutes).go();
-    _read(loggerProvider).d('adding bus routes to table');
+    _ref.read(loggerProvider).d('adding bus routes to table');
     for (var i = 0; i <= 26000; i = i + 500) {
       final busRouteValueModelList =
-          await _read(busRepositoryProvider).fetchBusRoutes(skip: i);
+          await _ref.read(busRepositoryProvider).fetchBusRoutes(skip: i);
 
       final busRouteValueTableList = busRouteValueModelList.map(
         (e) => TableBusRoute(
@@ -125,12 +127,12 @@ class BusDatabaseService extends _$BusDatabaseService {
   }
 
   Future<void> _refreshBusStops() async {
-    _read(loggerProvider).d('deleting bus stops from table');
+    _ref.read(loggerProvider).d('deleting bus stops from table');
     await delete(tableBusStops).go();
-    _read(loggerProvider).d('adding bus stops to table');
+    _ref.read(loggerProvider).d('adding bus stops to table');
     for (var i = 0; i <= 5000; i = i + 500) {
       final busStopValueModelList =
-          await _read(busRepositoryProvider).fetchBusStops(skip: i);
+          await _ref.read(busRepositoryProvider).fetchBusStops(skip: i);
 
       final busStopValueTableList = busStopValueModelList.map(
         (e) => TableBusStop(
@@ -153,7 +155,8 @@ class BusDatabaseService extends _$BusDatabaseService {
   Future<List<TableBusRoute>> getBusServiceNosForBusStopCode(
     String busStopCode,
   ) async {
-    _read(loggerProvider)
+    _ref
+        .read(loggerProvider)
         .d('Getting Bus Routes from DB for bus stop $busStopCode');
     return (select(tableBusRoutes)
           ..where((tbl) => tbl.busStopCode.equals(busStopCode)))
@@ -164,13 +167,15 @@ class BusDatabaseService extends _$BusDatabaseService {
     List<String>? favoriteBusStops,
   }) async {
     if (favoriteBusStops != null) {
-      _read(loggerProvider).d('Getting Bus Stops $favoriteBusStops from DB');
+      _ref
+          .read(loggerProvider)
+          .d('Getting Bus Stops $favoriteBusStops from DB');
 
       return (select(tableBusStops)
             ..where((tbl) => tbl.busStopCode.isIn(favoriteBusStops)))
           .get();
     } else {
-      _read(loggerProvider).d('Getting all Bus Stops from DB');
+      _ref.read(loggerProvider).d('Getting all Bus Stops from DB');
       return select(tableBusStops).get();
     }
   }
@@ -180,7 +185,7 @@ class BusDatabaseService extends _$BusDatabaseService {
     required double currentLongitude,
     required List<TableBusStop> busStopList,
   }) {
-    _read(loggerProvider).d('Filtering bus stops based on location');
+    _ref.read(loggerProvider).d('Filtering bus stops based on location');
     final nearbyBusStops = <BusStopValueModel>[];
     for (final busStop in busStopList) {
       final distanceInMeters = Geolocator.distanceBetween(
@@ -212,7 +217,8 @@ class BusDatabaseService extends _$BusDatabaseService {
   }
 
   Future<List<TableBusStop>> findBusStops(String searchTerm) async {
-    _read(loggerProvider)
+    _ref
+        .read(loggerProvider)
         .d('Getting Bus Stops from DB with search term $searchTerm');
 
     return (select(tableBusStops)
