@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "993014486723",
+    "firebase_url": "https://lta-datamall.firebaseio.com",
+    "project_id": "lta-datamall",
+    "storage_bucket": "lta-datamall.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993014486723:android:02a1190c04bc1237827476",
+        "android_client_info": {
+          "package_name": "com.saschaderungs.ltaDatamall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993014486723-9300s4gc4i6sjfvq4johpooofauerkr5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNTIhjD-7OpMed8eoa5s-2gLSby4cYWjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993014486723-9300s4gc4i6sjfvq4johpooofauerkr5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "993014486723-3ct22c01msn2arnv056holhc0e4cbda0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.saschaderungs.ltaDatamall"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
