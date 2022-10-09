@@ -6,7 +6,7 @@ import '../../utils/custom_exception.dart';
 import '../bus/bus_database_service.dart';
 import '../bus/bus_repository.dart';
 import '../bus/dashboard_page_view.dart';
-import '../bus/widgets/bus_stop_card.dart';
+import '../bus/widgets/bus_stop_card/bus_stop_card.dart';
 
 final searchResultFutureProvider = FutureProvider.autoDispose
     .family<List<BusStopValueModel>, String>((ref, searchTerm) async {

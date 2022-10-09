@@ -7,7 +7,7 @@ import '../../../common_widgets/staggered_animation.dart';
 import '../../../shared/services/third_party_providers.dart';
 import '../../../utils/custom_exception.dart';
 import '../dashboard_page_view.dart';
-import 'bus_stop_card.dart';
+import 'bus_stop_card/bus_stop_card.dart';
 import 'bus_stop_list_nearby_view_model.dart';
 
 class BusStopListNearbyView extends ConsumerStatefulWidget {

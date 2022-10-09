@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
-import '../../../constants/palette.dart';
-import '../bus_stop_page_view.dart';
-import '../dashboard_page_view.dart';
+import '../../../../constants/palette.dart';
+import '../../bus_stop_page_view.dart';
+import '../../dashboard_page_view.dart';
+import 'bus_stop_distance.dart';
 
 class BusStopCard extends ConsumerWidget {
   const BusStopCard({
@@ -36,19 +37,8 @@ class BusStopCard extends ConsumerWidget {
               .copyWith(color: kSecondaryColor),
           term: searchTerm,
         ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (busStopValueModel.distanceInMeters != null)
-              Text('${busStopValueModel.distanceInMeters.toString()} m'),
-            const SizedBox(
-              width: 10,
-            ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              size: 15,
-            ),
-          ],
+        trailing: BusStopDistance(
+          distanceInMeters: busStopValueModel.distanceInMeters,
         ),
         onTap: () {
           Navigator.restorablePushNamed(
