@@ -11,3 +11,8 @@ const String busStopCodeServiceNoDelimiter = '~';
 /// Used to read if the user's last selection in Bus section was either
 /// "Nearby" or "Favorites"
 const String bottomBarIndexKey = 'bottomBarIndex';
+
+const String firstLaunchKey = 'firstLaunchKey';
+const String launchCountKey = 'launchCountKey';
+const String lastReviewPromptKey = 'lastReviewPromptKey';
+const String reviewPromptCountKey = 'reviewPromptCountKey';
