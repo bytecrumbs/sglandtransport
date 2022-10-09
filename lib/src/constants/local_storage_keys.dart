@@ -14,5 +14,3 @@ const String bottomBarIndexKey = 'bottomBarIndex';
 
 const String firstLaunchKey = 'firstLaunchKey';
 const String launchCountKey = 'launchCountKey';
-const String lastReviewPromptKey = 'lastReviewPromptKey';
-const String reviewPromptCountKey = 'reviewPromptCountKey';

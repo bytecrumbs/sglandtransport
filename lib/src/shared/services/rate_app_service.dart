@@ -15,7 +15,7 @@ class RateAppService {
   final Ref _ref;
 
   Future<void> requestReview({bool force = false}) async {
-    await setInitialLaunchDate(DateTime.now());
+    await setLastLaunchDate();
     await increaseLaunchCount();
 
     if (force || await isEligibleForReviewPrompt()) {
@@ -23,8 +23,8 @@ class RateAppService {
 
       if (await inAppReview.isAvailable()) {
         await inAppReview.requestReview();
-        await setLastReviewPromptDate(DateTime.now());
-        await increaseReviewPromptCount();
+        await setLastLaunchDate(launchDate: DateTime.now());
+        await resetLaunchCount();
       }
     }
   }
@@ -34,19 +34,9 @@ class RateAppService {
         _ref.read(localStorageServiceProvider).getInt(firstLaunchKey)!;
     final currentLaunchCount =
         _ref.read(localStorageServiceProvider).getInt(launchCountKey)!;
-    final lastReviewPromptDate =
-        _ref.read(localStorageServiceProvider).getInt(lastReviewPromptKey);
-    final currentReviewPromptCount =
-        _ref.read(localStorageServiceProvider).getInt(reviewPromptCountKey);
 
     _ref.read(loggerProvider).d('First launch date: $firstLaunchDate');
     _ref.read(loggerProvider).d('Current launch count: $currentLaunchCount');
-    _ref
-        .read(loggerProvider)
-        .d('Last review prompt date: $lastReviewPromptDate');
-    _ref
-        .read(loggerProvider)
-        .d('Current review prompt count: $currentReviewPromptCount');
 
     final firstLaunchCheck = DateTime.now().millisecondsSinceEpoch >
         DateTime.fromMillisecondsSinceEpoch(firstLaunchDate)
@@ -55,54 +45,36 @@ class RateAppService {
 
     final launchCountCheck = currentLaunchCount >= 10;
 
-    final reviewPromptDateCheck = lastReviewPromptDate == null ||
-        DateTime.now().millisecondsSinceEpoch >
-            DateTime.fromMillisecondsSinceEpoch(lastReviewPromptDate)
-                .add(const Duration(days: 7))
-                .millisecondsSinceEpoch;
-
-    final reviewPromptCountCheck =
-        currentReviewPromptCount == null || currentReviewPromptCount >= 10;
-
-    return firstLaunchCheck &&
-        launchCountCheck &&
-        reviewPromptDateCheck &&
-        reviewPromptCountCheck;
+    return firstLaunchCheck && launchCountCheck;
   }
 
-  Future<void> setInitialLaunchDate(DateTime launchDate) async {
+  Future<void> setLastLaunchDate({DateTime? launchDate}) async {
     final firstLaunch =
         _ref.read(localStorageServiceProvider).getInt(firstLaunchKey);
 
-    if (firstLaunch == null) {
+    if (firstLaunch == null || launchDate != null) {
+      final launchDateToSet = launchDate ?? DateTime.now();
       await _ref.read(localStorageServiceProvider).setInt(
             firstLaunchKey,
-            launchDate.millisecondsSinceEpoch,
+            launchDateToSet.millisecondsSinceEpoch,
           );
     }
   }
 
   Future<void> increaseLaunchCount() async {
-    await _increaseLocalStorageInt(launchCountKey);
+    final count =
+        _ref.read(localStorageServiceProvider).getInt(launchCountKey) ?? 0;
+    await _setLaunchCount(launchCountKey, count + 1);
   }
 
-  Future<void> setLastReviewPromptDate(DateTime date) async {
-    await _ref.read(localStorageServiceProvider).setInt(
-          lastReviewPromptKey,
-          date.millisecondsSinceEpoch,
-        );
-  }
-
-  Future<void> increaseReviewPromptCount() async {
-    await _increaseLocalStorageInt(reviewPromptCountKey);
-  }
-
-  Future<void> _increaseLocalStorageInt(String key) async {
-    final count = _ref.read(localStorageServiceProvider).getInt(key) ?? 0;
-
+  Future<void> _setLaunchCount(String key, int count) async {
     await _ref.read(localStorageServiceProvider).setInt(
           key,
-          count + 1,
+          count,
         );
+  }
+
+  Future<void> resetLaunchCount() async {
+    await _setLaunchCount(launchCountKey, 0);
   }
 }
