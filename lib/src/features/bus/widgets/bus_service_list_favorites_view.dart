@@ -6,7 +6,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../../common_widgets/error_display.dart';
 import '../../../common_widgets/staggered_animation.dart';
 import '../../../utils/custom_exception.dart';
-import 'bus_service_card.dart';
+import 'bus_service_card/bus_service_card.dart';
 import 'bus_service_header.dart';
 import 'bus_service_list_favorites_view_model.dart';
 

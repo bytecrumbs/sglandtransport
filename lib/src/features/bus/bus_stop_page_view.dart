@@ -8,7 +8,7 @@ import '../../common_widgets/staggered_animation.dart';
 import '../../constants/palette.dart';
 import '../../utils/custom_exception.dart';
 import 'bus_stop_page_view_model.dart';
-import 'widgets/bus_service_card.dart';
+import 'widgets/bus_service_card/bus_service_card.dart';
 
 class BusStopPageView extends ConsumerWidget {
   const BusStopPageView({
