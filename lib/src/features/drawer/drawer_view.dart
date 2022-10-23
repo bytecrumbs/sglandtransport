@@ -1,20 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../constants/environment_config.dart';
 import '../../features/about/about_view.dart';
-import '../../shared/services/rate_app_service.dart';
 
-class DrawerView extends ConsumerWidget {
+class DrawerView extends StatelessWidget {
   const DrawerView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final rateAppService = ref.watch(rateAppServiceProvider);
-
+  Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
