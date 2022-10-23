@@ -11,7 +11,7 @@ import firebase_crashlytics
 import geolocator_apple
 import in_app_review
 import path_provider_macos
-import share_plus_macos
+import share_plus
 import shared_preferences_macos
 import sqlite3_flutter_libs
 import url_launcher_macos
