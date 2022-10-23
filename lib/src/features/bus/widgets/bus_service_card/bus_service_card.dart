@@ -9,7 +9,6 @@ class BusServiceCard extends StatelessWidget {
     super.key,
     // required this.busArrivalModel,
     required this.serviceNo,
-    required this.isFavorite,
     required this.inService,
     this.destinationName,
     required this.nextBusEstimatedArrival,
@@ -18,14 +17,12 @@ class BusServiceCard extends StatelessWidget {
     required this.nextBus2LoadColor,
     required this.nextBus3EstimatedArrival,
     required this.nextBus3LoadColor,
-    this.busStopCode,
+    required this.busStopCode,
     this.previousBusStopCode,
     this.description,
     this.roadName,
-    required this.onPressedFavorite,
   });
 
-  final bool isFavorite;
   final String serviceNo;
   final bool inService;
   final String? destinationName;
@@ -36,10 +33,9 @@ class BusServiceCard extends StatelessWidget {
   final String nextBus3EstimatedArrival;
   final Color nextBus3LoadColor;
   final String? previousBusStopCode;
-  final String? busStopCode;
+  final String busStopCode;
   final String? description;
   final String? roadName;
-  final VoidCallback onPressedFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +63,8 @@ class BusServiceCard extends StatelessWidget {
                 ),
               ),
               FavoriteToggler(
-                onPressedFavorite: onPressedFavorite,
-                isFavorite: isFavorite,
+                busStopCode: busStopCode,
+                serviceNo: serviceNo,
               ),
             ],
           ),

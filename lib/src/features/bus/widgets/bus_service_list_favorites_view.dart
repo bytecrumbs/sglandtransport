@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -16,8 +15,6 @@ class BusServiceListFavoritesView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vmState = ref.watch(busServiceListFavoritesViewModelStateProvider);
-    final vm =
-        ref.watch(busServiceListFavoritesViewModelStateProvider.notifier);
 
     return vmState.when(
       data: (busArrivalModels) {
@@ -50,7 +47,6 @@ class BusServiceListFavoritesView extends ConsumerWidget {
                           description: currentBusArrivalModel.description,
                           roadName: currentBusArrivalModel.roadName,
                           inService: currentBusArrivalServicesModel.inService,
-                          isFavorite: currentBusArrivalServicesModel.isFavorite,
                           serviceNo: currentBusArrivalServicesModel.serviceNo,
                           destinationName:
                               currentBusArrivalServicesModel.destinationName,
@@ -72,15 +68,6 @@ class BusServiceListFavoritesView extends ConsumerWidget {
                           nextBus3LoadColor: currentBusArrivalServicesModel
                               .nextBus3
                               .getLoadColor(),
-                          onPressedFavorite: () {
-                            HapticFeedback.mediumImpact();
-                            vm.removeFavorite(
-                              busStopCode: currentBusArrivalModel.busStopCode,
-                              serviceNo:
-                                  currentBusArrivalServicesModel.serviceNo,
-                              index: index,
-                            );
-                          },
                         ),
                       ],
                     ),

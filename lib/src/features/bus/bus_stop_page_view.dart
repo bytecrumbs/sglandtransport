@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -24,8 +23,6 @@ class BusStopPageView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final vm = ref
-        .watch(busStopPageViewModelStateNotifierProvider(busStopCode).notifier);
     final vmState =
         ref.watch(busStopPageViewModelStateNotifierProvider(busStopCode));
 
@@ -87,8 +84,8 @@ class BusStopPageView extends ConsumerWidget {
                     return StaggeredAnimation(
                       index: index,
                       child: BusServiceCard(
+                        busStopCode: busStopCode,
                         inService: currentBusArrivalServicesModel.inService,
-                        isFavorite: currentBusArrivalServicesModel.isFavorite,
                         serviceNo: currentBusArrivalServicesModel.serviceNo,
                         destinationName:
                             currentBusArrivalServicesModel.destinationName,
@@ -109,13 +106,6 @@ class BusStopPageView extends ConsumerWidget {
                         nextBus3LoadColor: currentBusArrivalServicesModel
                             .nextBus3
                             .getLoadColor(),
-                        onPressedFavorite: () {
-                          HapticFeedback.mediumImpact();
-                          vm.toggleFavoriteBusService(
-                            busStopCode: busStopCode,
-                            serviceNo: busArrival.services[index].serviceNo,
-                          );
-                        },
                       ),
                     );
                   },

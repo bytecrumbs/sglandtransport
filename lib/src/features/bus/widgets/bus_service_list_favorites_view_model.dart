@@ -224,21 +224,35 @@ class BusServiceListFavoritesViewModel
     return busArrivalsWithDestination;
   }
 
-  Future<void> removeFavorite({
-    required int index,
+  Future<void> toggleFavoriteBusService({
     required String busStopCode,
     required String serviceNo,
   }) async {
-    // remove entry from local storage
     final localStorageService = _ref.read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
-    await localStorageService.removeStringFromList(
-      favoriteServiceNoKey,
-      searchValue,
-    );
 
-    // remove entry from list stored in state
-    final newList = state.asData!.value..removeAt(index);
-    state = AsyncValue.data(newList);
+    final currentFavorites =
+        localStorageService.getStringList(favoriteServiceNoKey);
+
+    // add or remove the service no from the local storage
+    if (currentFavorites.contains(searchValue)) {
+      _ref.read(loggerProvider).d(
+            'removing from Favorites, as bus stop with service no already exists',
+          );
+      await localStorageService.removeStringFromList(
+        favoriteServiceNoKey,
+        searchValue,
+      );
+    } else {
+      _ref
+          .read(loggerProvider)
+          .d('adding to Favorites, as bus stop with service no does not exist');
+      await localStorageService.addStringToList(
+        favoriteServiceNoKey,
+        searchValue,
+      );
+    }
+
+    state = AsyncValue.data(await getFavoriteBusServices());
   }
 }
