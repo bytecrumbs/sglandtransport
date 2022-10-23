@@ -45,13 +45,6 @@ class DrawerView extends ConsumerWidget {
               );
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.rate_review),
-            title: const Text('Rate SG Land Transport'),
-            onTap: () async {
-              await rateAppService.requestReview(force: true);
-            },
-          ),
         ],
       ),
     );
