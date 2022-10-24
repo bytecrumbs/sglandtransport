@@ -75,40 +75,49 @@ class BusStopPageView extends ConsumerWidget {
           ),
           Expanded(
             child: vmState.when(
-              data: (busArrival) => AnimationLimiter(
-                child: ListView.builder(
-                  itemCount: busArrival.services.length,
-                  itemBuilder: (_, index) {
-                    final currentBusArrivalServicesModel =
-                        busArrival.services[index];
-                    return StaggeredAnimation(
-                      index: index,
-                      child: BusServiceCard(
-                        busStopCode: busStopCode,
-                        inService: currentBusArrivalServicesModel.inService,
-                        serviceNo: currentBusArrivalServicesModel.serviceNo,
-                        destinationName:
-                            currentBusArrivalServicesModel.destinationName,
-                        nextBusEstimatedArrival: currentBusArrivalServicesModel
-                            .nextBus
-                            .getEstimatedArrival(),
-                        nextBusLoadColor: currentBusArrivalServicesModel.nextBus
-                            .getLoadColor(),
-                        nextBus2EstimatedArrival: currentBusArrivalServicesModel
-                            .nextBus2
-                            .getEstimatedArrival(),
-                        nextBus2LoadColor: currentBusArrivalServicesModel
-                            .nextBus2
-                            .getLoadColor(),
-                        nextBus3EstimatedArrival: currentBusArrivalServicesModel
-                            .nextBus3
-                            .getEstimatedArrival(),
-                        nextBus3LoadColor: currentBusArrivalServicesModel
-                            .nextBus3
-                            .getLoadColor(),
-                      ),
-                    );
-                  },
+              data: (busArrival) => RefreshIndicator(
+                onRefresh: () {
+                  ref.refresh(
+                    busStopPageViewModelStateNotifierProvider(busStopCode),
+                  );
+                  return Future.value();
+                },
+                child: AnimationLimiter(
+                  child: ListView.builder(
+                    itemCount: busArrival.services.length,
+                    itemBuilder: (_, index) {
+                      final currentBusArrivalServicesModel =
+                          busArrival.services[index];
+                      return StaggeredAnimation(
+                        index: index,
+                        child: BusServiceCard(
+                          busStopCode: busStopCode,
+                          inService: currentBusArrivalServicesModel.inService,
+                          serviceNo: currentBusArrivalServicesModel.serviceNo,
+                          destinationName:
+                              currentBusArrivalServicesModel.destinationName,
+                          nextBusEstimatedArrival:
+                              currentBusArrivalServicesModel.nextBus
+                                  .getEstimatedArrival(),
+                          nextBusLoadColor: currentBusArrivalServicesModel
+                              .nextBus
+                              .getLoadColor(),
+                          nextBus2EstimatedArrival:
+                              currentBusArrivalServicesModel.nextBus2
+                                  .getEstimatedArrival(),
+                          nextBus2LoadColor: currentBusArrivalServicesModel
+                              .nextBus2
+                              .getLoadColor(),
+                          nextBus3EstimatedArrival:
+                              currentBusArrivalServicesModel.nextBus3
+                                  .getEstimatedArrival(),
+                          nextBus3LoadColor: currentBusArrivalServicesModel
+                              .nextBus3
+                              .getLoadColor(),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               loading: () => const Center(child: CircularProgressIndicator()),
