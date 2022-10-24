@@ -15,27 +15,21 @@ class FavoriteToggler extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final vm =
-        ref.watch(busServiceListFavoritesViewModelStateProvider.notifier);
-    final vmState = ref.watch(busServiceListFavoritesViewModelStateProvider);
+    // watch the state, so the widget gets updated when the favorite is toggled
+    ref.watch(busServiceListFavoritesViewModelStateProvider);
+
     return IconButton(
-      onPressed: () => vm.toggleFavoriteBusService(
-        busStopCode: busStopCode,
-        serviceNo: serviceNo,
-      ),
-      icon: vmState.maybeWhen(
-        data: (busArrivalModelList) {
-          final elementFound = busArrivalModelList.indexWhere(
-            (busArrivalModel) =>
-                busArrivalModel.busStopCode == busStopCode &&
-                busArrivalModel.services[0].serviceNo == serviceNo,
-          );
-          return elementFound >= 0
-              ? const Icon(Icons.favorite)
-              : const Icon(Icons.favorite_outline);
-        },
-        orElse: () => const Icon(Icons.favorite_outline),
-      ),
+      onPressed: () => ref
+          .watch(busServiceListFavoritesViewModelStateProvider.notifier)
+          .toggleFavoriteBusService(
+            busStopCode: busStopCode,
+            serviceNo: serviceNo,
+          ),
+      icon: ref
+              .watch(busServiceListFavoritesViewModelStateProvider.notifier)
+              .isFavorite(busStopCode: busStopCode, serviceNo: serviceNo)
+          ? const Icon(Icons.favorite)
+          : const Icon(Icons.favorite_outline),
     );
   }
 }

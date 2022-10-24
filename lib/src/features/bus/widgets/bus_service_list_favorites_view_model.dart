@@ -231,11 +231,8 @@ class BusServiceListFavoritesViewModel
     final localStorageService = _ref.read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
 
-    final currentFavorites =
-        localStorageService.getStringList(favoriteServiceNoKey);
-
     // add or remove the service no from the local storage
-    if (currentFavorites.contains(searchValue)) {
+    if (isFavorite(busStopCode: busStopCode, serviceNo: serviceNo)) {
       _ref.read(loggerProvider).d(
             'removing from Favorites, as bus stop with service no already exists',
           );
@@ -254,5 +251,18 @@ class BusServiceListFavoritesViewModel
     }
 
     state = AsyncValue.data(await getFavoriteBusServices());
+  }
+
+  bool isFavorite({
+    required String busStopCode,
+    required String serviceNo,
+  }) {
+    final localStorageService = _ref.read(localStorageServiceProvider);
+    final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
+
+    final currentFavorites =
+        localStorageService.getStringList(favoriteServiceNoKey);
+
+    return currentFavorites.contains(searchValue);
   }
 }
