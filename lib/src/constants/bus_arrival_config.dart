@@ -1,3 +1,3 @@
 /// defines the interval of when the bus arrival information should
 /// be refreshed
-const busArrivalRefreshDuration = Duration(minutes: 1);
+const busArrivalRefreshDuration = Duration(seconds: 10);
