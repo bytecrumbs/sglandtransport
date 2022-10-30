@@ -1,1 +1,2 @@
-Major changes to underlying architecture, making SG Land Transport ready for new and upcoming features
+- Increased automatic refresh frequency for bus arrival time
+- Performance and Stability improvements
