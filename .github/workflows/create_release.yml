@@ -98,7 +98,7 @@ jobs:
           PLAY_CONFIG_JSON: ${{ secrets.PLAY_CONFIG_JSON }}
       - name: Random build number
         id: randomBuildGenerator
-        run: echo "{buildNumber}=$(date +%s)" >> $GITHUB_OUTPUT
+        run: echo "buildNumber=$(date +%s)" >> $GITHUB_OUTPUT
       - name: Build appbundle
         env:
           BUILD_NUMBER: ${{ steps.randomBuildGenerator.outputs.buildNumber }}
