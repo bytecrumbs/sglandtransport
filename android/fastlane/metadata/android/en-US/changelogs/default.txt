@@ -1,0 +1,2 @@
+- Increased automatic refresh frequency for bus arrival time
+- Performance and Stability improvements
