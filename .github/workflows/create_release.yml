@@ -97,11 +97,11 @@ jobs:
         env:
           PLAY_CONFIG_JSON: ${{ secrets.PLAY_CONFIG_JSON }}
       - name: Random build number
-        id: random-build-generator
-        run: echo "{BUILD_NUMBER}={$(date +%s)}" >> $GITHUB_OUTPUT
+        id: randomBuildGenerator
+        run: echo "{buildNumber}={$(date +%s)}" >> $GITHUB_OUTPUT
       - name: Build appbundle
         env:
-          BUILD_NUMBER: ${{ steps.random-build-generator.outputs.BUILD_NUMBER }}
+          BUILD_NUMBER: ${{ steps.randomBuildGenerator.outputs.buildNumber }}
           RELEASE_VERSION: "${{ github.event.inputs.releaseVersion }}.0"
         run: |
           flutter pub get
