@@ -1,4 +1,4 @@
-import 'package:lta_datamall_flutter/src/features/bus/bus_database_service.dart';
+import 'package:lta_datamall_flutter/src/features/bus_stops/application/bus_database_service.dart';
 
 class FakeBusDatabaseService implements BusDatabaseService {
   @override

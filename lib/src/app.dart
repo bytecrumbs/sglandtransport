@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'constants/palette.dart';
-import 'features/bus/bus_stop_page_view.dart';
-import 'features/bus/dashboard_page_view.dart';
-import 'shared/services/rate_app_service.dart';
+import 'features/bus_services/presentation/bus_stop/bus_services_list_screen.dart';
+import 'features/home/presentation/dashboard_screen.dart';
+import 'features/rate_app/application/rate_app_service.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({
@@ -34,16 +34,16 @@ class MyApp extends ConsumerWidget {
           settings: routeSettings,
           builder: (context) {
             switch (routeSettings.name) {
-              case DashboardPageView.routeName:
-                return const DashboardPageView();
-              case BusStopPageView.routeName:
+              case DashboardScreen.routeName:
+                return const DashboardScreen();
+              case BusServicesListScreen.routeName:
                 final args = routeSettings.arguments! as Map<String, String>;
-                return BusStopPageView(
+                return BusServicesListScreen(
                   busStopCode: args['busStopCode']!,
                   description: args['description']!,
                 );
               default:
-                return const DashboardPageView();
+                return const DashboardScreen();
             }
           },
         );
