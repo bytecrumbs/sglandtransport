@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../shared/application/location_service.dart';
 import '../application/bus_database_service.dart';
+import '../application/location_service.dart';
 import '../domain/bus_stop_value_model.dart';
 
 final busStopListNearbyControllerStateNotifierProvider =
