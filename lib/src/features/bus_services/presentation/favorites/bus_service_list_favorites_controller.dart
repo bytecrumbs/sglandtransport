@@ -7,6 +7,7 @@ import '../../../../constants/local_storage_keys.dart';
 import '../../../../shared/application/local_storage_service.dart';
 import '../../../../shared/third_party_providers.dart';
 import '../../../bus_stops/application/bus_database_service.dart';
+import '../../application/bus_services_utility_service.dart';
 import '../../data/bus_services_repository.dart';
 import '../../domain/bus_arrival_model.dart';
 import '../../domain/bus_arrival_service_model.dart';
@@ -100,8 +101,9 @@ class BusServiceListFavoritesController
 
     final enrichedBusArrivalModelList = <BusArrivalModel>[];
     for (final busArrivalModel in rawBusArrivalModelList) {
-      final busServiceNoListWithDestination =
-          await _addDestination(busArrivals: busArrivalModel.services);
+      final busServiceNoListWithDestination = await _ref
+          .read(busServicesUtilityServiceProvider)
+          .addDestination(busArrivals: busArrivalModel.services);
 
       // Mark all entires as favorite bus services
       final busArrivalsWithFavorites = busServiceNoListWithDestination
@@ -189,42 +191,6 @@ class BusServiceListFavoritesController
       final bComparison = '$bBusStopCode$bBusServiceNo';
       return aComparison.compareTo(bComparison);
     });
-  }
-
-  // TODO: This is an exact duplicate of the same method in [BusStopPageViewModel] and needs to be refactored!
-  // I am not sure at this point how to make it reusable! :-(
-  Future<List<BusArrivalServiceModel>> _addDestination({
-    required List<BusArrivalServiceModel> busArrivals,
-  }) async {
-    // get a list of all bus service nos
-    final busArrivalsDestinationCode =
-        busArrivals.map((e) => e.nextBus.destinationCode ?? '').toList();
-
-    // fetch all bus stops as per the busArrivals list
-    final busStops = await _ref
-        .read(busDatabaseServiceProvider)
-        .getBusStops(favoriteBusStops: busArrivalsDestinationCode);
-
-    // add the destination to the busArrivals list
-    final busArrivalsWithDestination = <BusArrivalServiceModel>[];
-    for (final busArrival in busArrivals) {
-      final destination = busStops
-          .where(
-            (element) =>
-                element.busStopCode == busArrival.nextBus.destinationCode,
-          )
-          .toList();
-      if (destination.isNotEmpty) {
-        busArrivalsWithDestination.add(
-          busArrival.copyWith(
-            destinationName: destination[0].description ?? '',
-          ),
-        );
-      } else {
-        busArrivalsWithDestination.add(busArrival);
-      }
-    }
-    return busArrivalsWithDestination;
   }
 
   Future<void> toggleFavoriteBusService({

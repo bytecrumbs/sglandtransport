@@ -7,6 +7,7 @@ import '../../../../constants/local_storage_keys.dart';
 import '../../../../shared/application/local_storage_service.dart';
 import '../../../../shared/third_party_providers.dart';
 import '../../../bus_stops/application/bus_database_service.dart';
+import '../../application/bus_services_utility_service.dart';
 import '../../data/bus_services_repository.dart';
 import '../../domain/bus_arrival_model.dart';
 import '../../domain/bus_arrival_service_model.dart';
@@ -55,8 +56,9 @@ class BusServicesListScreenController
         await repository.fetchBusArrivals(busStopCode: busStopCode);
 
     // add destination description to busArrivals
-    final busArrivalsWithDestination =
-        await _addDestination(busArrivals: busArrivals.services);
+    final busArrivalsWithDestination = await _ref
+        .read(busServicesUtilityServiceProvider)
+        .addDestination(busArrivals: busArrivals.services);
 
     // add services that are currently not in operation
     final busArrivalsWithDestinationAndNotInOperation =
@@ -75,40 +77,6 @@ class BusServicesListScreenController
       );
 
     return busArrivals.copyWith(services: busArrivalsWithFavorites);
-  }
-
-  Future<List<BusArrivalServiceModel>> _addDestination({
-    required List<BusArrivalServiceModel> busArrivals,
-  }) async {
-    // get a list of all bus service nos
-    final busArrivalsDestinationCode =
-        busArrivals.map((e) => e.nextBus.destinationCode ?? '').toList();
-
-    // fetch all bus stops as per the busArrivals list
-    final busStops = await _ref
-        .read(busDatabaseServiceProvider)
-        .getBusStops(favoriteBusStops: busArrivalsDestinationCode);
-
-    // add the destination to the busArrivals list
-    final busArrivalsWithDestination = <BusArrivalServiceModel>[];
-    for (final busArrival in busArrivals) {
-      final destination = busStops
-          .where(
-            (element) =>
-                element.busStopCode == busArrival.nextBus.destinationCode,
-          )
-          .toList();
-      if (destination.isNotEmpty) {
-        busArrivalsWithDestination.add(
-          busArrival.copyWith(
-            destinationName: destination[0].description ?? '',
-          ),
-        );
-      } else {
-        busArrivalsWithDestination.add(busArrival);
-      }
-    }
-    return busArrivalsWithDestination;
   }
 
   /// the BusArrival API only returns bus services that are currently in service,
