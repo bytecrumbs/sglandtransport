@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class AboutView extends StatelessWidget {
-  const AboutView({super.key});
+class About extends StatelessWidget {
+  const About({super.key});
 
   @override
   Widget build(BuildContext context) {

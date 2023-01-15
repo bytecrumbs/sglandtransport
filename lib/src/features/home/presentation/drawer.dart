@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../constants/environment_config.dart';
-import '../../about/presentation/about_view.dart';
+import '../../about/presentation/about.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -29,7 +29,7 @@ class AppDrawer extends StatelessWidget {
             applicationVersion: EnvironmentConfig.buildName,
             applicationLegalese: 'free | ad-free | open-source',
             applicationIcon: Icon(Icons.info_outline),
-            aboutBoxChildren: <Widget>[AboutView()],
+            aboutBoxChildren: <Widget>[About()],
           ),
           ListTile(
             leading: Icon(Platform.isAndroid ? Icons.share : Icons.ios_share),
