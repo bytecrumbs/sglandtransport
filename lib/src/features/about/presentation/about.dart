@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import 'header.dart';
+
 class About extends StatelessWidget {
   const About({super.key});
 
@@ -119,29 +121,6 @@ class About extends StatelessWidget {
             throw Exception('Could not launch $url');
           }
         },
-    );
-  }
-}
-
-/// Shows a header section of the about view
-class AboutHeader extends StatelessWidget {
-  /// Constructor of the about header
-  const AboutHeader({
-    super.key,
-    required this.headerText,
-  });
-
-  /// The text to be shown as a header
-  final String headerText;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 12, 0, 6),
-      child: Text(
-        headerText,
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
     );
   }
 }
