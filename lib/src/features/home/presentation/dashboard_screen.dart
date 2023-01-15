@@ -10,7 +10,7 @@ import '../../../shared/application/local_storage_service.dart';
 import '../../bus_services/presentation/favorites/bus_service_list_favorites.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../bus_stops/presentation/bus_stop_list_nearby.dart';
-import '../../search/custom_search_delegate.dart';
+import '../../search/application/custom_search_delegate.dart';
 import 'main_bottom_app_bar.dart';
 
 /// Defines whether the flare animation should loop or be idle. It is done like
