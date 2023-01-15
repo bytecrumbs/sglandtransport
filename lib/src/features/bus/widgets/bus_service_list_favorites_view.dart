@@ -7,14 +7,14 @@ import '../../../common_widgets/staggered_animation.dart';
 import '../../../utils/custom_exception.dart';
 import 'bus_service_card/bus_service_card.dart';
 import 'bus_service_header.dart';
-import 'bus_service_list_favorites_view_model.dart';
+import 'bus_service_list_favorites_controller.dart';
 
 class BusServiceListFavoritesView extends ConsumerWidget {
   const BusServiceListFavoritesView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final vmState = ref.watch(busServiceListFavoritesViewModelStateProvider);
+    final vmState = ref.watch(busServiceListFavoritesControllerStateProvider);
 
     return vmState.when(
       data: (busArrivalModels) {

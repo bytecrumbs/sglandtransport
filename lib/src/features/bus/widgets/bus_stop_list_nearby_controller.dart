@@ -4,15 +4,15 @@ import '../../../shared/services/location_service.dart';
 import '../bus_database_service.dart';
 import '../bus_repository.dart';
 
-final busStopListNearbyViewModelStateNotifierProvider =
-    StateNotifierProvider.autoDispose<BusStopListNearbyViewModel,
+final busStopListNearbyControllerStateNotifierProvider =
+    StateNotifierProvider.autoDispose<BusStopListNearbyController,
         AsyncValue<List<BusStopValueModel>>>(
-  BusStopListNearbyViewModel.new,
+  BusStopListNearbyController.new,
 );
 
-class BusStopListNearbyViewModel
+class BusStopListNearbyController
     extends StateNotifier<AsyncValue<List<BusStopValueModel>>> {
-  BusStopListNearbyViewModel(this._ref) : super(const AsyncValue.loading()) {
+  BusStopListNearbyController(this._ref) : super(const AsyncValue.loading()) {
     init();
   }
 

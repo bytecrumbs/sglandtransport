@@ -6,7 +6,7 @@ import '../../common_widgets/error_display.dart';
 import '../../common_widgets/staggered_animation.dart';
 import '../../constants/palette.dart';
 import '../../utils/custom_exception.dart';
-import 'bus_stop_page_view_model.dart';
+import 'bus_stop_page_controller.dart';
 import 'widgets/bus_service_card/bus_service_card.dart';
 
 class BusStopPageView extends ConsumerWidget {
@@ -24,7 +24,7 @@ class BusStopPageView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vmState =
-        ref.watch(busStopPageViewModelStateNotifierProvider(busStopCode));
+        ref.watch(busStopPageControllerStateNotifierProvider(busStopCode));
 
     return Scaffold(
       appBar: AppBar(
@@ -78,7 +78,7 @@ class BusStopPageView extends ConsumerWidget {
               data: (busArrival) => RefreshIndicator(
                 onRefresh: () {
                   ref.refresh(
-                    busStopPageViewModelStateNotifierProvider(busStopCode),
+                    busStopPageControllerStateNotifierProvider(busStopCode),
                   );
                   return Future.value();
                 },

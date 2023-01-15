@@ -8,7 +8,7 @@ import '../../../shared/services/third_party_providers.dart';
 import '../../../utils/custom_exception.dart';
 import '../dashboard_page_view.dart';
 import 'bus_stop_card/bus_stop_card.dart';
-import 'bus_stop_list_nearby_view_model.dart';
+import 'bus_stop_list_nearby_controller.dart';
 
 class BusStopListNearbyView extends ConsumerStatefulWidget {
   const BusStopListNearbyView({super.key});
@@ -42,7 +42,7 @@ class BusStopListNearbyViewState extends ConsumerState<BusStopListNearbyView>
     if (state == AppLifecycleState.resumed && streamIsPaused) {
       ref.read(loggerProvider).d('restarting location stream');
       ref
-          .read(busStopListNearbyViewModelStateNotifierProvider.notifier)
+          .read(busStopListNearbyControllerStateNotifierProvider.notifier)
           .startLocationStream();
       streamIsPaused = false;
 
@@ -50,7 +50,7 @@ class BusStopListNearbyViewState extends ConsumerState<BusStopListNearbyView>
     } else if (state == AppLifecycleState.paused) {
       ref.read(loggerProvider).d('stopping location stream');
       ref
-          .read(busStopListNearbyViewModelStateNotifierProvider.notifier)
+          .read(busStopListNearbyControllerStateNotifierProvider.notifier)
           .stopLocationStream();
       streamIsPaused = true;
     }
@@ -58,7 +58,8 @@ class BusStopListNearbyViewState extends ConsumerState<BusStopListNearbyView>
 
   @override
   Widget build(BuildContext context) {
-    final busStops = ref.watch(busStopListNearbyViewModelStateNotifierProvider);
+    final busStops =
+        ref.watch(busStopListNearbyControllerStateNotifierProvider);
 
     return busStops.when(
       data: (busStops) => AnimationLimiter(

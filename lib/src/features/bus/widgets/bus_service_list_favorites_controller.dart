@@ -9,15 +9,15 @@ import '../../../shared/services/third_party_providers.dart';
 import '../bus_database_service.dart';
 import '../bus_repository.dart';
 
-final busServiceListFavoritesViewModelStateProvider =
-    StateNotifierProvider.autoDispose<BusServiceListFavoritesViewModel,
+final busServiceListFavoritesControllerStateProvider =
+    StateNotifierProvider.autoDispose<BusServiceListFavoritesController,
         AsyncValue<List<BusArrivalModel>>>(
-  BusServiceListFavoritesViewModel.new,
+  BusServiceListFavoritesController.new,
 );
 
-class BusServiceListFavoritesViewModel
+class BusServiceListFavoritesController
     extends StateNotifier<AsyncValue<List<BusArrivalModel>>> {
-  BusServiceListFavoritesViewModel(this._ref)
+  BusServiceListFavoritesController(this._ref)
       : super(const AsyncValue.loading()) {
     init();
   }

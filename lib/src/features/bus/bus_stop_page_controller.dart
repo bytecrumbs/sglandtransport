@@ -9,14 +9,14 @@ import '../../shared/services/third_party_providers.dart';
 import 'bus_database_service.dart';
 import 'bus_repository.dart';
 
-final busStopPageViewModelStateNotifierProvider = StateNotifierProvider
+final busStopPageControllerStateNotifierProvider = StateNotifierProvider
     .autoDispose
-    .family<BusStopPageViewModel, AsyncValue<BusArrivalModel>, String>(
-  BusStopPageViewModel.new,
+    .family<BusStopPageController, AsyncValue<BusArrivalModel>, String>(
+  BusStopPageController.new,
 );
 
-class BusStopPageViewModel extends StateNotifier<AsyncValue<BusArrivalModel>> {
-  BusStopPageViewModel(this._ref, this._busStopCode)
+class BusStopPageController extends StateNotifier<AsyncValue<BusArrivalModel>> {
+  BusStopPageController(this._ref, this._busStopCode)
       : super(const AsyncValue.loading()) {
     init();
   }
