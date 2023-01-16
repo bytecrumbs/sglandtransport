@@ -41,16 +41,6 @@ class BusStopCard extends ConsumerWidget {
         trailing: BusStopDistance(
           distanceInMeters: busStopValueModel.distanceInMeters,
         ),
-        // onTap: () {
-        //   Navigator.restorablePushNamed(
-        //     context,
-        //     BusServicesListScreen.routeName,
-        //     arguments: {
-        //       'busStopCode': busStopValueModel.busStopCode ?? '',
-        //       'description': busStopValueModel.description ?? ''
-        //     },
-        //   );
-        // },
         onTap: () => context.goNamed(
           AppRoute.busServices.name,
           params: {
