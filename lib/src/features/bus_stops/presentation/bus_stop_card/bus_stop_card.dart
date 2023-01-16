@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
 import '../../../../constants/palette.dart';
-import '../../../bus_services/presentation/bus_stop/bus_services_list_screen.dart';
+import '../../../../routing/app_router.dart';
 import '../../../home/presentation/dashboard_screen.dart';
 import 'bus_stop_distance.dart';
 
@@ -40,16 +41,23 @@ class BusStopCard extends ConsumerWidget {
         trailing: BusStopDistance(
           distanceInMeters: busStopValueModel.distanceInMeters,
         ),
-        onTap: () {
-          Navigator.restorablePushNamed(
-            context,
-            BusServicesListScreen.routeName,
-            arguments: {
-              'busStopCode': busStopValueModel.busStopCode ?? '',
-              'description': busStopValueModel.description ?? ''
-            },
-          );
-        },
+        // onTap: () {
+        //   Navigator.restorablePushNamed(
+        //     context,
+        //     BusServicesListScreen.routeName,
+        //     arguments: {
+        //       'busStopCode': busStopValueModel.busStopCode ?? '',
+        //       'description': busStopValueModel.description ?? ''
+        //     },
+        //   );
+        // },
+        onTap: () => context.goNamed(
+          AppRoute.busServices.name,
+          params: {
+            'busStopCode': busStopValueModel.busStopCode ?? '',
+            'description': busStopValueModel.description ?? '',
+          },
+        ),
       ),
     );
   }
