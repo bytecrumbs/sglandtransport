@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class CustomException implements Exception {
   CustomException.fromDioError(DioError dioError) {
-    statusCode = dioError.response!.statusCode!;
+    statusCode = dioError.response?.statusCode;
     switch (dioError.type) {
       case DioErrorType.cancel:
         message = 'Request to API server was cancelled';
@@ -26,7 +26,7 @@ class CustomException implements Exception {
   }
 
   String message = '';
-  int statusCode = 200;
+  int? statusCode;
 
   String _handleError(int statusCode) {
     switch (statusCode) {
