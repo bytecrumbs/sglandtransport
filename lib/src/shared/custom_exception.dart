@@ -17,7 +17,7 @@ class CustomException implements Exception {
         message = 'Received timeout in connection with API server';
         break;
       case DioErrorType.response:
-        message = _handleError(dioError.response!.statusCode!);
+        message = _handleError(dioError.response?.statusCode);
         break;
       case DioErrorType.sendTimeout:
         message = 'Send timeout in connection with API server';
@@ -28,7 +28,7 @@ class CustomException implements Exception {
   String message = '';
   int? statusCode;
 
-  String _handleError(int statusCode) {
+  String _handleError(int? statusCode) {
     switch (statusCode) {
       case 400:
         return 'Bad request';
