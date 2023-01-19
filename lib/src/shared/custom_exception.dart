@@ -11,7 +11,12 @@ class CustomException implements Exception {
         message = 'Connection timeout with API server';
         break;
       case DioErrorType.other:
-        message = 'Connection to API server failed due to internet connection';
+        if (dioError.message.contains('SocketException')) {
+          message = 'No internet connectivity';
+        } else {
+          message = dioError.response?.statusMessage ?? 'Unknown Error';
+        }
+
         break;
       case DioErrorType.receiveTimeout:
         message = 'Received timeout in connection with API server';

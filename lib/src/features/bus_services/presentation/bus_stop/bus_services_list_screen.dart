@@ -26,6 +26,10 @@ class BusServicesListScreen extends ConsumerWidget {
     final vmState = ref.watch(
       busServicesListScreenControllerStateNotifierProvider(busStopCode),
     );
+    final vm = ref.watch(
+      busServicesListScreenControllerStateNotifierProvider(busStopCode)
+          .notifier,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -126,10 +130,18 @@ class BusServicesListScreen extends ConsumerWidget {
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (error, stack) {
                 if (error is CustomException) {
-                  return ErrorDisplay(message: error.message);
+                  return ErrorDisplay(
+                    message: error.message,
+                    onPressed: () {
+                      vm.init(isRefreshing: true);
+                    },
+                  );
                 }
                 return ErrorDisplay(
                   message: error.toString(),
+                  onPressed: () {
+                    vm.init(isRefreshing: true);
+                  },
                 );
               },
             ),
