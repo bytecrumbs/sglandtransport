@@ -480,7 +480,7 @@ packages:
       name: in_app_review
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.6"
   in_app_review_platform_interface:
     dependency: transitive
     description:
