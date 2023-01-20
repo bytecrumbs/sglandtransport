@@ -82,7 +82,7 @@ class BusServicesListScreen extends ConsumerWidget {
             child: vmState.when(
               data: (busArrival) => RefreshIndicator(
                 onRefresh: () {
-                  ref.refresh(
+                  ref.invalidate(
                     busServicesListScreenControllerStateNotifierProvider(
                       busStopCode,
                     ),
