@@ -20,12 +20,13 @@ class FavoriteToggler extends ConsumerWidget {
     ref.watch(busServiceListFavoritesControllerStateProvider);
 
     return IconButton(
-      onPressed: () => ref
-          .watch(busServiceListFavoritesControllerStateProvider.notifier)
-          .toggleFavoriteBusService(
-            busStopCode: busStopCode,
-            serviceNo: serviceNo,
-          ),
+      onPressed: () {
+        ref.watch(busServicesServiceProvider).toggleFavoriteBusService(
+              busStopCode: busStopCode,
+              serviceNo: serviceNo,
+            );
+        ref.invalidate(busServiceListFavoritesControllerStateProvider);
+      },
       icon: ref
               .watch(busServicesServiceProvider)
               .isFavorite(busStopCode: busStopCode, serviceNo: serviceNo)

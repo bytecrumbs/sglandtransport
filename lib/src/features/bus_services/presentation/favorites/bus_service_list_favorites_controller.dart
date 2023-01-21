@@ -25,14 +25,18 @@ class BusServiceListFavoritesController
   late final Timer _timer;
 
   Future<void> init() async {
-    state = AsyncValue.data(await getFavoriteBusServices());
+    state = AsyncValue.data(
+      await _ref.read(busServicesServiceProvider).getFavoriteBusServices(),
+    );
     _ref
         .read(loggerProvider)
         .d('starting timer for favorite bus arrival refresh');
     _timer = Timer.periodic(
       busArrivalRefreshDuration,
       (_) async {
-        state = AsyncValue.data(await getFavoriteBusServices());
+        state = AsyncValue.data(
+          await _ref.read(busServicesServiceProvider).getFavoriteBusServices(),
+        );
       },
     );
   }
@@ -44,21 +48,5 @@ class BusServiceListFavoritesController
         .read(loggerProvider)
         .d('cancelled timer for favorite bus arrival refresh');
     super.dispose();
-  }
-
-  Future<List<BusArrivalModel>> getFavoriteBusServices() async {
-    return _ref.read(busServicesServiceProvider).getFavoriteBusServices();
-  }
-
-  Future<void> toggleFavoriteBusService({
-    required String busStopCode,
-    required String serviceNo,
-  }) async {
-    _ref.read(busServicesServiceProvider).toggleFavoriteBusService(
-          busStopCode: busStopCode,
-          serviceNo: serviceNo,
-        );
-
-    state = AsyncValue.data(await getFavoriteBusServices());
   }
 }
