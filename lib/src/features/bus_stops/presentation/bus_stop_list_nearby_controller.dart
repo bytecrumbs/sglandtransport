@@ -32,7 +32,7 @@ class BusStopListNearbyController
     required double latitude,
     required double longitude,
   }) async {
-    final busDbService = _ref.read(busDatabaseServiceProvider);
+    final busDbService = _ref.read(busLocalRepositoryProvider);
 
     // fetch all bus stops from the database and then filter based on the cached
     // result. This is more efficient than querying the local database with a filter

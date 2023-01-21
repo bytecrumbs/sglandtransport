@@ -11,7 +11,7 @@ import '../../home/presentation/dashboard_screen.dart';
 final searchResultFutureProvider = FutureProvider.autoDispose
     .family<List<BusStopValueModel>, String>((ref, searchTerm) async {
   if (searchTerm.isNotEmpty) {
-    final busDatabaseService = ref.watch(busDatabaseServiceProvider);
+    final busDatabaseService = ref.watch(busLocalRepositoryProvider);
     final tableBusStopList = await busDatabaseService.findBusStops(searchTerm);
     final busStopValueModelList = tableBusStopList
         .map(

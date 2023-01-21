@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../application/bus_services_service.dart';
 import '../favorites/bus_service_list_favorites_controller.dart';
 
 class FavoriteToggler extends ConsumerWidget {
@@ -26,7 +27,7 @@ class FavoriteToggler extends ConsumerWidget {
             serviceNo: serviceNo,
           ),
       icon: ref
-              .watch(busServiceListFavoritesControllerStateProvider.notifier)
+              .watch(busServicesServiceProvider)
               .isFavorite(busStopCode: busStopCode, serviceNo: serviceNo)
           ? const Icon(Icons.favorite)
           : const Icon(Icons.favorite_outline),
