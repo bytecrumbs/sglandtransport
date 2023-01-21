@@ -57,25 +57,4 @@ class BusServicesListScreenController
     _ref.read(loggerProvider).d('cancelled timer for bus arrival refresh');
     super.dispose();
   }
-
-  void toggleFavoriteBusService({
-    required String busStopCode,
-    required String serviceNo,
-  }) {
-    final newIsFavoriteValue =
-        _ref.read(busServicesServiceProvider).toggleFavoriteBusService(
-              busStopCode: busStopCode,
-              serviceNo: serviceNo,
-            );
-
-    // update the state with the new favorite value
-    final resultToUpdate = state.asData!.value;
-    final listToUpate = resultToUpdate.services;
-    final indexToUpate =
-        listToUpate.indexWhere((element) => element.serviceNo == serviceNo);
-    listToUpate[indexToUpate] =
-        listToUpate[indexToUpate].copyWith(isFavorite: newIsFavoriteValue);
-
-    state = AsyncValue.data(resultToUpdate.copyWith(services: listToUpate));
-  }
 }
