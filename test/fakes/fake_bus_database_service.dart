@@ -3,7 +3,7 @@ import 'package:lta_datamall_flutter/src/features/bus_stops/application/bus_data
 class FakeBusDatabaseService implements BusDatabaseService {
   @override
   Future<List<TableBusStop>> getBusStops({
-    List<String>? favoriteBusStops,
+    required List<String> busStopCodes,
   }) async {
     return [
       const TableBusStop(

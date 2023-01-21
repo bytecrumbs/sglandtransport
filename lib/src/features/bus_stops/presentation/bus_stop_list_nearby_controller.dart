@@ -37,7 +37,7 @@ class BusStopListNearbyController
     // fetch all bus stops from the database and then filter based on the cached
     // result. This is more efficient than querying the local database with a filter
     // every time the location changes, I think... :-)
-    final allBusStops = await busDbService.getBusStops();
+    final allBusStops = await busDbService.getAllBusStops();
 
     return busDbService.filterNearbyBusStops(
       currentLatitude: latitude,

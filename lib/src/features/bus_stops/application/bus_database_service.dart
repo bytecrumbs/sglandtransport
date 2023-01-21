@@ -166,21 +166,19 @@ class BusDatabaseService extends _$BusDatabaseService {
         .get();
   }
 
-  Future<List<TableBusStop>> getBusStops({
-    List<String>? favoriteBusStops,
-  }) async {
-    if (favoriteBusStops != null) {
-      _ref
-          .read(loggerProvider)
-          .d('Getting Bus Stops $favoriteBusStops from DB');
+  Future<List<TableBusStop>> getAllBusStops() async {
+    _ref.read(loggerProvider).d('Getting all Bus Stops from DB');
+    return select(tableBusStops).get();
+  }
 
-      return (select(tableBusStops)
-            ..where((tbl) => tbl.busStopCode.isIn(favoriteBusStops)))
-          .get();
-    } else {
-      _ref.read(loggerProvider).d('Getting all Bus Stops from DB');
-      return select(tableBusStops).get();
-    }
+  Future<List<TableBusStop>> getBusStops({
+    required List<String> busStopCodes,
+  }) async {
+    _ref.read(loggerProvider).d('Getting Bus Stops $busStopCodes from DB');
+
+    return (select(tableBusStops)
+          ..where((tbl) => tbl.busStopCode.isIn(busStopCodes)))
+        .get();
   }
 
   List<BusStopValueModel> filterNearbyBusStops({

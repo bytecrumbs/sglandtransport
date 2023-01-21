@@ -21,7 +21,7 @@ class BusServicesUtilityService {
     // fetch all bus stops as per the busArrivals list
     final busStops = await _ref
         .read(busDatabaseServiceProvider)
-        .getBusStops(favoriteBusStops: busArrivalsDestinationCode);
+        .getBusStops(busStopCodes: busArrivalsDestinationCode);
 
     // add the destination to the busArrivals list
     final busArrivalsWithDestination = <BusArrivalServiceModel>[];

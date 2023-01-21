@@ -111,7 +111,7 @@ class BusServiceListFavoritesController
           .toList();
 
       final busStops = await _ref.read(busDatabaseServiceProvider).getBusStops(
-        favoriteBusStops: [busArrivalModel.busStopCode],
+        busStopCodes: [busArrivalModel.busStopCode],
       );
 
       enrichedBusArrivalModelList.add(
