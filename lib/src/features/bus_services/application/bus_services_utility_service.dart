@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../bus_stops/application/bus_database_service.dart';
+import '../../bus_stops/data/bus_local_repository.dart';
 import '../domain/bus_arrival_service_model.dart';
 
 final busServicesUtilityServiceProvider =

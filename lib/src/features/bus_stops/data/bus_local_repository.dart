@@ -11,10 +11,10 @@ import 'package:path_provider/path_provider.dart';
 import '../../../shared/application/local_storage_service.dart';
 import '../../../shared/third_party_providers.dart';
 import '../../bus_services/data/bus_services_repository.dart';
-import '../data/bus_stops_repository.dart';
 import '../domain/bus_stop_value_model.dart';
+import 'bus_stops_repository.dart';
 
-part 'bus_database_service.g.dart';
+part 'bus_local_repository.g.dart';
 
 class TableBusRoutes extends Table {
   TextColumn get serviceNo => text().nullable()();
@@ -48,12 +48,12 @@ LazyDatabase _openConnection() {
 }
 
 final busDatabaseServiceProvider =
-    Provider<BusDatabaseService>(BusDatabaseService.new);
+    Provider<BusLocalRepository>(BusLocalRepository.new);
 
 @DriftDatabase(tables: [TableBusRoutes, TableBusStops])
-class BusDatabaseService extends _$BusDatabaseService {
+class BusLocalRepository extends _$BusLocalRepository {
   // we tell the database where to store the data with this constructor
-  BusDatabaseService(this._ref) : super(_openConnection());
+  BusLocalRepository(this._ref) : super(_openConnection());
 
   final Ref _ref;
 

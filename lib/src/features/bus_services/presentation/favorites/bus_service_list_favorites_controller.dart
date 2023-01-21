@@ -6,7 +6,7 @@ import '../../../../constants/bus_arrival_config.dart';
 import '../../../../constants/local_storage_keys.dart';
 import '../../../../shared/application/local_storage_service.dart';
 import '../../../../shared/third_party_providers.dart';
-import '../../../bus_stops/application/bus_database_service.dart';
+import '../../../bus_stops/data/bus_local_repository.dart';
 import '../../application/bus_services_utility_service.dart';
 import '../../data/bus_services_repository.dart';
 import '../../domain/bus_arrival_model.dart';

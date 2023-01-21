@@ -1,6 +1,6 @@
-import 'package:lta_datamall_flutter/src/features/bus_stops/application/bus_database_service.dart';
+import 'package:lta_datamall_flutter/src/features/bus_stops/data/bus_local_repository.dart';
 
-class FakeBusDatabaseService implements BusDatabaseService {
+class FakeBusDatabaseService implements BusLocalRepository {
   @override
   Future<List<TableBusStop>> getBusStops({
     required List<String> busStopCodes,
