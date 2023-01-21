@@ -41,4 +41,12 @@
         <meta-data android:name="io.flutter.network-policy"
              android:resource="@xml/network_security_config"/>
     </application>
+    <!-- Provide required visibility configuration for API level 30 and above -->
+    <queries>
+    <!-- If your app checks for SMS support -->
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="https" />
+    </intent>
+    </queries>
 </manifest>
