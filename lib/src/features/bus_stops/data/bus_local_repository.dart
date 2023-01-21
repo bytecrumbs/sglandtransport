@@ -4,14 +4,12 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 import '../../../shared/application/local_storage_service.dart';
 import '../../../shared/third_party_providers.dart';
 import '../../bus_services/data/bus_services_repository.dart';
-import '../domain/bus_stop_value_model.dart';
 import 'bus_stops_repository.dart';
 
 part 'bus_local_repository.g.dart';
@@ -179,42 +177,6 @@ class BusLocalRepository extends _$BusLocalRepository {
     return (select(tableBusStops)
           ..where((tbl) => tbl.busStopCode.isIn(busStopCodes)))
         .get();
-  }
-
-  List<BusStopValueModel> filterNearbyBusStops({
-    required double currentLatitude,
-    required double currentLongitude,
-    required List<TableBusStop> busStopList,
-  }) {
-    _ref.read(loggerProvider).d('Filtering bus stops based on location');
-    final nearbyBusStops = <BusStopValueModel>[];
-    for (final busStop in busStopList) {
-      final distanceInMeters = Geolocator.distanceBetween(
-        currentLatitude,
-        currentLongitude,
-        busStop.latitude ?? 0,
-        busStop.longitude ?? 0,
-      );
-
-      if (distanceInMeters <= 500) {
-        final newBusStop = BusStopValueModel(
-          busStopCode: busStop.busStopCode,
-          description: busStop.description,
-          roadName: busStop.roadName,
-          latitude: busStop.latitude,
-          longitude: busStop.longitude,
-          distanceInMeters: distanceInMeters.round(),
-        );
-
-        nearbyBusStops.add(newBusStop);
-      }
-    }
-    // sort result by distance
-    nearbyBusStops.sort(
-      (var a, var b) => a.distanceInMeters!.compareTo(b.distanceInMeters!),
-    );
-
-    return nearbyBusStops;
   }
 
   Future<List<TableBusStop>> findBusStops(String searchTerm) async {
