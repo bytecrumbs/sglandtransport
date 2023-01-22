@@ -72,7 +72,8 @@ class BusServicesRepository {
       _ref
           .read(loggerProvider)
           .e('message: ${e.message}; response: ${e.response}');
-      await FirebaseCrashlytics.instance.log('Catching DIO error. Message: $e');
+      await FirebaseCrashlytics.instance
+          .log('Catching DIO error. Message: ${e.message}');
       throw CustomException.fromDioError(e);
     }
   }
