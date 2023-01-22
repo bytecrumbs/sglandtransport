@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/environment_config.dart';
@@ -71,6 +72,7 @@ class BusServicesRepository {
       _ref
           .read(loggerProvider)
           .e('message: ${e.message}; response: ${e.response}');
+      await FirebaseCrashlytics.instance.log('Catching DIO error. Message: $e');
       throw CustomException.fromDioError(e);
     }
   }
