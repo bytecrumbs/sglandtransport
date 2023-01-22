@@ -13,8 +13,8 @@ class BusStopsService {
   final Ref _ref;
 
   Future<List<BusStopValueModel>> getNearbyBusStops({
-    required double latitude,
-    required double longitude,
+    double? latitude,
+    double? longitude,
   }) async {
     final busLocalRepository = _ref.read(busLocalRepositoryProvider);
 
@@ -25,31 +25,33 @@ class BusStopsService {
 
     _ref.read(loggerProvider).d('Filtering bus stops based on location');
     final nearbyBusStops = <BusStopValueModel>[];
-    for (final busStop in allBusStops) {
-      final distanceInMeters = Geolocator.distanceBetween(
-        latitude,
-        longitude,
-        busStop.latitude ?? 0,
-        busStop.longitude ?? 0,
-      );
-
-      if (distanceInMeters <= 500) {
-        final newBusStop = BusStopValueModel(
-          busStopCode: busStop.busStopCode,
-          description: busStop.description,
-          roadName: busStop.roadName,
-          latitude: busStop.latitude,
-          longitude: busStop.longitude,
-          distanceInMeters: distanceInMeters.round(),
+    if (latitude != null && longitude != null) {
+      for (final busStop in allBusStops) {
+        final distanceInMeters = Geolocator.distanceBetween(
+          latitude,
+          longitude,
+          busStop.latitude ?? 0,
+          busStop.longitude ?? 0,
         );
 
-        nearbyBusStops.add(newBusStop);
+        if (distanceInMeters <= 500) {
+          final newBusStop = BusStopValueModel(
+            busStopCode: busStop.busStopCode,
+            description: busStop.description,
+            roadName: busStop.roadName,
+            latitude: busStop.latitude,
+            longitude: busStop.longitude,
+            distanceInMeters: distanceInMeters.round(),
+          );
+
+          nearbyBusStops.add(newBusStop);
+        }
       }
+      // sort result by distance
+      nearbyBusStops.sort(
+        (var a, var b) => a.distanceInMeters!.compareTo(b.distanceInMeters!),
+      );
     }
-    // sort result by distance
-    nearbyBusStops.sort(
-      (var a, var b) => a.distanceInMeters!.compareTo(b.distanceInMeters!),
-    );
 
     return nearbyBusStops;
   }

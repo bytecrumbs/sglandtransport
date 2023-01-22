@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../shared/third_party_providers.dart';
-
-part 'location_service.freezed.dart';
+import '../domain/user_location_model.dart';
 
 final locationServiceProvider = Provider(LocationService.new);
 
@@ -97,12 +95,12 @@ class LocationService {
     });
     return _locationController!.stream.asBroadcastStream();
   }
-}
 
-@freezed
-class UserLocationModel with _$UserLocationModel {
-  factory UserLocationModel({
-    required double latitude,
-    required double longitude,
-  }) = _UserLocationModel;
+  Future<UserLocationModel> getLastKnownPosition() async {
+    final currentPosition = await Geolocator.getLastKnownPosition();
+    return UserLocationModel(
+      latitude: currentPosition?.latitude,
+      longitude: currentPosition?.longitude,
+    );
+  }
 }

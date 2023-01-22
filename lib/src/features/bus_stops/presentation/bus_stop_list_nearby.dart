@@ -5,61 +5,55 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../../shared/custom_exception.dart';
 import '../../../shared/presentation/error_display.dart';
 import '../../../shared/presentation/staggered_animation.dart';
-import '../../../shared/third_party_providers.dart';
 import '../../home/presentation/dashboard_screen.dart';
+import '../../user_location/application/location_service.dart';
+import '../application/bus_stops_service.dart';
+import '../domain/bus_stop_value_model.dart';
 import 'bus_stop_card/bus_stop_card.dart';
-import 'bus_stop_list_nearby_controller.dart';
 
-class BusStopListNearby extends ConsumerStatefulWidget {
+final nearbyBusStopsFutureProvider =
+    StreamProvider.autoDispose<List<BusStopValueModel>>(
+  (ref) async* {
+    final locationService = ref.read(locationServiceProvider);
+
+    // final hasPermission = await locationService.handlePermission();
+    final hasPermission = await locationService.handlePermission();
+
+    if (hasPermission) {
+      final locationStream = locationService.startLocationStream();
+
+      // Yield the bus stops of the last known position, if current position
+      // has not changed since last time the widget was called
+      final currentPosition = await locationService.getLastKnownPosition();
+      yield await ref.watch(busStopsServiceProvider).getNearbyBusStops(
+            latitude: currentPosition.latitude,
+            longitude: currentPosition.longitude,
+          );
+
+      // Yield updated positions
+      await for (final locationData in locationStream) {
+        yield await ref.watch(busStopsServiceProvider).getNearbyBusStops(
+              latitude: locationData.latitude,
+              longitude: locationData.longitude,
+            );
+      }
+    } else {
+      throw Exception('No permission to access location');
+    }
+
+    // TODO: I don't understand why the below is not invoked
+    ref.onDispose(() {
+      ref.read(locationServiceProvider).stopLocationStream();
+    });
+  },
+);
+
+class BusStopListNearby extends ConsumerWidget {
   const BusStopListNearby({super.key});
 
   @override
-  @override
-  BusStopListNearbyState createState() => BusStopListNearbyState();
-}
-
-class BusStopListNearbyState extends ConsumerState<BusStopListNearby>
-    with
-        // ignore: prefer_mixin
-        WidgetsBindingObserver {
-  bool streamIsPaused = false;
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // Ensure location starts to stream again, when the app comes back from the
-    // background
-    if (state == AppLifecycleState.resumed && streamIsPaused) {
-      ref.read(loggerProvider).d('restarting location stream');
-      ref
-          .read(busStopListNearbyControllerStateNotifierProvider.notifier)
-          .startLocationStream();
-      streamIsPaused = false;
-
-      // Stop streaming the location when the app goes into the background
-    } else if (state == AppLifecycleState.paused) {
-      ref.read(loggerProvider).d('stopping location stream');
-      ref
-          .read(busStopListNearbyControllerStateNotifierProvider.notifier)
-          .stopLocationStream();
-      streamIsPaused = true;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final busStops =
-        ref.watch(busStopListNearbyControllerStateNotifierProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final busStops = ref.watch(nearbyBusStopsFutureProvider);
 
     return busStops.when(
       data: (busStops) => AnimationLimiter(
