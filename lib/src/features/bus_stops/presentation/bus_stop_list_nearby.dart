@@ -22,6 +22,10 @@ final nearbyBusStopsFutureProvider =
     if (hasPermission) {
       final locationStream = locationService.startLocationStream();
 
+      ref.onDispose(() {
+        ref.read(locationServiceProvider).stopLocationStream();
+      });
+
       // Yield the bus stops of the last known position, if current position
       // has not changed since last time the widget was called
       final currentPosition = await locationService.getLastKnownPosition();
@@ -40,11 +44,6 @@ final nearbyBusStopsFutureProvider =
     } else {
       throw Exception('No permission to access location');
     }
-
-    // TODO: I don't understand why the below is not invoked
-    ref.onDispose(() {
-      ref.read(locationServiceProvider).stopLocationStream();
-    });
   },
 );
 
