@@ -46,9 +46,9 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>SG Land Transport needs access to location when open.</string>
+	<string>Turning on location allows us to show you nearby bus stops</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>SG Land Transport needs access to location when in the background.</string>
+	<string>Turning on location allows us to show you nearby bus stops</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 </dict>
