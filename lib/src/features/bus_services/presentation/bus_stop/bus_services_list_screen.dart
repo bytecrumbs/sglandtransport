@@ -96,6 +96,7 @@ class BusServicesListScreen extends ConsumerWidget {
                       final currentBusArrivalServicesModel =
                           busArrival.services[index];
                       return StaggeredAnimation(
+                        key: Key(index.toString()),
                         index: index,
                         child: BusServiceCard(
                           busStopCode: busStopCode,
