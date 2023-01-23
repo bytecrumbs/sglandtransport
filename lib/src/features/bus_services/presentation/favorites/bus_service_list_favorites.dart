@@ -15,6 +15,8 @@ class BusServiceListFavorites extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vmState = ref.watch(busServiceListFavoritesControllerStateProvider);
+    final vm =
+        ref.watch(busServiceListFavoritesControllerStateProvider.notifier);
 
     return vmState.when(
       data: (busArrivalModels) {
@@ -97,12 +99,20 @@ class BusServiceListFavorites extends ConsumerWidget {
       error: (error, stack) {
         if (error is CustomException) {
           return SliverFillRemaining(
-            child: ErrorDisplay(message: error.message),
+            child: ErrorDisplay(
+              message: error.message,
+              onPressed: () {
+                vm.init(isRefreshing: true);
+              },
+            ),
           );
         }
         return SliverFillRemaining(
           child: ErrorDisplay(
             message: error.toString(),
+            onPressed: () {
+              vm.init(isRefreshing: true);
+            },
           ),
         );
       },

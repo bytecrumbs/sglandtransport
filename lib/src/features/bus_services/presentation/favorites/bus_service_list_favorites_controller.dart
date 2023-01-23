@@ -24,21 +24,30 @@ class BusServiceListFavoritesController
 
   late final Timer _timer;
 
-  Future<void> init() async {
-    state = AsyncValue.data(
-      await _ref.read(busServicesServiceProvider).getFavoriteBusServices(),
-    );
-    _ref
-        .read(loggerProvider)
-        .d('starting timer for favorite bus arrival refresh');
-    _timer = Timer.periodic(
-      busArrivalRefreshDuration,
-      (_) async {
-        state = AsyncValue.data(
-          await _ref.read(busServicesServiceProvider).getFavoriteBusServices(),
-        );
-      },
-    );
+  Future<void> init({bool isRefreshing = false}) async {
+    if (isRefreshing) {
+      state = const AsyncValue.loading();
+    }
+    try {
+      state = AsyncValue.data(
+        await _ref.read(busServicesServiceProvider).getFavoriteBusServices(),
+      );
+      _ref
+          .read(loggerProvider)
+          .d('starting timer for favorite bus arrival refresh');
+      _timer = Timer.periodic(
+        busArrivalRefreshDuration,
+        (_) async {
+          state = AsyncValue.data(
+            await _ref
+                .read(busServicesServiceProvider)
+                .getFavoriteBusServices(),
+          );
+        },
+      );
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
   }
 
   @override
