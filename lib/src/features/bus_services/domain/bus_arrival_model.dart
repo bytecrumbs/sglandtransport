@@ -5,7 +5,7 @@ import 'bus_arrival_service_model.dart';
 part 'bus_arrival_model.freezed.dart';
 part 'bus_arrival_model.g.dart';
 
-@Freezed(makeCollectionsUnmodifiable: false)
+@freezed
 class BusArrivalModel with _$BusArrivalModel {
   factory BusArrivalModel({
     @JsonKey(name: 'odata.metadata') required String odataMetadata,
