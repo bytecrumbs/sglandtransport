@@ -35,20 +35,24 @@ class BusServicesListScreenController
             .read(busServicesServiceProvider)
             .getBusArrivals(_busStopCode),
       );
-      _ref.read(loggerProvider).d('starting timer for bus arrival refresh');
-      _timer = Timer.periodic(
-        busArrivalRefreshDuration,
-        (_) async {
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
+    _ref.read(loggerProvider).d('starting timer for bus arrival refresh');
+    _timer = Timer.periodic(
+      busArrivalRefreshDuration,
+      (_) async {
+        try {
           state = AsyncValue.data(
             await _ref
                 .read(busServicesServiceProvider)
                 .getBusArrivals(_busStopCode),
           );
-        },
-      );
-    } catch (e, st) {
-      state = AsyncValue.error(e, st);
-    }
+        } catch (e, st) {
+          state = AsyncValue.error(e, st);
+        }
+      },
+    );
   }
 
   @override

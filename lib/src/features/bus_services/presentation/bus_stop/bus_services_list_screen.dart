@@ -133,16 +133,10 @@ class BusServicesListScreen extends ConsumerWidget {
                 if (error is CustomException) {
                   return ErrorDisplay(
                     message: error.message,
-                    onPressed: () {
-                      vm.init(isRefreshing: true);
-                    },
                   );
                 }
                 return ErrorDisplay(
                   message: error.toString(),
-                  onPressed: () {
-                    vm.init(isRefreshing: true);
-                  },
                 );
               },
             ),

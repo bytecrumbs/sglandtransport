@@ -32,22 +32,26 @@ class BusServiceListFavoritesController
       state = AsyncValue.data(
         await _ref.read(busServicesServiceProvider).getFavoriteBusServices(),
       );
-      _ref
-          .read(loggerProvider)
-          .d('starting timer for favorite bus arrival refresh');
-      _timer = Timer.periodic(
-        busArrivalRefreshDuration,
-        (_) async {
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
+    _ref
+        .read(loggerProvider)
+        .d('starting timer for favorite bus arrival refresh');
+    _timer = Timer.periodic(
+      busArrivalRefreshDuration,
+      (_) async {
+        try {
           state = AsyncValue.data(
             await _ref
                 .read(busServicesServiceProvider)
                 .getFavoriteBusServices(),
           );
-        },
-      );
-    } catch (e, st) {
-      state = AsyncValue.error(e, st);
-    }
+        } catch (e, st) {
+          state = AsyncValue.error(e, st);
+        }
+      },
+    );
   }
 
   @override

@@ -101,18 +101,12 @@ class BusServiceListFavorites extends ConsumerWidget {
           return SliverFillRemaining(
             child: ErrorDisplay(
               message: error.message,
-              onPressed: () {
-                vm.init(isRefreshing: true);
-              },
             ),
           );
         }
         return SliverFillRemaining(
           child: ErrorDisplay(
             message: error.toString(),
-            onPressed: () {
-              vm.init(isRefreshing: true);
-            },
           ),
         );
       },
