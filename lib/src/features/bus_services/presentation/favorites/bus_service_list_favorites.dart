@@ -15,8 +15,6 @@ class BusServiceListFavorites extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vmState = ref.watch(busServiceListFavoritesControllerStateProvider);
-    final vm =
-        ref.watch(busServiceListFavoritesControllerStateProvider.notifier);
 
     return vmState.when(
       data: (busArrivalModels) {

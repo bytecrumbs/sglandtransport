@@ -26,10 +26,6 @@ class BusServicesListScreen extends ConsumerWidget {
     final vmState = ref.watch(
       busServicesListScreenControllerStateNotifierProvider(busStopCode),
     );
-    final vm = ref.watch(
-      busServicesListScreenControllerStateNotifierProvider(busStopCode)
-          .notifier,
-    );
 
     return Scaffold(
       appBar: AppBar(
