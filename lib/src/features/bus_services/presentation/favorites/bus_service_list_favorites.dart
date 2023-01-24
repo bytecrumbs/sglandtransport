@@ -99,12 +99,22 @@ class BusServiceListFavorites extends ConsumerWidget {
           return SliverFillRemaining(
             child: ErrorDisplay(
               message: error.message,
+              onPressed: () {
+                ref.invalidate(
+                  busServiceListFavoritesControllerStateProvider,
+                );
+              },
             ),
           );
         }
         return SliverFillRemaining(
           child: ErrorDisplay(
             message: error.toString(),
+            onPressed: () {
+              ref.invalidate(
+                busServiceListFavoritesControllerStateProvider,
+              );
+            },
           ),
         );
       },

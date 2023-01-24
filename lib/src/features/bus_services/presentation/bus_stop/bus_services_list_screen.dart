@@ -129,6 +129,13 @@ class BusServicesListScreen extends ConsumerWidget {
                 if (error is CustomException) {
                   return ErrorDisplay(
                     message: error.message,
+                    onPressed: () {
+                      ref.invalidate(
+                        busServicesListScreenControllerStateNotifierProvider(
+                          busStopCode,
+                        ),
+                      );
+                    },
                   );
                 }
                 return ErrorDisplay(
