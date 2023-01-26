@@ -51,5 +51,7 @@
 	<string>Turning on location allows us to show you nearby bus stops</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

@@ -10,7 +10,7 @@ import firebase_core
 import firebase_crashlytics
 import geolocator_apple
 import in_app_review
-import path_provider_macos
+import path_provider_foundation
 import share_plus
 import shared_preferences_foundation
 import sqlite3_flutter_libs
