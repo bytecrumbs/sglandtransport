@@ -18,6 +18,7 @@ class FakeDio implements Dio {
   }) async {
     switch (path) {
       case '$ltaDatamallApi/BusArrivalv2':
+        // ignore: avoid_as
         return FakeResponseMap(200, _getBusArrival) as Response<T>;
 
       default:

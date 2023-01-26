@@ -3,11 +3,11 @@ linter:
     - always_declare_return_types
     - always_put_control_body_on_new_line
     - always_put_required_named_parameters_first
-    - always_require_non_null_named_parameters
     - always_specify_types
     - always_use_package_imports
     - annotate_overrides
     - avoid_annotating_with_dynamic
+    - avoid_as
     - avoid_bool_literals_in_conditional_expressions
     - avoid_catches_without_on_clauses
     - avoid_catching_errors
@@ -32,8 +32,6 @@ linter:
     - avoid_relative_lib_imports
     - avoid_renaming_method_parameters
     - avoid_return_types_on_setters
-    - avoid_returning_null
-    - avoid_returning_null_for_future
     - avoid_returning_null_for_void
     - avoid_returning_this
     - avoid_setters_without_getters
@@ -54,12 +52,14 @@ linter:
     - cascade_invocations
     - cast_nullable_to_non_nullable
     - close_sinks
+    - collection_methods_unrelated_type
     - combinators_ordering
     - comment_references
     - conditional_uri_does_not_exist
     - constant_identifier_names
     - control_flow_in_finally
     - curly_braces_in_flow_control_structures
+    - dangling_library_doc_comments
     - depend_on_referenced_packages
     - deprecated_consistency
     - diagnostic_describe_all_properties
@@ -69,15 +69,19 @@ linter:
     - empty_catches
     - empty_constructor_bodies
     - empty_statements
+    - enable_null_safety
     - eol_at_end_of_file
     - exhaustive_cases
     - file_names
     - flutter_style_todos
     - hash_and_equals
     - implementation_imports
+    - implicit_call_tearoffs
+    - invariant_booleans
     - iterable_contains_unrelated_type
     - join_return_with_assignment
     - leading_newlines_in_multiline_strings
+    - library_annotations
     - library_names
     - library_prefixes
     - library_private_types_in_public_api
@@ -107,6 +111,7 @@ linter:
     - prefer_adjacent_string_concatenation
     - prefer_asserts_in_initializer_lists
     - prefer_asserts_with_message
+    - prefer_bool_in_asserts
     - prefer_collection_literals
     - prefer_conditional_assignment
     - prefer_const_constructors
@@ -116,7 +121,6 @@ linter:
     - prefer_constructors_over_static_methods
     - prefer_contains
     - prefer_double_quotes
-    - prefer_equal_for_default_values
     - prefer_expression_function_bodies
     - prefer_final_fields
     - prefer_final_in_for_each
@@ -164,12 +168,14 @@ linter:
     - unawaited_futures
     - unnecessary_await_in_return
     - unnecessary_brace_in_string_interps
+    - unnecessary_breaks
     - unnecessary_const
     - unnecessary_constructor_name
     - unnecessary_final
     - unnecessary_getters_setters
     - unnecessary_lambdas
     - unnecessary_late
+    - unnecessary_library_directive
     - unnecessary_new
     - unnecessary_null_aware_assignments
     - unnecessary_null_aware_operator_on_extension_on_nullable
