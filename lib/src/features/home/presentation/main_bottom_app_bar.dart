@@ -33,6 +33,7 @@ class MainBottomAppBar extends StatelessWidget {
       activeColor: kAccentColor,
       top: -25,
       style: TabStyle.react,
+      disableDefaultTabController: true,
     );
   }
 }
