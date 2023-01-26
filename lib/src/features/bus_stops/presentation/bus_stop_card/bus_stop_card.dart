@@ -25,7 +25,7 @@ class BusStopCard extends ConsumerWidget {
           text: busStopValueModel.description ?? '',
           textStyle: Theme.of(context)
               .textTheme
-              .subtitle1!
+              .titleMedium!
               .copyWith(fontWeight: FontWeight.bold),
           term: searchTerm,
         ),
@@ -34,7 +34,7 @@ class BusStopCard extends ConsumerWidget {
               '${busStopValueModel.busStopCode ?? ""} | ${busStopValueModel.roadName ?? ""}',
           textStyle: Theme.of(context)
               .textTheme
-              .subtitle2!
+              .titleSmall!
               .copyWith(color: kSecondaryColor),
           term: searchTerm,
         ),

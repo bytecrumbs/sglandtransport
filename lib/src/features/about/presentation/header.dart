@@ -17,7 +17,7 @@ class AboutHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 12, 0, 6),
       child: Text(
         headerText,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
     );
   }

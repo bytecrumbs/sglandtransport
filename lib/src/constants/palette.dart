@@ -7,3 +7,4 @@ const kMainBackgroundColor = Color(0xFFE2EFF5);
 const kLoadSeatsAvailable = Color(0x26009B60);
 const kLoadStandingAvailable = Color(0x26FA6B00);
 const kLoadLimitedStanding = Color(0x26FF0000);
+const kBottomAppBarColor = Color(0xffffffff);

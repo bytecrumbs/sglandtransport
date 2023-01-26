@@ -14,7 +14,7 @@ class CustomSearchDelegate extends SearchDelegate<dynamic> {
       ),
       primaryColor: theme.primaryColorDark,
       textTheme: theme.textTheme.copyWith(
-        headline6: theme.textTheme.subtitle1!.copyWith(color: Colors.white),
+        titleLarge: theme.textTheme.titleMedium!.copyWith(color: Colors.white),
       ),
     );
   }

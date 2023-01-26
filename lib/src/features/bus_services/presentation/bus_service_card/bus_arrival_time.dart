@@ -26,14 +26,14 @@ class BusArrivalTime extends StatelessWidget {
                 ),
                 child: Text(
                   estimatedArrival,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
             ],
           )
         : Text(
             'n/a',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           );
   }
 }

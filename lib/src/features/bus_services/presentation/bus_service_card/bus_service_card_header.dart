@@ -34,7 +34,7 @@ class BusServiceCardHeader extends StatelessWidget {
               serviceNo,
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(color: Colors.white),
             ),
           ),

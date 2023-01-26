@@ -9,7 +9,7 @@ class About extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bodyText22 = Theme.of(context).textTheme.bodyText2;
+    final bodyText22 = Theme.of(context).textTheme.bodyMedium;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

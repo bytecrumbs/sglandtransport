@@ -13,7 +13,7 @@ class BusStopDistance extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (distanceInMeters != null) Text('${distanceInMeters.toString()} m'),
+        if (distanceInMeters != null) Text('$distanceInMeters m'),
         const SizedBox(
           width: 10,
         ),
