@@ -2,19 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
+import '../../../../constants/bus_arrival_config.dart';
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
 import '../../../../shared/presentation/staggered_animation.dart';
+import '../../application/bus_services_service.dart';
+import '../../domain/bus_arrival_model.dart';
 import '../bus_service_card/bus_service_card.dart';
 import 'bus_service_header.dart';
-import 'bus_service_list_favorites_controller.dart';
+
+final favoriteBusServicesStreamProvider =
+    StreamProvider.autoDispose<List<BusArrivalModel>>(
+  (ref) async* {
+    final busServicesService = ref.read(busServicesServiceProvider);
+    // make sure it is executed immediately
+    yield await busServicesService.getFavoriteBusServices();
+    // then execute regularly
+    yield* Stream.periodic(
+      busArrivalRefreshDuration,
+      (computationCount) {
+        return busServicesService.getFavoriteBusServices();
+      },
+    ).asyncMap((event) async => event);
+  },
+);
 
 class BusServiceListFavorites extends ConsumerWidget {
   const BusServiceListFavorites({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final vmState = ref.watch(busServiceListFavoritesControllerStateProvider);
+    final vmState = ref.watch(favoriteBusServicesStreamProvider);
 
     return vmState.when(
       data: (busArrivalModels) {
@@ -101,7 +119,7 @@ class BusServiceListFavorites extends ConsumerWidget {
               message: error.message,
               onPressed: () {
                 ref.invalidate(
-                  busServiceListFavoritesControllerStateProvider,
+                  favoriteBusServicesStreamProvider,
                 );
               },
             ),
@@ -112,7 +130,7 @@ class BusServiceListFavorites extends ConsumerWidget {
             message: error.toString(),
             onPressed: () {
               ref.invalidate(
-                busServiceListFavoritesControllerStateProvider,
+                favoriteBusServicesStreamProvider,
               );
             },
           ),

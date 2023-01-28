@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../application/bus_services_service.dart';
-import '../favorites/bus_service_list_favorites_controller.dart';
+import '../favorites/bus_service_list_favorites.dart';
 
 class FavoriteToggler extends ConsumerWidget {
   const FavoriteToggler({
@@ -16,8 +16,9 @@ class FavoriteToggler extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TODO: maybe there is a better way to do this?
     // watch the state, so the widget gets updated when the favorite is toggled
-    ref.watch(busServiceListFavoritesControllerStateProvider);
+    ref.watch(favoriteBusServicesStreamProvider);
 
     return IconButton(
       onPressed: () {
@@ -25,7 +26,7 @@ class FavoriteToggler extends ConsumerWidget {
               busStopCode: busStopCode,
               serviceNo: serviceNo,
             );
-        ref.invalidate(busServiceListFavoritesControllerStateProvider);
+        ref.invalidate(favoriteBusServicesStreamProvider);
       },
       icon: ref
               .watch(busServicesServiceProvider)
