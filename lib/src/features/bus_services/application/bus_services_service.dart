@@ -1,9 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../../constants/local_storage_keys.dart';
 import '../../../shared/application/local_storage_service.dart';
 import '../../../shared/third_party_providers.dart';
 import '../../bus_stops/data/bus_local_repository.dart';
+import '../../bus_stops/domain/bus_stop_value_model.dart';
+import '../../user_location/domain/user_location_model.dart';
 import '../data/bus_services_repository.dart';
 import '../domain/bus_arrival_model.dart';
 import '../domain/bus_arrival_service_model.dart';
@@ -164,7 +167,9 @@ class BusServicesService {
     return newIsFavoriteValue;
   }
 
-  Future<List<BusArrivalWithBusStopModel>> getFavoriteBusServices() async {
+  Future<List<BusArrivalWithBusStopModel>> getFavoriteBusServices({
+    UserLocationModel? userLocationModel,
+  }) async {
     // __handleLegacyFavorites is only required temporarily and can be removed
     // again in a later version, as it migrates the old bus stop favorites
     // to the new way we are storing bus services in favorites
@@ -235,12 +240,43 @@ class BusServicesService {
         }
       }
 
+      // calculate distance
+
+      double? distanceInMeters;
+
+      if (userLocationModel != null &&
+          userLocationModel.latitude != null &&
+          userLocationModel.longitude != null) {
+        distanceInMeters = Geolocator.distanceBetween(
+          userLocationModel.latitude!,
+          userLocationModel.longitude!,
+          busStop.latitude ?? 0,
+          busStop.longitude ?? 0,
+        );
+      }
+      final busStopValueModel = BusStopValueModel(
+        busStopCode: busStop.busStopCode,
+        description: busStop.description,
+        roadName: busStop.roadName,
+        latitude: busStop.latitude,
+        longitude: busStop.longitude,
+        distanceInMeters: distanceInMeters?.round(),
+      );
+
       final busArrivalWithBusStopModel = BusArrivalWithBusStopModel(
-        tableBusStop: busStop,
+        busStopValueModel: busStopValueModel,
         services: busArrivalServiceModelList,
       );
 
       busArrivalWithBusStopModelList.add(busArrivalWithBusStopModel);
+    }
+
+    // sort list by distance
+    if (userLocationModel != null) {
+      busArrivalWithBusStopModelList.sort(
+        (a, b) => a.busStopValueModel.distanceInMeters!
+            .compareTo(b.busStopValueModel.distanceInMeters!),
+      );
     }
 
     return busArrivalWithBusStopModelList;

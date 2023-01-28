@@ -6,6 +6,8 @@ import '../../../../constants/bus_arrival_config.dart';
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
 import '../../../../shared/presentation/staggered_animation.dart';
+import '../../../user_location/application/location_service.dart';
+import '../../../user_location/domain/user_location_model.dart';
 import '../../application/bus_services_service.dart';
 import '../../domain/bus_arrival_with_bus_stop_model.dart';
 import '../bus_service_card/bus_service_card.dart';
@@ -14,14 +16,29 @@ import 'bus_service_header.dart';
 final favoriteBusServicesStreamProvider =
     StreamProvider.autoDispose<List<BusArrivalWithBusStopModel>>(
   (ref) async* {
+    final locationService = ref.read(locationServiceProvider);
+
+    // final hasPermission = await locationService.handlePermission();
+    final hasPermission = await locationService.handlePermission();
+
+    UserLocationModel? userLocation;
+
+    if (hasPermission) {
+      userLocation = await locationService.getLastKnownPosition();
+    }
+
     final busServicesService = ref.watch(busServicesServiceProvider);
     // make sure it is executed immediately
-    yield await busServicesService.getFavoriteBusServices();
+    yield await busServicesService.getFavoriteBusServices(
+      userLocationModel: userLocation,
+    );
     // then execute regularly
     yield* Stream.periodic(
       busArrivalRefreshDuration,
       (computationCount) {
-        return busServicesService.getFavoriteBusServices();
+        return busServicesService.getFavoriteBusServices(
+          userLocationModel: userLocation,
+        );
       },
     ).asyncMap((event) async => event);
   },
@@ -51,18 +68,20 @@ class BusServiceListFavorites extends ConsumerWidget {
                       children: [
                         BusServiceHeader(
                           busStopCode: currentBusArrivalWithBusStopModel
-                              .tableBusStop.busStopCode,
+                              .busStopValueModel.busStopCode,
                           description: currentBusArrivalWithBusStopModel
-                              .tableBusStop.description,
+                              .busStopValueModel.description,
                           roadName: currentBusArrivalWithBusStopModel
-                              .tableBusStop.roadName,
+                              .busStopValueModel.roadName,
+                          distanceInMeters: currentBusArrivalWithBusStopModel
+                              .busStopValueModel.distanceInMeters,
                         ),
                         Column(
                           children: currentBusArrivalWithBusStopModel.services
                               .map(
                                 (busArrivalServiceModel) => BusServiceCard(
                                   busStopCode: currentBusArrivalWithBusStopModel
-                                      .tableBusStop.busStopCode!,
+                                      .busStopValueModel.busStopCode!,
                                   inService: busArrivalServiceModel.inService,
                                   serviceNo: busArrivalServiceModel.serviceNo,
                                   destinationName:

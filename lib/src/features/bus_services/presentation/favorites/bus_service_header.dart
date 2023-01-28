@@ -8,14 +8,20 @@ class BusServiceHeader extends StatelessWidget {
     required this.busStopCode,
     required this.description,
     required this.roadName,
+    this.distanceInMeters,
   });
 
   final String? busStopCode;
   final String? description;
   final String? roadName;
+  final int? distanceInMeters;
 
   @override
   Widget build(BuildContext context) {
+    var subTitle = '$busStopCode | $roadName';
+    if (distanceInMeters != null) {
+      subTitle = '$subTitle | $distanceInMeters m';
+    }
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Column(
@@ -30,7 +36,7 @@ class BusServiceHeader extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Text(
-            '$busStopCode | $roadName',
+            subTitle,
             style: const TextStyle(
               color: kPrimaryColor,
             ),
