@@ -14,7 +14,7 @@ import '../bus_service_card/bus_service_card.dart';
 final busServicesStreamProvider =
     StreamProvider.autoDispose.family<BusArrivalModel, String>(
   (ref, busStopCode) async* {
-    final busServicesService = ref.read(busServicesServiceProvider);
+    final busServicesService = ref.watch(busServicesServiceProvider);
     // make sure it is executed immediately
     yield await busServicesService.getBusArrivals(busStopCode);
     // then execute regularly

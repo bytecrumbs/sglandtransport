@@ -14,7 +14,7 @@ import 'bus_service_header.dart';
 final favoriteBusServicesStreamProvider =
     StreamProvider.autoDispose<List<BusArrivalModel>>(
   (ref) async* {
-    final busServicesService = ref.read(busServicesServiceProvider);
+    final busServicesService = ref.watch(busServicesServiceProvider);
     // make sure it is executed immediately
     yield await busServicesService.getFavoriteBusServices();
     // then execute regularly
