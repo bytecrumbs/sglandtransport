@@ -2,12 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
+import '../../../../constants/bus_arrival_config.dart';
 import '../../../../constants/palette.dart';
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
 import '../../../../shared/presentation/staggered_animation.dart';
+import '../../application/bus_services_service.dart';
+import '../../domain/bus_arrival_model.dart';
 import '../bus_service_card/bus_service_card.dart';
-import 'bus_services_list_screen_controller.dart';
+
+final busServicesStreamProvider =
+    StreamProvider.autoDispose.family<BusArrivalModel, String>(
+  (ref, busStopCode) async* {
+    final busServicesService = ref.read(busServicesServiceProvider);
+    // make sure it is executed immediately
+    yield await busServicesService.getBusArrivals(busStopCode);
+    // then execute regularly
+    yield* Stream.periodic(
+      busArrivalRefreshDuration,
+      (computationCount) {
+        return busServicesService.getBusArrivals(busStopCode);
+      },
+    ).asyncMap((event) async => event);
+  },
+);
 
 class BusServicesListScreen extends ConsumerWidget {
   const BusServicesListScreen({
@@ -24,7 +42,7 @@ class BusServicesListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vmState = ref.watch(
-      busServicesListScreenControllerStateNotifierProvider(busStopCode),
+      busServicesStreamProvider(busStopCode),
     );
 
     return Scaffold(
@@ -79,7 +97,7 @@ class BusServicesListScreen extends ConsumerWidget {
               data: (busArrival) => RefreshIndicator(
                 onRefresh: () {
                   ref.invalidate(
-                    busServicesListScreenControllerStateNotifierProvider(
+                    busServicesStreamProvider(
                       busStopCode,
                     ),
                   );
@@ -131,7 +149,7 @@ class BusServicesListScreen extends ConsumerWidget {
                     message: error.message,
                     onPressed: () {
                       ref.invalidate(
-                        busServicesListScreenControllerStateNotifierProvider(
+                        busServicesStreamProvider(
                           busStopCode,
                         ),
                       );
