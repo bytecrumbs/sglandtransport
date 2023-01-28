@@ -7,12 +7,12 @@ import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
 import '../../../../shared/presentation/staggered_animation.dart';
 import '../../application/bus_services_service.dart';
-import '../../domain/bus_arrival_model.dart';
+import '../../domain/bus_arrival_with_bus_stop_model.dart';
 import '../bus_service_card/bus_service_card.dart';
 import 'bus_service_header.dart';
 
 final favoriteBusServicesStreamProvider =
-    StreamProvider.autoDispose<List<BusArrivalModel>>(
+    StreamProvider.autoDispose<List<BusArrivalWithBusStopModel>>(
   (ref) async* {
     final busServicesService = ref.watch(busServicesServiceProvider);
     // make sure it is executed immediately
@@ -35,63 +35,65 @@ class BusServiceListFavorites extends ConsumerWidget {
     final vmState = ref.watch(favoriteBusServicesStreamProvider);
 
     return vmState.when(
-      data: (busArrivalModels) {
-        if (busArrivalModels.isNotEmpty) {
+      data: (busArrivalWithBusStopModels) {
+        if (busArrivalWithBusStopModels.isNotEmpty) {
           return AnimationLimiter(
             child: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (_, index) {
-                  final currentBusArrivalModel = busArrivalModels[index];
-                  final currentBusArrivalServicesModel =
-                      currentBusArrivalModel.services[0];
-                  final previousBusStopCode = index == 0
-                      ? '0'
-                      : busArrivalModels[index - 1].busStopCode;
+                  final currentBusArrivalWithBusStopModel =
+                      busArrivalWithBusStopModels[index];
+
                   return StaggeredAnimation(
                     index: index,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (currentBusArrivalModel.busStopCode !=
-                            previousBusStopCode)
-                          BusServiceHeader(
-                            busStopCode: currentBusArrivalModel.busStopCode,
-                            description: currentBusArrivalModel.description,
-                            roadName: currentBusArrivalModel.roadName,
-                          ),
-                        BusServiceCard(
-                          busStopCode: currentBusArrivalModel.busStopCode,
-                          previousBusStopCode: previousBusStopCode,
-                          description: currentBusArrivalModel.description,
-                          roadName: currentBusArrivalModel.roadName,
-                          inService: currentBusArrivalServicesModel.inService,
-                          serviceNo: currentBusArrivalServicesModel.serviceNo,
-                          destinationName:
-                              currentBusArrivalServicesModel.destinationName,
-                          nextBusEstimatedArrival:
-                              currentBusArrivalServicesModel.nextBus
-                                  .getEstimatedArrival(),
-                          nextBusLoadColor: currentBusArrivalServicesModel
-                              .nextBus
-                              .getLoadColor(),
-                          nextBus2EstimatedArrival:
-                              currentBusArrivalServicesModel.nextBus2
-                                  .getEstimatedArrival(),
-                          nextBus2LoadColor: currentBusArrivalServicesModel
-                              .nextBus2
-                              .getLoadColor(),
-                          nextBus3EstimatedArrival:
-                              currentBusArrivalServicesModel.nextBus3
-                                  .getEstimatedArrival(),
-                          nextBus3LoadColor: currentBusArrivalServicesModel
-                              .nextBus3
-                              .getLoadColor(),
+                        BusServiceHeader(
+                          busStopCode: currentBusArrivalWithBusStopModel
+                              .tableBusStop.busStopCode,
+                          description: currentBusArrivalWithBusStopModel
+                              .tableBusStop.description,
+                          roadName: currentBusArrivalWithBusStopModel
+                              .tableBusStop.roadName,
+                        ),
+                        Column(
+                          children: currentBusArrivalWithBusStopModel.services
+                              .map(
+                                (busArrivalServiceModel) => BusServiceCard(
+                                  busStopCode: currentBusArrivalWithBusStopModel
+                                      .tableBusStop.busStopCode!,
+                                  inService: busArrivalServiceModel.inService,
+                                  serviceNo: busArrivalServiceModel.serviceNo,
+                                  destinationName:
+                                      busArrivalServiceModel.destinationName,
+                                  nextBusEstimatedArrival:
+                                      busArrivalServiceModel.nextBus
+                                          .getEstimatedArrival(),
+                                  nextBusLoadColor: busArrivalServiceModel
+                                      .nextBus
+                                      .getLoadColor(),
+                                  nextBus2EstimatedArrival:
+                                      busArrivalServiceModel.nextBus2
+                                          .getEstimatedArrival(),
+                                  nextBus2LoadColor: busArrivalServiceModel
+                                      .nextBus2
+                                      .getLoadColor(),
+                                  nextBus3EstimatedArrival:
+                                      busArrivalServiceModel.nextBus3
+                                          .getEstimatedArrival(),
+                                  nextBus3LoadColor: busArrivalServiceModel
+                                      .nextBus3
+                                      .getLoadColor(),
+                                ),
+                              )
+                              .toList(),
                         ),
                       ],
                     ),
                   );
                 },
-                childCount: busArrivalModels.length,
+                childCount: busArrivalWithBusStopModels.length,
               ),
             ),
           );

@@ -7,6 +7,7 @@ import '../../bus_stops/data/bus_local_repository.dart';
 import '../data/bus_services_repository.dart';
 import '../domain/bus_arrival_model.dart';
 import '../domain/bus_arrival_service_model.dart';
+import '../domain/bus_arrival_with_bus_stop_model.dart';
 import '../domain/next_bus_model.dart';
 
 final busServicesServiceProvider =
@@ -163,7 +164,7 @@ class BusServicesService {
     return newIsFavoriteValue;
   }
 
-  Future<List<BusArrivalModel>> getFavoriteBusServices() async {
+  Future<List<BusArrivalWithBusStopModel>> getFavoriteBusServices() async {
     // __handleLegacyFavorites is only required temporarily and can be removed
     // again in a later version, as it migrates the old bus stop favorites
     // to the new way we are storing bus services in favorites
@@ -178,62 +179,71 @@ class BusServicesService {
 
     _sortFavorites(currentFavorites);
 
-    final rawBusArrivalModelList = <BusArrivalModel>[];
+    final uniqueBusStopsList = List<String>.from(currentFavorites)
+        .map((e) => e.split(busStopCodeServiceNoDelimiter)[0])
+        .toSet()
+        .toList();
 
-    for (final favorite in currentFavorites) {
-      final busStopCode = favorite.split(busStopCodeServiceNoDelimiter)[0];
-      final serviceNo = favorite.split(busStopCodeServiceNoDelimiter)[1];
-      final busArrivalModel = await repository.fetchBusArrivals(
-        busStopCode: busStopCode,
-        serviceNo: serviceNo,
-      );
-
-      // if the bus is not in service, the API will return an empty list, so
-      // we are adding a service model marking it as "not in service"
-      if (busArrivalModel.services.isEmpty) {
-        rawBusArrivalModelList.add(
-          busArrivalModel.copyWith(
-            services: [
-              BusArrivalServiceModel(
-                serviceNo: serviceNo,
-                busOperator: '',
-                nextBus: NextBusModel(),
-                nextBus2: NextBusModel(),
-                nextBus3: NextBusModel(),
-                inService: false,
-              ),
-            ],
-          ),
+    final busStops = await _ref.read(busLocalRepositoryProvider).getBusStops(
+          busStopCodes: uniqueBusStopsList,
         );
-      } else {
-        rawBusArrivalModelList.add(busArrivalModel);
-      }
-    }
 
-    final enrichedBusArrivalModelList = <BusArrivalModel>[];
-    for (final busArrivalModel in rawBusArrivalModelList) {
-      final busServiceNoListWithDestination =
-          await _addDestination(busArrivals: busArrivalModel.services);
+    final busArrivalWithBusStopModelList = <BusArrivalWithBusStopModel>[];
 
-      // Mark all entires as favorite bus services
-      final busArrivalsWithFavorites = busServiceNoListWithDestination
-          .map((e) => e.copyWith(isFavorite: true))
+    for (final busStop in busStops) {
+      // find favorites from the same bus stop
+      final busServicesForBusStop = currentFavorites
+          .where(
+            (element) =>
+                busStop.busStopCode ==
+                element.split(busStopCodeServiceNoDelimiter)[0],
+          )
           .toList();
 
-      final busStops = await _ref.read(busLocalRepositoryProvider).getBusStops(
-        busStopCodes: [busArrivalModel.busStopCode],
+      // fetch services from current bus stop
+      final busArrivalServiceModelList = <BusArrivalServiceModel>[];
+      for (final busService in busServicesForBusStop) {
+        final busStopCode = busService.split(busStopCodeServiceNoDelimiter)[0];
+        final serviceNo = busService.split(busStopCodeServiceNoDelimiter)[1];
+        final busArrivalModel = await repository.fetchBusArrivals(
+          busStopCode: busStopCode,
+          serviceNo: serviceNo,
+        );
+
+        final busArrivalServiceModelListWithDestination =
+            await _addDestination(busArrivals: busArrivalModel.services);
+
+        // if the bus is not in service, the API will return an empty list, so
+        // we are adding a service model marking it as "not in service"
+        if (busArrivalModel.services.isEmpty) {
+          busArrivalServiceModelList.add(
+            BusArrivalServiceModel(
+              serviceNo: serviceNo,
+              busOperator: '',
+              nextBus: NextBusModel(),
+              nextBus2: NextBusModel(),
+              nextBus3: NextBusModel(),
+              inService: false,
+              isFavorite: true,
+            ),
+          );
+        } else {
+          busArrivalServiceModelList.add(
+            busArrivalServiceModelListWithDestination[0]
+                .copyWith(isFavorite: true),
+          );
+        }
+      }
+
+      final busArrivalWithBusStopModel = BusArrivalWithBusStopModel(
+        tableBusStop: busStop,
+        services: busArrivalServiceModelList,
       );
 
-      enrichedBusArrivalModelList.add(
-        busArrivalModel.copyWith(
-          services: busArrivalsWithFavorites,
-          roadName: busStops[0].roadName,
-          description: busStops[0].description,
-        ),
-      );
+      busArrivalWithBusStopModelList.add(busArrivalWithBusStopModel);
     }
 
-    return enrichedBusArrivalModelList;
+    return busArrivalWithBusStopModelList;
   }
 
   Future<void> _handleLegacyFavorites() async {

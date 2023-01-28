@@ -18,9 +18,6 @@ class BusServiceCard extends StatelessWidget {
     required this.nextBus3EstimatedArrival,
     required this.nextBus3LoadColor,
     required this.busStopCode,
-    this.previousBusStopCode,
-    this.description,
-    this.roadName,
   });
 
   final String serviceNo;
@@ -32,10 +29,7 @@ class BusServiceCard extends StatelessWidget {
   final Color nextBus2LoadColor;
   final String nextBus3EstimatedArrival;
   final Color nextBus3LoadColor;
-  final String? previousBusStopCode;
   final String busStopCode;
-  final String? description;
-  final String? roadName;
 
   @override
   Widget build(BuildContext context) {
