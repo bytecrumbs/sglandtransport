@@ -6,6 +6,7 @@ import '../../../shared/application/local_storage_service.dart';
 import '../../../shared/third_party_providers.dart';
 import '../../bus_stops/data/bus_local_repository.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
+import '../../user_location/application/location_service.dart';
 import '../../user_location/domain/user_location_model.dart';
 import '../data/bus_services_repository.dart';
 import '../domain/bus_arrival_model.dart';
@@ -167,9 +168,7 @@ class BusServicesService {
     return newIsFavoriteValue;
   }
 
-  Future<List<BusArrivalWithBusStopModel>> getFavoriteBusServices({
-    UserLocationModel? userLocationModel,
-  }) async {
+  Future<List<BusArrivalWithBusStopModel>> getFavoriteBusServices() async {
     // __handleLegacyFavorites is only required temporarily and can be removed
     // again in a later version, as it migrates the old bus stop favorites
     // to the new way we are storing bus services in favorites
@@ -241,11 +240,12 @@ class BusServicesService {
       }
 
       // calculate distance
-
+      final locationService = _ref.read(locationServiceProvider);
+      UserLocationModel? userLocationModel;
+      userLocationModel = await locationService.getCurrentPosition();
       double? distanceInMeters;
 
-      if (userLocationModel != null &&
-          userLocationModel.latitude != null &&
+      if (userLocationModel.latitude != null &&
           userLocationModel.longitude != null) {
         distanceInMeters = Geolocator.distanceBetween(
           userLocationModel.latitude!,
@@ -272,12 +272,11 @@ class BusServicesService {
     }
 
     // sort list by distance
-    if (userLocationModel != null) {
-      busArrivalWithBusStopModelList.sort(
-        (a, b) => a.busStopValueModel.distanceInMeters!
-            .compareTo(b.busStopValueModel.distanceInMeters!),
-      );
-    }
+    busArrivalWithBusStopModelList.sort((a, b) {
+      final aValue = a.busStopValueModel.distanceInMeters ?? 0;
+      final bValue = b.busStopValueModel.distanceInMeters ?? 0;
+      return aValue.compareTo(bValue);
+    });
 
     return busArrivalWithBusStopModelList;
   }

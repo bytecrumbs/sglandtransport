@@ -21,8 +21,7 @@ class LocationService {
     LocationPermission permission;
 
     // Test if location services are enabled.
-    serviceEnabled =
-        await GeolocatorPlatform.instance.isLocationServiceEnabled();
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
@@ -30,9 +29,9 @@ class LocationService {
       return false;
     }
 
-    permission = await GeolocatorPlatform.instance.checkPermission();
+    permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
-      permission = await GeolocatorPlatform.instance.requestPermission();
+      permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         // Permissions are denied, next time you could try
         // requesting permissions again (this is also where
@@ -102,5 +101,18 @@ class LocationService {
       latitude: currentPosition?.latitude,
       longitude: currentPosition?.longitude,
     );
+  }
+
+  Future<UserLocationModel> getCurrentPosition() async {
+    final permission = await handlePermission();
+    if (permission) {
+      final currentPosition = await Geolocator.getCurrentPosition();
+      return UserLocationModel(
+        latitude: currentPosition.latitude,
+        longitude: currentPosition.longitude,
+      );
+    } else {
+      return UserLocationModel();
+    }
   }
 }
