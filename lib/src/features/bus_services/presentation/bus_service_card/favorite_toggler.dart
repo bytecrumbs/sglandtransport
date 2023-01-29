@@ -16,7 +16,7 @@ abstract class IsFavoriteTogglerParameter with _$IsFavoriteTogglerParameter {
 }
 
 final isFavoriteStateProvider =
-    StateProvider.family<bool, IsFavoriteTogglerParameter>(
+    StateProvider.autoDispose.family<bool, IsFavoriteTogglerParameter>(
   (ref, parameter) => parameter.isFavorite,
 );
 
