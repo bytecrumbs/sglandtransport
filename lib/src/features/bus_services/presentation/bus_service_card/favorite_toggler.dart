@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../application/bus_services_service.dart';
+import '../favorites/bus_service_list_favorites.dart';
 
 part 'favorite_toggler.freezed.dart';
 
@@ -59,6 +60,7 @@ class FavoriteToggler extends ConsumerWidget {
               ).notifier,
             )
             .state = toggledValue;
+        ref.invalidate(favoriteBusServicesStreamProvider);
       },
       icon: isFavoriteState
           ? const Icon(Icons.favorite)
