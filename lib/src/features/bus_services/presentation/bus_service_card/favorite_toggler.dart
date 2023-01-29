@@ -10,6 +10,7 @@ part 'favorite_toggler.freezed.dart';
 @freezed
 abstract class IsFavoriteTogglerParameter with _$IsFavoriteTogglerParameter {
   factory IsFavoriteTogglerParameter({
+    required String busStopCode,
     required String serviceNo,
     required bool isFavorite,
   }) = _IsFavoriteTogglerParameter;
@@ -39,6 +40,7 @@ class FavoriteToggler extends ConsumerWidget {
         IsFavoriteTogglerParameter(
           serviceNo: serviceNo,
           isFavorite: isFavorite,
+          busStopCode: busStopCode,
         ),
       ),
     );
@@ -56,6 +58,7 @@ class FavoriteToggler extends ConsumerWidget {
                 IsFavoriteTogglerParameter(
                   serviceNo: serviceNo,
                   isFavorite: isFavorite,
+                  busStopCode: busStopCode,
                 ),
               ).notifier,
             )
