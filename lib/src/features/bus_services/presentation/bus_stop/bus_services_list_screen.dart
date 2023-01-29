@@ -136,6 +136,7 @@ class BusServicesListScreen extends ConsumerWidget {
                           nextBus3LoadColor: currentBusArrivalServicesModel
                               .nextBus3
                               .getLoadColor(),
+                          isFavorite: currentBusArrivalServicesModel.isFavorite,
                         ),
                       );
                     },

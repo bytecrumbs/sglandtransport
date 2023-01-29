@@ -18,6 +18,7 @@ class BusServiceCard extends StatelessWidget {
     required this.nextBus3EstimatedArrival,
     required this.nextBus3LoadColor,
     required this.busStopCode,
+    required this.isFavorite,
   });
 
   final String serviceNo;
@@ -30,6 +31,7 @@ class BusServiceCard extends StatelessWidget {
   final String nextBus3EstimatedArrival;
   final Color nextBus3LoadColor;
   final String busStopCode;
+  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +61,7 @@ class BusServiceCard extends StatelessWidget {
               FavoriteToggler(
                 busStopCode: busStopCode,
                 serviceNo: serviceNo,
+                isFavorite: isFavorite,
               ),
             ],
           ),
