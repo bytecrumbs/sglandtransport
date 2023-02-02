@@ -153,7 +153,7 @@ class BusLocalRepository extends _$BusLocalRepository {
     }
   }
 
-  Future<List<TableBusRoute>> getBusServiceNosForBusStopCode(
+  Future<List<TableBusRoute>> getBusServicesForBusStopCode(
     String busStopCode,
   ) async {
     _ref

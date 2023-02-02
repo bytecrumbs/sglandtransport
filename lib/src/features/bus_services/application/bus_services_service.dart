@@ -60,7 +60,7 @@ class BusServicesService {
   }) async {
     final busRoutes = await _ref
         .read(busLocalRepositoryProvider)
-        .getBusServiceNosForBusStopCode(busStopCode);
+        .getBusServicesForBusStopCode(busStopCode);
     if (busRoutes.length > busArrivals.length) {
       // create a list of service numbers, so we can better compare
       final busRoutesServiceNo = busRoutes.map((e) => e.serviceNo).toList();
@@ -294,7 +294,7 @@ class BusServicesService {
           .d('Found favorite bus stops and processing them');
       for (final favoriteBusStop in favoriteBusStops) {
         final busStops = await busDatabaseService
-            .getBusServiceNosForBusStopCode(favoriteBusStop);
+            .getBusServicesForBusStopCode(favoriteBusStop);
 
         _ref.read(loggerProvider).d('Processing bus stop $favoriteBusStop');
         final existingBusServiceFavorites =

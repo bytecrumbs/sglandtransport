@@ -30,7 +30,7 @@ class FakeBusDatabaseService implements BusLocalRepository {
   }
 
   @override
-  Future<List<TableBusRoute>> getBusServiceNosForBusStopCode(
+  Future<List<TableBusRoute>> getBusServicesForBusStopCode(
     String busStopCode,
   ) async {
     return [
