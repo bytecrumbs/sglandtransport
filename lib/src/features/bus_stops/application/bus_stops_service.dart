@@ -35,16 +35,11 @@ class BusStopsService {
         );
 
         if (distanceInMeters <= 500) {
-          final newBusStop = BusStopValueModel(
-            busStopCode: busStop.busStopCode,
-            description: busStop.description,
-            roadName: busStop.roadName,
-            latitude: busStop.latitude,
-            longitude: busStop.longitude,
-            distanceInMeters: distanceInMeters.round(),
+          nearbyBusStops.add(
+            busStop.copyWith(
+              distanceInMeters: distanceInMeters.round(),
+            ),
           );
-
-          nearbyBusStops.add(newBusStop);
         }
       }
       // sort result by distance

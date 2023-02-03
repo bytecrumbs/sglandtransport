@@ -10,6 +10,8 @@ import 'package:path_provider/path_provider.dart';
 import '../../../shared/application/local_storage_service.dart';
 import '../../../shared/third_party_providers.dart';
 import '../../bus_services/data/bus_services_repository.dart';
+import '../../bus_services/domain/bus_route_value_model.dart';
+import '../domain/bus_stop_value_model.dart';
 import 'bus_stops_repository.dart';
 
 part 'bus_local_repository.g.dart';
@@ -153,38 +155,81 @@ class BusLocalRepository extends _$BusLocalRepository {
     }
   }
 
-  Future<List<TableBusRoute>> getBusServicesForBusStopCode(
+  List<BusRouteValueModel> _busRouteTableToFreezed(
+    List<TableBusRoute> tableBusRoute,
+  ) =>
+      tableBusRoute
+          .map(
+            (e) => BusRouteValueModel(
+              serviceNo: e.serviceNo,
+              busOperator: e.operator,
+              direction: e.direction,
+              stopSequence: e.stopSequence,
+              busStopCode: e.busStopCode,
+              distance: e.distance,
+              wdFirstBus: e.wdFirstBus,
+              wdLastBus: e.wdLastBus,
+              satFirstBus: e.satFirstBus,
+              satLastBus: e.satLastBus,
+              sunFirstBus: e.sunFirstBus,
+              sunLastBus: e.sunLastBus,
+            ),
+          )
+          .toList();
+
+  Future<List<BusRouteValueModel>> getBusServicesForBusStopCode(
     String busStopCode,
   ) async {
     _ref
         .read(loggerProvider)
         .d('Getting Bus Routes from DB for bus stop $busStopCode');
-    return (select(tableBusRoutes)
+    final tableBusRouteList = await (select(tableBusRoutes)
           ..where((tbl) => tbl.busStopCode.equals(busStopCode)))
         .get();
+
+    return _busRouteTableToFreezed(tableBusRouteList);
   }
 
-  Future<List<TableBusStop>> getAllBusStops() async {
+  List<BusStopValueModel> _busStopTableToFreezed(
+    List<TableBusStop> tableBusStop,
+  ) =>
+      tableBusStop
+          .map(
+            (e) => BusStopValueModel(
+              busStopCode: e.busStopCode,
+              roadName: e.roadName,
+              description: e.description,
+              latitude: e.latitude,
+              longitude: e.longitude,
+            ),
+          )
+          .toList();
+
+  Future<List<BusStopValueModel>> getAllBusStops() async {
     _ref.read(loggerProvider).d('Getting all Bus Stops from DB');
-    return select(tableBusStops).get();
+    final tableBusStopList = await select(tableBusStops).get();
+
+    return _busStopTableToFreezed(tableBusStopList);
   }
 
-  Future<List<TableBusStop>> getBusStops({
+  Future<List<BusStopValueModel>> getBusStops({
     required List<String> busStopCodes,
   }) async {
     _ref.read(loggerProvider).d('Getting Bus Stops $busStopCodes from DB');
 
-    return (select(tableBusStops)
+    final tableBusStopList = await (select(tableBusStops)
           ..where((tbl) => tbl.busStopCode.isIn(busStopCodes)))
         .get();
+
+    return _busStopTableToFreezed(tableBusStopList);
   }
 
-  Future<List<TableBusStop>> findBusStops(String searchTerm) async {
+  Future<List<BusStopValueModel>> findBusStops(String searchTerm) async {
     _ref
         .read(loggerProvider)
         .d('Getting Bus Stops from DB with search term $searchTerm');
 
-    return (select(tableBusStops)
+    final tableBusStopList = await (select(tableBusStops)
           ..where(
             (tbl) =>
                 tbl.description.contains(searchTerm) |
@@ -192,5 +237,7 @@ class BusLocalRepository extends _$BusLocalRepository {
                 tbl.roadName.contains(searchTerm),
           ))
         .get();
+
+    return _busStopTableToFreezed(tableBusStopList);
   }
 }

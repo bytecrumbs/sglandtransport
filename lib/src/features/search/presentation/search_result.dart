@@ -12,19 +12,8 @@ final searchResultFutureProvider = FutureProvider.autoDispose
     .family<List<BusStopValueModel>, String>((ref, searchTerm) async {
   if (searchTerm.isNotEmpty) {
     final busDatabaseService = ref.watch(busLocalRepositoryProvider);
-    final tableBusStopList = await busDatabaseService.findBusStops(searchTerm);
-    final busStopValueModelList = tableBusStopList
-        .map(
-          (e) => BusStopValueModel(
-            busStopCode: e.busStopCode,
-            description: e.description,
-            latitude: e.latitude,
-            longitude: e.longitude,
-            roadName: e.roadName,
-          ),
-        )
-        .toList();
-    return busStopValueModelList;
+
+    return busDatabaseService.findBusStops(searchTerm);
   } else {
     return [];
   }
