@@ -76,7 +76,7 @@ class DashboardScreen extends ConsumerWidget {
             SliverAppBar(
               foregroundColor: appBarForegroundColor,
               elevation: 0,
-              title: const Text('Dashboard'),
+              title: const Text('SG Land Transport'),
               pinned: true,
               expandedHeight: sliverAnimationHeight,
               actions: <Widget>[
