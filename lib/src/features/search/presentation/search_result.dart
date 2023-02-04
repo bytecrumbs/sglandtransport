@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../shared/custom_exception.dart';
+import '../../../shared/data/local_db_repository.dart';
 import '../../../shared/presentation/error_display.dart';
-import '../../bus_stops/data/bus_local_repository.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
 import '../../home/presentation/dashboard_screen.dart';

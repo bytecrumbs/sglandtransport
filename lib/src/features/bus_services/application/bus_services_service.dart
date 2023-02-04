@@ -3,8 +3,8 @@ import 'package:geolocator/geolocator.dart';
 
 import '../../../constants/local_storage_keys.dart';
 import '../../../shared/application/local_storage_service.dart';
+import '../../../shared/data/local_db_repository.dart';
 import '../../../shared/third_party_providers.dart';
-import '../../bus_stops/data/bus_local_repository.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../user_location/application/location_service.dart';
 import '../../user_location/domain/user_location_model.dart';

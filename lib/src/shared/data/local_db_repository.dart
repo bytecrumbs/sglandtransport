@@ -7,14 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-import '../../../shared/application/local_storage_service.dart';
-import '../../../shared/third_party_providers.dart';
-import '../../bus_services/data/bus_services_repository.dart';
-import '../../bus_services/domain/bus_route_value_model.dart';
-import '../domain/bus_stop_value_model.dart';
-import 'bus_stops_repository.dart';
+import '../../features/bus_services/data/bus_services_repository.dart';
+import '../../features/bus_services/domain/bus_route_value_model.dart';
+import '../../features/bus_stops/data/bus_stops_repository.dart';
+import '../../features/bus_stops/domain/bus_stop_value_model.dart';
+import '../application/local_storage_service.dart';
+import '../third_party_providers.dart';
 
-part 'bus_local_repository.g.dart';
+part 'local_db_repository.g.dart';
 
 class TableBusRoutes extends Table {
   TextColumn get serviceNo => text().nullable()();
@@ -48,12 +48,12 @@ LazyDatabase _openConnection() {
 }
 
 final busLocalRepositoryProvider =
-    Provider<BusLocalRepository>(BusLocalRepository.new);
+    Provider<LocalDbRepository>(LocalDbRepository.new);
 
 @DriftDatabase(tables: [TableBusRoutes, TableBusStops])
-class BusLocalRepository extends _$BusLocalRepository {
+class LocalDbRepository extends _$LocalDbRepository {
   // we tell the database where to store the data with this constructor
-  BusLocalRepository(this._ref) : super(_openConnection());
+  LocalDbRepository(this._ref) : super(_openConnection());
 
   final Ref _ref;
 

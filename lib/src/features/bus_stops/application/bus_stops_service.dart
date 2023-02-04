@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../../../shared/data/local_db_repository.dart';
 import '../../../shared/third_party_providers.dart';
-import '../data/bus_local_repository.dart';
 import '../domain/bus_stop_value_model.dart';
 
 final busStopsServiceProvider = Provider<BusStopsService>(BusStopsService.new);
