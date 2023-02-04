@@ -7,9 +7,20 @@ import '../../../../constants/palette.dart';
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
 import '../../../../shared/presentation/staggered_animation.dart';
+import '../../../bus_stops/domain/bus_stop_value_model.dart';
+import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
+import '../../../home/presentation/dashboard_screen.dart';
 import '../../application/bus_services_service.dart';
 import '../../domain/bus_arrival_model.dart';
 import '../bus_service_card/bus_service_card.dart';
+
+final busStopFutureProvider =
+    FutureProvider.autoDispose.family<BusStopValueModel, String>(
+  (ref, busStopCode) {
+    final busServicesService = ref.watch(busServicesServiceProvider);
+    return busServicesService.getBusStop(busStopCode);
+  },
+);
 
 final busServicesStreamProvider =
     StreamProvider.autoDispose.family<BusArrivalModel, String>(
@@ -31,11 +42,9 @@ class BusServicesListScreen extends ConsumerWidget {
   const BusServicesListScreen({
     super.key,
     required this.busStopCode,
-    required this.description,
   });
 
   final String busStopCode;
-  final String description;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,14 +52,51 @@ class BusServicesListScreen extends ConsumerWidget {
       busServicesStreamProvider(busStopCode),
     );
 
+    final busStop = ref.watch(
+      busStopFutureProvider(busStopCode),
+    );
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(description),
+        title: const Text('Bus Arrivals'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(
+            height: 10,
+          ),
+          busStop.when(
+            data: (busStopValueModel) => ProviderScope(
+              overrides: [
+                busStopValueModelProvider.overrideWithValue(busStopValueModel),
+              ],
+              child: const BusStopCard(
+                isBusArrival: true,
+              ),
+            ),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (error, stack) {
+              if (error is CustomException) {
+                return ErrorDisplay(
+                  message: error.message,
+                  onPressed: () {
+                    ref.invalidate(
+                      busServicesStreamProvider(
+                        busStopCode,
+                      ),
+                    );
+                  },
+                );
+              }
+              return ErrorDisplay(
+                message: error.toString(),
+              );
+            },
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            // padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: const [

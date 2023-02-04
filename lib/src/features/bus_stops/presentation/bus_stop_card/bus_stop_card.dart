@@ -12,8 +12,10 @@ class BusStopCard extends ConsumerWidget {
   const BusStopCard({
     super.key,
     this.searchTerm = '',
+    this.isBusArrival = false,
   });
   final String searchTerm;
+  final bool isBusArrival;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,16 +40,19 @@ class BusStopCard extends ConsumerWidget {
               .copyWith(color: kSecondaryColor),
           term: searchTerm,
         ),
-        trailing: BusStopDistance(
-          distanceInMeters: busStopValueModel.distanceInMeters,
-        ),
-        onTap: () => context.goNamed(
-          AppRoute.busServices.name,
-          params: {
-            'busStopCode': busStopValueModel.busStopCode ?? '',
-            'description': busStopValueModel.description ?? '',
-          },
-        ),
+        trailing: !isBusArrival
+            ? BusStopDistance(
+                distanceInMeters: busStopValueModel.distanceInMeters,
+              )
+            : null,
+        onTap: !isBusArrival
+            ? () => context.goNamed(
+                  AppRoute.busServices.name,
+                  params: {
+                    'busStopCode': busStopValueModel.busStopCode ?? '',
+                  },
+                )
+            : null,
       ),
     );
   }

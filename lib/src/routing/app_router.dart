@@ -19,14 +19,12 @@ final goRouter = GoRouter(
       builder: (context, state) => const DashboardScreen(),
       routes: [
         GoRoute(
-          path: 'busServices/:busStopCode/:description',
+          path: 'busServices/:busStopCode',
           name: AppRoute.busServices.name,
           builder: (context, state) {
             final busStopCode = state.params['busStopCode']!;
-            final description = state.params['description']!;
             return BusServicesListScreen(
               busStopCode: busStopCode,
-              description: description,
             );
           },
         ),
