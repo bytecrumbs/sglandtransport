@@ -8,7 +8,7 @@ import '../favorites/bus_service_list_favorites.dart';
 part 'favorite_toggler.freezed.dart';
 
 @freezed
-abstract class IsFavoriteTogglerParameter with _$IsFavoriteTogglerParameter {
+class IsFavoriteTogglerParameter with _$IsFavoriteTogglerParameter {
   factory IsFavoriteTogglerParameter({
     required String busStopCode,
     required String serviceNo,
