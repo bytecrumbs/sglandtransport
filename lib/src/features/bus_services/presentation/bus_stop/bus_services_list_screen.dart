@@ -34,8 +34,6 @@ class BusServicesListScreen extends ConsumerWidget {
     required this.description,
   });
 
-  static const routeName = '/busStop';
-
   final String busStopCode;
   final String description;
 
