@@ -6,7 +6,6 @@ import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
 import '../../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
-import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card_with_fetch.dart';
 import '../../../home/presentation/dashboard_screen.dart';
 import '../../application/bus_services_service.dart';
 import '../bus_service_card/bus_service_card_with_fetch.dart';
@@ -70,9 +69,6 @@ class BusRouteScreen extends ConsumerWidget {
         children: [
           const SizedBox(
             height: 10,
-          ),
-          BusStopCardWithFetch(
-            busStopCode: busStopCode,
           ),
           BusServiceCardWithFetch(
             busStopCode: busStopCode,
