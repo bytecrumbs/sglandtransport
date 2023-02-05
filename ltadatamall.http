@@ -14,3 +14,7 @@ AccountKey: {{authorization}}
 ### Bus Stops
 GET {{baseURL}}/ltaodataservice/BusStops?$skip=0
 AccountKey: {{authorization}}
+
+### Bus Services
+GET {{baseURL}}/ltaodataservice/BusServices
+AccountKey: {{authorization}}
