@@ -46,4 +46,15 @@ class LocalStorageService {
   int? getInt(String key) {
     return sharedPreferences.getInt(key);
   }
+
+  Future<bool> setBool({
+    required String key,
+    required bool value,
+  }) async {
+    return sharedPreferences.setBool(key, value);
+  }
+
+  bool? getBool(String key) {
+    return sharedPreferences.getBool(key);
+  }
 }

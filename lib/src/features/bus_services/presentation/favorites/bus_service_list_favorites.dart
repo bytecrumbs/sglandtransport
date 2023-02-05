@@ -65,6 +65,12 @@ class BusServiceListFavorites extends ConsumerWidget {
                                 (busArrivalServiceModel) => BusServiceCard(
                                   busStopCode: currentBusArrivalWithBusStopModel
                                       .busStopValueModel.busStopCode!,
+                                  originalCode: busArrivalServiceModel
+                                          .nextBus.originCode ??
+                                      '1',
+                                  destinationCode: busArrivalServiceModel
+                                          .nextBus.destinationCode ??
+                                      '1',
                                   inService: busArrivalServiceModel.inService,
                                   serviceNo: busArrivalServiceModel.serviceNo,
                                   destinationName:

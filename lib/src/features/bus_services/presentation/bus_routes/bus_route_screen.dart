@@ -1,0 +1,129 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../../shared/custom_exception.dart';
+import '../../../../shared/presentation/error_display.dart';
+import '../../../bus_stops/domain/bus_stop_value_model.dart';
+import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
+import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card_with_fetch.dart';
+import '../../../home/presentation/dashboard_screen.dart';
+import '../../application/bus_services_service.dart';
+import '../bus_service_card/bus_service_card_with_fetch.dart';
+
+part 'bus_route_screen.freezed.dart';
+
+@freezed
+class BusRouteFutureProviderParameter with _$BusRouteFutureProviderParameter {
+  factory BusRouteFutureProviderParameter({
+    required String busStopCode,
+    required String serviceNo,
+    required String originalCode,
+    required String destinationCode,
+  }) = _BusRouteFutureProviderParameter;
+}
+
+final busRouteFutureProvider = FutureProvider.autoDispose
+    .family<List<BusStopValueModel>, BusRouteFutureProviderParameter>(
+        (ref, param) {
+  final service = ref.watch(busServicesServiceProvider);
+  return service.getBusRoute(
+    busStopCode: param.busStopCode,
+    serviceNo: param.serviceNo,
+    originalCode: param.originalCode,
+    destinationCode: param.destinationCode,
+  );
+});
+
+class BusRouteScreen extends ConsumerWidget {
+  const BusRouteScreen({
+    super.key,
+    required this.serviceNo,
+    required this.busStopCode,
+    required this.originalCode,
+    required this.destinationCode,
+  });
+
+  final String serviceNo;
+  final String busStopCode;
+  final String originalCode;
+  final String destinationCode;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final busRoute = ref.watch(
+      busRouteFutureProvider(
+        BusRouteFutureProviderParameter(
+          busStopCode: busStopCode,
+          serviceNo: serviceNo,
+          originalCode: originalCode,
+          destinationCode: destinationCode,
+        ),
+      ),
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Bus Route'),
+      ),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          BusStopCardWithFetch(
+            busStopCode: busStopCode,
+          ),
+          BusServiceCardWithFetch(
+            busStopCode: busStopCode,
+            serviceNo: serviceNo,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: busRoute.when(
+              data: (busStopValueModelList) => ListView.separated(
+                itemCount: busStopValueModelList.length,
+                itemBuilder: (_, index) {
+                  return ProviderScope(
+                    overrides: [
+                      busStopValueModelProvider
+                          .overrideWithValue(busStopValueModelList[index]),
+                    ],
+                    child: const BusStopCard(),
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                    const Icon(Icons.arrow_downward),
+              ),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, stack) {
+                if (error is CustomException) {
+                  return ErrorDisplay(
+                    message: error.message,
+                    onPressed: () {
+                      ref.invalidate(
+                        busRouteFutureProvider(
+                          BusRouteFutureProviderParameter(
+                            busStopCode: busStopCode,
+                            serviceNo: serviceNo,
+                            originalCode: originalCode,
+                            destinationCode: destinationCode,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
+                return ErrorDisplay(
+                  message: error.toString(),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

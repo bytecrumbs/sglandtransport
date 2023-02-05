@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../routing/app_router.dart';
 import 'bus_arrival_sequence.dart';
 import 'bus_service_card_header.dart';
 import 'favorite_toggler.dart';
@@ -9,6 +11,8 @@ class BusServiceCard extends StatelessWidget {
     super.key,
     // required this.busArrivalModel,
     required this.serviceNo,
+    required this.originalCode,
+    required this.destinationCode,
     required this.inService,
     this.destinationName,
     required this.nextBusEstimatedArrival,
@@ -22,6 +26,8 @@ class BusServiceCard extends StatelessWidget {
   });
 
   final String serviceNo;
+  final String originalCode;
+  final String destinationCode;
   final bool inService;
   final String? destinationName;
   final String nextBusEstimatedArrival;
@@ -40,10 +46,21 @@ class BusServiceCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BusServiceCardHeader(
-            serviceNo: serviceNo,
-            inService: inService,
-            destinationName: destinationName,
+          GestureDetector(
+            onTap: () => context.goNamed(
+              AppRoute.busRoutes.name,
+              params: {
+                'busStopCode': busStopCode,
+                'serviceNo': serviceNo,
+                'originalCode': originalCode,
+                'destinationCode': destinationCode,
+              },
+            ),
+            child: BusServiceCardHeader(
+              serviceNo: serviceNo,
+              inService: inService,
+              destinationName: destinationName,
+            ),
           ),
           Row(
             children: [

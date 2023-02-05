@@ -28,11 +28,51 @@ class BusServicesService {
     return result[0];
   }
 
-  Future<BusArrivalModel> getBusArrivals(String busStopCode) async {
+  Future<List<BusStopValueModel>> getBusRoute({
+    required String busStopCode,
+    required String serviceNo,
+    required String originalCode,
+    required String destinationCode,
+  }) async {
+    final repository = _ref.read(busLocalRepositoryProvider);
+
+    final busServiceValueModelList = await repository.getBusService(
+      serviceNo: serviceNo,
+      originalCode: originalCode,
+      destinationCode: destinationCode,
+    );
+
+    // If the bus is not in service, we are not getting 'originalCode' and
+    // 'destinationCode" - hence defaulting it to 1.
+    var direction = 1;
+    if (busServiceValueModelList.isNotEmpty) {
+      direction = busServiceValueModelList[0].direction!;
+    }
+    return repository.getBusRoute(
+      busStopCode: busStopCode,
+      serviceNo: serviceNo,
+      direction: direction,
+    );
+  }
+
+  Future<BusArrivalServiceModel> getBusArrival({
+    required String busStopCode,
+    required String serviceNo,
+  }) async {
+    final busArrivalModel = await getBusArrivals(busStopCode, serviceNo);
+    return busArrivalModel.services[0];
+  }
+
+  Future<BusArrivalModel> getBusArrivals(
+    String busStopCode, [
+    String? serviceNo,
+  ]) async {
     // get arrival times for bus services
     final repository = _ref.read(busServicesRepositoryProvider);
-    final busArrivals =
-        await repository.fetchBusArrivals(busStopCode: busStopCode);
+    final busArrivals = await repository.fetchBusArrivals(
+      busStopCode: busStopCode,
+      serviceNo: serviceNo,
+    );
 
     // add destination description to busArrivals
     final busArrivalsWithDestination =
@@ -43,6 +83,7 @@ class BusServicesService {
         await _addNotInOperation(
       busArrivals: busArrivalsWithDestination,
       busStopCode: busStopCode,
+      serviceNo: serviceNo,
     );
 
     // mark favorite bus service no
@@ -63,10 +104,14 @@ class BusServicesService {
   Future<List<BusArrivalServiceModel>> _addNotInOperation({
     required List<BusArrivalServiceModel> busArrivals,
     required String busStopCode,
+    String? serviceNo,
   }) async {
     final busRoutes = await _ref
         .read(busLocalRepositoryProvider)
-        .getBusServicesForBusStopCode(busStopCode);
+        .getBusServicesForBusStopCode(
+          busStopCode: busStopCode,
+          serviceNo: serviceNo,
+        );
     if (busRoutes.length > busArrivals.length) {
       // create a list of service numbers, so we can better compare
       final busRoutesServiceNo = busRoutes.map((e) => e.serviceNo).toList();
@@ -299,8 +344,9 @@ class BusServicesService {
           .read(loggerProvider)
           .d('Found favorite bus stops and processing them');
       for (final favoriteBusStop in favoriteBusStops) {
-        final busStops = await busDatabaseService
-            .getBusServicesForBusStopCode(favoriteBusStop);
+        final busStops = await busDatabaseService.getBusServicesForBusStopCode(
+          busStopCode: favoriteBusStop,
+        );
 
         _ref.read(loggerProvider).d('Processing bus stop $favoriteBusStop');
         final existingBusServiceFavorites =

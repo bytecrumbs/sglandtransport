@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../features/bus_services/data/bus_services_repository.dart';
 import '../../features/bus_services/domain/bus_route_value_model.dart';
+import '../../features/bus_services/domain/bus_service_value_model.dart';
 import '../../features/bus_stops/data/bus_stops_repository.dart';
 import '../../features/bus_stops/domain/bus_stop_value_model.dart';
 import '../application/local_storage_service.dart';
@@ -39,6 +40,20 @@ class TableBusStops extends Table {
   RealColumn get longitude => real().nullable()();
 }
 
+class TableBusServices extends Table {
+  TextColumn get serviceNo => text().nullable()();
+  TextColumn get operator => text().nullable()();
+  IntColumn get direction => integer().nullable()();
+  TextColumn get category => text().nullable()();
+  TextColumn get originCode => text().nullable()();
+  TextColumn get destinationCode => text().nullable()();
+  TextColumn get amPeakFreq => text().nullable()();
+  TextColumn get amOffpeakFreq => text().nullable()();
+  TextColumn get pmPeakFreq => text().nullable()();
+  TextColumn get pmOffpeakFreq => text().nullable()();
+  TextColumn get loopDesc => text().nullable()();
+}
+
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
@@ -50,7 +65,7 @@ LazyDatabase _openConnection() {
 final busLocalRepositoryProvider =
     Provider<LocalDbRepository>(LocalDbRepository.new);
 
-@DriftDatabase(tables: [TableBusRoutes, TableBusStops])
+@DriftDatabase(tables: [TableBusRoutes, TableBusStops, TableBusServices])
 class LocalDbRepository extends _$LocalDbRepository {
   // we tell the database where to store the data with this constructor
   LocalDbRepository(this._ref) : super(_openConnection());
@@ -63,6 +78,8 @@ class LocalDbRepository extends _$LocalDbRepository {
   @override
   MigrationStrategy get migration => MigrationStrategy(
         beforeOpen: (details) async {
+          await _handleOutOfCycleBusServiceRefresh(details.wasCreated);
+
           const refreshDateKey = 'refreshDateKey';
           // get the date of when the database needs to be refreshed
           final refreshDate =
@@ -77,6 +94,10 @@ class LocalDbRepository extends _$LocalDbRepository {
             // before we show bus stops, as it is fetched from the local DB
             // and not directly from the lta datamall API
             await _refreshBusStops();
+            // similar as above, this cannot run in background as it is needed
+            // to identify which direction the bus routes should show (plus
+            // other things)
+            await _refreshBusServices();
             // bus routes loading can run in the background as it is only used
             // to add bus services that are not currently in operation for a given
             // bus stop
@@ -94,6 +115,30 @@ class LocalDbRepository extends _$LocalDbRepository {
           }
         },
       );
+
+  // TODO: this was added as part of a new feature, so we have to make sure
+  // it is loaded when the app is opened for the first time since this was
+  // introduced. Sometime later, we can remove this again, as it is part of the
+  // regular refresh cycle
+  Future<void> _handleOutOfCycleBusServiceRefresh(bool wasCreated) async {
+    const busServiceOutOfCycleKey = 'busServiceOutOfCycleKey';
+    final localStorageService = _ref.read(localStorageServiceProvider);
+    if (!wasCreated) {
+      _ref
+          .read(loggerProvider)
+          .d('Checking if bus services needs to be refreshed as out of cycle');
+      final hasAlreadyBeenAddedAsOutOfCycle =
+          localStorageService.getBool(busServiceOutOfCycleKey) ?? false;
+      if (!hasAlreadyBeenAddedAsOutOfCycle) {
+        _ref.read(loggerProvider).d('Refreshing bus services as out of cycle');
+        await _refreshBusServices();
+      }
+    }
+    await localStorageService.setBool(
+      key: busServiceOutOfCycleKey,
+      value: true,
+    );
+  }
 
   Future<void> _refreshBusRoutes() async {
     _ref.read(loggerProvider).d('deleting bus routes from table');
@@ -125,6 +170,39 @@ class LocalDbRepository extends _$LocalDbRepository {
         // functions in a batch don't have to be awaited - just
         // await the whole batch afterwards.
         batch.insertAll(tableBusRoutes, [...busRouteValueTableList]);
+      });
+    }
+  }
+
+  Future<void> _refreshBusServices() async {
+    _ref.read(loggerProvider).d('deleting bus services from table');
+    await delete(tableBusServices).go();
+    _ref.read(loggerProvider).d('adding bus services to table');
+    for (var i = 0; i <= 500; i = i + 500) {
+      final busServiceValueModelList = await _ref
+          .read(busServicesRepositoryProvider)
+          .fetchBusServices(skip: i);
+
+      final busServiceValueTableList = busServiceValueModelList.map(
+        (e) => TableBusService(
+          serviceNo: e.serviceNo,
+          operator: e.busOperator,
+          direction: e.direction,
+          category: e.category,
+          originCode: e.originCode,
+          destinationCode: e.destinationCode,
+          amPeakFreq: e.amPeakFreq,
+          amOffpeakFreq: e.amOffpeakFreq,
+          pmPeakFreq: e.pmPeakFreq,
+          pmOffpeakFreq: e.pmOffpeakFreq,
+          loopDesc: e.loopDesc,
+        ),
+      );
+
+      await batch((batch) {
+        // functions in a batch don't have to be awaited - just
+        // await the whole batch afterwards.
+        batch.insertAll(tableBusServices, [...busServiceValueTableList]);
       });
     }
   }
@@ -177,14 +255,20 @@ class LocalDbRepository extends _$LocalDbRepository {
           )
           .toList();
 
-  Future<List<BusRouteValueModel>> getBusServicesForBusStopCode(
-    String busStopCode,
-  ) async {
+  Future<List<BusRouteValueModel>> getBusServicesForBusStopCode({
+    required String busStopCode,
+    String? serviceNo,
+  }) async {
     _ref
         .read(loggerProvider)
         .d('Getting Bus Routes from DB for bus stop $busStopCode');
     final tableBusRouteList = await (select(tableBusRoutes)
-          ..where((tbl) => tbl.busStopCode.equals(busStopCode)))
+          ..where(
+            (tbl) => serviceNo != null
+                ? tbl.busStopCode.equals(busStopCode) &
+                    tbl.serviceNo.equalsNullable(serviceNo)
+                : tbl.busStopCode.equals(busStopCode),
+          ))
         .get();
 
     return _busRouteTableToFreezed(tableBusRouteList);
@@ -237,6 +321,88 @@ class LocalDbRepository extends _$LocalDbRepository {
                 tbl.roadName.contains(searchTerm),
           ))
         .get();
+
+    return _busStopTableToFreezed(tableBusStopList);
+  }
+
+  List<BusServiceValueModel> _busServiceTableToFreezed(
+    List<TableBusService> tableBusService,
+  ) =>
+      tableBusService
+          .map(
+            (e) => BusServiceValueModel(
+              serviceNo: e.serviceNo,
+              busOperator: e.operator,
+              direction: e.direction,
+              category: e.category,
+              originCode: e.originCode,
+              destinationCode: e.destinationCode,
+              amPeakFreq: e.amPeakFreq,
+              amOffpeakFreq: e.amOffpeakFreq,
+              pmPeakFreq: e.pmPeakFreq,
+              pmOffpeakFreq: e.pmOffpeakFreq,
+              loopDesc: e.loopDesc,
+            ),
+          )
+          .toList();
+
+  Future<List<BusServiceValueModel>> getBusService({
+    required String serviceNo,
+    required String originalCode,
+    required String destinationCode,
+  }) async {
+    _ref
+        .read(loggerProvider)
+        .d('Getting Bus Service from DB for service $serviceNo');
+
+    final tableBusServicesList = await (select(tableBusServices)
+          ..where(
+            (tbl) =>
+                tbl.serviceNo.equals(serviceNo) &
+                tbl.originCode.equals(originalCode) &
+                tbl.destinationCode.equals(destinationCode),
+          ))
+        .get();
+
+    return _busServiceTableToFreezed(tableBusServicesList);
+  }
+
+  Future<List<BusStopValueModel>> getBusRoute({
+    required String serviceNo,
+    required int direction,
+    required String busStopCode,
+  }) async {
+    _ref
+        .read(loggerProvider)
+        .d('Getting Bus Route for service $serviceNo from DB');
+
+    final startSequence = selectOnly(tableBusRoutes)
+      ..addColumns([tableBusRoutes.stopSequence])
+      ..where(
+        tableBusRoutes.serviceNo.equals(serviceNo) &
+            tableBusRoutes.direction.equals(direction) &
+            tableBusRoutes.busStopCode.equals(busStopCode),
+      );
+
+    final tableBusRouteList = (select(tableBusStops).join([
+      innerJoin(
+        tableBusRoutes,
+        tableBusRoutes.busStopCode.equalsExp(tableBusStops.busStopCode),
+        useColumns: false,
+      )
+    ])
+      ..where(
+        tableBusRoutes.serviceNo.equals(serviceNo) &
+            tableBusRoutes.direction.equals(direction) &
+            tableBusRoutes.stopSequence
+                .isBiggerOrEqual(subqueryExpression(startSequence)),
+      ))
+      ..orderBy([OrderingTerm.asc(tableBusRoutes.stopSequence)]);
+    final result = await tableBusRouteList.get();
+
+    final tableBusStopList = result.map((row) {
+      return row.readTable(tableBusStops);
+    }).toList();
 
     return _busStopTableToFreezed(tableBusStopList);
   }

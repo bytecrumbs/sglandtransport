@@ -8,6 +8,8 @@ import '../../../shared/third_party_providers.dart';
 import '../domain/bus_arrival_model.dart';
 import '../domain/bus_route_model.dart';
 import '../domain/bus_route_value_model.dart';
+import '../domain/bus_service_model.dart';
+import '../domain/bus_service_value_model.dart';
 
 final busServicesRepositoryProvider =
     Provider<BusServicesRepository>(BusServicesRepository.new);
@@ -45,6 +47,19 @@ class BusServicesRepository {
     );
 
     return BusRouteModel.fromJson(
+      response.data!,
+    ).value;
+  }
+
+  Future<List<BusServiceValueModel>> fetchBusServices({int skip = 0}) async {
+    const fetchUrl = '$ltaDatamallApi/BusServices';
+
+    final response = await _get<Map<String, Object?>>(
+      fetchUrl,
+      queryParameters: {r'$skip': skip},
+    );
+
+    return BusServiceModel.fromJson(
       response.data!,
     ).value;
   }

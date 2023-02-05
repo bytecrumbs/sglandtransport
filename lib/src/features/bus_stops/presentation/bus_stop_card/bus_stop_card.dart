@@ -12,10 +12,10 @@ class BusStopCard extends ConsumerWidget {
   const BusStopCard({
     super.key,
     this.searchTerm = '',
-    this.isBusArrival = false,
+    this.allowBusArrivalView = true,
   });
   final String searchTerm;
-  final bool isBusArrival;
+  final bool allowBusArrivalView;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,12 +40,12 @@ class BusStopCard extends ConsumerWidget {
               .copyWith(color: kSecondaryColor),
           term: searchTerm,
         ),
-        trailing: !isBusArrival
+        trailing: allowBusArrivalView
             ? BusStopDistance(
                 distanceInMeters: busStopValueModel.distanceInMeters,
               )
             : null,
-        onTap: !isBusArrival
+        onTap: allowBusArrivalView
             ? () => context.goNamed(
                   AppRoute.busServices.name,
                   params: {

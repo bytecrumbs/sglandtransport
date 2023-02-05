@@ -32,9 +32,10 @@ class FakeLocalDbRepository implements LocalDbRepository {
   }
 
   @override
-  Future<List<BusRouteValueModel>> getBusServicesForBusStopCode(
-    String busStopCode,
-  ) async {
+  Future<List<BusRouteValueModel>> getBusServicesForBusStopCode({
+    required String busStopCode,
+    String? serviceNo,
+  }) async {
     return [
       BusRouteValueModel(serviceNo: '39'),
       BusRouteValueModel(serviceNo: '53'),

@@ -7,24 +7,18 @@ import '../../../../constants/palette.dart';
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
 import '../../../../shared/presentation/staggered_animation.dart';
-import '../../../bus_stops/domain/bus_stop_value_model.dart';
-import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
-import '../../../home/presentation/dashboard_screen.dart';
+import '../../../../shared/third_party_providers.dart';
+import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card_with_fetch.dart';
 import '../../application/bus_services_service.dart';
 import '../../domain/bus_arrival_model.dart';
 import '../bus_service_card/bus_service_card.dart';
 
-final busStopFutureProvider =
-    FutureProvider.autoDispose.family<BusStopValueModel, String>(
-  (ref, busStopCode) {
-    final busServicesService = ref.watch(busServicesServiceProvider);
-    return busServicesService.getBusStop(busStopCode);
-  },
-);
-
 final busServicesStreamProvider =
     StreamProvider.autoDispose.family<BusArrivalModel, String>(
   (ref, busStopCode) async* {
+    ref.onDispose(() {
+      ref.watch(loggerProvider).d('disposing');
+    });
     final busServicesService = ref.watch(busServicesServiceProvider);
     // make sure it is executed immediately
     yield await busServicesService.getBusArrivals(busStopCode);
@@ -51,11 +45,6 @@ class BusServicesListScreen extends ConsumerWidget {
     final vmState = ref.watch(
       busServicesStreamProvider(busStopCode),
     );
-
-    final busStop = ref.watch(
-      busStopFutureProvider(busStopCode),
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bus Arrivals'),
@@ -66,34 +55,7 @@ class BusServicesListScreen extends ConsumerWidget {
           const SizedBox(
             height: 10,
           ),
-          busStop.when(
-            data: (busStopValueModel) => ProviderScope(
-              overrides: [
-                busStopValueModelProvider.overrideWithValue(busStopValueModel),
-              ],
-              child: const BusStopCard(
-                isBusArrival: true,
-              ),
-            ),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error, stack) {
-              if (error is CustomException) {
-                return ErrorDisplay(
-                  message: error.message,
-                  onPressed: () {
-                    ref.invalidate(
-                      busServicesStreamProvider(
-                        busStopCode,
-                      ),
-                    );
-                  },
-                );
-              }
-              return ErrorDisplay(
-                message: error.toString(),
-              );
-            },
-          ),
+          BusStopCardWithFetch(busStopCode: busStopCode),
           Padding(
             // padding: const EdgeInsets.symmetric(vertical: 10),
             padding: const EdgeInsets.only(bottom: 10),
@@ -158,6 +120,12 @@ class BusServicesListScreen extends ConsumerWidget {
                         index: index,
                         child: BusServiceCard(
                           busStopCode: busStopCode,
+                          originalCode: currentBusArrivalServicesModel
+                                  .nextBus.originCode ??
+                              '1',
+                          destinationCode: currentBusArrivalServicesModel
+                                  .nextBus.destinationCode ??
+                              '1',
                           inService: currentBusArrivalServicesModel.inService,
                           serviceNo: currentBusArrivalServicesModel.serviceNo,
                           destinationName:
