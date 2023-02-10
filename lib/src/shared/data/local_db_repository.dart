@@ -131,6 +131,8 @@ class LocalDbRepository extends _$LocalDbRepository {
           localStorageService.getBool(busServiceOutOfCycleKey) ?? false;
       if (!hasAlreadyBeenAddedAsOutOfCycle) {
         _ref.read(loggerProvider).d('Refreshing bus services as out of cycle');
+        final m = Migrator(this);
+        await m.createTable(tableBusServices);
         await _refreshBusServices();
       }
     }
