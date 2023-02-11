@@ -46,7 +46,7 @@ class BusStopCard extends ConsumerWidget {
               )
             : null,
         onTap: allowBusArrivalView
-            ? () => context.goNamed(
+            ? () => context.pushNamed(
                   AppRoute.busServices.name,
                   params: {
                     'busStopCode': busStopValueModel.busStopCode ?? '',

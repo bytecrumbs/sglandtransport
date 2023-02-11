@@ -47,7 +47,7 @@ class BusServiceCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: () => context.goNamed(
+            onTap: () => context.pushNamed(
               AppRoute.busRoutes.name,
               params: {
                 'busStopCode': busStopCode,
