@@ -14,17 +14,14 @@ import 'bus_stop_card/bus_stop_card.dart';
 final nearbyBusStopsStreamProvider =
     StreamProvider.autoDispose<List<BusStopValueModel>>(
   (ref) async* {
-    final locationService = ref.read(locationServiceProvider);
+    final locationService = ref.watch(locationServiceProvider);
 
-    // final hasPermission = await locationService.handlePermission();
+    // TODO: can this be done on startup, rather than repeating it in all the
+    // providers that make use of the location service?
     final hasPermission = await locationService.handlePermission();
 
     if (hasPermission) {
-      final locationStream = locationService.startLocationStream();
-
-      ref.onDispose(() {
-        ref.read(locationServiceProvider).stopLocationStream();
-      });
+      final locationStream = ref.watch(userLocationStreamProvider.stream);
 
       // Yield the bus stops of the last known position, if current position
       // has not changed since last time the widget was called
