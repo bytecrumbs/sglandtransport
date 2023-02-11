@@ -11,7 +11,7 @@ import '../application/bus_stops_service.dart';
 import '../domain/bus_stop_value_model.dart';
 import 'bus_stop_card/bus_stop_card.dart';
 
-final nearbyBusStopsFutureProvider =
+final nearbyBusStopsStreamProvider =
     StreamProvider.autoDispose<List<BusStopValueModel>>(
   (ref) async* {
     final locationService = ref.read(locationServiceProvider);
@@ -52,7 +52,7 @@ class BusStopListNearby extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final busStops = ref.watch(nearbyBusStopsFutureProvider);
+    final busStops = ref.watch(nearbyBusStopsStreamProvider);
 
     return busStops.when(
       data: (busStops) => AnimationLimiter(
