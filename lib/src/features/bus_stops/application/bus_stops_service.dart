@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geolocator/geolocator.dart';
 
 import '../../../shared/data/local_db_repository.dart';
 import '../../../shared/third_party_providers.dart';
+import '../../user_location/application/location_service.dart';
 import '../domain/bus_stop_value_model.dart';
 
 final busStopsServiceProvider = Provider<BusStopsService>(BusStopsService.new);
@@ -27,12 +27,13 @@ class BusStopsService {
     final nearbyBusStops = <BusStopValueModel>[];
     if (latitude != null && longitude != null) {
       for (final busStop in allBusStops) {
-        final distanceInMeters = Geolocator.distanceBetween(
-          latitude,
-          longitude,
-          busStop.latitude ?? 0,
-          busStop.longitude ?? 0,
-        );
+        final distanceInMeters =
+            _ref.read(locationServiceProvider).getDistanceInMeters(
+                  startLatitude: latitude,
+                  startLongitude: longitude,
+                  endLatitude: busStop.latitude ?? 0,
+                  endLongitude: busStop.longitude ?? 0,
+                );
 
         if (distanceInMeters <= 500) {
           nearbyBusStops.add(
