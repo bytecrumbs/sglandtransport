@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geolocator/geolocator.dart';
 
 import '../../../constants/local_storage_keys.dart';
 import '../../../shared/application/local_storage_service.dart';
@@ -298,11 +297,11 @@ class BusServicesService {
 
       if (userLocationModel.latitude != null &&
           userLocationModel.longitude != null) {
-        distanceInMeters = Geolocator.distanceBetween(
-          userLocationModel.latitude!,
-          userLocationModel.longitude!,
-          busStop.latitude ?? 0,
-          busStop.longitude ?? 0,
+        locationService.getDistanceInMeters(
+          startLatitude: userLocationModel.latitude!,
+          startLongitude: userLocationModel.longitude!,
+          endLatitude: busStop.latitude ?? 0,
+          endLongitude: busStop.longitude ?? 0,
         );
       }
       final busStopValueModel = BusStopValueModel(

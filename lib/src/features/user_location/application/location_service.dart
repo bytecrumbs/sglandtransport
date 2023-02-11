@@ -115,4 +115,18 @@ class LocationService {
       return UserLocationModel();
     }
   }
+
+  double getDistanceInMeters({
+    required double startLatitude,
+    required double startLongitude,
+    required double endLatitude,
+    required double endLongitude,
+  }) {
+    return Geolocator.distanceBetween(
+      startLatitude,
+      startLongitude,
+      endLatitude,
+      endLongitude,
+    );
+  }
 }
