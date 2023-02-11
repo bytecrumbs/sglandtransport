@@ -293,7 +293,6 @@ class BusServicesService {
       final locationService = _ref.read(locationServiceProvider);
       UserLocationModel? userLocationModel;
       userLocationModel = await locationService.getCurrentPosition();
-      double? distanceInMeters;
 
       if (userLocationModel.latitude != null &&
           userLocationModel.longitude != null) {
@@ -310,7 +309,6 @@ class BusServicesService {
         roadName: busStop.roadName,
         latitude: busStop.latitude,
         longitude: busStop.longitude,
-        distanceInMeters: distanceInMeters?.round(),
       );
 
       final busArrivalWithBusStopModel = BusArrivalWithBusStopModel(
