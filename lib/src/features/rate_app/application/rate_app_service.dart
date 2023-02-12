@@ -2,12 +2,16 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../constants/local_storage_keys.dart';
 import '../../../shared/application/local_storage_service.dart';
 import '../../../shared/third_party_providers.dart';
 
-final rateAppServiceProvider = Provider(RateAppService.new);
+part 'rate_app_service.g.dart';
+
+@riverpod
+RateAppService rateAppService(RateAppServiceRef ref) => RateAppService(ref);
 
 class RateAppService {
   RateAppService(this._ref);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
@@ -10,29 +10,24 @@ import '../../../home/presentation/dashboard_screen.dart';
 import '../../application/bus_services_service.dart';
 import '../bus_service_card/bus_service_card_with_fetch.dart';
 
-part 'bus_route_screen.freezed.dart';
+part 'bus_route_screen.g.dart';
 
-@freezed
-class BusRouteFutureProviderParameter with _$BusRouteFutureProviderParameter {
-  factory BusRouteFutureProviderParameter({
-    required String busStopCode,
-    required String serviceNo,
-    required String originalCode,
-    required String destinationCode,
-  }) = _BusRouteFutureProviderParameter;
-}
-
-final busRouteFutureProvider = FutureProvider.autoDispose
-    .family<List<BusStopValueModel>, BusRouteFutureProviderParameter>(
-        (ref, param) {
+@riverpod
+Future<List<BusStopValueModel>> busRoute(
+  BusRouteRef ref, {
+  required String busStopCode,
+  required String serviceNo,
+  required String originalCode,
+  required String destinationCode,
+}) {
   final service = ref.watch(busServicesServiceProvider);
   return service.getBusRoute(
-    busStopCode: param.busStopCode,
-    serviceNo: param.serviceNo,
-    originalCode: param.originalCode,
-    destinationCode: param.destinationCode,
+    busStopCode: busStopCode,
+    serviceNo: serviceNo,
+    originalCode: originalCode,
+    destinationCode: destinationCode,
   );
-});
+}
 
 class BusRouteScreen extends ConsumerWidget {
   const BusRouteScreen({
@@ -51,13 +46,11 @@ class BusRouteScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final busRoute = ref.watch(
-      busRouteFutureProvider(
-        BusRouteFutureProviderParameter(
-          busStopCode: busStopCode,
-          serviceNo: serviceNo,
-          originalCode: originalCode,
-          destinationCode: destinationCode,
-        ),
+      busRouteProvider(
+        busStopCode: busStopCode,
+        serviceNo: serviceNo,
+        originalCode: originalCode,
+        destinationCode: destinationCode,
       ),
     );
 
@@ -100,13 +93,11 @@ class BusRouteScreen extends ConsumerWidget {
                     message: error.message,
                     onPressed: () {
                       ref.invalidate(
-                        busRouteFutureProvider(
-                          BusRouteFutureProviderParameter(
-                            busStopCode: busStopCode,
-                            serviceNo: serviceNo,
-                            originalCode: originalCode,
-                            destinationCode: destinationCode,
-                          ),
+                        busRouteProvider(
+                          busStopCode: busStopCode,
+                          serviceNo: serviceNo,
+                          originalCode: originalCode,
+                          destinationCode: destinationCode,
                         ),
                       );
                     },

@@ -62,7 +62,7 @@ LazyDatabase _openConnection() {
   });
 }
 
-final busLocalRepositoryProvider =
+final localDbRepositoryProvider =
     Provider<LocalDbRepository>(LocalDbRepository.new);
 
 @DriftDatabase(tables: [TableBusRoutes, TableBusStops, TableBusServices])

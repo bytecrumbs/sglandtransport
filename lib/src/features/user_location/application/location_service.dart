@@ -3,10 +3,14 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../shared/third_party_providers.dart';
 import '../domain/user_location_model.dart';
 
-final locationServiceProvider = Provider(LocationService.new);
+part 'location_service.g.dart';
+
+@riverpod
+LocationService locationService(LocationServiceRef ref) => LocationService(ref);
 
 final userLocationStreamProvider =
     StreamProvider.autoDispose<UserLocationModel>(

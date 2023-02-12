@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../constants/environment_config.dart';
 import '../../../shared/custom_exception.dart';
@@ -11,8 +12,11 @@ import '../domain/bus_route_value_model.dart';
 import '../domain/bus_service_model.dart';
 import '../domain/bus_service_value_model.dart';
 
-final busServicesRepositoryProvider =
-    Provider<BusServicesRepository>(BusServicesRepository.new);
+part 'bus_services_repository.g.dart';
+
+@riverpod
+BusServicesRepository busServicesRepository(BusServicesRepositoryRef ref) =>
+    BusServicesRepository(ref);
 
 class BusServicesRepository {
   BusServicesRepository(this._ref);

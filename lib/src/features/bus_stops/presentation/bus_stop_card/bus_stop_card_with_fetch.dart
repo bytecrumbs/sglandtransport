@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
@@ -8,13 +9,16 @@ import '../../../home/presentation/dashboard_screen.dart';
 import '../../domain/bus_stop_value_model.dart';
 import 'bus_stop_card.dart';
 
-final busStopFutureProvider =
-    FutureProvider.autoDispose.family<BusStopValueModel, String>(
-  (ref, busStopCode) {
-    final busServicesService = ref.watch(busServicesServiceProvider);
-    return busServicesService.getBusStop(busStopCode);
-  },
-);
+part 'bus_stop_card_with_fetch.g.dart';
+
+@riverpod
+Future<BusStopValueModel> busStop(
+  BusStopRef ref, {
+  required String busStopCode,
+}) {
+  final busServicesService = ref.watch(busServicesServiceProvider);
+  return busServicesService.getBusStop(busStopCode);
+}
 
 class BusStopCardWithFetch extends ConsumerWidget {
   const BusStopCardWithFetch({
@@ -27,7 +31,7 @@ class BusStopCardWithFetch extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final busStop = ref.watch(
-      busStopFutureProvider(busStopCode),
+      busStopProvider(busStopCode: busStopCode),
     );
     return busStop.when(
       data: (busStopValueModel) => ProviderScope(
@@ -45,8 +49,8 @@ class BusStopCardWithFetch extends ConsumerWidget {
             message: error.message,
             onPressed: () {
               ref.invalidate(
-                busStopFutureProvider(
-                  busStopCode,
+                busStopProvider(
+                  busStopCode: busStopCode,
                 ),
               );
             },

@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final dioProvider = Provider<Dio>((ref) => Dio());
+part 'third_party_providers.g.dart';
 
-final loggerProvider = Provider(
-  (ref) => Logger(
-    printer: PrettyPrinter(),
-    level: Level.debug,
-  ),
-);
+@riverpod
+Dio dio(DioRef ref) => Dio();
+
+@riverpod
+Logger logger(LoggerRef ref) => Logger(
+      printer: PrettyPrinter(),
+      level: Level.debug,
+    );

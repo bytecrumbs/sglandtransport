@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../shared/custom_exception.dart';
 import '../../../shared/data/local_db_repository.dart';
@@ -8,16 +9,21 @@ import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
 import '../../home/presentation/dashboard_screen.dart';
 
-final searchResultFutureProvider = FutureProvider.autoDispose
-    .family<List<BusStopValueModel>, String>((ref, searchTerm) async {
+part 'search_result.g.dart';
+
+@riverpod
+Future<List<BusStopValueModel>> searchResult(
+  SearchResultRef ref, {
+  required String searchTerm,
+}) {
   if (searchTerm.isNotEmpty) {
-    final busDatabaseService = ref.watch(busLocalRepositoryProvider);
+    final busDatabaseService = ref.watch(localDbRepositoryProvider);
 
     return busDatabaseService.findBusStops(searchTerm);
   } else {
-    return [];
+    return Future.value(<BusStopValueModel>[]);
   }
-});
+}
 
 class SearchResult extends ConsumerWidget {
   const SearchResult({
@@ -29,7 +35,8 @@ class SearchResult extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final searchResult = ref.watch(searchResultFutureProvider(searchTerm));
+    final searchResult =
+        ref.watch(searchResultProvider(searchTerm: searchTerm));
     return searchResult.when(
       data: (searchResult) => ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 10),
