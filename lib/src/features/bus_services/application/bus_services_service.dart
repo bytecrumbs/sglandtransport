@@ -124,7 +124,7 @@ class BusServicesService {
       // create new elements for the bus services not in service right now
       for (final element in serviceNoDifferences) {
         final missingBusArrivalServiceModel = BusArrivalServiceModel(
-          serviceNo: element ?? '',
+          serviceNo: element,
           busOperator: '',
           inService: false,
           nextBus: NextBusModel(),

@@ -18,18 +18,18 @@ import '../third_party_providers.dart';
 part 'local_db_repository.g.dart';
 
 class TableBusRoutes extends Table {
-  TextColumn get serviceNo => text().nullable()();
-  TextColumn get operator => text().nullable()();
-  IntColumn get direction => integer().nullable()();
-  IntColumn get stopSequence => integer().nullable()();
-  TextColumn get busStopCode => text().nullable()();
-  RealColumn get distance => real().nullable()();
-  TextColumn get wdFirstBus => text().nullable()();
-  TextColumn get wdLastBus => text().nullable()();
-  TextColumn get satFirstBus => text().nullable()();
-  TextColumn get satLastBus => text().nullable()();
-  TextColumn get sunFirstBus => text().nullable()();
-  TextColumn get sunLastBus => text().nullable()();
+  TextColumn get serviceNo => text()();
+  TextColumn get operator => text()();
+  IntColumn get direction => integer()();
+  IntColumn get stopSequence => integer()();
+  TextColumn get busStopCode => text()();
+  RealColumn get distance => real()();
+  TextColumn get wdFirstBus => text()();
+  TextColumn get wdLastBus => text()();
+  TextColumn get satFirstBus => text()();
+  TextColumn get satLastBus => text()();
+  TextColumn get sunFirstBus => text()();
+  TextColumn get sunLastBus => text()();
 }
 
 class TableBusStops extends Table {
