@@ -11,22 +11,37 @@ class FakeLocalDbRepository implements LocalDbRepository {
       BusStopValueModel(
         busStopCode: '99009',
         description: 'Dest 99009',
+        latitude: 1.29685,
+        longitude: 103.853,
+        roadName: 'Victoria St',
       ),
       BusStopValueModel(
         busStopCode: '75019',
         description: 'Dest 75019',
+        latitude: 1.29685,
+        longitude: 103.853,
+        roadName: 'Victoria St',
       ),
       BusStopValueModel(
         busStopCode: '77009',
         description: 'Dest 77009',
+        latitude: 1.29685,
+        longitude: 103.853,
+        roadName: 'Victoria St',
       ),
       BusStopValueModel(
         busStopCode: '53009',
         description: 'Dest 53009',
+        latitude: 1.29685,
+        longitude: 103.853,
+        roadName: 'Victoria St',
       ),
       BusStopValueModel(
         busStopCode: '75009',
         description: 'Dest 75009',
+        latitude: 1.29685,
+        longitude: 103.853,
+        roadName: 'Victoria St',
       ),
     ];
   }

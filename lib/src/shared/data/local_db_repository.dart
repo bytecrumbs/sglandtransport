@@ -33,11 +33,11 @@ class TableBusRoutes extends Table {
 }
 
 class TableBusStops extends Table {
-  TextColumn get busStopCode => text().nullable()();
-  TextColumn get roadName => text().nullable()();
-  TextColumn get description => text().nullable()();
-  RealColumn get latitude => real().nullable()();
-  RealColumn get longitude => real().nullable()();
+  TextColumn get busStopCode => text()();
+  TextColumn get roadName => text()();
+  TextColumn get description => text()();
+  RealColumn get latitude => real()();
+  RealColumn get longitude => real()();
 }
 
 class TableBusServices extends Table {

@@ -178,7 +178,7 @@ class BusServicesService {
       if (destination.isNotEmpty) {
         busArrivalsWithDestination.add(
           busArrival.copyWith(
-            destinationName: destination[0].description ?? '',
+            destinationName: destination[0].description,
           ),
         );
       } else {
@@ -300,8 +300,8 @@ class BusServicesService {
         distanceInMeters = locationService.getDistanceInMeters(
           startLatitude: userLocationModel.latitude!,
           startLongitude: userLocationModel.longitude!,
-          endLatitude: busStop.latitude ?? 0,
-          endLongitude: busStop.longitude ?? 0,
+          endLatitude: busStop.latitude,
+          endLongitude: busStop.longitude,
         );
       }
       final busStopValueModel = BusStopValueModel(

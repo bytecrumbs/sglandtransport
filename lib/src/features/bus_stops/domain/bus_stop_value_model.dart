@@ -6,11 +6,11 @@ part 'bus_stop_value_model.g.dart';
 @freezed
 class BusStopValueModel with _$BusStopValueModel {
   factory BusStopValueModel({
-    @JsonKey(name: 'BusStopCode') String? busStopCode,
-    @JsonKey(name: 'RoadName') String? roadName,
-    @JsonKey(name: 'Description') String? description,
-    @JsonKey(name: 'Latitude') double? latitude,
-    @JsonKey(name: 'Longitude') double? longitude,
+    @JsonKey(name: 'BusStopCode') required String busStopCode,
+    @JsonKey(name: 'RoadName') required String roadName,
+    @JsonKey(name: 'Description') required String description,
+    @JsonKey(name: 'Latitude') required double latitude,
+    @JsonKey(name: 'Longitude') required double longitude,
     int? distanceInMeters,
   }) = _BusStopValueModel;
 

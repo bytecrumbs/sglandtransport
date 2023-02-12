@@ -24,7 +24,7 @@ class BusStopCard extends ConsumerWidget {
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
       child: ListTile(
         title: SubstringHighlight(
-          text: busStopValueModel.description ?? '',
+          text: busStopValueModel.description,
           textStyle: Theme.of(context)
               .textTheme
               .titleMedium!
@@ -33,7 +33,7 @@ class BusStopCard extends ConsumerWidget {
         ),
         subtitle: SubstringHighlight(
           text:
-              '${busStopValueModel.busStopCode ?? ""} | ${busStopValueModel.roadName ?? ""}',
+              '${busStopValueModel.busStopCode} | ${busStopValueModel.roadName}',
           textStyle: Theme.of(context)
               .textTheme
               .titleSmall!
@@ -49,7 +49,7 @@ class BusStopCard extends ConsumerWidget {
             ? () => context.pushNamed(
                   AppRoute.busServices.name,
                   params: {
-                    'busStopCode': busStopValueModel.busStopCode ?? '',
+                    'busStopCode': busStopValueModel.busStopCode,
                   },
                 )
             : null,

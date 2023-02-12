@@ -31,8 +31,8 @@ class BusStopsService {
             _ref.read(locationServiceProvider).getDistanceInMeters(
                   startLatitude: latitude,
                   startLongitude: longitude,
-                  endLatitude: busStop.latitude ?? 0,
-                  endLongitude: busStop.longitude ?? 0,
+                  endLatitude: busStop.latitude,
+                  endLongitude: busStop.longitude,
                 );
 
         if (distanceInMeters <= 500) {
