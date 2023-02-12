@@ -41,16 +41,16 @@ class TableBusStops extends Table {
 }
 
 class TableBusServices extends Table {
-  TextColumn get serviceNo => text().nullable()();
-  TextColumn get operator => text().nullable()();
-  IntColumn get direction => integer().nullable()();
-  TextColumn get category => text().nullable()();
-  TextColumn get originCode => text().nullable()();
-  TextColumn get destinationCode => text().nullable()();
-  TextColumn get amPeakFreq => text().nullable()();
-  TextColumn get amOffpeakFreq => text().nullable()();
-  TextColumn get pmPeakFreq => text().nullable()();
-  TextColumn get pmOffpeakFreq => text().nullable()();
+  TextColumn get serviceNo => text()();
+  TextColumn get operator => text()();
+  IntColumn get direction => integer()();
+  TextColumn get category => text()();
+  TextColumn get originCode => text()();
+  TextColumn get destinationCode => text()();
+  TextColumn get amPeakFreq => text()();
+  TextColumn get amOffpeakFreq => text()();
+  TextColumn get pmPeakFreq => text()();
+  TextColumn get pmOffpeakFreq => text()();
   TextColumn get loopDesc => text().nullable()();
 }
 

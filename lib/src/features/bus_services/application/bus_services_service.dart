@@ -45,7 +45,7 @@ class BusServicesService {
     // 'destinationCode" - hence defaulting it to 1.
     var direction = 1;
     if (busServiceValueModelList.isNotEmpty) {
-      direction = busServiceValueModelList[0].direction!;
+      direction = busServiceValueModelList[0].direction;
     }
     return repository.getBusRoute(
       busStopCode: busStopCode,
