@@ -1,25 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../application/bus_services_service.dart';
-import '../favorites/bus_service_list_favorites.dart';
-
-part 'favorite_toggler.freezed.dart';
-
-@freezed
-class IsFavoriteTogglerParameter with _$IsFavoriteTogglerParameter {
-  factory IsFavoriteTogglerParameter({
-    required String busStopCode,
-    required String serviceNo,
-    required bool isFavorite,
-  }) = _IsFavoriteTogglerParameter;
-}
-
-final isFavoriteStateProvider =
-    StateProvider.autoDispose.family<bool, IsFavoriteTogglerParameter>(
-  (ref, parameter) => parameter.isFavorite,
-);
+import 'favorite_toggler_controller.dart';
 
 class FavoriteToggler extends ConsumerWidget {
   const FavoriteToggler({
@@ -35,37 +17,24 @@ class FavoriteToggler extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isFavoriteState = ref.watch(
-      isFavoriteStateProvider(
-        IsFavoriteTogglerParameter(
-          serviceNo: serviceNo,
-          isFavorite: isFavorite,
-          busStopCode: busStopCode,
-        ),
+    final favoriteTogglerController = ref.watch(
+      favoriteTogglerControllerProvider(
+        busStopCode: busStopCode,
+        serviceNo: serviceNo,
+        isFavorite: isFavorite,
+      ).notifier,
+    );
+    final favoriteTogglerControllerState = ref.watch(
+      favoriteTogglerControllerProvider(
+        busStopCode: busStopCode,
+        serviceNo: serviceNo,
+        isFavorite: isFavorite,
       ),
     );
 
     return IconButton(
-      onPressed: () {
-        final toggledValue =
-            ref.watch(busServicesServiceProvider).toggleFavoriteBusService(
-                  busStopCode: busStopCode,
-                  serviceNo: serviceNo,
-                );
-        ref
-            .read(
-              isFavoriteStateProvider(
-                IsFavoriteTogglerParameter(
-                  serviceNo: serviceNo,
-                  isFavorite: isFavorite,
-                  busStopCode: busStopCode,
-                ),
-              ).notifier,
-            )
-            .state = toggledValue;
-        ref.invalidate(favoriteBusServicesStreamProvider);
-      },
-      icon: isFavoriteState
+      onPressed: favoriteTogglerController.toggle,
+      icon: favoriteTogglerControllerState
           ? const Icon(Icons.favorite)
           : const Icon(Icons.favorite_outline),
     );
