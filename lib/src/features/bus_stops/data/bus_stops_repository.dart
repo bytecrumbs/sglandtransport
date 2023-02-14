@@ -15,9 +15,9 @@ BusStopsRepository busStopsRepository(BusStopsRepositoryRef ref) =>
     BusStopsRepository(ref);
 
 class BusStopsRepository {
-  BusStopsRepository(this._ref);
+  BusStopsRepository(this.ref);
 
-  final Ref _ref;
+  final Ref ref;
 
   Future<List<BusStopValueModel>> fetchBusStops({int skip = 0}) async {
     const fetchUrl = '$ltaDatamallApi/BusStops';
@@ -36,8 +36,8 @@ class BusStopsRepository {
     String path, {
     Map<String, Object>? queryParameters,
   }) async {
-    final dio = _ref.read(dioProvider);
-    _ref
+    final dio = ref.read(dioProvider);
+    ref
         .read(loggerProvider)
         .d('GET $path with $queryParameters as query parameters');
 
@@ -52,7 +52,7 @@ class BusStopsRepository {
         queryParameters: queryParameters,
       );
     } on DioError catch (e) {
-      _ref
+      ref
           .read(loggerProvider)
           .e('message: ${e.message}; response: ${e.response}');
       throw CustomException.fromDioError(e);

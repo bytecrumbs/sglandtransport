@@ -12,27 +12,27 @@ part 'bus_stops_service.g.dart';
 BusStopsService busStopsService(BusStopsServiceRef ref) => BusStopsService(ref);
 
 class BusStopsService {
-  BusStopsService(this._ref);
+  BusStopsService(this.ref);
 
-  final Ref _ref;
+  final Ref ref;
 
   Future<List<BusStopValueModel>> getNearbyBusStops({
     double? latitude,
     double? longitude,
   }) async {
-    final busLocalRepository = _ref.read(localDbRepositoryProvider);
+    final busLocalRepository = ref.read(localDbRepositoryProvider);
 
     // fetch all bus stops from the database and then filter based on the cached
     // result. This is more efficient than querying the local database with a filter
     // every time the location changes, I think... :-)
     final allBusStops = await busLocalRepository.getAllBusStops();
 
-    _ref.read(loggerProvider).d('Filtering bus stops based on location');
+    ref.read(loggerProvider).d('Filtering bus stops based on location');
     final nearbyBusStops = <BusStopValueModel>[];
     if (latitude != null && longitude != null) {
       for (final busStop in allBusStops) {
         final distanceInMeters =
-            _ref.read(locationServiceProvider).getDistanceInMeters(
+            ref.read(locationServiceProvider).getDistanceInMeters(
                   startLatitude: latitude,
                   startLongitude: longitude,
                   endLatitude: busStop.latitude,

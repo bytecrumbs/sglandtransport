@@ -21,12 +21,12 @@ BusServicesService busServicesService(BusServicesServiceRef ref) =>
     BusServicesService(ref);
 
 class BusServicesService {
-  BusServicesService(this._ref);
+  BusServicesService(this.ref);
 
-  final Ref _ref;
+  final Ref ref;
 
   Future<BusStopValueModel> getBusStop(String busStopCode) async {
-    final repository = _ref.read(localDbRepositoryProvider);
+    final repository = ref.read(localDbRepositoryProvider);
     final result = await repository.getBusStops(busStopCodes: [busStopCode]);
     return result[0];
   }
@@ -37,7 +37,7 @@ class BusServicesService {
     required String originalCode,
     required String destinationCode,
   }) async {
-    final repository = _ref.read(localDbRepositoryProvider);
+    final repository = ref.read(localDbRepositoryProvider);
 
     final busServiceValueModelList = await repository.getBusService(
       serviceNo: serviceNo,
@@ -71,7 +71,7 @@ class BusServicesService {
     String? serviceNo,
   ]) async {
     // get arrival times for bus services
-    final repository = _ref.read(busServicesRepositoryProvider);
+    final repository = ref.read(busServicesRepositoryProvider);
     final busArrivals = await repository.fetchBusArrivals(
       busStopCode: busStopCode,
       serviceNo: serviceNo,
@@ -110,7 +110,7 @@ class BusServicesService {
     String? serviceNo,
   }) async {
     final busRoutes =
-        await _ref.read(localDbRepositoryProvider).getBusServicesForBusStopCode(
+        await ref.read(localDbRepositoryProvider).getBusServicesForBusStopCode(
               busStopCode: busStopCode,
               serviceNo: serviceNo,
             );
@@ -144,7 +144,7 @@ class BusServicesService {
     required String busStopCode,
     required List<BusArrivalServiceModel> busArrivals,
   }) {
-    final localStorageService = _ref.read(localStorageServiceProvider);
+    final localStorageService = ref.read(localStorageServiceProvider);
     return busArrivals
         .map(
           (e) => e.copyWith(
@@ -165,7 +165,7 @@ class BusServicesService {
         busArrivals.map((e) => e.nextBus.destinationCode ?? '').toList();
 
     // fetch all bus stops as per the busArrivals list
-    final busStops = await _ref
+    final busStops = await ref
         .read(localDbRepositoryProvider)
         .getBusStops(busStopCodes: busArrivalsDestinationCode);
 
@@ -195,7 +195,7 @@ class BusServicesService {
     required String busStopCode,
     required String serviceNo,
   }) {
-    final localStorageService = _ref.read(localStorageServiceProvider);
+    final localStorageService = ref.read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
     bool newIsFavoriteValue;
     final currentFavorites =
@@ -203,7 +203,7 @@ class BusServicesService {
 
     // add or remove the service no from the local storage
     if (currentFavorites.contains(searchValue)) {
-      _ref.read(loggerProvider).d(
+      ref.read(loggerProvider).d(
             'removing from Favorites, as bus stop with service no already exists',
           );
       localStorageService.removeStringFromList(
@@ -212,7 +212,7 @@ class BusServicesService {
       );
       newIsFavoriteValue = false;
     } else {
-      _ref
+      ref
           .read(loggerProvider)
           .d('adding to Favorites, as bus stop with service no does not exist');
       localStorageService.addStringToList(favoriteServiceNoKey, searchValue);
@@ -228,8 +228,8 @@ class BusServicesService {
     // maybe we can delete this code again after a few releases
     await _handleLegacyFavorites();
 
-    final localStorageService = _ref.read(localStorageServiceProvider);
-    final repository = _ref.read(busServicesRepositoryProvider);
+    final localStorageService = ref.read(localStorageServiceProvider);
+    final repository = ref.read(busServicesRepositoryProvider);
 
     final currentFavorites =
         localStorageService.getStringList(favoriteServiceNoKey);
@@ -241,7 +241,7 @@ class BusServicesService {
         .toSet()
         .toList();
 
-    final busStops = await _ref.read(localDbRepositoryProvider).getBusStops(
+    final busStops = await ref.read(localDbRepositoryProvider).getBusStops(
           busStopCodes: uniqueBusStopsList,
         );
 
@@ -293,7 +293,7 @@ class BusServicesService {
       }
 
       // calculate distance
-      final locationService = _ref.read(locationServiceProvider);
+      final locationService = ref.read(locationServiceProvider);
       UserLocationModel? userLocationModel;
       userLocationModel = await locationService.getCurrentPosition();
       double? distanceInMeters;
@@ -335,14 +335,14 @@ class BusServicesService {
   }
 
   Future<void> _handleLegacyFavorites() async {
-    final localStorageService = _ref.read(localStorageServiceProvider);
-    final busDatabaseService = _ref.read(localDbRepositoryProvider);
+    final localStorageService = ref.read(localStorageServiceProvider);
+    final busDatabaseService = ref.read(localDbRepositoryProvider);
 
     final favoriteBusStops =
         localStorageService.getStringList(favoriteBusStopsKey);
 
     if (favoriteBusStops.isNotEmpty) {
-      _ref
+      ref
           .read(loggerProvider)
           .d('Found favorite bus stops and processing them');
       for (final favoriteBusStop in favoriteBusStops) {
@@ -350,7 +350,7 @@ class BusServicesService {
           busStopCode: favoriteBusStop,
         );
 
-        _ref.read(loggerProvider).d('Processing bus stop $favoriteBusStop');
+        ref.read(loggerProvider).d('Processing bus stop $favoriteBusStop');
         final existingBusServiceFavorites =
             localStorageService.getStringList(favoriteServiceNoKey);
         for (final busStop in busStops) {
@@ -369,7 +369,7 @@ class BusServicesService {
           }
         }
       }
-      _ref
+      ref
           .read(loggerProvider)
           .d('Removing legacy favoriteBusStop key from local storage');
       await localStorageService.remove(favoriteBusStopsKey);
@@ -406,7 +406,7 @@ class BusServicesService {
     required String busStopCode,
     required String serviceNo,
   }) {
-    final localStorageService = _ref.read(localStorageServiceProvider);
+    final localStorageService = ref.read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
 
     final currentFavorites =

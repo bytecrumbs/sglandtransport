@@ -33,9 +33,9 @@ final userLocationStreamProvider =
 );
 
 class LocationService {
-  LocationService(this._ref);
+  LocationService(this.ref);
 
-  final Ref _ref;
+  final Ref ref;
 
   StreamSubscription<Position>? _geolocatorStream;
   StreamController<UserLocationModel>? _locationController;
@@ -79,11 +79,11 @@ class LocationService {
   void stopLocationStream() {
     _locationController?.close();
     _geolocatorStream?.cancel();
-    _ref.read(loggerProvider).d('stopped location streams and controllers');
+    ref.read(loggerProvider).d('stopped location streams and controllers');
   }
 
   Stream<UserLocationModel> startLocationStream() {
-    _ref.read(loggerProvider).d('starting location stream');
+    ref.read(loggerProvider).d('starting location stream');
     _locationController = StreamController<UserLocationModel>();
 
     late LocationSettings locationSettings;
@@ -108,7 +108,7 @@ class LocationService {
     _geolocatorStream = Geolocator.getPositionStream(
       locationSettings: locationSettings,
     ).listen((position) async {
-      _ref.read(loggerProvider).d('adding new position');
+      ref.read(loggerProvider).d('adding new position');
       _locationController!.add(
         UserLocationModel(
           latitude: position.latitude,

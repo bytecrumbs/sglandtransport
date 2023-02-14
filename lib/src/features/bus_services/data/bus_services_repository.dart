@@ -19,9 +19,9 @@ BusServicesRepository busServicesRepository(BusServicesRepositoryRef ref) =>
     BusServicesRepository(ref);
 
 class BusServicesRepository {
-  BusServicesRepository(this._ref);
+  BusServicesRepository(this.ref);
 
-  final Ref _ref;
+  final Ref ref;
 
   Future<BusArrivalModel> fetchBusArrivals({
     required String busStopCode,
@@ -72,8 +72,8 @@ class BusServicesRepository {
     String path, {
     Map<String, Object>? queryParameters,
   }) async {
-    final dio = _ref.read(dioProvider);
-    _ref
+    final dio = ref.read(dioProvider);
+    ref
         .read(loggerProvider)
         .d('GET $path with $queryParameters as query parameters');
 
@@ -88,7 +88,7 @@ class BusServicesRepository {
         queryParameters: queryParameters,
       );
     } on DioError catch (e) {
-      _ref
+      ref
           .read(loggerProvider)
           .e('message: ${e.message}; response: ${e.response}');
       await FirebaseCrashlytics.instance
