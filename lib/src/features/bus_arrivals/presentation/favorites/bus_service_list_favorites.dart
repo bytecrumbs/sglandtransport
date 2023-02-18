@@ -8,7 +8,7 @@ import '../../../../shared/presentation/error_display.dart';
 import '../../../../shared/presentation/staggered_animation.dart';
 import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_with_bus_stop_model.dart';
-import '../bus_service_card/bus_service_card.dart';
+import '../bus_arrival_card/bus_service_card.dart';
 import 'bus_service_header.dart';
 
 final favoriteBusServicesStreamProvider =

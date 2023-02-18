@@ -8,7 +8,7 @@ import '../../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
 import '../../../home/presentation/dashboard_screen.dart';
 import '../../application/bus_arrivals_service.dart';
-import '../bus_service_card/bus_service_card_with_fetch.dart';
+import '../bus_arrival_card/bus_service_card_with_fetch.dart';
 
 part 'bus_route_screen.g.dart';
 

@@ -11,7 +11,7 @@ import '../../../../shared/third_party_providers.dart';
 import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card_with_fetch.dart';
 import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_model.dart';
-import '../bus_service_card/bus_service_card.dart';
+import '../bus_arrival_card/bus_service_card.dart';
 
 final busServicesStreamProvider =
     StreamProvider.autoDispose.family<BusArrivalModel, String>(
