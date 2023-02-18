@@ -1,8 +1,8 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/bus_services/presentation/bus_routes/bus_route_screen.dart';
-import '../features/bus_services/presentation/bus_stop/bus_services_list_screen.dart';
+import '../features/bus_arrivals/presentation/bus_routes/bus_route_screen.dart';
+import '../features/bus_arrivals/presentation/bus_stop/bus_services_list_screen.dart';
 import '../features/home/presentation/dashboard_screen.dart';
 
 enum AppRoute {

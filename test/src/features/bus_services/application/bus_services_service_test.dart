@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:lta_datamall_flutter/src/constants/local_storage_keys.dart';
-import 'package:lta_datamall_flutter/src/features/bus_services/application/bus_services_service.dart';
+import 'package:lta_datamall_flutter/src/features/bus_arrivals/application/bus_services_service.dart';
 import 'package:lta_datamall_flutter/src/shared/application/local_storage_service.dart';
 import 'package:lta_datamall_flutter/src/shared/third_party_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';

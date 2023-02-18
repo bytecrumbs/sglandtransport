@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/local_storage_keys.dart';
 import '../../../constants/palette.dart';
 import '../../../shared/application/local_storage_service.dart';
-import '../../bus_services/presentation/favorites/bus_service_list_favorites.dart';
+import '../../bus_arrivals/presentation/favorites/bus_service_list_favorites.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../bus_stops/presentation/bus_stop_list_nearby.dart';
 import '../../search/application/custom_search_delegate.dart';

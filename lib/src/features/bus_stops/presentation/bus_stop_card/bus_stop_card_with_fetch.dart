@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
-import '../../../bus_services/application/bus_services_service.dart';
+import '../../../bus_arrivals/application/bus_services_service.dart';
 import '../../../home/presentation/dashboard_screen.dart';
 import '../../domain/bus_stop_value_model.dart';
 import 'bus_stop_card.dart';

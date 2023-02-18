@@ -1,4 +1,4 @@
-import 'package:lta_datamall_flutter/src/features/bus_services/domain/bus_route_value_model.dart';
+import 'package:lta_datamall_flutter/src/features/bus_arrivals/domain/bus_route_value_model.dart';
 import 'package:lta_datamall_flutter/src/features/bus_stops/domain/bus_stop_value_model.dart';
 import 'package:lta_datamall_flutter/src/shared/data/local_db_repository.dart';
 
