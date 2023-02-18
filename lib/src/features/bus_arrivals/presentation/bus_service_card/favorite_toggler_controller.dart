@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../application/bus_services_service.dart';
+import '../../application/bus_arrivals_service.dart';
 import '../favorites/bus_service_list_favorites.dart';
 
 part 'favorite_toggler_controller.g.dart';
@@ -17,7 +17,7 @@ class FavoriteTogglerController extends _$FavoriteTogglerController {
   }
 
   void toggle() {
-    state = ref.watch(busServicesServiceProvider).toggleFavoriteBusService(
+    state = ref.watch(busArrivalsServiceProvider).toggleFavoriteBusService(
           busStopCode: busStopCode,
           serviceNo: serviceNo,
         );

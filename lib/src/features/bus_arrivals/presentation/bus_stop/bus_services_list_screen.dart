@@ -9,7 +9,7 @@ import '../../../../shared/presentation/error_display.dart';
 import '../../../../shared/presentation/staggered_animation.dart';
 import '../../../../shared/third_party_providers.dart';
 import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card_with_fetch.dart';
-import '../../application/bus_services_service.dart';
+import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_model.dart';
 import '../bus_service_card/bus_service_card.dart';
 
@@ -19,7 +19,7 @@ final busServicesStreamProvider =
     ref.onDispose(() {
       ref.watch(loggerProvider).d('disposing');
     });
-    final busServicesService = ref.watch(busServicesServiceProvider);
+    final busServicesService = ref.watch(busArrivalsServiceProvider);
     // make sure it is executed immediately
     yield await busServicesService.getBusArrivals(busStopCode);
     // then execute regularly

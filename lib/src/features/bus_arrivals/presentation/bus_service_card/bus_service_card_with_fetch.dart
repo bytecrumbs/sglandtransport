@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../constants/bus_arrival_config.dart';
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
-import '../../application/bus_services_service.dart';
+import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_service_model.dart';
 import 'bus_service_card.dart';
 
@@ -23,7 +23,7 @@ class BusServiceStreamProviderParameter
 final busServiceStreamProvider = StreamProvider.autoDispose
     .family<BusArrivalServiceModel, BusServiceStreamProviderParameter>(
   (ref, param) async* {
-    final busServicesService = ref.watch(busServicesServiceProvider);
+    final busServicesService = ref.watch(busArrivalsServiceProvider);
     // make sure it is executed immediately
     final checkResult = await busServicesService.getBusArrival(
       busStopCode: param.busStopCode,

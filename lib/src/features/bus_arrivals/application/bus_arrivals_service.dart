@@ -14,14 +14,14 @@ import '../domain/bus_arrival_service_model.dart';
 import '../domain/bus_arrival_with_bus_stop_model.dart';
 import '../domain/next_bus_model.dart';
 
-part 'bus_services_service.g.dart';
+part 'bus_arrivals_service.g.dart';
 
 @riverpod
-BusServicesService busServicesService(BusServicesServiceRef ref) =>
-    BusServicesService(ref);
+BusArrivalsService busArrivalsService(BusArrivalsServiceRef ref) =>
+    BusArrivalsService(ref);
 
-class BusServicesService {
-  BusServicesService(this.ref);
+class BusArrivalsService {
+  BusArrivalsService(this.ref);
 
   final Ref ref;
 

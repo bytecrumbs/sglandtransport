@@ -6,7 +6,7 @@ import '../../../../constants/bus_arrival_config.dart';
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
 import '../../../../shared/presentation/staggered_animation.dart';
-import '../../application/bus_services_service.dart';
+import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_with_bus_stop_model.dart';
 import '../bus_service_card/bus_service_card.dart';
 import 'bus_service_header.dart';
@@ -14,7 +14,7 @@ import 'bus_service_header.dart';
 final favoriteBusServicesStreamProvider =
     StreamProvider.autoDispose<List<BusArrivalWithBusStopModel>>(
   (ref) async* {
-    final busServicesService = ref.watch(busServicesServiceProvider);
+    final busServicesService = ref.watch(busArrivalsServiceProvider);
     // make sure it is executed immediately
     yield await busServicesService.getFavoriteBusServices();
     // then execute regularly
