@@ -6,49 +6,29 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../constants/environment_config.dart';
 import '../../../shared/custom_exception.dart';
 import '../../../shared/third_party_providers.dart';
-import '../domain/bus_arrival_model.dart';
-import '../domain/bus_service_model.dart';
-import '../domain/bus_service_value_model.dart';
+import '../../bus_arrivals/domain/bus_route_model.dart';
+import '../../bus_arrivals/domain/bus_route_value_model.dart';
 
-part 'bus_arrivals_repository.g.dart';
+part 'bus_routes_repository.g.dart';
 
 @riverpod
-BusArrivalsRepository busArrivalsRepository(BusArrivalsRepositoryRef ref) =>
-    BusArrivalsRepository(ref);
+BusRoutesRepository busRoutesRepository(BusRoutesRepositoryRef ref) =>
+    BusRoutesRepository(ref);
 
-class BusArrivalsRepository {
-  BusArrivalsRepository(this.ref);
+class BusRoutesRepository {
+  BusRoutesRepository(this.ref);
 
   final Ref ref;
 
-  Future<BusArrivalModel> fetchBusArrivals({
-    required String busStopCode,
-    String? serviceNo,
-  }) async {
-    const fetchUrl = '$ltaDatamallApi/BusArrivalv2';
-
-    final response = await _get<Map<String, Object?>>(
-      fetchUrl,
-      queryParameters: {
-        'BusStopCode': busStopCode,
-        if (serviceNo != null) 'ServiceNo': serviceNo,
-      },
-    );
-
-    return BusArrivalModel.fromJson(
-      response.data!,
-    );
-  }
-
-  Future<List<BusServiceValueModel>> fetchBusServices({int skip = 0}) async {
-    const fetchUrl = '$ltaDatamallApi/BusServices';
+  Future<List<BusRouteValueModel>> fetchBusRoutes({int skip = 0}) async {
+    const fetchUrl = '$ltaDatamallApi/BusRoutes';
 
     final response = await _get<Map<String, Object?>>(
       fetchUrl,
       queryParameters: {r'$skip': skip},
     );
 
-    return BusServiceModel.fromJson(
+    return BusRouteModel.fromJson(
       response.data!,
     ).value;
   }

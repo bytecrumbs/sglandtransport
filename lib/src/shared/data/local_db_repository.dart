@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../features/bus_arrivals/data/bus_arrivals_repository.dart';
 import '../../features/bus_arrivals/domain/bus_route_value_model.dart';
 import '../../features/bus_arrivals/domain/bus_service_value_model.dart';
+import '../../features/bus_routes/data/bus_routes_repository.dart';
 import '../../features/bus_stops/data/bus_stops_repository.dart';
 import '../../features/bus_stops/domain/bus_stop_value_model.dart';
 import '../application/local_storage_service.dart';
@@ -147,7 +148,7 @@ class LocalDbRepository extends _$LocalDbRepository {
     ref.read(loggerProvider).d('adding bus routes to table');
     for (var i = 0; i <= 26000; i = i + 500) {
       final busRouteValueModelList =
-          await ref.read(busArrivalsRepositoryProvider).fetchBusRoutes(skip: i);
+          await ref.read(busRoutesRepositoryProvider).fetchBusRoutes(skip: i);
 
       final busRouteValueTableList = busRouteValueModelList.map(
         (e) => TableBusRoute(
