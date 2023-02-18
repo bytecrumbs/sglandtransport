@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../routing/app_router.dart';
+import 'bus_arrival_card_header.dart';
 import 'bus_arrival_sequence.dart';
-import 'bus_service_card_header.dart';
 import 'favorite_toggler.dart';
 
 class BusServiceCard extends StatelessWidget {
@@ -56,7 +56,7 @@ class BusServiceCard extends StatelessWidget {
                 'destinationCode': destinationCode,
               },
             ),
-            child: BusServiceCardHeader(
+            child: BusArrivalCardHeader(
               serviceNo: serviceNo,
               inService: inService,
               destinationName: destinationName,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants/palette.dart';
 
-class BusServiceCardHeader extends StatelessWidget {
-  const BusServiceCardHeader({
+class BusArrivalCardHeader extends StatelessWidget {
+  const BusArrivalCardHeader({
     super.key,
     required this.serviceNo,
     required this.inService,
