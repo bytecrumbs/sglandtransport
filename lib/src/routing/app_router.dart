@@ -2,12 +2,12 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/bus_arrivals/presentation/bus_routes/bus_route_screen.dart';
-import '../features/bus_arrivals/presentation/bus_stop/bus_services_list_screen.dart';
+import '../features/bus_arrivals/presentation/bus_stop/bus_arrival_list_screen.dart';
 import '../features/home/presentation/dashboard_screen.dart';
 
 enum AppRoute {
   home,
-  busServices,
+  busArrivals,
   busRoutes,
 }
 
@@ -21,11 +21,11 @@ final goRouter = GoRouter(
       builder: (context, state) => const DashboardScreen(),
       routes: [
         GoRoute(
-          path: 'busServices/:busStopCode',
-          name: AppRoute.busServices.name,
+          path: 'busArrivals/:busStopCode',
+          name: AppRoute.busArrivals.name,
           builder: (context, state) {
             final busStopCode = state.params['busStopCode']!;
-            return BusServicesListScreen(
+            return BusArrivalsListScreen(
               busStopCode: busStopCode,
             );
           },

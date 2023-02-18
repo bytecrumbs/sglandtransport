@@ -13,7 +13,7 @@ import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_model.dart';
 import '../bus_arrival_card/bus_arrival_card.dart';
 
-final busServicesStreamProvider =
+final busArrivalsStreamProvider =
     StreamProvider.autoDispose.family<BusArrivalModel, String>(
   (ref, busStopCode) async* {
     ref.onDispose(() {
@@ -32,8 +32,8 @@ final busServicesStreamProvider =
   },
 );
 
-class BusServicesListScreen extends ConsumerWidget {
-  const BusServicesListScreen({
+class BusArrivalsListScreen extends ConsumerWidget {
+  const BusArrivalsListScreen({
     super.key,
     required this.busStopCode,
   });
@@ -43,7 +43,7 @@ class BusServicesListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vmState = ref.watch(
-      busServicesStreamProvider(busStopCode),
+      busArrivalsStreamProvider(busStopCode),
     );
     return Scaffold(
       appBar: AppBar(
@@ -103,7 +103,7 @@ class BusServicesListScreen extends ConsumerWidget {
               data: (busArrival) => RefreshIndicator(
                 onRefresh: () {
                   ref.invalidate(
-                    busServicesStreamProvider(
+                    busArrivalsStreamProvider(
                       busStopCode,
                     ),
                   );
@@ -162,7 +162,7 @@ class BusServicesListScreen extends ConsumerWidget {
                     message: error.message,
                     onPressed: () {
                       ref.invalidate(
-                        busServicesStreamProvider(
+                        busArrivalsStreamProvider(
                           busStopCode,
                         ),
                       );
