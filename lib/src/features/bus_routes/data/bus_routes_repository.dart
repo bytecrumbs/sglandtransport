@@ -6,8 +6,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../constants/environment_config.dart';
 import '../../../shared/custom_exception.dart';
 import '../../../shared/third_party_providers.dart';
-import '../../bus_arrivals/domain/bus_route_model.dart';
-import '../../bus_arrivals/domain/bus_route_value_model.dart';
+import '../domain/bus_route_model.dart';
+import '../domain/bus_route_value_model.dart';
 
 part 'bus_routes_repository.g.dart';
 

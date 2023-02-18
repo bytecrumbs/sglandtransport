@@ -8,9 +8,9 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 import '../../features/bus_arrivals/data/bus_arrivals_repository.dart';
-import '../../features/bus_arrivals/domain/bus_route_value_model.dart';
 import '../../features/bus_arrivals/domain/bus_service_value_model.dart';
 import '../../features/bus_routes/data/bus_routes_repository.dart';
+import '../../features/bus_routes/domain/bus_route_value_model.dart';
 import '../../features/bus_stops/data/bus_stops_repository.dart';
 import '../../features/bus_stops/domain/bus_stop_value_model.dart';
 import '../application/local_storage_service.dart';
