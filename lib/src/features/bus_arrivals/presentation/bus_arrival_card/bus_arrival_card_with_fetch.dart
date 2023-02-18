@@ -7,7 +7,7 @@ import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
 import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_service_model.dart';
-import 'bus_service_card.dart';
+import 'bus_arrival_card.dart';
 
 part 'bus_arrival_card_with_fetch.freezed.dart';
 
@@ -65,7 +65,7 @@ class BusArrivalCardWithFetch extends ConsumerWidget {
     );
 
     return busService.when(
-      data: (busArrivalServiceModel) => BusServiceCard(
+      data: (busArrivalServiceModel) => BusArrivalCard(
         busStopCode: busStopCode,
         originalCode: busArrivalServiceModel.nextBus.originCode ?? '1',
         destinationCode: busArrivalServiceModel.nextBus.destinationCode ?? '1',

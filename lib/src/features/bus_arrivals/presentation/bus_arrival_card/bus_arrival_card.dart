@@ -6,8 +6,8 @@ import 'bus_arrival_card_header.dart';
 import 'bus_arrival_sequence.dart';
 import 'favorite_toggler.dart';
 
-class BusServiceCard extends StatelessWidget {
-  const BusServiceCard({
+class BusArrivalCard extends StatelessWidget {
+  const BusArrivalCard({
     super.key,
     // required this.busArrivalModel,
     required this.serviceNo,
