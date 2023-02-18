@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../application/bus_arrivals_service.dart';
-import '../favorites/bus_service_list_favorites.dart';
+import '../favorites/bus_arrival_list_favorites.dart';
 
 part 'favorite_toggler_controller.g.dart';
 
@@ -21,6 +21,6 @@ class FavoriteTogglerController extends _$FavoriteTogglerController {
           busStopCode: busStopCode,
           serviceNo: serviceNo,
         );
-    ref.invalidate(favoriteBusServicesStreamProvider);
+    ref.invalidate(favoriteBusArrivalsStreamProvider);
   }
 }

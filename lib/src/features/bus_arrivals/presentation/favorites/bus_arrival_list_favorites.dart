@@ -11,7 +11,7 @@ import '../../domain/bus_arrival_with_bus_stop_model.dart';
 import '../bus_arrival_card/bus_arrival_card.dart';
 import 'bus_arrival_header.dart';
 
-final favoriteBusServicesStreamProvider =
+final favoriteBusArrivalsStreamProvider =
     StreamProvider.autoDispose<List<BusArrivalWithBusStopModel>>(
   (ref) async* {
     final busServicesService = ref.watch(busArrivalsServiceProvider);
@@ -27,12 +27,12 @@ final favoriteBusServicesStreamProvider =
   },
 );
 
-class BusServiceListFavorites extends ConsumerWidget {
-  const BusServiceListFavorites({super.key});
+class BusArrivalListFavorites extends ConsumerWidget {
+  const BusArrivalListFavorites({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final vmState = ref.watch(favoriteBusServicesStreamProvider);
+    final vmState = ref.watch(favoriteBusArrivalsStreamProvider);
 
     return vmState.when(
       data: (busArrivalWithBusStopModels) {
@@ -130,7 +130,7 @@ class BusServiceListFavorites extends ConsumerWidget {
               message: error.message,
               onPressed: () {
                 ref.invalidate(
-                  favoriteBusServicesStreamProvider,
+                  favoriteBusArrivalsStreamProvider,
                 );
               },
             ),
@@ -141,7 +141,7 @@ class BusServiceListFavorites extends ConsumerWidget {
             message: error.toString(),
             onPressed: () {
               ref.invalidate(
-                favoriteBusServicesStreamProvider,
+                favoriteBusArrivalsStreamProvider,
               );
             },
           ),
