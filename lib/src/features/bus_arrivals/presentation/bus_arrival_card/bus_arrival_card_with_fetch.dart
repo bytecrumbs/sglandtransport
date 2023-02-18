@@ -9,19 +9,19 @@ import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_service_model.dart';
 import 'bus_service_card.dart';
 
-part 'bus_service_card_with_fetch.freezed.dart';
+part 'bus_arrival_card_with_fetch.freezed.dart';
 
 @freezed
-class BusServiceStreamProviderParameter
-    with _$BusServiceStreamProviderParameter {
-  factory BusServiceStreamProviderParameter({
+class BusArrivalStreamProviderParameter
+    with _$BusArrivalStreamProviderParameter {
+  factory BusArrivalStreamProviderParameter({
     required String busStopCode,
     required String serviceNo,
-  }) = _BusServiceStreamProviderParameter;
+  }) = _BusArrivalStreamProviderParameter;
 }
 
-final busServiceStreamProvider = StreamProvider.autoDispose
-    .family<BusArrivalServiceModel, BusServiceStreamProviderParameter>(
+final busArrivalStreamProvider = StreamProvider.autoDispose
+    .family<BusArrivalServiceModel, BusArrivalStreamProviderParameter>(
   (ref, param) async* {
     final busServicesService = ref.watch(busArrivalsServiceProvider);
     // make sure it is executed immediately
@@ -43,8 +43,8 @@ final busServiceStreamProvider = StreamProvider.autoDispose
   },
 );
 
-class BusServiceCardWithFetch extends ConsumerWidget {
-  const BusServiceCardWithFetch({
+class BusArrivalCardWithFetch extends ConsumerWidget {
+  const BusArrivalCardWithFetch({
     super.key,
     required this.busStopCode,
     required this.serviceNo,
@@ -56,8 +56,8 @@ class BusServiceCardWithFetch extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final busService = ref.watch(
-      busServiceStreamProvider(
-        BusServiceStreamProviderParameter(
+      busArrivalStreamProvider(
+        BusArrivalStreamProviderParameter(
           busStopCode: busStopCode,
           serviceNo: serviceNo,
         ),
@@ -90,8 +90,8 @@ class BusServiceCardWithFetch extends ConsumerWidget {
             message: error.message,
             onPressed: () {
               ref.invalidate(
-                busServiceStreamProvider(
-                  BusServiceStreamProviderParameter(
+                busArrivalStreamProvider(
+                  BusArrivalStreamProviderParameter(
                     busStopCode: busStopCode,
                     serviceNo: serviceNo,
                   ),
