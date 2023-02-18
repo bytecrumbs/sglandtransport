@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../shared/custom_exception.dart';
-import '../../../../shared/presentation/error_display.dart';
-import '../../../bus_routes/application/bus_routes_service.dart';
-import '../../../bus_stops/domain/bus_stop_value_model.dart';
-import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
-import '../../../home/presentation/dashboard_screen.dart';
-import '../bus_arrival_card/bus_arrival_card_with_fetch.dart';
+import '../../../shared/custom_exception.dart';
+import '../../../shared/presentation/error_display.dart';
+import '../../bus_arrivals/presentation/bus_arrival_card/bus_arrival_card_with_fetch.dart';
+import '../../bus_stops/domain/bus_stop_value_model.dart';
+import '../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
+import '../../home/presentation/dashboard_screen.dart';
+import '../application/bus_routes_service.dart';
 
 part 'bus_route_screen.g.dart';
 
