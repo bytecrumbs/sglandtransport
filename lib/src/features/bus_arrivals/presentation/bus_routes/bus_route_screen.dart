@@ -4,10 +4,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
+import '../../../bus_routes/application/bus_routes_service.dart';
 import '../../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
 import '../../../home/presentation/dashboard_screen.dart';
-import '../../application/bus_arrivals_service.dart';
 import '../bus_arrival_card/bus_arrival_card_with_fetch.dart';
 
 part 'bus_route_screen.g.dart';
@@ -20,7 +20,7 @@ Future<List<BusStopValueModel>> busRoute(
   required String originalCode,
   required String destinationCode,
 }) {
-  final service = ref.watch(busArrivalsServiceProvider);
+  final service = ref.watch(busRoutesServiceProvider);
   return service.getBusRoute(
     busStopCode: busStopCode,
     serviceNo: serviceNo,
