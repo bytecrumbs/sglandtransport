@@ -12,14 +12,14 @@ import '../domain/bus_route_value_model.dart';
 import '../domain/bus_service_model.dart';
 import '../domain/bus_service_value_model.dart';
 
-part 'bus_services_repository.g.dart';
+part 'bus_arrivals_repository.g.dart';
 
 @riverpod
-BusServicesRepository busServicesRepository(BusServicesRepositoryRef ref) =>
-    BusServicesRepository(ref);
+BusArrivalsRepository busArrivalsRepository(BusArrivalsRepositoryRef ref) =>
+    BusArrivalsRepository(ref);
 
-class BusServicesRepository {
-  BusServicesRepository(this.ref);
+class BusArrivalsRepository {
+  BusArrivalsRepository(this.ref);
 
   final Ref ref;
 

@@ -8,7 +8,7 @@ import '../../../shared/third_party_providers.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../user_location/application/location_service.dart';
 import '../../user_location/domain/user_location_model.dart';
-import '../data/bus_services_repository.dart';
+import '../data/bus_arrivals_repository.dart';
 import '../domain/bus_arrival_model.dart';
 import '../domain/bus_arrival_service_model.dart';
 import '../domain/bus_arrival_with_bus_stop_model.dart';
@@ -71,7 +71,7 @@ class BusArrivalsService {
     String? serviceNo,
   ]) async {
     // get arrival times for bus services
-    final repository = ref.read(busServicesRepositoryProvider);
+    final repository = ref.read(busArrivalsRepositoryProvider);
     final busArrivals = await repository.fetchBusArrivals(
       busStopCode: busStopCode,
       serviceNo: serviceNo,
@@ -229,7 +229,7 @@ class BusArrivalsService {
     await _handleLegacyFavorites();
 
     final localStorageService = ref.read(localStorageServiceProvider);
-    final repository = ref.read(busServicesRepositoryProvider);
+    final repository = ref.read(busArrivalsRepositoryProvider);
 
     final currentFavorites =
         localStorageService.getStringList(favoriteServiceNoKey);

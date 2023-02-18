@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-import '../../features/bus_arrivals/data/bus_services_repository.dart';
+import '../../features/bus_arrivals/data/bus_arrivals_repository.dart';
 import '../../features/bus_arrivals/domain/bus_route_value_model.dart';
 import '../../features/bus_arrivals/domain/bus_service_value_model.dart';
 import '../../features/bus_stops/data/bus_stops_repository.dart';
@@ -147,7 +147,7 @@ class LocalDbRepository extends _$LocalDbRepository {
     ref.read(loggerProvider).d('adding bus routes to table');
     for (var i = 0; i <= 26000; i = i + 500) {
       final busRouteValueModelList =
-          await ref.read(busServicesRepositoryProvider).fetchBusRoutes(skip: i);
+          await ref.read(busArrivalsRepositoryProvider).fetchBusRoutes(skip: i);
 
       final busRouteValueTableList = busRouteValueModelList.map(
         (e) => TableBusRoute(
@@ -180,7 +180,7 @@ class LocalDbRepository extends _$LocalDbRepository {
     ref.read(loggerProvider).d('adding bus services to table');
     for (var i = 0; i <= 500; i = i + 500) {
       final busServiceValueModelList = await ref
-          .read(busServicesRepositoryProvider)
+          .read(busArrivalsRepositoryProvider)
           .fetchBusServices(skip: i);
 
       final busServiceValueTableList = busServiceValueModelList.map(
