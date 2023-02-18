@@ -9,7 +9,7 @@ import '../../../../shared/presentation/staggered_animation.dart';
 import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_with_bus_stop_model.dart';
 import '../bus_arrival_card/bus_arrival_card.dart';
-import 'bus_service_header.dart';
+import 'bus_arrival_header.dart';
 
 final favoriteBusServicesStreamProvider =
     StreamProvider.autoDispose<List<BusArrivalWithBusStopModel>>(
@@ -49,7 +49,7 @@ class BusServiceListFavorites extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        BusServiceHeader(
+                        BusArrivalHeader(
                           busStopCode: currentBusArrivalWithBusStopModel
                               .busStopValueModel.busStopCode,
                           description: currentBusArrivalWithBusStopModel
