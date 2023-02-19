@@ -17,7 +17,7 @@ final busArrivalsStreamProvider =
     StreamProvider.autoDispose.family<BusArrivalModel, String>(
   (ref, busStopCode) async* {
     ref.onDispose(() {
-      ref.watch(loggerProvider).d('disposing');
+      ref.watch(loggerProvider).d('disposing bus arrival stream');
     });
     final busServicesService = ref.watch(busArrivalsServiceProvider);
     // make sure it is executed immediately
