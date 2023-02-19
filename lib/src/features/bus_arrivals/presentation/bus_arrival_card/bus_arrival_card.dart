@@ -48,12 +48,9 @@ class BusArrivalCard extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => context.pushNamed(
-              AppRoute.busRoutes.name,
+              AppRoute.busDetails.name,
               params: {
-                'busStopCode': busStopCode,
                 'serviceNo': serviceNo,
-                'originalCode': originalCode,
-                'destinationCode': destinationCode,
               },
             ),
             child: BusArrivalCardHeader(

@@ -8,9 +8,9 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 import '../../features/bus_arrivals/data/bus_arrivals_repository.dart';
-import '../../features/bus_arrivals/domain/bus_service_value_model.dart';
 import '../../features/bus_routes/data/bus_routes_repository.dart';
 import '../../features/bus_routes/domain/bus_route_value_model.dart';
+import '../../features/bus_services/domain/bus_service_value_model.dart';
 import '../../features/bus_stops/data/bus_stops_repository.dart';
 import '../../features/bus_stops/domain/bus_stop_value_model.dart';
 import '../application/local_storage_service.dart';
@@ -349,8 +349,7 @@ class LocalDbRepository extends _$LocalDbRepository {
 
   Future<List<BusServiceValueModel>> getBusService({
     required String serviceNo,
-    required String originalCode,
-    required String destinationCode,
+    int direction = 1,
   }) async {
     ref
         .read(loggerProvider)
@@ -360,8 +359,7 @@ class LocalDbRepository extends _$LocalDbRepository {
           ..where(
             (tbl) =>
                 tbl.serviceNo.equals(serviceNo) &
-                tbl.originCode.equals(originalCode) &
-                tbl.destinationCode.equals(destinationCode),
+                tbl.direction.equals(direction),
           ))
         .get();
 
@@ -371,19 +369,10 @@ class LocalDbRepository extends _$LocalDbRepository {
   Future<List<BusStopValueModel>> getBusRoute({
     required String serviceNo,
     required int direction,
-    required String busStopCode,
   }) async {
     ref
         .read(loggerProvider)
         .d('Getting Bus Route for service $serviceNo from DB');
-
-    final startSequence = selectOnly(tableBusRoutes)
-      ..addColumns([tableBusRoutes.stopSequence])
-      ..where(
-        tableBusRoutes.serviceNo.equals(serviceNo) &
-            tableBusRoutes.direction.equals(direction) &
-            tableBusRoutes.busStopCode.equals(busStopCode),
-      );
 
     final tableBusRouteList = (select(tableBusStops).join([
       innerJoin(
@@ -394,9 +383,7 @@ class LocalDbRepository extends _$LocalDbRepository {
     ])
       ..where(
         tableBusRoutes.serviceNo.equals(serviceNo) &
-            tableBusRoutes.direction.equals(direction) &
-            tableBusRoutes.stopSequence
-                .isBiggerOrEqual(subqueryExpression(startSequence)),
+            tableBusRoutes.direction.equals(direction),
       ))
       ..orderBy([OrderingTerm.asc(tableBusRoutes.stopSequence)]);
     final result = await tableBusRouteList.get();

@@ -18,25 +18,11 @@ class BusRoutesService {
   Future<List<BusStopValueModel>> getBusRoute({
     required String busStopCode,
     required String serviceNo,
-    required String originalCode,
-    required String destinationCode,
+    required int direction,
   }) async {
     final repository = ref.read(localDbRepositoryProvider);
 
-    final busServiceValueModelList = await repository.getBusService(
-      serviceNo: serviceNo,
-      originalCode: originalCode,
-      destinationCode: destinationCode,
-    );
-
-    // If the bus is not in service, we are not getting 'originalCode' and
-    // 'destinationCode" - hence defaulting it to 1.
-    var direction = 1;
-    if (busServiceValueModelList.isNotEmpty) {
-      direction = busServiceValueModelList[0].direction;
-    }
     return repository.getBusRoute(
-      busStopCode: busStopCode,
       serviceNo: serviceNo,
       direction: direction,
     );

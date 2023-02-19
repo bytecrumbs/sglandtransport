@@ -1,14 +1,16 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/bus_arrivals/presentation/bus_stop/bus_arrival_list_screen.dart';
-import '../features/bus_routes/presentation/bus_route_screen.dart';
+import '../features/bus_services/presentation/bus_service_screen.dart';
 import '../features/home/presentation/dashboard_screen.dart';
 
 enum AppRoute {
   home,
   busArrivals,
   busRoutes,
+  busDetails,
 }
 
 final goRouter = GoRouter(
@@ -29,24 +31,20 @@ final goRouter = GoRouter(
               busStopCode: busStopCode,
             );
           },
-          routes: [
-            GoRoute(
-              path: 'busRoutes/:serviceNo/:originalCode/:destinationCode',
-              name: AppRoute.busRoutes.name,
-              builder: (context, state) {
-                final busStopCode = state.params['busStopCode']!;
-                final serviceNo = state.params['serviceNo']!;
-                final originalCode = state.params['originalCode']!;
-                final destinationCode = state.params['destinationCode']!;
-                return BusRouteScreen(
-                  busStopCode: busStopCode,
-                  serviceNo: serviceNo,
-                  originalCode: originalCode,
-                  destinationCode: destinationCode,
-                );
-              },
-            ),
-          ],
+        ),
+        GoRoute(
+          path: 'busDetails/:serviceNo',
+          name: AppRoute.busDetails.name,
+          pageBuilder: (context, state) {
+            final serviceNo = state.params['serviceNo']!;
+            return MaterialPage<BusServiceScreen>(
+              key: state.pageKey,
+              fullscreenDialog: true,
+              child: BusServiceScreen(
+                serviceNo: serviceNo,
+              ),
+            );
+          },
         ),
       ],
     ),
