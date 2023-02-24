@@ -4,17 +4,25 @@ import 'package:go_router/go_router.dart';
 import '../../../constants/palette.dart';
 import '../../../routing/app_router.dart';
 
+enum BusSequenceType {
+  start,
+  middle,
+  end,
+}
+
 class BusRouteTile extends StatelessWidget {
   const BusRouteTile({
     super.key,
     required this.busStopCode,
     required this.roadName,
     required this.description,
+    required this.busSequenceType,
   });
 
   final String busStopCode;
   final String roadName;
   final String description;
+  final BusSequenceType busSequenceType;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +42,25 @@ class BusRouteTile extends StatelessWidget {
             left: 13,
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Container(
-                color: kSecondaryColor,
-                width: 4,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      color: busSequenceType == BusSequenceType.start
+                          ? Colors.white
+                          : kSecondaryColor,
+                      width: 4,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: busSequenceType == BusSequenceType.end
+                          ? Colors.white
+                          : kSecondaryColor,
+                      width: 4,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -80,22 +104,5 @@ class BusRouteTile extends StatelessWidget {
         ],
       ),
     );
-    // return Row(
-    //   children: [
-    //     Container(
-    //       color: Colors.red,
-    //       child: const Icon(Icons.route),
-    //     ),
-    //     Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         Text(description),
-    //         Text('$busStopCode | $roadName'),
-    //         Text('$busStopCode | $roadName'),
-    //         Text('$busStopCode | $roadName'),
-    //       ],
-    //     ),
-    //   ],
-    // );
   }
 }

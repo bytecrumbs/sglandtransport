@@ -205,11 +205,22 @@ class BusServiceScreen extends ConsumerWidget {
                     Expanded(
                       child: ListView.builder(
                         itemCount: busStop.length,
-                        itemBuilder: (context, index) => BusRouteTile(
-                          busStopCode: busStop[index].busStopCode,
-                          roadName: busStop[index].roadName,
-                          description: busStop[index].description,
-                        ),
+                        itemBuilder: (context, index) {
+                          var busSequenceType = BusSequenceType.middle;
+
+                          if (index == 0) {
+                            busSequenceType = BusSequenceType.start;
+                          } else if (index == busStop.length - 1) {
+                            busSequenceType = BusSequenceType.end;
+                          }
+
+                          return BusRouteTile(
+                            busStopCode: busStop[index].busStopCode,
+                            roadName: busStop[index].roadName,
+                            description: busStop[index].description,
+                            busSequenceType: busSequenceType,
+                          );
+                        },
                       ),
                     ),
                   ],
