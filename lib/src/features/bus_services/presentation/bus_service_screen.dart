@@ -76,6 +76,7 @@ class BusServiceScreen extends ConsumerWidget {
             height: 10,
           ),
           Card(
+            margin: const EdgeInsets.all(10),
             child: busServiceValueModel.when(
               data: (busService) => Padding(
                 padding: const EdgeInsets.all(8),
@@ -191,6 +192,7 @@ class BusServiceScreen extends ConsumerWidget {
           ),
           Expanded(
             child: Card(
+              margin: const EdgeInsets.all(10),
               child: busStopValueModel.when(
                 data: (busStop) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
