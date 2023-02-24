@@ -29,7 +29,7 @@ class BusRouteTile extends StatelessWidget {
     return InkWell(
       onTap: () {
         GoRouter.of(context).pop();
-        GoRouter.of(context).goNamed(
+        GoRouter.of(context).pushNamed(
           AppRoute.busArrivals.name,
           params: {
             'busStopCode': busStopCode,
