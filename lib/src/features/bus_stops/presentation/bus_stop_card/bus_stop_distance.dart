@@ -18,7 +18,8 @@ class BusStopDistance extends StatelessWidget {
           width: 10,
         ),
         const Icon(
-          Icons.arrow_right,
+          Icons.arrow_forward_ios,
+          size: 15,
         ),
       ],
     );

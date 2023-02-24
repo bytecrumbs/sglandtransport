@@ -97,7 +97,13 @@ class BusRouteTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Icon(Icons.arrow_right),
+                const Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                ),
               ],
             ),
           ),
