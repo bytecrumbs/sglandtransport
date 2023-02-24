@@ -33,15 +33,17 @@ final goRouter = GoRouter(
           },
         ),
         GoRoute(
-          path: 'busDetails/:serviceNo',
+          path: 'busDetails/:serviceNo/:busStopCode',
           name: AppRoute.busDetails.name,
           pageBuilder: (context, state) {
             final serviceNo = state.params['serviceNo']!;
+            final busStopCode = state.params['busStopCode']!;
             return MaterialPage<BusServiceScreen>(
               key: state.pageKey,
               fullscreenDialog: true,
               child: BusServiceScreen(
                 serviceNo: serviceNo,
+                busStopCode: busStopCode,
               ),
             );
           },

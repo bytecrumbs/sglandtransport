@@ -347,19 +347,35 @@ class LocalDbRepository extends _$LocalDbRepository {
           )
           .toList();
 
+  JoinedSelectStatement<$TableBusRoutesTable, TableBusRoute> getBusDirection({
+    required String serviceNo,
+    required String busStopCode,
+  }) =>
+      selectOnly(tableBusRoutes)
+        ..addColumns([tableBusRoutes.direction])
+        ..where(
+          tableBusRoutes.serviceNo.equals(serviceNo) &
+              tableBusRoutes.busStopCode.equals(busStopCode),
+        );
+
   Future<List<BusServiceValueModel>> getBusService({
     required String serviceNo,
-    int direction = 1,
+    required String busStopCode,
   }) async {
     ref
         .read(loggerProvider)
         .d('Getting Bus Service from DB for service $serviceNo');
 
+    final direction = getBusDirection(
+      serviceNo: serviceNo,
+      busStopCode: busStopCode,
+    );
+
     final tableBusServicesList = await (select(tableBusServices)
           ..where(
             (tbl) =>
                 tbl.serviceNo.equals(serviceNo) &
-                tbl.direction.equals(direction),
+                tbl.direction.equalsExp(subqueryExpression(direction)),
           ))
         .get();
 
@@ -368,11 +384,16 @@ class LocalDbRepository extends _$LocalDbRepository {
 
   Future<List<BusStopValueModel>> getBusRoute({
     required String serviceNo,
-    required int direction,
+    required String busStopCode,
   }) async {
     ref
         .read(loggerProvider)
         .d('Getting Bus Route for service $serviceNo from DB');
+
+    final direction = getBusDirection(
+      serviceNo: serviceNo,
+      busStopCode: busStopCode,
+    );
 
     final tableBusRouteList = (select(tableBusStops).join([
       innerJoin(
@@ -383,7 +404,7 @@ class LocalDbRepository extends _$LocalDbRepository {
     ])
       ..where(
         tableBusRoutes.serviceNo.equals(serviceNo) &
-            tableBusRoutes.direction.equals(direction),
+            tableBusRoutes.direction.equalsExp(subqueryExpression(direction)),
       ))
       ..orderBy([OrderingTerm.asc(tableBusRoutes.stopSequence)]);
     final result = await tableBusRouteList.get();

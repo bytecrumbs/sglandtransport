@@ -11,18 +11,16 @@ import '../domain/bus_service_value_model.dart';
 
 part 'bus_service_screen.g.dart';
 
-final directionProvider = StateProvider((ref) => 1);
-
 @riverpod
 Future<BusServiceValueModel> busServiceValueModel(
   BusServiceValueModelRef ref, {
   required String serviceNo,
+  required String busStopCode,
 }) async {
-  final direction = ref.watch(directionProvider);
   final repo = ref.watch(localDbRepositoryProvider);
   final busService = await repo.getBusService(
     serviceNo: serviceNo,
-    direction: direction,
+    busStopCode: busStopCode,
   );
   return busService[0];
 }
@@ -31,43 +29,42 @@ Future<BusServiceValueModel> busServiceValueModel(
 Future<List<BusStopValueModel>> busStopValueModel(
   BusStopValueModelRef ref, {
   required String serviceNo,
+  required String busStopCode,
 }) {
-  final direction = ref.watch(directionProvider);
   final repo = ref.watch(localDbRepositoryProvider);
-  return repo.getBusRoute(serviceNo: serviceNo, direction: direction);
+  return repo.getBusRoute(
+    serviceNo: serviceNo,
+    busStopCode: busStopCode,
+  );
 }
 
 class BusServiceScreen extends ConsumerWidget {
   const BusServiceScreen({
     super.key,
     required this.serviceNo,
+    required this.busStopCode,
   });
 
   final String serviceNo;
+  final String busStopCode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final busServiceValueModel = ref.watch(
-      busServiceValueModelProvider(serviceNo: serviceNo),
+      busServiceValueModelProvider(
+        serviceNo: serviceNo,
+        busStopCode: busStopCode,
+      ),
     );
     final busStopValueModel = ref.watch(
-      busStopValueModelProvider(serviceNo: serviceNo),
+      busStopValueModelProvider(
+        serviceNo: serviceNo,
+        busStopCode: busStopCode,
+      ),
     );
     return Scaffold(
       appBar: AppBar(
         title: Text('Bus $serviceNo Details'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              final currentDirection = ref.read(directionProvider);
-              ref.read(directionProvider.notifier).state =
-                  currentDirection == 1 ? 2 : 1;
-            },
-            icon: const Icon(
-              Icons.compare_arrows,
-            ),
-          )
-        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,7 +173,10 @@ class BusServiceScreen extends ConsumerWidget {
                     message: error.message,
                     onPressed: () {
                       ref.invalidate(
-                        busServiceValueModelProvider(serviceNo: serviceNo),
+                        busServiceValueModelProvider(
+                          serviceNo: serviceNo,
+                          busStopCode: busStopCode,
+                        ),
                       );
                     },
                   );
@@ -234,7 +234,10 @@ class BusServiceScreen extends ConsumerWidget {
                       message: error.message,
                       onPressed: () {
                         ref.invalidate(
-                          busServiceValueModelProvider(serviceNo: serviceNo),
+                          busServiceValueModelProvider(
+                            serviceNo: serviceNo,
+                            busStopCode: busStopCode,
+                          ),
                         );
                       },
                     );
