@@ -81,24 +81,6 @@ class BusServiceScreen extends ConsumerWidget {
                   children: [
                     const TableRow(
                       children: [
-                        Text(
-                          'From:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'To:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Text(busService.originCode),
-                        Text(busService.destinationCode),
-                      ],
-                    ),
-                    const TableRow(
-                      children: [
                         Padding(
                           padding: EdgeInsets.only(top: 8),
                           child: Text(
