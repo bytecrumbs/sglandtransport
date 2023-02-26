@@ -8,7 +8,7 @@ import 'package:lta_datamall_flutter/src/shared/third_party_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  group('BusServicesService should', () {
+  group('BusArrivalsService should', () {
     Future<ProviderContainer> _setupWithSharedPreferences(
       Map<String, List<String>> stringList,
     ) async {
