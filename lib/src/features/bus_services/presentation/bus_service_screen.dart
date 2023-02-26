@@ -8,11 +8,13 @@ class BusServiceScreen extends ConsumerWidget {
   const BusServiceScreen({
     super.key,
     required this.serviceNo,
-    required this.busStopCode,
+    required this.originCode,
+    required this.destinationCode,
   });
 
   final String serviceNo;
-  final String busStopCode;
+  final String originCode;
+  final String destinationCode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,7 +26,8 @@ class BusServiceScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BusServiceDetails(
-            busStopCode: busStopCode,
+            originCode: originCode,
+            destinationCode: destinationCode,
             serviceNo: serviceNo,
           ),
           const SizedBox(
@@ -32,7 +35,8 @@ class BusServiceScreen extends ConsumerWidget {
           ),
           Expanded(
             child: BusServiceRoute(
-              busStopCode: busStopCode,
+              originCode: originCode,
+              destinationCode: destinationCode,
               serviceNo: serviceNo,
             ),
           ),

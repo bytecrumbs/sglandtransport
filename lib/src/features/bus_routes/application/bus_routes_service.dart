@@ -16,14 +16,16 @@ class BusRoutesService {
   final Ref ref;
 
   Future<List<BusStopValueModel>> getBusRoute({
-    required String busStopCode,
+    required String originCode,
+    required String destinationCode,
     required String serviceNo,
   }) async {
     final repository = ref.read(localDbRepositoryProvider);
 
     return repository.getBusRoute(
       serviceNo: serviceNo,
-      busStopCode: busStopCode,
+      originCode: originCode,
+      destinationCode: destinationCode,
     );
   }
 }

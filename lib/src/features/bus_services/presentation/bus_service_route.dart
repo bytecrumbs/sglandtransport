@@ -14,31 +14,36 @@ part 'bus_service_route.g.dart';
 Future<List<BusStopValueModel>> busStopValueModel(
   BusStopValueModelRef ref, {
   required String serviceNo,
-  required String busStopCode,
+  required String originCode,
+  required String destinationCode,
 }) {
   final repo = ref.watch(localDbRepositoryProvider);
   return repo.getBusRoute(
     serviceNo: serviceNo,
-    busStopCode: busStopCode,
+    originCode: originCode,
+    destinationCode: destinationCode,
   );
 }
 
 class BusServiceRoute extends ConsumerWidget {
   const BusServiceRoute({
     super.key,
-    required this.busStopCode,
+    required this.originCode,
+    required this.destinationCode,
     required this.serviceNo,
   });
 
   final String serviceNo;
-  final String busStopCode;
+  final String originCode;
+  final String destinationCode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final busStopValueModel = ref.watch(
       busStopValueModelProvider(
         serviceNo: serviceNo,
-        busStopCode: busStopCode,
+        originCode: originCode,
+        destinationCode: destinationCode,
       ),
     );
     return Card(
@@ -86,7 +91,8 @@ class BusServiceRoute extends ConsumerWidget {
                 ref.invalidate(
                   busStopValueModelProvider(
                     serviceNo: serviceNo,
-                    busStopCode: busStopCode,
+                    originCode: originCode,
+                    destinationCode: destinationCode,
                   ),
                 );
               },

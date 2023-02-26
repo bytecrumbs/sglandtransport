@@ -51,7 +51,8 @@ class BusArrivalCard extends StatelessWidget {
               AppRoute.busDetails.name,
               params: {
                 'serviceNo': serviceNo,
-                'busStopCode': busStopCode,
+                'originCode': originalCode,
+                'destinationCode': destinationCode,
               },
             ),
             child: BusArrivalCardHeader(

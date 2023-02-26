@@ -347,20 +347,24 @@ class LocalDbRepository extends _$LocalDbRepository {
           )
           .toList();
 
-  JoinedSelectStatement<$TableBusRoutesTable, TableBusRoute> getBusDirection({
+  JoinedSelectStatement<$TableBusServicesTable, TableBusService>
+      getBusDirection({
     required String serviceNo,
-    required String busStopCode,
+    required String originCode,
+    required String destinationCode,
   }) =>
-      selectOnly(tableBusRoutes)
-        ..addColumns([tableBusRoutes.direction])
-        ..where(
-          tableBusRoutes.serviceNo.equals(serviceNo) &
-              tableBusRoutes.busStopCode.equals(busStopCode),
-        );
+          selectOnly(tableBusServices)
+            ..addColumns([tableBusServices.direction])
+            ..where(
+              tableBusServices.serviceNo.equals(serviceNo) &
+                  tableBusServices.originCode.equals(originCode) &
+                  tableBusServices.destinationCode.equals(destinationCode),
+            );
 
   Future<List<BusServiceValueModel>> getBusService({
     required String serviceNo,
-    required String busStopCode,
+    required String originCode,
+    required String destinationCode,
   }) async {
     ref
         .read(loggerProvider)
@@ -368,7 +372,8 @@ class LocalDbRepository extends _$LocalDbRepository {
 
     final direction = getBusDirection(
       serviceNo: serviceNo,
-      busStopCode: busStopCode,
+      originCode: originCode,
+      destinationCode: destinationCode,
     );
 
     final tableBusServicesList = await (select(tableBusServices)
@@ -384,7 +389,8 @@ class LocalDbRepository extends _$LocalDbRepository {
 
   Future<List<BusStopValueModel>> getBusRoute({
     required String serviceNo,
-    required String busStopCode,
+    required String originCode,
+    required String destinationCode,
   }) async {
     ref
         .read(loggerProvider)
@@ -392,7 +398,8 @@ class LocalDbRepository extends _$LocalDbRepository {
 
     final direction = getBusDirection(
       serviceNo: serviceNo,
-      busStopCode: busStopCode,
+      originCode: originCode,
+      destinationCode: destinationCode,
     );
 
     final tableBusRouteList = (select(tableBusStops).join([
