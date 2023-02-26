@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../features/bus_arrivals/data/bus_arrivals_repository.dart';
 import '../../features/bus_routes/data/bus_routes_repository.dart';
 import '../../features/bus_routes/domain/bus_route_value_model.dart';
+import '../../features/bus_routes/domain/bus_route_with_bus_stop_info_model.dart';
 import '../../features/bus_services/domain/bus_service_value_model.dart';
 import '../../features/bus_stops/data/bus_stops_repository.dart';
 import '../../features/bus_stops/domain/bus_stop_value_model.dart';
@@ -53,6 +54,13 @@ class TableBusServices extends Table {
   TextColumn get pmPeakFreq => text()();
   TextColumn get pmOffpeakFreq => text()();
   TextColumn get loopDesc => text().nullable()();
+}
+
+class TableBusRouteWithBusStopInfo {
+  TableBusRouteWithBusStopInfo(this.route, this.busStop);
+
+  final TableBusRoute route;
+  final TableBusStop busStop;
 }
 
 LazyDatabase _openConnection() {
@@ -290,6 +298,25 @@ class LocalDbRepository extends _$LocalDbRepository {
           )
           .toList();
 
+  List<BusRouteWithBusStopInfoModel> _busRouteTableWithBusStopInfoToFreezed(
+    List<TableBusRouteWithBusStopInfo> tableBusRouteWithBusStopInfo,
+  ) =>
+      tableBusRouteWithBusStopInfo
+          .map(
+            (e) => BusRouteWithBusStopInfoModel(
+              busStopCode: e.busStop.busStopCode,
+              serviceNo: e.route.serviceNo,
+              direction: e.route.direction,
+              stopSequence: e.route.stopSequence,
+              distance: e.route.distance,
+              roadName: e.busStop.roadName,
+              description: e.busStop.description,
+              latitude: e.busStop.latitude,
+              longitude: e.busStop.longitude,
+            ),
+          )
+          .toList();
+
   Future<List<BusStopValueModel>> getAllBusStops() async {
     ref.read(loggerProvider).d('Getting all Bus Stops from DB');
     final tableBusStopList = await select(tableBusStops).get();
@@ -361,6 +388,27 @@ class LocalDbRepository extends _$LocalDbRepository {
                   tableBusServices.destinationCode.equals(destinationCode),
             );
 
+  JoinedSelectStatement<$TableBusRoutesTable, TableBusRoute> getStopSequence({
+    required String serviceNo,
+    required String busStopCode,
+    required String originCode,
+    required String destinationCode,
+  }) {
+    final direction = getBusDirection(
+      serviceNo: serviceNo,
+      originCode: originCode,
+      destinationCode: destinationCode,
+    );
+
+    return selectOnly(tableBusRoutes)
+      ..addColumns([tableBusRoutes.stopSequence])
+      ..where(
+        tableBusRoutes.serviceNo.equals(serviceNo) &
+            tableBusRoutes.busStopCode.equals(busStopCode) &
+            tableBusRoutes.direction.equalsExp(subqueryExpression(direction)),
+      );
+  }
+
   Future<List<BusServiceValueModel>> getBusService({
     required String serviceNo,
     required String originCode,
@@ -387,8 +435,9 @@ class LocalDbRepository extends _$LocalDbRepository {
     return _busServiceTableToFreezed(tableBusServicesList);
   }
 
-  Future<List<BusStopValueModel>> getBusRoute({
+  Future<List<BusRouteWithBusStopInfoModel>> getBusRoute({
     required String serviceNo,
+    required String busStopCode,
     required String originCode,
     required String destinationCode,
   }) async {
@@ -402,24 +451,36 @@ class LocalDbRepository extends _$LocalDbRepository {
       destinationCode: destinationCode,
     );
 
+    final stopSequence = getStopSequence(
+      serviceNo: serviceNo,
+      busStopCode: busStopCode,
+      originCode: originCode,
+      destinationCode: destinationCode,
+    );
+
     final tableBusRouteList = (select(tableBusStops).join([
       innerJoin(
         tableBusRoutes,
         tableBusRoutes.busStopCode.equalsExp(tableBusStops.busStopCode),
-        useColumns: false,
       )
     ])
       ..where(
         tableBusRoutes.serviceNo.equals(serviceNo) &
-            tableBusRoutes.direction.equalsExp(subqueryExpression(direction)),
+            tableBusRoutes.direction.equalsExp(subqueryExpression(direction)) &
+            tableBusRoutes.stopSequence
+                .isBiggerOrEqual(subqueryExpression(stopSequence)),
       ))
       ..orderBy([OrderingTerm.asc(tableBusRoutes.stopSequence)]);
     final result = await tableBusRouteList.get();
 
-    final tableBusStopList = result.map((row) {
-      return row.readTable(tableBusStops);
+    final tableBusRouteWithBusStopInfo = result.map((row) {
+      return TableBusRouteWithBusStopInfo(
+        row.readTable(tableBusRoutes),
+        row.readTable(tableBusStops),
+      );
+      // return row.readTable(tableBusStops);
     }).toList();
 
-    return _busStopTableToFreezed(tableBusStopList);
+    return _busRouteTableWithBusStopInfoToFreezed(tableBusRouteWithBusStopInfo);
   }
 }

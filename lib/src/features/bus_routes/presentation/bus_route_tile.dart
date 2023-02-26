@@ -17,25 +17,29 @@ class BusRouteTile extends StatelessWidget {
     required this.roadName,
     required this.description,
     required this.busSequenceType,
+    required this.isPreviousStops,
   });
 
   final String busStopCode;
   final String roadName;
   final String description;
   final BusSequenceType busSequenceType;
+  final bool isPreviousStops;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        GoRouter.of(context).pop();
-        GoRouter.of(context).pushNamed(
-          AppRoute.busArrivals.name,
-          params: {
-            'busStopCode': busStopCode,
-          },
-        );
-      },
+      onTap: !isPreviousStops
+          ? () {
+              GoRouter.of(context).pop();
+              GoRouter.of(context).pushNamed(
+                AppRoute.busArrivals.name,
+                params: {
+                  'busStopCode': busStopCode,
+                },
+              );
+            }
+          : null,
       child: Stack(
         children: [
           Positioned.fill(
@@ -91,19 +95,25 @@ class BusRouteTile extends StatelessWidget {
                     children: [
                       Text(
                         description,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: isPreviousStops
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                        ),
                       ),
-                      Text('$busStopCode | $roadName'),
+                      if (!isPreviousStops) Text('$busStopCode | $roadName'),
                     ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 10),
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 15,
+                if (!isPreviousStops)
+                  const Padding(
+                    padding: EdgeInsets.only(right: 10),
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15,
+                    ),
                   ),
-                ),
               ],
             ),
           ),

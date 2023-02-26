@@ -3,23 +3,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../shared/custom_exception.dart';
-import '../../../shared/data/local_db_repository.dart';
 import '../../../shared/presentation/error_display.dart';
+import '../../bus_routes/application/bus_routes_service.dart';
+import '../../bus_routes/domain/bus_route_with_bus_stop_info_model.dart';
 import '../../bus_routes/presentation/bus_route_tile.dart';
-import '../../bus_stops/domain/bus_stop_value_model.dart';
 
 part 'bus_service_route.g.dart';
 
 @riverpod
-Future<List<BusStopValueModel>> busStopValueModel(
-  BusStopValueModelRef ref, {
+Future<List<BusRouteWithBusStopInfoModel>> busRouteWithBusStopInfoModel(
+  BusRouteWithBusStopInfoModelRef ref, {
   required String serviceNo,
+  required String busStopCode,
   required String originCode,
   required String destinationCode,
 }) {
-  final repo = ref.watch(localDbRepositoryProvider);
+  final repo = ref.watch(busRoutesServiceProvider);
   return repo.getBusRoute(
     serviceNo: serviceNo,
+    busStopCode: busStopCode,
     originCode: originCode,
     destinationCode: destinationCode,
   );
@@ -28,28 +30,31 @@ Future<List<BusStopValueModel>> busStopValueModel(
 class BusServiceRoute extends ConsumerWidget {
   const BusServiceRoute({
     super.key,
+    required this.busStopCode,
     required this.originCode,
     required this.destinationCode,
     required this.serviceNo,
   });
 
   final String serviceNo;
+  final String busStopCode;
   final String originCode;
   final String destinationCode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final busStopValueModel = ref.watch(
-      busStopValueModelProvider(
+    final busRouteWithBusStopInfoModel = ref.watch(
+      busRouteWithBusStopInfoModelProvider(
         serviceNo: serviceNo,
+        busStopCode: busStopCode,
         originCode: originCode,
         destinationCode: destinationCode,
       ),
     );
     return Card(
       margin: const EdgeInsets.all(10),
-      child: busStopValueModel.when(
-        data: (busStop) => Column(
+      child: busRouteWithBusStopInfoModel.when(
+        data: (busRoute) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
@@ -61,21 +66,22 @@ class BusServiceRoute extends ConsumerWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: busStop.length,
+                itemCount: busRoute.length,
                 itemBuilder: (context, index) {
                   var busSequenceType = BusSequenceType.middle;
 
                   if (index == 0) {
                     busSequenceType = BusSequenceType.start;
-                  } else if (index == busStop.length - 1) {
+                  } else if (index == busRoute.length - 1) {
                     busSequenceType = BusSequenceType.end;
                   }
 
                   return BusRouteTile(
-                    busStopCode: busStop[index].busStopCode,
-                    roadName: busStop[index].roadName,
-                    description: busStop[index].description,
+                    busStopCode: busRoute[index].busStopCode,
+                    roadName: busRoute[index].roadName,
+                    description: busRoute[index].description,
                     busSequenceType: busSequenceType,
+                    isPreviousStops: busRoute[index].isPreviousStops,
                   );
                 },
               ),
@@ -89,8 +95,9 @@ class BusServiceRoute extends ConsumerWidget {
               message: error.message,
               onPressed: () {
                 ref.invalidate(
-                  busStopValueModelProvider(
+                  busRouteWithBusStopInfoModelProvider(
                     serviceNo: serviceNo,
+                    busStopCode: busStopCode,
                     originCode: originCode,
                     destinationCode: destinationCode,
                   ),

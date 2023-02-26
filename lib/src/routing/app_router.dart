@@ -33,9 +33,11 @@ final goRouter = GoRouter(
           },
         ),
         GoRoute(
-          path: 'busDetails/:serviceNo/:originCode/:destinationCode',
+          path:
+              'busDetails/:serviceNo/:busStopCode/:originCode/:destinationCode',
           name: AppRoute.busDetails.name,
           pageBuilder: (context, state) {
+            final busStopCode = state.params['busStopCode']!;
             final serviceNo = state.params['serviceNo']!;
             final originCode = state.params['originCode']!;
             final destinationCode = state.params['destinationCode']!;
@@ -44,6 +46,7 @@ final goRouter = GoRouter(
               fullscreenDialog: true,
               child: BusServiceScreen(
                 serviceNo: serviceNo,
+                busStopCode: busStopCode,
                 originCode: originCode,
                 destinationCode: destinationCode,
               ),
