@@ -120,7 +120,7 @@ class BusArrivalsListScreen extends ConsumerWidget {
                         index: index,
                         child: BusArrivalCard(
                           busStopCode: busStopCode,
-                          originalCode: currentBusArrivalServicesModel
+                          originCode: currentBusArrivalServicesModel
                                   .nextBus.originCode ??
                               '1',
                           destinationCode: currentBusArrivalServicesModel
