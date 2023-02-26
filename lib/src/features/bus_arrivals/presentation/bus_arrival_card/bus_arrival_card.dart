@@ -47,15 +47,17 @@ class BusArrivalCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: () => context.pushNamed(
-              AppRoute.busDetails.name,
-              params: {
-                'serviceNo': serviceNo,
-                'busStopCode': busStopCode,
-                'originCode': originCode,
-                'destinationCode': destinationCode,
-              },
-            ),
+            onTap: inService
+                ? () => context.pushNamed(
+                      AppRoute.busDetails.name,
+                      params: {
+                        'serviceNo': serviceNo,
+                        'busStopCode': busStopCode,
+                        'originCode': originCode,
+                        'destinationCode': destinationCode,
+                      },
+                    )
+                : null,
             child: BusArrivalCardHeader(
               serviceNo: serviceNo,
               inService: inService,

@@ -50,17 +50,18 @@ class BusArrivalsService {
       serviceNo: serviceNo,
     );
 
-    // add destination description to busArrivals
-    final busArrivalsWithDestination =
-        await _addDestination(busArrivals: busArrivals.services);
-
     // add services that are currently not in operation
-    final busArrivalsWithDestinationAndNotInOperation =
-        await _addNotInOperation(
-      busArrivals: busArrivalsWithDestination,
+    final servicesNotInOperation = await _servicesNotInOperation(
+      busArrivals: busArrivals.services,
       busStopCode: busStopCode,
       serviceNo: serviceNo,
     );
+
+    final allBusArrivals = [...busArrivals.services, ...servicesNotInOperation];
+
+    // add destination description to busArrivals
+    final busArrivalsWithDestinationAndNotInOperation =
+        await _addDestination(busArrivals: allBusArrivals);
 
     // mark favorite bus service no
     final busArrivalsWithFavorites = _markFavoriteBusNo(
@@ -77,7 +78,7 @@ class BusArrivalsService {
   // the BusArrival API only returns bus services that are currently in service,
   // so we need to add the bus services not currenlty in service manually by
   // looking up the BusRoutes, which we are storing in the local DB
-  Future<List<BusArrivalServiceModel>> _addNotInOperation({
+  Future<List<BusArrivalServiceModel>> _servicesNotInOperation({
     required List<BusArrivalServiceModel> busArrivals,
     required String busStopCode,
     String? serviceNo,
@@ -97,20 +98,22 @@ class BusArrivalsService {
           .toSet()
           .difference(busArrivalsServiceNo.toSet())
           .toList();
-      // create new elements for the bus services not in service right now
-      for (final element in serviceNoDifferences) {
-        final missingBusArrivalServiceModel = BusArrivalServiceModel(
-          serviceNo: element,
-          busOperator: '',
-          inService: false,
-          nextBus: NextBusModel(),
-          nextBus2: NextBusModel(),
-          nextBus3: NextBusModel(),
-        );
-        busArrivals.add(missingBusArrivalServiceModel);
-      }
+
+      return serviceNoDifferences
+          .map(
+            (e) => BusArrivalServiceModel(
+              serviceNo: e,
+              busOperator: '',
+              inService: false,
+              nextBus: NextBusModel(),
+              nextBus2: NextBusModel(),
+              nextBus3: NextBusModel(),
+            ),
+          )
+          .toList();
+    } else {
+      return [];
     }
-    return busArrivals;
   }
 
   List<BusArrivalServiceModel> _markFavoriteBusNo({
