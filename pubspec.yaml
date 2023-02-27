@@ -17,7 +17,7 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  convex_bottom_bar: ^3.1.0+1
+  convex_bottom_bar: ^3.2.0
   dio: ^4.0.6
   drift: ^2.4.2
   firebase_analytics: ^10.1.0

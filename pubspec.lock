@@ -197,10 +197,10 @@ packages:
     dependency: "direct main"
     description:
       name: convex_bottom_bar
-      sha256: "6c9d23fa309b2cf2cb4804a6318e34694f4714c29fac79621ff88b71266fbe57"
+      sha256: ebf0f3deb1e8e99374d844fee7485d2980ec502dedfaad395c12118477933aef
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0+1"
+    version: "3.2.0"
   cross_file:
     dependency: transitive
     description:
