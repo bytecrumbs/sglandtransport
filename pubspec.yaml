@@ -55,7 +55,7 @@ dev_dependencies:
   freezed: ^2.3.2
   integration_test:
     sdk: flutter
-  json_serializable: ^6.6.0
+  json_serializable: ^6.6.1
   riverpod_generator: ^1.1.1
 
 flutter_icons:
