@@ -40,7 +40,7 @@ dependencies:
   pedantic: ^1.11.1
   riverpod_annotation: ^1.2.1
   share_plus: ^6.3.1
-  shared_preferences: ^2.0.16
+  shared_preferences: ^2.0.18
   sqlite3_flutter_libs: ^0.5.13
   substring_highlight: ^1.0.33
   url_launcher: ^6.1.7
