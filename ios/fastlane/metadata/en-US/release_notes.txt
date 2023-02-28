@@ -1,1 +1,2 @@
-Performance and Stability improvements
+- See bus routes and bus service details when tapping on bus number in bus arrival screen
+- Performance and Stability improvements
