@@ -1,8 +1,9 @@
 SG Land Transport shows information about bus stops and bus arrival times.
 - Nearby bus stops: Find bus stops that are in near proximity (requires permission to track your location)
 - Favorite bus services: Personalize your experience and store frequently used bus services as favorites to easily access them at any time
-- Search: Search for bus stops by name, bus stop code or address
 - Bus Arrival times: For each bus service it will show you the next 3 estimated arrivals for each bus and the available space
+- Search: Search for bus stops by name, bus stop code or address
+- Bus Routes: See bus routes along with bus service details like bus operator arrival frequency and more 
 
 More features to come soon!
 
