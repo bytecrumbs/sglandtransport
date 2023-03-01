@@ -377,26 +377,22 @@ class LocalDbRepository extends _$LocalDbRepository {
   JoinedSelectStatement<$TableBusServicesTable, TableBusService>
       getBusDirection({
     required String serviceNo,
-    required String originCode,
     required String destinationCode,
   }) =>
           selectOnly(tableBusServices)
             ..addColumns([tableBusServices.direction])
             ..where(
               tableBusServices.serviceNo.equals(serviceNo) &
-                  tableBusServices.originCode.equals(originCode) &
                   tableBusServices.destinationCode.equals(destinationCode),
             );
 
   JoinedSelectStatement<$TableBusRoutesTable, TableBusRoute> getStopSequence({
     required String serviceNo,
     required String busStopCode,
-    required String originCode,
     required String destinationCode,
   }) {
     final direction = getBusDirection(
       serviceNo: serviceNo,
-      originCode: originCode,
       destinationCode: destinationCode,
     );
 
@@ -411,7 +407,6 @@ class LocalDbRepository extends _$LocalDbRepository {
 
   Future<List<BusServiceValueModel>> getBusService({
     required String serviceNo,
-    required String originCode,
     required String destinationCode,
   }) async {
     ref
@@ -420,7 +415,6 @@ class LocalDbRepository extends _$LocalDbRepository {
 
     final direction = getBusDirection(
       serviceNo: serviceNo,
-      originCode: originCode,
       destinationCode: destinationCode,
     );
 
@@ -438,7 +432,6 @@ class LocalDbRepository extends _$LocalDbRepository {
   Future<List<BusRouteWithBusStopInfoModel>> getBusRoute({
     required String serviceNo,
     required String busStopCode,
-    required String originCode,
     required String destinationCode,
   }) async {
     ref
@@ -447,14 +440,12 @@ class LocalDbRepository extends _$LocalDbRepository {
 
     final direction = getBusDirection(
       serviceNo: serviceNo,
-      originCode: originCode,
       destinationCode: destinationCode,
     );
 
     final stopSequence = getStopSequence(
       serviceNo: serviceNo,
       busStopCode: busStopCode,
-      originCode: originCode,
       destinationCode: destinationCode,
     );
 

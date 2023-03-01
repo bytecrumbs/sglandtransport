@@ -67,7 +67,6 @@ class BusArrivalCardWithFetch extends ConsumerWidget {
     return busService.when(
       data: (busArrivalServiceModel) => BusArrivalCard(
         busStopCode: busStopCode,
-        originCode: busArrivalServiceModel.nextBus.originCode ?? '1',
         destinationCode: busArrivalServiceModel.nextBus.destinationCode ?? '1',
         inService: busArrivalServiceModel.inService,
         serviceNo: busArrivalServiceModel.serviceNo,

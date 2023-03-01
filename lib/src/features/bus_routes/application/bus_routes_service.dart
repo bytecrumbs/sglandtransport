@@ -17,7 +17,6 @@ class BusRoutesService {
 
   Future<List<BusRouteWithBusStopInfoModel>> getBusRoute({
     required String busStopCode,
-    required String originCode,
     required String destinationCode,
     required String serviceNo,
   }) async {
@@ -26,7 +25,6 @@ class BusRoutesService {
     final busRoutes = await repository.getBusRoute(
       busStopCode: busStopCode,
       serviceNo: serviceNo,
-      originCode: originCode,
       destinationCode: destinationCode,
     );
 

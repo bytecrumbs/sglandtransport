@@ -11,7 +11,6 @@ class BusArrivalCard extends StatelessWidget {
     super.key,
     // required this.busArrivalModel,
     required this.serviceNo,
-    required this.originCode,
     required this.destinationCode,
     required this.inService,
     this.destinationName,
@@ -26,7 +25,6 @@ class BusArrivalCard extends StatelessWidget {
   });
 
   final String serviceNo;
-  final String originCode;
   final String destinationCode;
   final bool inService;
   final String? destinationName;
@@ -53,7 +51,6 @@ class BusArrivalCard extends StatelessWidget {
                       params: {
                         'serviceNo': serviceNo,
                         'busStopCode': busStopCode,
-                        'originCode': originCode,
                         'destinationCode': destinationCode,
                       },
                     )

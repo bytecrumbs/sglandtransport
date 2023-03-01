@@ -15,14 +15,12 @@ Future<List<BusRouteWithBusStopInfoModel>> busRouteWithBusStopInfoModel(
   BusRouteWithBusStopInfoModelRef ref, {
   required String serviceNo,
   required String busStopCode,
-  required String originCode,
   required String destinationCode,
 }) {
   final repo = ref.watch(busRoutesServiceProvider);
   return repo.getBusRoute(
     serviceNo: serviceNo,
     busStopCode: busStopCode,
-    originCode: originCode,
     destinationCode: destinationCode,
   );
 }
@@ -31,14 +29,12 @@ class BusServiceRoute extends ConsumerWidget {
   const BusServiceRoute({
     super.key,
     required this.busStopCode,
-    required this.originCode,
     required this.destinationCode,
     required this.serviceNo,
   });
 
   final String serviceNo;
   final String busStopCode;
-  final String originCode;
   final String destinationCode;
 
   @override
@@ -47,7 +43,6 @@ class BusServiceRoute extends ConsumerWidget {
       busRouteWithBusStopInfoModelProvider(
         serviceNo: serviceNo,
         busStopCode: busStopCode,
-        originCode: originCode,
         destinationCode: destinationCode,
       ),
     );
@@ -98,7 +93,6 @@ class BusServiceRoute extends ConsumerWidget {
                   busRouteWithBusStopInfoModelProvider(
                     serviceNo: serviceNo,
                     busStopCode: busStopCode,
-                    originCode: originCode,
                     destinationCode: destinationCode,
                   ),
                 );

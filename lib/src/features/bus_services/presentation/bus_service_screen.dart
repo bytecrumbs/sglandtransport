@@ -9,13 +9,11 @@ class BusServiceScreen extends ConsumerWidget {
     super.key,
     required this.serviceNo,
     required this.busStopCode,
-    required this.originCode,
     required this.destinationCode,
   });
 
   final String serviceNo;
   final String busStopCode;
-  final String originCode;
   final String destinationCode;
 
   @override
@@ -28,7 +26,6 @@ class BusServiceScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BusServiceDetails(
-            originCode: originCode,
             destinationCode: destinationCode,
             serviceNo: serviceNo,
           ),
@@ -38,7 +35,6 @@ class BusServiceScreen extends ConsumerWidget {
           Expanded(
             child: BusServiceRoute(
               busStopCode: busStopCode,
-              originCode: originCode,
               destinationCode: destinationCode,
               serviceNo: serviceNo,
             ),

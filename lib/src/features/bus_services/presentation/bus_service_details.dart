@@ -13,13 +13,11 @@ part 'bus_service_details.g.dart';
 Future<BusServiceValueModel> busServiceValueModel(
   BusServiceValueModelRef ref, {
   required String serviceNo,
-  required String originCode,
   required String destinationCode,
 }) async {
   final repo = ref.watch(localDbRepositoryProvider);
   final busService = await repo.getBusService(
     serviceNo: serviceNo,
-    originCode: originCode,
     destinationCode: destinationCode,
   );
   return busService[0];
@@ -28,13 +26,11 @@ Future<BusServiceValueModel> busServiceValueModel(
 class BusServiceDetails extends ConsumerWidget {
   const BusServiceDetails({
     super.key,
-    required this.originCode,
     required this.destinationCode,
     required this.serviceNo,
   });
 
   final String serviceNo;
-  final String originCode;
   final String destinationCode;
 
   @override
@@ -42,7 +38,6 @@ class BusServiceDetails extends ConsumerWidget {
     final busServiceValueModel = ref.watch(
       busServiceValueModelProvider(
         serviceNo: serviceNo,
-        originCode: originCode,
         destinationCode: destinationCode,
       ),
     );
@@ -131,7 +126,6 @@ class BusServiceDetails extends ConsumerWidget {
                 ref.invalidate(
                   busServiceValueModelProvider(
                     serviceNo: serviceNo,
-                    originCode: originCode,
                     destinationCode: destinationCode,
                   ),
                 );
