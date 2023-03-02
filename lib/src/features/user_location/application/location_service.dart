@@ -12,26 +12,6 @@ part 'location_service.g.dart';
 @riverpod
 LocationService locationService(LocationServiceRef ref) => LocationService(ref);
 
-final userLocationStreamProvider =
-    StreamProvider.autoDispose<UserLocationModel>(
-  (ref) async* {
-    final locationService = ref.read(locationServiceProvider);
-
-    final locationStream = locationService.startLocationStream();
-
-    ref.onDispose(() {
-      ref.read(locationServiceProvider).stopLocationStream();
-    });
-
-    await for (final locationData in locationStream) {
-      yield UserLocationModel(
-        latitude: locationData.latitude,
-        longitude: locationData.longitude,
-      );
-    }
-  },
-);
-
 class LocationService {
   LocationService(this.ref);
 

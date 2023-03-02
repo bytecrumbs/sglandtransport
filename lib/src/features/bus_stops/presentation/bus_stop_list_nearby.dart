@@ -21,7 +21,9 @@ final nearbyBusStopsStreamProvider =
     final hasPermission = await locationService.handlePermission();
 
     if (hasPermission) {
-      final locationStream = ref.watch(userLocationStreamProvider.stream);
+      final locationStream = locationService.startLocationStream();
+
+      ref.onDispose(locationService.stopLocationStream);
 
       // Yield the bus stops of the last known position, if current position
       // has not changed since last time the widget was called

@@ -27,7 +27,7 @@ dependencies:
   flare_flutter: ^3.0.2
   flutter:
     sdk: flutter
-  flutter_riverpod: ^2.2.0
+  flutter_riverpod: ^2.3.0
   flutter_staggered_animations: ^1.1.1
   freezed_annotation: ^2.2.0
   geolocator: ^9.0.2
@@ -38,7 +38,7 @@ dependencies:
   path: ^1.8.2
   path_provider: ^2.0.13
   pedantic: ^1.11.1
-  riverpod_annotation: ^1.2.1
+  riverpod_annotation: ^2.0.0
   share_plus: ^6.3.1
   shared_preferences: ^2.0.18
   sqlite3_flutter_libs: ^0.5.13
@@ -56,7 +56,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   json_serializable: ^6.6.1
-  riverpod_generator: ^1.2.0
+  riverpod_generator: ^2.0.0
 
 flutter_icons:
   android: true
