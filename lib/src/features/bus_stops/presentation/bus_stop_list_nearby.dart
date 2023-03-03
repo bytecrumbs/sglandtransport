@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../shared/custom_exception.dart';
 import '../../../shared/presentation/error_display.dart';
@@ -11,40 +12,42 @@ import '../application/bus_stops_service.dart';
 import '../domain/bus_stop_value_model.dart';
 import 'bus_stop_card/bus_stop_card.dart';
 
-final nearbyBusStopsStreamProvider =
-    StreamProvider.autoDispose<List<BusStopValueModel>>(
-  (ref) async* {
-    final locationService = ref.watch(locationServiceProvider);
+part 'bus_stop_list_nearby.g.dart';
 
-    // TODO: can this be done on startup, rather than repeating it in all the
-    // providers that make use of the location service?
-    final hasPermission = await locationService.handlePermission();
+@riverpod
+Stream<List<BusStopValueModel>> nearbyBusStopsStream(
+  NearbyBusStopsStreamRef ref,
+) async* {
+  final locationService = ref.watch(locationServiceProvider);
 
-    if (hasPermission) {
-      final locationStream = locationService.startLocationStream();
+  // TODO: can this be done on startup, rather than repeating it in all the
+  // providers that make use of the location service?
+  final hasPermission = await locationService.handlePermission();
 
-      ref.onDispose(locationService.stopLocationStream);
+  if (hasPermission) {
+    final locationStream = locationService.startLocationStream();
 
-      // Yield the bus stops of the last known position, if current position
-      // has not changed since last time the widget was called
-      final currentPosition = await locationService.getLastKnownPosition();
+    ref.onDispose(locationService.stopLocationStream);
+
+    // Yield the bus stops of the last known position, if current position
+    // has not changed since last time the widget was called
+    final currentPosition = await locationService.getLastKnownPosition();
+    yield await ref.watch(busStopsServiceProvider).getNearbyBusStops(
+          latitude: currentPosition.latitude,
+          longitude: currentPosition.longitude,
+        );
+
+    // Yield updated positions
+    await for (final locationData in locationStream) {
       yield await ref.watch(busStopsServiceProvider).getNearbyBusStops(
-            latitude: currentPosition.latitude,
-            longitude: currentPosition.longitude,
+            latitude: locationData.latitude,
+            longitude: locationData.longitude,
           );
-
-      // Yield updated positions
-      await for (final locationData in locationStream) {
-        yield await ref.watch(busStopsServiceProvider).getNearbyBusStops(
-              latitude: locationData.latitude,
-              longitude: locationData.longitude,
-            );
-      }
-    } else {
-      throw Exception('No permission to access location');
     }
-  },
-);
+  } else {
+    throw Exception('No permission to access location');
+  }
+}
 
 class BusStopListNearby extends ConsumerWidget {
   const BusStopListNearby({super.key});
