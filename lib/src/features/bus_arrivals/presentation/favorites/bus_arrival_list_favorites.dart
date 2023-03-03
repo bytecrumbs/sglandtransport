@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../constants/bus_arrival_config.dart';
 import '../../../../shared/custom_exception.dart';
@@ -11,21 +12,23 @@ import '../../domain/bus_arrival_with_bus_stop_model.dart';
 import '../bus_arrival_card/bus_arrival_card.dart';
 import 'bus_arrival_header.dart';
 
-final favoriteBusArrivalsStreamProvider =
-    StreamProvider.autoDispose<List<BusArrivalWithBusStopModel>>(
-  (ref) async* {
-    final busServicesService = ref.watch(busArrivalsServiceProvider);
-    // make sure it is executed immediately
-    yield await busServicesService.getFavoriteBusServices();
-    // then execute regularly
-    yield* Stream.periodic(
-      busArrivalRefreshDuration,
-      (computationCount) {
-        return busServicesService.getFavoriteBusServices();
-      },
-    ).asyncMap((event) async => event);
-  },
-);
+part 'bus_arrival_list_favorites.g.dart';
+
+@riverpod
+Stream<List<BusArrivalWithBusStopModel>> favoriteBusArrivalsStream(
+  FavoriteBusArrivalsStreamRef ref,
+) async* {
+  final busServicesService = ref.watch(busArrivalsServiceProvider);
+  // make sure it is executed immediately
+  yield await busServicesService.getFavoriteBusServices();
+  // then execute regularly
+  yield* Stream.periodic(
+    busArrivalRefreshDuration,
+    (computationCount) {
+      return busServicesService.getFavoriteBusServices();
+    },
+  ).asyncMap((event) async => event);
+}
 
 class BusArrivalListFavorites extends ConsumerWidget {
   const BusArrivalListFavorites({super.key});
