@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../constants/bus_arrival_config.dart';
 import '../../../../constants/palette.dart';
 import '../../../../shared/custom_exception.dart';
 import '../../../../shared/presentation/error_display.dart';
 import '../../../../shared/presentation/staggered_animation.dart';
-import '../../../../shared/third_party_providers.dart';
 import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card_with_fetch.dart';
 import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_model.dart';
 import '../bus_arrival_card/bus_arrival_card.dart';
 
-final busArrivalsStreamProvider =
-    StreamProvider.autoDispose.family<BusArrivalModel, String>(
-  (ref, busStopCode) async* {
-    ref.onDispose(() {
-      ref.watch(loggerProvider).d('disposing bus arrival stream');
-    });
-    final busServicesService = ref.watch(busArrivalsServiceProvider);
-    // make sure it is executed immediately
-    yield await busServicesService.getBusArrivals(busStopCode);
-    // then execute regularly
-    yield* Stream.periodic(
-      busArrivalRefreshDuration,
-      (computationCount) {
-        return busServicesService.getBusArrivals(busStopCode);
-      },
-    ).asyncMap((event) async => event);
-  },
-);
+part 'bus_arrival_list_screen.g.dart';
+
+@riverpod
+Stream<BusArrivalModel> busArrivalsStream(
+  BusArrivalsStreamRef ref, {
+  required String busStopCode,
+}) async* {
+  final busServicesService = ref.watch(busArrivalsServiceProvider);
+  // make sure it is executed immediately
+  yield await busServicesService.getBusArrivals(busStopCode);
+  // then execute regularly
+  yield* Stream.periodic(
+    busArrivalRefreshDuration,
+    (computationCount) {
+      return busServicesService.getBusArrivals(busStopCode);
+    },
+  ).asyncMap((event) async => event);
+}
 
 class BusArrivalsListScreen extends ConsumerWidget {
   const BusArrivalsListScreen({
@@ -43,7 +43,7 @@ class BusArrivalsListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vmState = ref.watch(
-      busArrivalsStreamProvider(busStopCode),
+      busArrivalsStreamProvider(busStopCode: busStopCode),
     );
     return Scaffold(
       appBar: AppBar(
@@ -104,7 +104,7 @@ class BusArrivalsListScreen extends ConsumerWidget {
                 onRefresh: () {
                   ref.invalidate(
                     busArrivalsStreamProvider(
-                      busStopCode,
+                      busStopCode: busStopCode,
                     ),
                   );
                   return Future.value();
@@ -160,7 +160,7 @@ class BusArrivalsListScreen extends ConsumerWidget {
                     onPressed: () {
                       ref.invalidate(
                         busArrivalsStreamProvider(
-                          busStopCode,
+                          busStopCode: busStopCode,
                         ),
                       );
                     },
