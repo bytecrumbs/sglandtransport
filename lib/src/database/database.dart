@@ -15,7 +15,7 @@ import '../features/bus_routes/domain/bus_route_with_bus_stop_info_model.dart';
 import '../features/bus_services/domain/bus_service_value_model.dart';
 import '../features/bus_stops/data/bus_stops_repository.dart';
 import '../features/bus_stops/domain/bus_stop_value_model.dart';
-import '../shared/application/local_storage_service.dart';
+import '../local_storage/local_storage_service.dart';
 import '../shared/third_party_providers.dart';
 import 'tables.dart';
 

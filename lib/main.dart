@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'src/app.dart';
-import 'src/shared/application/local_storage_service.dart';
+import 'src/local_storage/local_storage_service.dart';
 
 // Toggle this for testing Crashlytics in the app locally.
 const _kTestingCrashlytics = false;
