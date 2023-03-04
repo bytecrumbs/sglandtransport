@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../database/database.dart';
 import '../../../local_storage/local_storage_keys.dart';
 import '../../../local_storage/local_storage_service.dart';
-import '../../../third_party_providers.dart';
+import '../../../third_party_providers/third_party_providers.dart';
 import '../../../user_location/location_service.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../data/bus_arrivals_repository.dart';

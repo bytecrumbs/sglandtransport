@@ -4,7 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:lta_datamall_flutter/src/features/rate_app/application/rate_app_service.dart';
 import 'package:lta_datamall_flutter/src/local_storage/local_storage_keys.dart';
 import 'package:lta_datamall_flutter/src/local_storage/local_storage_service.dart';
-import 'package:lta_datamall_flutter/src/third_party_providers.dart';
+import 'package:lta_datamall_flutter/src/third_party_providers/third_party_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
