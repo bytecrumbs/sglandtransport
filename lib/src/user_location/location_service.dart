@@ -2,12 +2,22 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../third_party_providers.dart';
-import '../domain/user_location_model.dart';
+
+import '../third_party_providers.dart';
 
 part 'location_service.g.dart';
+part 'location_service.freezed.dart';
+
+@freezed
+class UserLocationModel with _$UserLocationModel {
+  factory UserLocationModel({
+    double? latitude,
+    double? longitude,
+  }) = _UserLocationModel;
+}
 
 @riverpod
 LocationService locationService(LocationServiceRef ref) => LocationService(ref);
