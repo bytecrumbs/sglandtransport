@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../constants/palette.dart';
+import '../../../palette.dart';
 
 part 'next_bus_model.freezed.dart';
 part 'next_bus_model.g.dart';

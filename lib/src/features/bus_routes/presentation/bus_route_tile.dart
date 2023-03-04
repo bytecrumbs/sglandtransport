@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../constants/palette.dart';
+import '../../../palette.dart';
 import '../../../routing/app_router.dart';
 
 enum BusSequenceType {

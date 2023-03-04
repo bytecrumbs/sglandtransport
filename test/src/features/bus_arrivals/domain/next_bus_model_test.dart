@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lta_datamall_flutter/src/constants/palette.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/domain/next_bus_model.dart';
+import 'package:lta_datamall_flutter/src/palette.dart';
 
 void main() {
   group('NextBusModel should', () {

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
-import '../../../../constants/palette.dart';
+import '../../../../palette.dart';
 import '../../../../routing/app_router.dart';
 import '../../../home/presentation/dashboard_screen.dart';
 import 'bus_stop_distance.dart';

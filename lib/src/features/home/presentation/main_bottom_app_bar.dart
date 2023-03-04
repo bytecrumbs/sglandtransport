@@ -1,7 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants/palette.dart';
+import '../../../palette.dart';
 
 class MainBottomAppBar extends StatelessWidget {
   const MainBottomAppBar({

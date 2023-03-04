@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'constants/palette.dart';
 import 'features/rate_app/application/rate_app_service.dart';
+import 'palette.dart';
 import 'routing/app_router.dart';
 
 class MyApp extends ConsumerWidget {
