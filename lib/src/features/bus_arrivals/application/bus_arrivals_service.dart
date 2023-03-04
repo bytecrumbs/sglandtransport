@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../constants/local_storage_keys.dart';
 import '../../../database/database.dart';
+import '../../../local_storage/local_storage_keys.dart';
 import '../../../local_storage/local_storage_service.dart';
 import '../../../third_party_providers.dart';
 import '../../../user_location/location_service.dart';
