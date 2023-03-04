@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../common_widgets/error_display.dart';
 import '../../../shared/custom_exception.dart';
-import '../../../shared/presentation/error_display.dart';
 import '../../bus_routes/application/bus_routes_service.dart';
 import '../../bus_routes/domain/bus_route_with_bus_stop_info_model.dart';
 import '../../bus_routes/presentation/bus_route_tile.dart';

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../common_widgets/error_display.dart';
 import '../../../database/database.dart';
 import '../../../shared/custom_exception.dart';
-import '../../../shared/presentation/error_display.dart';
 import '../domain/bus_service_value_model.dart';
 
 part 'bus_service_details.g.dart';

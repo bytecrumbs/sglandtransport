@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../common_widgets/error_display.dart';
+import '../../../../common_widgets/staggered_animation.dart';
 import '../../../../constants/bus_arrival_config.dart';
 import '../../../../constants/palette.dart';
 import '../../../../shared/custom_exception.dart';
-import '../../../../shared/presentation/error_display.dart';
-import '../../../../shared/presentation/staggered_animation.dart';
 import '../../../bus_stops/presentation/bus_stop_card/bus_stop_card_with_fetch.dart';
 import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_model.dart';
