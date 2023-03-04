@@ -5,11 +5,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../common_widgets/error_display.dart';
 import '../../../../common_widgets/staggered_animation.dart';
-import '../../../../constants/bus_arrival_config.dart';
 import '../../../../custom_exception.dart';
 import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_model.dart';
 import '../bus_arrival_card/bus_arrival_card.dart';
+import '../bus_arrival_config.dart';
 
 part 'bus_arrival_list.g.dart';
 
