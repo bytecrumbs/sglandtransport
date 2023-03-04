@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../constants/environment_config.dart';
+import '../../../environment_config.dart';
 import '../../about/presentation/about.dart';
 
 class AppDrawer extends StatelessWidget {

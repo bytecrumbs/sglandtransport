@@ -3,8 +3,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../constants/environment_config.dart';
 import '../../../custom_exception.dart';
+import '../../../environment_config.dart';
 import '../../../third_party_providers.dart';
 import '../../bus_services/domain/bus_service_model.dart';
 import '../../bus_services/domain/bus_service_value_model.dart';
