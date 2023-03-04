@@ -1,13 +1,10 @@
-import 'package:dio/dio.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../environment_config.dart';
-import '../../../custom_exception.dart';
-import '../../../third_party_providers/third_party_providers.dart';
 import '../../bus_services/domain/bus_service_model.dart';
 import '../../bus_services/domain/bus_service_value_model.dart';
+import '../../shared/data/base_repository.dart';
 import '../domain/bus_arrival_model.dart';
 
 part 'bus_arrivals_repository.g.dart';
@@ -16,8 +13,8 @@ part 'bus_arrivals_repository.g.dart';
 BusArrivalsRepository busArrivalsRepository(BusArrivalsRepositoryRef ref) =>
     BusArrivalsRepository(ref);
 
-class BusArrivalsRepository {
-  BusArrivalsRepository(this.ref);
+class BusArrivalsRepository extends BaseRepository {
+  BusArrivalsRepository(this.ref) : super(ref);
 
   final Ref ref;
 
@@ -27,7 +24,7 @@ class BusArrivalsRepository {
   }) async {
     const fetchUrl = '$ltaDatamallApi/BusArrivalv2';
 
-    final response = await _get<Map<String, Object?>>(
+    final response = await fetch<Map<String, Object?>>(
       fetchUrl,
       queryParameters: {
         'BusStopCode': busStopCode,
@@ -43,7 +40,7 @@ class BusArrivalsRepository {
   Future<List<BusServiceValueModel>> fetchBusServices({int skip = 0}) async {
     const fetchUrl = '$ltaDatamallApi/BusServices';
 
-    final response = await _get<Map<String, Object?>>(
+    final response = await fetch<Map<String, Object?>>(
       fetchUrl,
       queryParameters: {r'$skip': skip},
     );
@@ -51,34 +48,5 @@ class BusArrivalsRepository {
     return BusServiceModel.fromJson(
       response.data!,
     ).value;
-  }
-
-  Future<Response<T>> _get<T>(
-    String path, {
-    Map<String, Object>? queryParameters,
-  }) async {
-    final dio = ref.read(dioProvider);
-    ref
-        .read(loggerProvider)
-        .d('GET $path with $queryParameters as query parameters');
-
-    try {
-      return await dio.get<T>(
-        path,
-        options: Options(
-          headers: <String, String>{
-            'AccountKey': EnvironmentConfig.ltaDatamallApiKey,
-          },
-        ),
-        queryParameters: queryParameters,
-      );
-    } on DioError catch (e) {
-      ref
-          .read(loggerProvider)
-          .e('message: ${e.message}; response: ${e.response}');
-      await FirebaseCrashlytics.instance
-          .log('Catching DIO error. Message: ${e.message}');
-      throw CustomException.fromDioError(e);
-    }
   }
 }
