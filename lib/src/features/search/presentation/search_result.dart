@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../common_widgets/error_display.dart';
+import '../../../custom_exception.dart';
 import '../../../database/database.dart';
-import '../../../shared/custom_exception.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
 import '../../home/presentation/dashboard_screen.dart';

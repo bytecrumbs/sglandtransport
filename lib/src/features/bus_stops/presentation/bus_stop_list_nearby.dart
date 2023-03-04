@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../common_widgets/error_display.dart';
 import '../../../common_widgets/staggered_animation.dart';
-import '../../../shared/custom_exception.dart';
+import '../../../custom_exception.dart';
 import '../../home/presentation/dashboard_screen.dart';
 import '../../user_location/application/location_service.dart';
 import '../application/bus_stops_service.dart';

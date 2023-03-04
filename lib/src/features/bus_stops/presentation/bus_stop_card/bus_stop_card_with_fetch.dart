@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../common_widgets/error_display.dart';
-import '../../../../shared/custom_exception.dart';
+import '../../../../custom_exception.dart';
 import '../../../bus_arrivals/application/bus_arrivals_service.dart';
 import '../../../home/presentation/dashboard_screen.dart';
 import '../../domain/bus_stop_value_model.dart';
