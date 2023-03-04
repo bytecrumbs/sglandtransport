@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'bus_service_details.dart';
 import 'bus_service_route.dart';
 
-class BusServiceScreen extends ConsumerWidget {
+class BusServiceScreen extends StatelessWidget {
   const BusServiceScreen({
     super.key,
     required this.serviceNo,
@@ -17,7 +16,7 @@ class BusServiceScreen extends ConsumerWidget {
   final String destinationCode;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Bus $serviceNo Details'),
