@@ -6,6 +6,7 @@ import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../features/bus_arrivals/data/bus_arrivals_repository.dart';
 import '../../features/bus_routes/data/bus_routes_repository.dart';
@@ -71,8 +72,11 @@ LazyDatabase _openConnection() {
   });
 }
 
-final localDbRepositoryProvider =
-    Provider<LocalDbRepository>(LocalDbRepository.new);
+// keepAlive has been added as otherwise it seems to dispose and recreate
+// the DB each time this provider is read.
+@Riverpod(keepAlive: true)
+LocalDbRepository localDbRepository(LocalDbRepositoryRef ref) =>
+    LocalDbRepository(ref);
 
 @DriftDatabase(tables: [TableBusRoutes, TableBusStops, TableBusServices])
 class LocalDbRepository extends _$LocalDbRepository {
