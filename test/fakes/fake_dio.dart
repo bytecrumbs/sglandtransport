@@ -11,6 +11,7 @@ class FakeDio implements Dio {
   @override
   Future<Response<T>> get<T>(
     String path, {
+    Object? data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,

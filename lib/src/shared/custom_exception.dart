@@ -4,24 +4,25 @@ class CustomException implements Exception {
   CustomException.fromDioError(DioError dioError) {
     statusCode = dioError.response?.statusCode;
     switch (dioError.type) {
+      case DioErrorType.unknown:
+        message = message = dioError.response?.statusMessage ?? 'Unknown Error';
+        break;
+      case DioErrorType.connectionError:
+        message = 'No Internet connectivity';
+        break;
+      case DioErrorType.badCertificate:
+        message = 'Invalid certificate provided';
+        break;
       case DioErrorType.cancel:
         message = 'Request to API server was cancelled';
         break;
-      case DioErrorType.connectTimeout:
+      case DioErrorType.connectionTimeout:
         message = 'Connection timeout with API server';
-        break;
-      case DioErrorType.other:
-        if (dioError.message.contains('SocketException')) {
-          message = 'No internet connectivity';
-        } else {
-          message = dioError.response?.statusMessage ?? 'Unknown Error';
-        }
-
         break;
       case DioErrorType.receiveTimeout:
         message = 'Received timeout in connection with API server';
         break;
-      case DioErrorType.response:
+      case DioErrorType.badResponse:
         message = _handleError(dioError.response?.statusCode);
         break;
       case DioErrorType.sendTimeout:
