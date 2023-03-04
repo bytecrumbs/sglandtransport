@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../constants/environment_config.dart';
 import '../../../custom_exception.dart';
-import '../../../shared/third_party_providers.dart';
+import '../../../third_party_providers.dart';
 import '../domain/bus_route_model.dart';
 import '../domain/bus_route_value_model.dart';
 

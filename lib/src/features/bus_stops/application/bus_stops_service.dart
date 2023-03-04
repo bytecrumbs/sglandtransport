@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../database/database.dart';
-import '../../../shared/third_party_providers.dart';
+import '../../../third_party_providers.dart';
 import '../../user_location/application/location_service.dart';
 import '../domain/bus_stop_value_model.dart';
 

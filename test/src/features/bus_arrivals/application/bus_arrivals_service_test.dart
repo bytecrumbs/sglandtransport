@@ -4,7 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:lta_datamall_flutter/src/constants/local_storage_keys.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/application/bus_arrivals_service.dart';
 import 'package:lta_datamall_flutter/src/local_storage/local_storage_service.dart';
-import 'package:lta_datamall_flutter/src/shared/third_party_providers.dart';
+import 'package:lta_datamall_flutter/src/third_party_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../constants/local_storage_keys.dart';
 import '../../../local_storage/local_storage_service.dart';
-import '../../../shared/third_party_providers.dart';
+import '../../../third_party_providers.dart';
 
 part 'rate_app_service.g.dart';
 

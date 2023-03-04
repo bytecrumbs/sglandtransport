@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../shared/third_party_providers.dart';
+import '../../../third_party_providers.dart';
 import '../domain/user_location_model.dart';
 
 part 'location_service.g.dart';
