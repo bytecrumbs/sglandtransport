@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lta_datamall_flutter/src/environment_config.dart';
+import 'package:lta_datamall_flutter/environment_config.dart';
 
 part 'fake_dio.g.dart';
 

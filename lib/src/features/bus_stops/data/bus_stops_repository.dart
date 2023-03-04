@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../environment_config.dart';
 import '../../../custom_exception.dart';
-import '../../../environment_config.dart';
 import '../../../third_party_providers/third_party_providers.dart';
 import '../domain/bus_stop_model.dart';
 import '../domain/bus_stop_value_model.dart';
