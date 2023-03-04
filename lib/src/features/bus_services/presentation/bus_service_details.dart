@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../database/database.dart';
 import '../../../shared/custom_exception.dart';
-import '../../../shared/data/local_db_repository.dart';
 import '../../../shared/presentation/error_display.dart';
 import '../domain/bus_service_value_model.dart';
 
@@ -15,7 +15,7 @@ Future<BusServiceValueModel> busServiceValueModel(
   required String serviceNo,
   required String destinationCode,
 }) async {
-  final repo = ref.watch(localDbRepositoryProvider);
+  final repo = ref.watch(appDatabaseProvider);
   final busService = await repo.getBusService(
     serviceNo: serviceNo,
     destinationCode: destinationCode,

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../shared/data/local_db_repository.dart';
+import '../../../database/database.dart';
 import '../domain/bus_route_with_bus_stop_info_model.dart';
 
 part 'bus_routes_service.g.dart';
@@ -20,7 +20,7 @@ class BusRoutesService {
     required String destinationCode,
     required String serviceNo,
   }) async {
-    final repository = ref.read(localDbRepositoryProvider);
+    final repository = ref.read(appDatabaseProvider);
 
     final busRoutes = await repository.getBusRoute(
       busStopCode: busStopCode,

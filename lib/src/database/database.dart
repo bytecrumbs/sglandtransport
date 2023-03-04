@@ -8,54 +8,18 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../features/bus_arrivals/data/bus_arrivals_repository.dart';
-import '../../features/bus_routes/data/bus_routes_repository.dart';
-import '../../features/bus_routes/domain/bus_route_value_model.dart';
-import '../../features/bus_routes/domain/bus_route_with_bus_stop_info_model.dart';
-import '../../features/bus_services/domain/bus_service_value_model.dart';
-import '../../features/bus_stops/data/bus_stops_repository.dart';
-import '../../features/bus_stops/domain/bus_stop_value_model.dart';
-import '../application/local_storage_service.dart';
-import '../third_party_providers.dart';
+import '../features/bus_arrivals/data/bus_arrivals_repository.dart';
+import '../features/bus_routes/data/bus_routes_repository.dart';
+import '../features/bus_routes/domain/bus_route_value_model.dart';
+import '../features/bus_routes/domain/bus_route_with_bus_stop_info_model.dart';
+import '../features/bus_services/domain/bus_service_value_model.dart';
+import '../features/bus_stops/data/bus_stops_repository.dart';
+import '../features/bus_stops/domain/bus_stop_value_model.dart';
+import '../shared/application/local_storage_service.dart';
+import '../shared/third_party_providers.dart';
+import 'tables.dart';
 
-part 'local_db_repository.g.dart';
-
-class TableBusRoutes extends Table {
-  TextColumn get serviceNo => text()();
-  TextColumn get operator => text()();
-  IntColumn get direction => integer()();
-  IntColumn get stopSequence => integer()();
-  TextColumn get busStopCode => text()();
-  RealColumn get distance => real()();
-  TextColumn get wdFirstBus => text()();
-  TextColumn get wdLastBus => text()();
-  TextColumn get satFirstBus => text()();
-  TextColumn get satLastBus => text()();
-  TextColumn get sunFirstBus => text()();
-  TextColumn get sunLastBus => text()();
-}
-
-class TableBusStops extends Table {
-  TextColumn get busStopCode => text()();
-  TextColumn get roadName => text()();
-  TextColumn get description => text()();
-  RealColumn get latitude => real()();
-  RealColumn get longitude => real()();
-}
-
-class TableBusServices extends Table {
-  TextColumn get serviceNo => text()();
-  TextColumn get operator => text()();
-  IntColumn get direction => integer()();
-  TextColumn get category => text()();
-  TextColumn get originCode => text()();
-  TextColumn get destinationCode => text()();
-  TextColumn get amPeakFreq => text()();
-  TextColumn get amOffpeakFreq => text()();
-  TextColumn get pmPeakFreq => text()();
-  TextColumn get pmOffpeakFreq => text()();
-  TextColumn get loopDesc => text().nullable()();
-}
+part 'database.g.dart';
 
 class TableBusRouteWithBusStopInfo {
   TableBusRouteWithBusStopInfo(this.route, this.busStop);
@@ -75,13 +39,12 @@ LazyDatabase _openConnection() {
 // keepAlive has been added as otherwise it seems to dispose and recreate
 // the DB each time this provider is read.
 @Riverpod(keepAlive: true)
-LocalDbRepository localDbRepository(LocalDbRepositoryRef ref) =>
-    LocalDbRepository(ref);
+AppDatabase appDatabase(AppDatabaseRef ref) => AppDatabase(ref);
 
 @DriftDatabase(tables: [TableBusRoutes, TableBusStops, TableBusServices])
-class LocalDbRepository extends _$LocalDbRepository {
+class AppDatabase extends _$AppDatabase {
   // we tell the database where to store the data with this constructor
-  LocalDbRepository(this.ref) : super(_openConnection());
+  AppDatabase(this.ref) : super(_openConnection());
 
   final Ref ref;
 

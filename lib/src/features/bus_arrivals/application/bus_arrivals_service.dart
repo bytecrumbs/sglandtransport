@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../constants/local_storage_keys.dart';
+import '../../../database/database.dart';
 import '../../../shared/application/local_storage_service.dart';
-import '../../../shared/data/local_db_repository.dart';
 import '../../../shared/third_party_providers.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../user_location/application/location_service.dart';
@@ -26,7 +26,7 @@ class BusArrivalsService {
   final Ref ref;
 
   Future<BusStopValueModel> getBusStop(String busStopCode) async {
-    final repository = ref.read(localDbRepositoryProvider);
+    final repository = ref.read(appDatabaseProvider);
     final result = await repository.getBusStops(busStopCodes: [busStopCode]);
     return result[0];
   }
@@ -84,7 +84,7 @@ class BusArrivalsService {
     String? serviceNo,
   }) async {
     final busRoutes =
-        await ref.read(localDbRepositoryProvider).getBusServicesForBusStopCode(
+        await ref.read(appDatabaseProvider).getBusServicesForBusStopCode(
               busStopCode: busStopCode,
               serviceNo: serviceNo,
             );
@@ -142,7 +142,7 @@ class BusArrivalsService {
 
     // fetch all bus stops as per the busArrivals list
     final busStops = await ref
-        .read(localDbRepositoryProvider)
+        .read(appDatabaseProvider)
         .getBusStops(busStopCodes: busArrivalsDestinationCode);
 
     // add the destination to the busArrivals list
@@ -217,7 +217,7 @@ class BusArrivalsService {
         .toSet()
         .toList();
 
-    final busStops = await ref.read(localDbRepositoryProvider).getBusStops(
+    final busStops = await ref.read(appDatabaseProvider).getBusStops(
           busStopCodes: uniqueBusStopsList,
         );
 
@@ -312,7 +312,7 @@ class BusArrivalsService {
 
   Future<void> _handleLegacyFavorites() async {
     final localStorageService = ref.read(localStorageServiceProvider);
-    final busDatabaseService = ref.read(localDbRepositoryProvider);
+    final busDatabaseService = ref.read(appDatabaseProvider);
 
     final favoriteBusStops =
         localStorageService.getStringList(favoriteBusStopsKey);
