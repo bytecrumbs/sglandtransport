@@ -1,11 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../database/database.dart';
 import '../../../local_storage/local_storage_keys.dart';
 import '../../../local_storage/local_storage_service.dart';
 import '../../../third_party_providers/third_party_providers.dart';
 import '../../../user_location/location_service.dart';
+import '../../bus_routes/data/bus_routes_repository.dart';
+import '../../bus_stops/data/bus_stops_repository.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../data/bus_arrivals_repository.dart';
 import '../domain/bus_arrival_model.dart';
@@ -25,7 +26,7 @@ class BusArrivalsService {
   final Ref ref;
 
   Future<BusStopValueModel> getBusStop(String busStopCode) async {
-    final repository = ref.read(appDatabaseProvider);
+    final repository = ref.read(busStopsRepositoryProvider);
     final result = await repository.getBusStops(busStopCodes: [busStopCode]);
     return result[0];
   }
@@ -82,11 +83,12 @@ class BusArrivalsService {
     required String busStopCode,
     String? serviceNo,
   }) async {
-    final busRoutes =
-        await ref.read(appDatabaseProvider).getBusServicesForBusStopCode(
-              busStopCode: busStopCode,
-              serviceNo: serviceNo,
-            );
+    final busRoutes = await ref
+        .read(busRoutesRepositoryProvider)
+        .getBusServicesForBusStopCode(
+          busStopCode: busStopCode,
+          serviceNo: serviceNo,
+        );
     if (busRoutes.length > busArrivals.length) {
       // create a list of service numbers, so we can better compare
       final busRoutesServiceNo = busRoutes.map((e) => e.serviceNo).toList();
@@ -141,7 +143,7 @@ class BusArrivalsService {
 
     // fetch all bus stops as per the busArrivals list
     final busStops = await ref
-        .read(appDatabaseProvider)
+        .read(busStopsRepositoryProvider)
         .getBusStops(busStopCodes: busArrivalsDestinationCode);
 
     // add the destination to the busArrivals list
@@ -216,7 +218,7 @@ class BusArrivalsService {
         .toSet()
         .toList();
 
-    final busStops = await ref.read(appDatabaseProvider).getBusStops(
+    final busStops = await ref.read(busStopsRepositoryProvider).getBusStops(
           busStopCodes: uniqueBusStopsList,
         );
 
@@ -311,7 +313,7 @@ class BusArrivalsService {
 
   Future<void> _handleLegacyFavorites() async {
     final localStorageService = ref.read(localStorageServiceProvider);
-    final busDatabaseService = ref.read(appDatabaseProvider);
+    final busRouteRepo = ref.read(busRoutesRepositoryProvider);
 
     final favoriteBusStops =
         localStorageService.getStringList(favoriteBusStopsKey);
@@ -321,7 +323,7 @@ class BusArrivalsService {
           .read(loggerProvider)
           .d('Found favorite bus stops and processing them');
       for (final favoriteBusStop in favoriteBusStops) {
-        final busStops = await busDatabaseService.getBusServicesForBusStopCode(
+        final busStops = await busRouteRepo.getBusServicesForBusStopCode(
           busStopCode: favoriteBusStop,
         );
 

@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../database/database.dart';
 import '../../../third_party_providers/third_party_providers.dart';
 import '../../../user_location/location_service.dart';
+import '../data/bus_stops_repository.dart';
 import '../domain/bus_stop_value_model.dart';
 
 part 'bus_stops_service.g.dart';
@@ -20,7 +20,7 @@ class BusStopsService {
     double? latitude,
     double? longitude,
   }) async {
-    final busLocalRepository = ref.read(appDatabaseProvider);
+    final busLocalRepository = ref.read(busStopsRepositoryProvider);
 
     // fetch all bus stops from the database and then filter based on the cached
     // result. This is more efficient than querying the local database with a filter

@@ -13,8 +13,8 @@ part 'bus_arrivals_repository.g.dart';
 BusArrivalsRepository busArrivalsRepository(BusArrivalsRepositoryRef ref) =>
     BusArrivalsRepository(ref);
 
-class BusArrivalsRepository extends BaseRepository {
-  BusArrivalsRepository(this.ref) : super(ref);
+class BusArrivalsRepository with BaseRepository {
+  BusArrivalsRepository(this.ref);
 
   final Ref ref;
 
@@ -30,6 +30,7 @@ class BusArrivalsRepository extends BaseRepository {
         'BusStopCode': busStopCode,
         if (serviceNo != null) 'ServiceNo': serviceNo,
       },
+      ref: ref,
     );
 
     return BusArrivalModel.fromJson(
@@ -43,6 +44,7 @@ class BusArrivalsRepository extends BaseRepository {
     final response = await fetch<Map<String, Object?>>(
       fetchUrl,
       queryParameters: {r'$skip': skip},
+      ref: ref,
     );
 
     return BusServiceModel.fromJson(

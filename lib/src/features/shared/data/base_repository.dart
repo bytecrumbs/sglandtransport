@@ -6,17 +6,14 @@ import '../../../../environment_config.dart';
 import '../../../custom_exception.dart';
 import '../../../third_party_providers/third_party_providers.dart';
 
-class BaseRepository {
-  BaseRepository(this.refBase);
-
-  final Ref refBase;
-
+mixin BaseRepository {
   Future<Response<T>> fetch<T>(
     String path, {
     Map<String, Object>? queryParameters,
+    required Ref ref,
   }) async {
-    final dio = refBase.read(dioProvider);
-    refBase
+    final dio = ref.read(dioProvider);
+    ref
         .read(loggerProvider)
         .d('GET $path with $queryParameters as query parameters');
 
@@ -31,7 +28,7 @@ class BaseRepository {
         queryParameters: queryParameters,
       );
     } on DioError catch (e) {
-      refBase
+      ref
           .read(loggerProvider)
           .e('message: ${e.message}; response: ${e.response}');
       await FirebaseCrashlytics.instance

@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../common_widgets/error_display.dart';
 import '../../../custom_exception.dart';
-import '../../../database/database.dart';
+import '../../bus_stops/data/bus_stops_repository.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
 import '../../bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
 import '../../home/presentation/dashboard_screen.dart';
@@ -17,9 +17,9 @@ Future<List<BusStopValueModel>> searchResult(
   required String searchTerm,
 }) {
   if (searchTerm.isNotEmpty) {
-    final busDatabaseService = ref.watch(appDatabaseProvider);
+    final busStopRepo = ref.watch(busStopsRepositoryProvider);
 
-    return busDatabaseService.findBusStops(searchTerm);
+    return busStopRepo.findBusStops(searchTerm);
   } else {
     return Future.value(<BusStopValueModel>[]);
   }
