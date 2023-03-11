@@ -10,7 +10,7 @@ import '../../../third_party_providers/third_party_providers.dart';
 
 part 'rate_app_service.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 RateAppService rateAppService(RateAppServiceRef ref) => RateAppService(ref);
 
 class RateAppService {

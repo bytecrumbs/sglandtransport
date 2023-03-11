@@ -19,7 +19,7 @@ class UserLocationModel with _$UserLocationModel {
   }) = _UserLocationModel;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 LocationService locationService(LocationServiceRef ref) => LocationService(ref);
 
 class LocationService {

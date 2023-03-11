@@ -8,7 +8,7 @@ import '../domain/bus_stop_value_model.dart';
 
 part 'bus_stops_service.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 BusStopsService busStopsService(BusStopsServiceRef ref) => BusStopsService(ref);
 
 class BusStopsService {

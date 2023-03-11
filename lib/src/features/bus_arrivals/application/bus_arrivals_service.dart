@@ -16,7 +16,7 @@ import '../domain/next_bus_model.dart';
 
 part 'bus_arrivals_service.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 BusArrivalsService busArrivalsService(BusArrivalsServiceRef ref) =>
     BusArrivalsService(ref);
 

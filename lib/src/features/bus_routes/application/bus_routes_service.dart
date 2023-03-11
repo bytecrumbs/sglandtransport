@@ -6,7 +6,7 @@ import '../domain/bus_route_with_bus_stop_info_model.dart';
 
 part 'bus_routes_service.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 BusRoutesService busRoutesService(BusRoutesServiceRef ref) =>
     BusRoutesService(ref);
 
