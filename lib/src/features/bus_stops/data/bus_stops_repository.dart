@@ -12,7 +12,7 @@ import '../domain/bus_stop_value_model.dart';
 
 part 'bus_stops_repository.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 BusStopsRepository busStopsRepository(BusStopsRepositoryRef ref) {
   final db = ref.watch(appDatabaseProvider);
   return BusStopsRepository(ref, db);

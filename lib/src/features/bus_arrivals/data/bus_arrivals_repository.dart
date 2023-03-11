@@ -9,7 +9,7 @@ import '../domain/bus_arrival_model.dart';
 
 part 'bus_arrivals_repository.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 BusArrivalsRepository busArrivalsRepository(BusArrivalsRepositoryRef ref) =>
     BusArrivalsRepository(ref);
 

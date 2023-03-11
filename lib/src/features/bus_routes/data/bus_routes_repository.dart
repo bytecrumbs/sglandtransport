@@ -14,7 +14,7 @@ import '../domain/bus_route_with_bus_stop_info_model.dart';
 
 part 'bus_routes_repository.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 BusRoutesRepository busRoutesRepository(BusRoutesRepositoryRef ref) {
   final db = ref.watch(appDatabaseProvider);
   return BusRoutesRepository(ref, db);
