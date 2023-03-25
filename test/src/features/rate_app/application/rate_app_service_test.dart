@@ -12,12 +12,8 @@ void main() {
     Future<ProviderContainer> _setup(Map<String, Object> values) async {
       SharedPreferences.setMockInitialValues(values);
 
-      final sharedPreferences = await SharedPreferences.getInstance();
       return ProviderContainer(
         overrides: [
-          localStorageServiceProvider.overrideWithValue(
-            LocalStorageService(sharedPreferences),
-          ),
           loggerProvider.overrideWithValue(
             Logger(
               printer: PrettyPrinter(),
@@ -35,13 +31,13 @@ void main() {
       final localStorageService = container.read(localStorageServiceProvider);
 
       expect(
-        localStorageService.getInt(firstLaunchKey) == null,
+        await localStorageService.getInt(firstLaunchKey) == null,
         true,
       );
       await rateAppService.setLastLaunchDate();
 
       expect(
-        localStorageService.getInt(firstLaunchKey)! > 0,
+        (await localStorageService.getInt(firstLaunchKey))! > 0,
         true,
       );
     });
@@ -57,7 +53,7 @@ void main() {
       await rateAppService.setLastLaunchDate();
 
       expect(
-        localStorageService.getInt(firstLaunchKey),
+        await localStorageService.getInt(firstLaunchKey),
         existingFirstLaunchDate,
       );
     });
@@ -75,7 +71,7 @@ void main() {
       await rateAppService.setLastLaunchDate(launchDate: setNewLaunchDate);
 
       expect(
-        localStorageService.getInt(firstLaunchKey),
+        await localStorageService.getInt(firstLaunchKey),
         setNewLaunchDate.millisecondsSinceEpoch,
       );
     });
@@ -88,7 +84,7 @@ void main() {
       await rateAppService.increaseLaunchCount();
 
       expect(
-        localStorageService.getInt(launchCountKey),
+        await localStorageService.getInt(launchCountKey),
         1,
       );
     });
@@ -103,7 +99,7 @@ void main() {
       await rateAppService.increaseLaunchCount();
 
       expect(
-        localStorageService.getInt(launchCountKey),
+        await localStorageService.getInt(launchCountKey),
         currentLaunchCount + 1,
       );
     });
@@ -117,7 +113,7 @@ void main() {
       await rateAppService.resetLaunchCount();
 
       expect(
-        localStorageService.getInt(launchCountKey),
+        await localStorageService.getInt(launchCountKey),
         0,
       );
     });

@@ -16,11 +16,12 @@ class FavoriteTogglerController extends _$FavoriteTogglerController {
     return isFavorite;
   }
 
-  void toggle() {
-    state = ref.watch(busArrivalsServiceProvider).toggleFavoriteBusService(
-          busStopCode: busStopCode,
-          serviceNo: serviceNo,
-        );
+  Future<void> toggle() async {
+    state =
+        await ref.watch(busArrivalsServiceProvider).toggleFavoriteBusService(
+              busStopCode: busStopCode,
+              serviceNo: serviceNo,
+            );
     ref.invalidate(favoriteBusArrivalsStreamProvider);
   }
 }

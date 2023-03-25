@@ -6,11 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'src/app.dart';
-import 'src/local_storage/local_storage_service.dart';
 
 // Toggle this for testing Crashlytics in the app locally.
 const _kTestingCrashlytics = false;
@@ -39,8 +37,6 @@ Future<void> main() async {
         .setCrashlyticsCollectionEnabled(!kDebugMode);
   }
 
-  final sharedPreferences = await SharedPreferences.getInstance();
-
   // Setup flare
   FlareCache.doesPrune = false;
   await cachedActor(
@@ -48,13 +44,8 @@ Future<void> main() async {
   );
 
   runApp(
-    ProviderScope(
-      overrides: [
-        localStorageServiceProvider.overrideWithValue(
-          LocalStorageService(sharedPreferences),
-        )
-      ],
-      child: const MyApp(),
+    const ProviderScope(
+      child: MyApp(),
     ),
   );
 }

@@ -64,10 +64,11 @@ class BusArrivalsService {
         await _addDestination(busArrivals: allBusArrivals);
 
     // mark favorite bus service no
-    final busArrivalsWithFavorites = _markFavoriteBusNo(
+    final busArrivalsWithFavorites = await _markFavoriteBusNo(
       busStopCode: busStopCode,
       busArrivals: busArrivalsWithDestinationAndNotInOperation,
-    )..sort(
+    )
+      ..sort(
         (var a, var b) => int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
             .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))),
       );
@@ -117,21 +118,22 @@ class BusArrivalsService {
     }
   }
 
-  List<BusArrivalServiceModel> _markFavoriteBusNo({
+  Future<List<BusArrivalServiceModel>> _markFavoriteBusNo({
     required String busStopCode,
     required List<BusArrivalServiceModel> busArrivals,
-  }) {
+  }) async {
     final localStorageService = ref.read(localStorageServiceProvider);
-    return busArrivals
-        .map(
-          (e) => e.copyWith(
-            isFavorite: localStorageService.containsValueInList(
-              favoriteServiceNoKey,
-              '$busStopCode$busStopCodeServiceNoDelimiter${e.serviceNo}',
-            ),
-          ),
-        )
-        .toList();
+    return Future.wait(
+      busArrivals.map((e) async {
+        final isFav = await localStorageService.containsValueInList(
+          favoriteServiceNoKey,
+          '$busStopCode$busStopCodeServiceNoDelimiter${e.serviceNo}',
+        );
+        return e.copyWith(
+          isFavorite: isFav,
+        );
+      }).toList(),
+    );
   }
 
   Future<List<BusArrivalServiceModel>> _addDestination({
@@ -168,22 +170,22 @@ class BusArrivalsService {
     return busArrivalsWithDestination;
   }
 
-  bool toggleFavoriteBusService({
+  Future<bool> toggleFavoriteBusService({
     required String busStopCode,
     required String serviceNo,
-  }) {
+  }) async {
     final localStorageService = ref.read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
     bool newIsFavoriteValue;
     final currentFavorites =
-        localStorageService.getStringList(favoriteServiceNoKey);
+        await localStorageService.getStringList(favoriteServiceNoKey);
 
     // add or remove the service no from the local storage
     if (currentFavorites.contains(searchValue)) {
       ref.read(loggerProvider).d(
             'removing from Favorites, as bus stop with service no already exists',
           );
-      localStorageService.removeStringFromList(
+      await localStorageService.removeStringFromList(
         favoriteServiceNoKey,
         searchValue,
       );
@@ -192,7 +194,10 @@ class BusArrivalsService {
       ref
           .read(loggerProvider)
           .d('adding to Favorites, as bus stop with service no does not exist');
-      localStorageService.addStringToList(favoriteServiceNoKey, searchValue);
+      await localStorageService.addStringToList(
+        favoriteServiceNoKey,
+        searchValue,
+      );
       newIsFavoriteValue = true;
     }
     return newIsFavoriteValue;
@@ -209,7 +214,7 @@ class BusArrivalsService {
     final repository = ref.read(busArrivalsRepositoryProvider);
 
     final currentFavorites =
-        localStorageService.getStringList(favoriteServiceNoKey);
+        await localStorageService.getStringList(favoriteServiceNoKey);
 
     _sortFavorites(currentFavorites);
 
@@ -316,7 +321,7 @@ class BusArrivalsService {
     final busRouteRepo = ref.read(busRoutesRepositoryProvider);
 
     final favoriteBusStops =
-        localStorageService.getStringList(favoriteBusStopsKey);
+        await localStorageService.getStringList(favoriteBusStopsKey);
 
     if (favoriteBusStops.isNotEmpty) {
       ref
@@ -329,7 +334,7 @@ class BusArrivalsService {
 
         ref.read(loggerProvider).d('Processing bus stop $favoriteBusStop');
         final existingBusServiceFavorites =
-            localStorageService.getStringList(favoriteServiceNoKey);
+            await localStorageService.getStringList(favoriteServiceNoKey);
         for (final busStop in busStops) {
           final valueToAdd =
               '${busStop.busStopCode}$busStopCodeServiceNoDelimiter${busStop.serviceNo}';
@@ -379,15 +384,15 @@ class BusArrivalsService {
     });
   }
 
-  bool isFavorite({
+  Future<bool> isFavorite({
     required String busStopCode,
     required String serviceNo,
-  }) {
+  }) async {
     final localStorageService = ref.read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
 
     final currentFavorites =
-        localStorageService.getStringList(favoriteServiceNoKey);
+        await localStorageService.getStringList(favoriteServiceNoKey);
 
     return currentFavorites.contains(searchValue);
   }

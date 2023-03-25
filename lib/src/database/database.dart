@@ -54,8 +54,10 @@ class AppDatabase extends _$AppDatabase {
 
           const refreshDateKey = 'refreshDateKey';
           // get the date of when the database needs to be refreshed
-          final refreshDate =
-              ref.read(localStorageServiceProvider).getInt(refreshDateKey) ?? 0;
+          final refreshDate = await ref
+                  .read(localStorageServiceProvider)
+                  .getInt(refreshDateKey) ??
+              0;
           // refresh the database if it is newly created, or if more than 30
           // days have passed since last refresh
           if (details.wasCreated ||
@@ -99,7 +101,7 @@ class AppDatabase extends _$AppDatabase {
           .read(loggerProvider)
           .d('Checking if bus services needs to be refreshed as out of cycle');
       final hasAlreadyBeenAddedAsOutOfCycle =
-          localStorageService.getBool(busServiceOutOfCycleKey) ?? false;
+          await localStorageService.getBool(busServiceOutOfCycleKey) ?? false;
       if (!hasAlreadyBeenAddedAsOutOfCycle) {
         ref.read(loggerProvider).d('Refreshing bus services as out of cycle');
         final m = Migrator(this);

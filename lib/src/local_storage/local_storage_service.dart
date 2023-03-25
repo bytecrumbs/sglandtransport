@@ -1,60 +1,73 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// NOTE: This is overridden by ProviderScope() in the main.dart file
-final localStorageServiceProvider =
-    Provider<LocalStorageService>((ref) => throw UnimplementedError());
+part 'local_storage_service.g.dart';
+
+@Riverpod(keepAlive: true)
+LocalStorageService localStorageService(LocalStorageServiceRef ref) =>
+    LocalStorageService(ref);
 
 class LocalStorageService {
-  LocalStorageService(this.sharedPreferences);
+  LocalStorageService(this.ref);
 
-  // The Shared Preferences instance. It is passed in like this, so that we
-  // don't have to asynchronously get the instances every time.
-  final SharedPreferences sharedPreferences;
+  final Ref ref;
 
-  List<String> getStringList(String key) {
-    return sharedPreferences.getStringList(key) ?? <String>[];
+  Future<SharedPreferences> spInstance() => SharedPreferences.getInstance();
+
+  Future<List<String>> getStringList(String key) async {
+    final sp = await spInstance();
+    return sp.getStringList(key) ?? <String>[];
   }
 
   Future<List<String>?> addStringToList(String key, String value) async {
-    final stringList = sharedPreferences.getStringList(key) ?? <String>[]
+    final sp = await spInstance();
+    final stringList = sp.getStringList(key) ?? <String>[]
       ..add(value);
-    await sharedPreferences.setStringList(key, stringList);
-    return sharedPreferences.getStringList(key);
+    await sp.setStringList(key, stringList);
+    return sp.getStringList(key);
   }
 
   Future<List<String>?> removeStringFromList(String key, String value) async {
-    final stringList = sharedPreferences.getStringList(key) ?? <String>[]
+    final sp = await spInstance();
+    final stringList = sp.getStringList(key) ?? <String>[]
       ..remove(value);
-    await sharedPreferences.setStringList(key, stringList);
-    return sharedPreferences.getStringList(key);
+    await sp.setStringList(key, stringList);
+    return sp.getStringList(key);
   }
 
-  Future<bool> remove(String key) {
-    return sharedPreferences.remove(key);
+  Future<bool> remove(String key) async {
+    final sp = await spInstance();
+    return sp.remove(key);
   }
 
-  bool containsValueInList(String key, String value) {
-    final stringList = sharedPreferences.getStringList(key) ?? <String>[];
+  Future<bool> containsValueInList(String key, String value) async {
+    final sp = await spInstance();
+    // TODO: refactor and write a test!
+    final stringList = sp.getStringList(key) ?? <String>[];
     return stringList.contains(value);
   }
 
   Future<bool> setInt(String key, int value) async {
-    return sharedPreferences.setInt(key, value);
+    final sp = await spInstance();
+    return sp.setInt(key, value);
   }
 
-  int? getInt(String key) {
-    return sharedPreferences.getInt(key);
+  Future<int?> getInt(String key) async {
+    final sp = await spInstance();
+    return sp.getInt(key);
   }
 
   Future<bool> setBool({
     required String key,
     required bool value,
   }) async {
-    return sharedPreferences.setBool(key, value);
+    final sp = await spInstance();
+    return sp.setBool(key, value);
   }
 
-  bool? getBool(String key) {
-    return sharedPreferences.getBool(key);
+  Future<bool?> getBool(String key) async {
+    final sp = await spInstance();
+    return sp.getBool(key);
   }
 }

@@ -35,9 +35,10 @@ class RateAppService {
 
   Future<bool> isEligibleForReviewPrompt() async {
     final firstLaunchDate =
-        ref.read(localStorageServiceProvider).getInt(firstLaunchKey)!;
+        await ref.read(localStorageServiceProvider).getInt(firstLaunchKey) ??
+            DateTime.now().millisecondsSinceEpoch;
     final currentLaunchCount =
-        ref.read(localStorageServiceProvider).getInt(launchCountKey)!;
+        await ref.read(localStorageServiceProvider).getInt(launchCountKey) ?? 1;
 
     ref.read(loggerProvider).d('First launch date: $firstLaunchDate');
     ref.read(loggerProvider).d('Current launch count: $currentLaunchCount');
@@ -54,7 +55,7 @@ class RateAppService {
 
   Future<void> setLastLaunchDate({DateTime? launchDate}) async {
     final firstLaunch =
-        ref.read(localStorageServiceProvider).getInt(firstLaunchKey);
+        await ref.read(localStorageServiceProvider).getInt(firstLaunchKey);
 
     if (firstLaunch == null || launchDate != null) {
       final launchDateToSet = launchDate ?? DateTime.now();
@@ -67,7 +68,7 @@ class RateAppService {
 
   Future<void> increaseLaunchCount() async {
     final count =
-        ref.read(localStorageServiceProvider).getInt(launchCountKey) ?? 0;
+        await ref.read(localStorageServiceProvider).getInt(launchCountKey) ?? 0;
     await _setLaunchCount(launchCountKey, count + 1);
   }
 

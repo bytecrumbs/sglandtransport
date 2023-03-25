@@ -15,13 +15,8 @@ void main() {
       final values = stringList;
       SharedPreferences.setMockInitialValues(values);
 
-      final sharedPreferences = await SharedPreferences.getInstance();
-
       return ProviderContainer(
         overrides: [
-          localStorageServiceProvider.overrideWithValue(
-            LocalStorageService(sharedPreferences),
-          ),
           loggerProvider.overrideWithValue(
             Logger(
               level: Level.error,
@@ -47,7 +42,7 @@ already stored as a favorite''',
 
         final busServicesService = container.read(busArrivalsServiceProvider);
         expect(
-          busServicesService.isFavorite(
+          await busServicesService.isFavorite(
             busStopCode: busStopCode,
             serviceNo: serviceNo,
           ),
@@ -71,7 +66,7 @@ already stored as a favorite''',
 
         final busServicesService = container.read(busArrivalsServiceProvider);
         expect(
-          busServicesService.isFavorite(
+          await busServicesService.isFavorite(
             busStopCode: '000000',
             serviceNo: '000',
           ),
@@ -104,13 +99,13 @@ bus service is not a favourite yet''',
 
         // ensure new key is not in the list yet
         final currentFavouritesList =
-            localStorageService.getStringList(favoriteServiceNoKey);
+            await localStorageService.getStringList(favoriteServiceNoKey);
         expect(
           currentFavouritesList.contains(newKeyValue),
           false,
         );
 
-        final result = busServicesService.toggleFavoriteBusService(
+        final result = await busServicesService.toggleFavoriteBusService(
           busStopCode: newBusStopCode,
           serviceNo: newServiceNo,
         );
@@ -121,7 +116,7 @@ bus service is not a favourite yet''',
         );
         // ensure the favorite is added to the list
         final newFavouritesList =
-            localStorageService.getStringList(favoriteServiceNoKey);
+            await localStorageService.getStringList(favoriteServiceNoKey);
         expect(
           newFavouritesList.contains(newKeyValue),
           true,
@@ -155,13 +150,13 @@ bus service is already a favourite''',
 
         // ensure new key is in the list yet
         final currentFavouritesList =
-            localStorageService.getStringList(favoriteServiceNoKey);
+            await localStorageService.getStringList(favoriteServiceNoKey);
         expect(
           currentFavouritesList.contains(keyValueUnderTest),
           true,
         );
 
-        final result = busServicesService.toggleFavoriteBusService(
+        final result = await busServicesService.toggleFavoriteBusService(
           busStopCode: newBusStopCode,
           serviceNo: newServiceNo,
         );
@@ -172,7 +167,7 @@ bus service is already a favourite''',
         );
         // ensure the favorite is added to the list
         final newFavouritesList =
-            localStorageService.getStringList(favoriteServiceNoKey);
+            await localStorageService.getStringList(favoriteServiceNoKey);
         expect(
           newFavouritesList.contains(keyValueUnderTest),
           false,
