@@ -22,16 +22,20 @@ class LocalStorageService {
 
   Future<List<String>?> addStringToList(String key, String value) async {
     final sp = await spInstance();
-    final stringList = sp.getStringList(key) ?? <String>[]
-      ..add(value);
+
+    final stringList = await getStringList(key);
+    stringList.add(value);
+
     await sp.setStringList(key, stringList);
     return sp.getStringList(key);
   }
 
   Future<List<String>?> removeStringFromList(String key, String value) async {
     final sp = await spInstance();
-    final stringList = sp.getStringList(key) ?? <String>[]
-      ..remove(value);
+
+    final stringList = await getStringList(key);
+    stringList.remove(value);
+
     await sp.setStringList(key, stringList);
     return sp.getStringList(key);
   }
