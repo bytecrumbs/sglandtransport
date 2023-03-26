@@ -125,10 +125,12 @@ class BusArrivalsService {
     final localStorageService = ref.read(localStorageServiceProvider);
     return Future.wait(
       busArrivals.map((e) async {
-        final isFav = await localStorageService.containsValueInList(
-          favoriteServiceNoKey,
+        final list =
+            await localStorageService.getStringList(favoriteServiceNoKey);
+        final isFav = list.contains(
           '$busStopCode$busStopCodeServiceNoDelimiter${e.serviceNo}',
         );
+
         return e.copyWith(
           isFavorite: isFav,
         );

@@ -41,13 +41,6 @@ class LocalStorageService {
     return sp.remove(key);
   }
 
-  Future<bool> containsValueInList(String key, String value) async {
-    final sp = await spInstance();
-    // TODO: refactor and write a test!
-    final stringList = sp.getStringList(key) ?? <String>[];
-    return stringList.contains(value);
-  }
-
   Future<bool> setInt(String key, int value) async {
     final sp = await spInstance();
     return sp.setInt(key, value);
