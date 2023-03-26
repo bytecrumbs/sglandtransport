@@ -116,17 +116,13 @@ class BusArrivalsService {
     required String busStopCode,
     required List<BusArrivalServiceModel> busArrivals,
   }) async {
-    final localStorageService = ref.read(localStorageServiceProvider);
     return Future.wait(
       busArrivals.map((e) async {
-        final list =
-            await localStorageService.getStringList(favoriteServiceNoKey);
-        final isFav = list.contains(
-          '$busStopCode$busStopCodeServiceNoDelimiter${e.serviceNo}',
-        );
-
         return e.copyWith(
-          isFavorite: isFav,
+          isFavorite: await isFavorite(
+            busStopCode: busStopCode,
+            serviceNo: e.serviceNo,
+          ),
         );
       }).toList(),
     );
