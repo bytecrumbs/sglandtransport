@@ -4,8 +4,7 @@
 [![Twitter handle][]][twitter badge]
 
 [![Test](https://github.com/bytecrumbs/sglandtransport/actions/workflows/test.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/test.yml)
-[![Deploy to Testflight](https://github.com/bytecrumbs/sglandtransport/actions/workflows/testflight.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/testflight.yml)
-[![Deploy to Google play store beta](https://github.com/bytecrumbs/sglandtransport/actions/workflows/playstore.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/playstore.yml)
+[![Create Release](https://github.com/bytecrumbs/sglandtransport/actions/workflows/create_release.yml/badge.svg)](https://github.com/bytecrumbs/sglandtransport/actions/workflows/create_release.yml)
 
 [![codecov](https://codecov.io/gh/bytecrumbs/sglandtransport/branch/master/graph/badge.svg?token=J6ATK9J4F6)](https://codecov.io/gh/bytecrumbs/sglandtransport)
 
