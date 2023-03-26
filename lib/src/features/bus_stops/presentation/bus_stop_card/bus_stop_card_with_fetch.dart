@@ -4,8 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../common_widgets/error_display.dart';
 import '../../../../custom_exception.dart';
-import '../../../bus_arrivals/application/bus_arrivals_service.dart';
 import '../../../home/presentation/dashboard_screen.dart';
+import '../../application/bus_stops_service.dart';
 import '../../domain/bus_stop_value_model.dart';
 import 'bus_stop_card.dart';
 
@@ -16,8 +16,8 @@ Future<BusStopValueModel> busStop(
   BusStopRef ref, {
   required String busStopCode,
 }) {
-  final busServicesService = ref.watch(busArrivalsServiceProvider);
-  return busServicesService.getBusStop(busStopCode);
+  final busStopsService = ref.watch(busStopsServiceProvider);
+  return busStopsService.getBusStop(busStopCode);
 }
 
 class BusStopCardWithFetch extends ConsumerWidget {

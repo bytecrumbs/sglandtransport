@@ -55,4 +55,10 @@ class BusStopsService {
 
     return nearbyBusStops;
   }
+
+  Future<BusStopValueModel> getBusStop(String busStopCode) async {
+    final repository = ref.read(busStopsRepositoryProvider);
+    final result = await repository.getBusStops(busStopCodes: [busStopCode]);
+    return result[0];
+  }
 }

@@ -25,12 +25,6 @@ class BusArrivalsService {
 
   final Ref ref;
 
-  Future<BusStopValueModel> getBusStop(String busStopCode) async {
-    final repository = ref.read(busStopsRepositoryProvider);
-    final result = await repository.getBusStops(busStopCodes: [busStopCode]);
-    return result[0];
-  }
-
   Future<BusArrivalServiceModel> getBusArrival({
     required String busStopCode,
     required String serviceNo,
