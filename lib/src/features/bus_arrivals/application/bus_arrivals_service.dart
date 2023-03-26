@@ -25,14 +25,6 @@ class BusArrivalsService {
 
   final Ref ref;
 
-  Future<BusArrivalServiceModel> getBusArrival({
-    required String busStopCode,
-    required String serviceNo,
-  }) async {
-    final busArrivalModel = await getBusArrivals(busStopCode, serviceNo);
-    return busArrivalModel.services[0];
-  }
-
   Future<BusArrivalModel> getBusArrivals(
     String busStopCode, [
     String? serviceNo,
