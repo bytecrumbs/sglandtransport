@@ -91,6 +91,30 @@ void main() {
       expect(listToTest[0].busStopValueModel.distanceInMeters, nearDistance);
     });
 
+    test('return a list of unique strings based on favorites', () {
+      // setup
+      final container = _setupContainer();
+      final busArrivalsService = container.read(busArrivalsServiceProvider);
+      final stringListToTest = [
+        '101010~342',
+        '202020~123',
+        '101010~56',
+      ];
+
+      // run
+      final uniqueStringList =
+          busArrivalsService.favoritesToUniqueBusStops(stringListToTest);
+
+      // verify
+      expect(
+        uniqueStringList,
+        [
+          '101010',
+          '202020',
+        ],
+      );
+    });
+
     test(
       '''
 return true for isFavorite if the corresponding busStopCode and serviceNo is 

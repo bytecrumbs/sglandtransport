@@ -196,10 +196,7 @@ class BusArrivalsService {
 
     _sortFavorites(currentFavorites);
 
-    final uniqueBusStopsList = List<String>.from(currentFavorites)
-        .map((e) => e.split(busStopCodeServiceNoDelimiter)[0])
-        .toSet()
-        .toList();
+    final uniqueBusStopsList = favoritesToUniqueBusStops(currentFavorites);
 
     final busStops = await ref.read(busStopsRepositoryProvider).getBusStops(
           busStopCodes: uniqueBusStopsList,
@@ -288,6 +285,12 @@ class BusArrivalsService {
 
     return busArrivalWithBusStopModelList;
   }
+
+  List<String> favoritesToUniqueBusStops(List<String> favorites) =>
+      List<String>.from(favorites)
+          .map((e) => e.split(busStopCodeServiceNoDelimiter)[0])
+          .toSet()
+          .toList();
 
   void sortBusStopsByDistance(List<BusArrivalWithBusStopModel> list) {
     list.sort((a, b) {
