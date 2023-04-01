@@ -9,9 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   group('BusArrivalsService should', () {
-    Future<ProviderContainer> _setupWithSharedPreferences(
+    ProviderContainer _setupWithSharedPreferences(
       Map<String, List<String>> stringList,
-    ) async {
+    ) {
       final values = stringList;
       SharedPreferences.setMockInitialValues(values);
 
@@ -38,7 +38,7 @@ already stored as a favorite''',
             '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo'
           ]
         };
-        final container = await _setupWithSharedPreferences(values);
+        final container = _setupWithSharedPreferences(values);
 
         final busServicesService = container.read(busArrivalsServiceProvider);
         expect(
@@ -62,7 +62,7 @@ already stored as a favorite''',
             '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo'
           ]
         };
-        final container = await _setupWithSharedPreferences(values);
+        final container = _setupWithSharedPreferences(values);
 
         final busServicesService = container.read(busArrivalsServiceProvider);
         expect(
@@ -86,7 +86,7 @@ bus service is not a favourite yet''',
             '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo'
           ]
         };
-        final container = await _setupWithSharedPreferences(values);
+        final container = _setupWithSharedPreferences(values);
         final busServicesService = container.read(busArrivalsServiceProvider);
 
         // setup new favorite to add
@@ -138,7 +138,7 @@ bus service is already a favourite''',
             '$newBusStopCode$busStopCodeServiceNoDelimiter$newServiceNo'
           ]
         };
-        final container = await _setupWithSharedPreferences(values);
+        final container = _setupWithSharedPreferences(values);
         final busServicesService = container.read(busArrivalsServiceProvider);
 
         // setup new favorite to add
