@@ -2,6 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/application/bus_arrivals_service.dart';
+import 'package:lta_datamall_flutter/src/features/bus_arrivals/domain/bus_arrival_service_model.dart';
+import 'package:lta_datamall_flutter/src/features/bus_arrivals/domain/bus_arrival_with_bus_stop_model.dart';
+import 'package:lta_datamall_flutter/src/features/bus_arrivals/domain/next_bus_model.dart';
+import 'package:lta_datamall_flutter/src/features/bus_stops/domain/bus_stop_value_model.dart';
 import 'package:lta_datamall_flutter/src/local_storage/local_storage_keys.dart';
 import 'package:lta_datamall_flutter/src/local_storage/local_storage_service.dart';
 import 'package:lta_datamall_flutter/src/third_party_providers/third_party_providers.dart';
@@ -9,12 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   group('BusArrivalsService should', () {
-    ProviderContainer _setupWithSharedPreferences(
-      Map<String, List<String>> stringList,
-    ) {
-      final values = stringList;
-      SharedPreferences.setMockInitialValues(values);
-
+    ProviderContainer _setupContainer() {
       return ProviderContainer(
         overrides: [
           loggerProvider.overrideWithValue(
@@ -25,6 +24,72 @@ void main() {
         ],
       );
     }
+
+    ProviderContainer _setupWithSharedPreferences(
+      Map<String, List<String>> stringList,
+    ) {
+      final values = stringList;
+      SharedPreferences.setMockInitialValues(values);
+
+      return _setupContainer();
+    }
+
+    test('Sort bus stops by distance in ascending order', () {
+      // setup
+      final container = _setupContainer();
+      final busArrivalsService = container.read(busArrivalsServiceProvider);
+      const awayDistance = 100;
+      const nearDistance = 50;
+      final listToTest = [
+        BusArrivalWithBusStopModel(
+          busStopValueModel: BusStopValueModel(
+            busStopCode: '100100',
+            roadName: 'Road Name 1',
+            description: 'Description 1',
+            latitude: 100,
+            longitude: 500,
+            distanceInMeters: awayDistance,
+          ),
+          services: [
+            BusArrivalServiceModel(
+              serviceNo: '354',
+              busOperator: 'LTA',
+              nextBus: NextBusModel(),
+              nextBus2: NextBusModel(),
+              nextBus3: NextBusModel(),
+            ),
+          ],
+        ),
+        BusArrivalWithBusStopModel(
+          busStopValueModel: BusStopValueModel(
+            busStopCode: '200200',
+            roadName: 'Road Name 2',
+            description: 'Description 2',
+            latitude: 200,
+            longitude: 600,
+            distanceInMeters: nearDistance,
+          ),
+          services: [
+            BusArrivalServiceModel(
+              serviceNo: '354',
+              busOperator: 'LTA',
+              nextBus: NextBusModel(),
+              nextBus2: NextBusModel(),
+              nextBus3: NextBusModel(),
+            ),
+          ],
+        ),
+      ];
+
+      // verify setup
+      expect(listToTest[0].busStopValueModel.distanceInMeters, awayDistance);
+
+      // run
+      busArrivalsService.sortBusStopsByDistance(listToTest);
+
+      // verify
+      expect(listToTest[0].busStopValueModel.distanceInMeters, nearDistance);
+    });
 
     test(
       '''

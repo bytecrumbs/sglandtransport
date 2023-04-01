@@ -188,12 +188,6 @@ class BusArrivalsService {
   }
 
   Future<List<BusArrivalWithBusStopModel>> getFavoriteBusServices() async {
-    // __handleLegacyFavorites is only required temporarily and can be removed
-    // again in a later version, as it migrates the old bus stop favorites
-    // to the new way we are storing bus services in favorites
-    // maybe we can delete this code again after a few releases
-    await _handleLegacyFavorites();
-
     final localStorageService = ref.read(localStorageServiceProvider);
     final repository = ref.read(busArrivalsRepositoryProvider);
 
@@ -291,16 +285,20 @@ class BusArrivalsService {
     }
 
     // sort list by distance
-    busArrivalWithBusStopModelList.sort((a, b) {
-      final aValue = a.busStopValueModel.distanceInMeters ?? 0;
-      final bValue = b.busStopValueModel.distanceInMeters ?? 0;
-      return aValue.compareTo(bValue);
-    });
+    sortBusStopsByDistance(busArrivalWithBusStopModelList);
 
     return busArrivalWithBusStopModelList;
   }
 
-  Future<void> _handleLegacyFavorites() async {
+  void sortBusStopsByDistance(List<BusArrivalWithBusStopModel> list) {
+    list.sort((a, b) {
+      final aValue = a.busStopValueModel.distanceInMeters ?? 0;
+      final bValue = b.busStopValueModel.distanceInMeters ?? 0;
+      return aValue.compareTo(bValue);
+    });
+  }
+
+  Future<void> handleLegacyFavorites() async {
     final localStorageService = ref.read(localStorageServiceProvider);
     final busRouteRepo = ref.read(busRoutesRepositoryProvider);
 

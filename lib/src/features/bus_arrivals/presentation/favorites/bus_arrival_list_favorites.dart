@@ -19,6 +19,13 @@ Stream<List<BusArrivalWithBusStopModel>> favoriteBusArrivalsStream(
   FavoriteBusArrivalsStreamRef ref,
 ) async* {
   final busServicesService = ref.watch(busArrivalsServiceProvider);
+
+  // handleLegacyFavorites is only required temporarily and can be removed
+  // again in a later version, as it migrates the old bus stop favorites
+  // to the new way we are storing bus services in favorites
+  // maybe we can delete this code again after a few releases
+  await busServicesService.handleLegacyFavorites();
+
   // make sure it is executed immediately
   yield await busServicesService.getFavoriteBusServices();
   // then execute regularly
