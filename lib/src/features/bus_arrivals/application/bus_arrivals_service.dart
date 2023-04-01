@@ -284,7 +284,6 @@ class BusArrivalsService {
       busArrivalWithBusStopModelList.add(busArrivalWithBusStopModel);
     }
 
-    // sort list by distance
     sortBusStopsByDistance(busArrivalWithBusStopModelList);
 
     return busArrivalWithBusStopModelList;
