@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -194,7 +195,7 @@ class BusArrivalsService {
     final currentFavorites =
         await localStorageService.getStringList(favoriteServiceNoKey);
 
-    _sortFavorites(currentFavorites);
+    currentFavorites.sort(compareNatural);
 
     final uniqueBusStopsList = favoritesToUniqueBusStops(currentFavorites);
 
@@ -340,32 +341,6 @@ class BusArrivalsService {
           .d('Removing legacy favoriteBusStop key from local storage');
       await localStorageService.remove(favoriteBusStopsKey);
     }
-  }
-
-  void _sortFavorites(List<String> list) {
-// sort the list by bus stop code and then bus service no. this is done by
-    // 1. splitting the string into separate fields for bus stop code and bus
-    // service no
-    // 2. remove the letter at the end of the bus service no, if there is one
-    // 3. pad the left side with '0', so that it can be sorted alphabetically
-    // example:
-    // '01012~12e' -> '01012012'
-    // '01012~2 -> 010112002
-    list.sort((a, b) {
-      final aBusStopCode = a.split(busStopCodeServiceNoDelimiter)[0];
-      final bBusStopCode = b.split(busStopCodeServiceNoDelimiter)[0];
-      final aBusServiceNo = a
-          .split(busStopCodeServiceNoDelimiter)[1]
-          .replaceAll(RegExp(r'\D'), '')
-          .padLeft(3, '0');
-      final bBusServiceNo = b
-          .split(busStopCodeServiceNoDelimiter)[1]
-          .replaceAll(RegExp(r'\D'), '')
-          .padLeft(3, '0');
-      final aComparison = '$aBusStopCode$aBusServiceNo';
-      final bComparison = '$bBusStopCode$bBusServiceNo';
-      return aComparison.compareTo(bComparison);
-    });
   }
 
   Future<bool> isFavorite({
