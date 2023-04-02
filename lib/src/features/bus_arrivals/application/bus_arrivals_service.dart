@@ -284,7 +284,6 @@ class BusArrivalsService {
     return busArrivalWithBusStopModelList;
   }
 
-  // TODO: write tests for this
   List<String> favoriteServiceNosForBusStop({
     required String busStop,
     required List<String> favorites,
