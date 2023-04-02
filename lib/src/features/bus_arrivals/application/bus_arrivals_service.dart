@@ -197,7 +197,8 @@ class BusArrivalsService {
 
     currentFavorites.sort(compareNatural);
 
-    final uniqueBusStopsList = favoritesToUniqueBusStops(currentFavorites);
+    final uniqueBusStopsList =
+        favoritesToUniqueBusStops(list: currentFavorites);
 
     final busStops = await ref.read(busStopsRepositoryProvider).getBusStops(
           busStopCodes: uniqueBusStopsList,
@@ -206,14 +207,10 @@ class BusArrivalsService {
     final busArrivalWithBusStopModelList = <BusArrivalWithBusStopModel>[];
 
     for (final busStop in busStops) {
-      // find favorites from the same bus stop
-      final busServicesForBusStop = currentFavorites
-          .where(
-            (element) =>
-                busStop.busStopCode ==
-                element.split(busStopCodeServiceNoDelimiter)[0],
-          )
-          .toList();
+      final busServicesForBusStop = favoriteServiceNosForBusStop(
+        busStop: busStop.busStopCode,
+        favorites: currentFavorites,
+      );
 
       // fetch services from current bus stop
       final busArrivalServiceModelList = <BusArrivalServiceModel>[];
@@ -287,9 +284,25 @@ class BusArrivalsService {
     return busArrivalWithBusStopModelList;
   }
 
-  List<String> favoritesToUniqueBusStops(List<String> favorites) =>
-      List<String>.from(favorites)
-          .map((e) => e.split(busStopCodeServiceNoDelimiter)[0])
+  // TODO: write tests for this
+  List<String> favoriteServiceNosForBusStop({
+    required String busStop,
+    required List<String> favorites,
+  }) =>
+      favorites
+          .where(
+            (element) =>
+                busStop == element.split(busStopCodeServiceNoDelimiter)[0],
+          )
+          .toList();
+
+  List<String> favoritesToUniqueBusStops({
+    required List<String> list,
+    String delimiter = busStopCodeServiceNoDelimiter,
+    int index = 0,
+  }) =>
+      List<String>.from(list)
+          .map((e) => e.split(delimiter)[index])
           .toSet()
           .toList();
 

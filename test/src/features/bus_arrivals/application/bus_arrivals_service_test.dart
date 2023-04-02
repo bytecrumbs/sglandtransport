@@ -103,7 +103,7 @@ void main() {
 
       // run
       final uniqueStringList =
-          busArrivalsService.favoritesToUniqueBusStops(stringListToTest);
+          busArrivalsService.favoritesToUniqueBusStops(list: stringListToTest);
 
       // verify
       expect(
@@ -113,6 +113,26 @@ void main() {
           '202020',
         ],
       );
+    });
+
+    test('return a filtered list of Bus Service No based on bus stop code', () {
+      // setup
+      final container = _setupContainer();
+      final busArrivalsService = container.read(busArrivalsServiceProvider);
+      const value1 = '101010~342';
+      const value2 = '101010~56';
+      final stringListToTest = [
+        value1,
+        '202020~123',
+        value2,
+      ];
+
+      // run
+      final serviceNoList = busArrivalsService.favoriteServiceNosForBusStop(
+        busStop: '101010',
+        favorites: stringListToTest,
+      );
+      expect(serviceNoList, [value1, value2]);
     });
 
     test(
