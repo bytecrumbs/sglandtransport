@@ -19,7 +19,7 @@ environment:
 dependencies:
   collection: ^1.17.0
   convex_bottom_bar: ^3.2.0
-  dio: ^5.0.1
+  dio: ^5.1.1
   drift: ^2.5.0
   firebase_analytics: ^10.2.0
   firebase_core: ^2.9.0
