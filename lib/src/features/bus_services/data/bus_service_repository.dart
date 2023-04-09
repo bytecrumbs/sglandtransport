@@ -1,4 +1,3 @@
-import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,8 +15,8 @@ BusServiceRepository busServiceRepository(BusServiceRepositoryRef ref) {
   return BusServiceRepository(ref);
 }
 
-class BusServiceRepository with BaseRepository {
-  BusServiceRepository(this.ref) : super();
+class BusServiceRepository extends BaseRepository {
+  BusServiceRepository(this.ref) : super(ref);
 
   final Ref ref;
 
@@ -27,7 +26,6 @@ class BusServiceRepository with BaseRepository {
     final response = await fetch<Map<String, Object?>>(
       fetchUrl,
       queryParameters: {r'$skip': skip},
-      ref: ref,
     );
 
     return BusServiceModel.fromJson(
@@ -39,11 +37,11 @@ class BusServiceRepository with BaseRepository {
     required String serviceNo,
     required String destinationCode,
   }) async {
-    ref
+    refBase
         .read(loggerProvider)
         .d('Getting Bus Service from DB for service $serviceNo');
 
-    final db = ref.read(appDatabaseProvider);
+    final db = refBase.read(appDatabaseProvider);
     return db.getBusService(
       serviceNo: serviceNo,
       destinationCode: destinationCode,

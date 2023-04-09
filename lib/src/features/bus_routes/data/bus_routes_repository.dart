@@ -1,4 +1,3 @@
-import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,8 +16,9 @@ BusRoutesRepository busRoutesRepository(BusRoutesRepositoryRef ref) {
   return BusRoutesRepository(ref);
 }
 
-class BusRoutesRepository with BaseRepository {
-  BusRoutesRepository(this.ref) : super();
+class BusRoutesRepository extends BaseRepository {
+  BusRoutesRepository(this.ref) : super(ref);
+
   final Ref ref;
 
   Future<List<BusRouteValueModel>> fetchBusRoutes({int skip = 0}) async {
@@ -27,7 +27,6 @@ class BusRoutesRepository with BaseRepository {
     final response = await fetch<Map<String, Object?>>(
       fetchUrl,
       queryParameters: {r'$skip': skip},
-      ref: ref,
     );
 
     return BusRouteModel.fromJson(
@@ -40,11 +39,11 @@ class BusRoutesRepository with BaseRepository {
     required String busStopCode,
     required String destinationCode,
   }) async {
-    ref
+    refBase
         .read(loggerProvider)
         .d('Getting Bus Route for service $serviceNo from DB');
 
-    final db = ref.read(appDatabaseProvider);
+    final db = refBase.read(appDatabaseProvider);
     return db.getBusRoute(
       serviceNo: serviceNo,
       busStopCode: busStopCode,
@@ -56,11 +55,11 @@ class BusRoutesRepository with BaseRepository {
     required String busStopCode,
     String? serviceNo,
   }) async {
-    ref
+    refBase
         .read(loggerProvider)
         .d('Getting Bus Routes from DB for bus stop $busStopCode');
 
-    final db = ref.read(appDatabaseProvider);
+    final db = refBase.read(appDatabaseProvider);
     return db.getBusServicesForBusStopCode(busStopCode: busStopCode);
   }
 }

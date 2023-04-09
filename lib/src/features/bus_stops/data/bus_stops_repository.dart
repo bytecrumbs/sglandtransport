@@ -15,9 +15,8 @@ BusStopsRepository busStopsRepository(BusStopsRepositoryRef ref) {
   return BusStopsRepository(ref);
 }
 
-// TODO: replace mixin with 'extends"
-class BusStopsRepository with BaseRepository {
-  BusStopsRepository(this.ref) : super();
+class BusStopsRepository extends BaseRepository {
+  BusStopsRepository(this.ref) : super(ref);
 
   final Ref ref;
 
@@ -27,7 +26,6 @@ class BusStopsRepository with BaseRepository {
     final response = await fetch<Map<String, Object?>>(
       fetchUrl,
       queryParameters: {r'$skip': skip},
-      ref: ref,
     );
 
     return BusStopModel.fromJson(
@@ -36,26 +34,26 @@ class BusStopsRepository with BaseRepository {
   }
 
   Future<List<BusStopValueModel>> getAllBusStops() {
-    ref.read(loggerProvider).d('Getting all Bus Stops from DB');
-    final db = ref.read(appDatabaseProvider);
+    refBase.read(loggerProvider).d('Getting all Bus Stops from DB');
+    final db = refBase.read(appDatabaseProvider);
     return db.getAllBusStops();
   }
 
   Future<List<BusStopValueModel>> getBusStops({
     required List<String> busStopCodes,
   }) {
-    ref.read(loggerProvider).d('Getting Bus Stops $busStopCodes from DB');
+    refBase.read(loggerProvider).d('Getting Bus Stops $busStopCodes from DB');
 
-    final db = ref.read(appDatabaseProvider);
+    final db = refBase.read(appDatabaseProvider);
     return db.getBusStops(busStopCodes: busStopCodes);
   }
 
   Future<List<BusStopValueModel>> findBusStops(String searchTerm) {
-    ref
+    refBase
         .read(loggerProvider)
         .d('Getting Bus Stops from DB with search term $searchTerm');
 
-    final db = ref.read(appDatabaseProvider);
+    final db = refBase.read(appDatabaseProvider);
     return db.findBusStops(searchTerm);
   }
 }
