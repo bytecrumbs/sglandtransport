@@ -103,7 +103,7 @@ class DashboardScreen extends ConsumerWidget {
       ),
       bottomNavigationBar: activeIndex.whenOrNull(
         data: (section) => MainBottomAppBar(
-          activeIndex: section!,
+          activeIndex: section ?? 0,
           onTap: (clickedItem) async {
             await activeIndexNotifier.onTap(clickedItem: clickedItem);
           },
