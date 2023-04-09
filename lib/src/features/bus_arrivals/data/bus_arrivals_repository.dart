@@ -2,8 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../environment_config.dart';
-import '../../bus_services/domain/bus_service_model.dart';
-import '../../bus_services/domain/bus_service_value_model.dart';
 import '../../shared/data/base_repository.dart';
 import '../domain/bus_arrival_model.dart';
 
@@ -35,18 +33,5 @@ class BusArrivalsRepository extends BaseRepository {
     return BusArrivalModel.fromJson(
       response.data!,
     );
-  }
-
-  Future<List<BusServiceValueModel>> fetchBusServices({int skip = 0}) async {
-    const fetchUrl = '$ltaDatamallApi/BusServices';
-
-    final response = await fetch<Map<String, Object?>>(
-      fetchUrl,
-      queryParameters: {r'$skip': skip},
-    );
-
-    return BusServiceModel.fromJson(
-      response.data!,
-    ).value;
   }
 }
