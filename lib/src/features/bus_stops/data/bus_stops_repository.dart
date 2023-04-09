@@ -1,10 +1,8 @@
-import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../environment_config.dart';
 import '../../../database/database.dart';
-import '../../../database/tables.dart';
 import '../../../third_party_providers/third_party_providers.dart';
 import '../../shared/data/base_repository.dart';
 import '../domain/bus_stop_model.dart';
@@ -14,14 +12,12 @@ part 'bus_stops_repository.g.dart';
 
 @Riverpod(keepAlive: true)
 BusStopsRepository busStopsRepository(BusStopsRepositoryRef ref) {
-  final db = ref.watch(appDatabaseProvider);
-  return BusStopsRepository(ref, db);
+  return BusStopsRepository(ref);
 }
 
-@DriftAccessor(tables: [TableBusStops])
-class BusStopsRepository extends DatabaseAccessor<AppDatabase>
-    with _$BusStopsRepositoryMixin, BaseRepository {
-  BusStopsRepository(this.ref, AppDatabase db) : super(db);
+// TODO: replace mixin with 'extends"
+class BusStopsRepository with BaseRepository {
+  BusStopsRepository(this.ref) : super();
 
   final Ref ref;
 
@@ -39,54 +35,27 @@ class BusStopsRepository extends DatabaseAccessor<AppDatabase>
     ).value;
   }
 
-  List<BusStopValueModel> _busStopTableToFreezed(
-    List<TableBusStop> tableBusStop,
-  ) =>
-      tableBusStop
-          .map(
-            (e) => BusStopValueModel(
-              busStopCode: e.busStopCode,
-              roadName: e.roadName,
-              description: e.description,
-              latitude: e.latitude,
-              longitude: e.longitude,
-            ),
-          )
-          .toList();
-
-  Future<List<BusStopValueModel>> getAllBusStops() async {
+  Future<List<BusStopValueModel>> getAllBusStops() {
     ref.read(loggerProvider).d('Getting all Bus Stops from DB');
-    final tableBusStopList = await select(tableBusStops).get();
-
-    return _busStopTableToFreezed(tableBusStopList);
+    final db = ref.read(appDatabaseProvider);
+    return db.getAllBusStops();
   }
 
   Future<List<BusStopValueModel>> getBusStops({
     required List<String> busStopCodes,
-  }) async {
+  }) {
     ref.read(loggerProvider).d('Getting Bus Stops $busStopCodes from DB');
 
-    final tableBusStopList = await (select(tableBusStops)
-          ..where((tbl) => tbl.busStopCode.isIn(busStopCodes)))
-        .get();
-
-    return _busStopTableToFreezed(tableBusStopList);
+    final db = ref.read(appDatabaseProvider);
+    return db.getBusStops(busStopCodes: busStopCodes);
   }
 
-  Future<List<BusStopValueModel>> findBusStops(String searchTerm) async {
+  Future<List<BusStopValueModel>> findBusStops(String searchTerm) {
     ref
         .read(loggerProvider)
         .d('Getting Bus Stops from DB with search term $searchTerm');
 
-    final tableBusStopList = await (select(tableBusStops)
-          ..where(
-            (tbl) =>
-                tbl.description.contains(searchTerm) |
-                tbl.busStopCode.contains(searchTerm) |
-                tbl.roadName.contains(searchTerm),
-          ))
-        .get();
-
-    return _busStopTableToFreezed(tableBusStopList);
+    final db = ref.read(appDatabaseProvider);
+    return db.findBusStops(searchTerm);
   }
 }
