@@ -8,7 +8,7 @@ class ErrorDisplay extends StatelessWidget {
   });
 
   final String message;
-  final Function()? onPressed;
+  final dynamic Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {

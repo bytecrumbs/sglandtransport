@@ -11,7 +11,7 @@ class MainBottomAppBar extends StatelessWidget {
   });
 
   final int activeIndex;
-  final Function(int)? onTap;
+  final void Function(int)? onTap;
 
   @override
   Widget build(BuildContext context) {
