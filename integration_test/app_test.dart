@@ -13,10 +13,8 @@ import 'package:lta_datamall_flutter/src/user_location/location_service.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('end-to-end test', () {
+  group('end-to-end test should', () {
     testWidgets('verify loading', (tester) async {
-      // await app.main();
-
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
@@ -42,6 +40,8 @@ void main() {
       );
 
       await tester.pumpAndSettle();
+
+      expect(find.text('SG Land Transport'), findsOneWidget);
     });
   });
 }
