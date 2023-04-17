@@ -8,8 +8,10 @@ part 'dashboard_screen_controller.g.dart';
 @riverpod
 class DashboardScreenController extends _$DashboardScreenController {
   @override
-  FutureOr<int?> build() {
-    return ref.read(localStorageServiceProvider).getInt(bottomBarIndexKey);
+  FutureOr<int> build() async {
+    final selectedIndex =
+        await ref.read(localStorageServiceProvider).getInt(bottomBarIndexKey);
+    return selectedIndex ?? 1;
   }
 
   Future<void> onTap({

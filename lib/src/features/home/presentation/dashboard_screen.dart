@@ -102,8 +102,10 @@ class DashboardScreen extends ConsumerWidget {
         ),
       ),
       bottomNavigationBar: activeIndex.whenOrNull(
+        skipLoadingOnRefresh: true,
+        skipLoadingOnReload: true,
         data: (section) => MainBottomAppBar(
-          activeIndex: section ?? 0,
+          activeIndex: section,
           onTap: (clickedItem) async {
             await activeIndexNotifier.onTap(clickedItem: clickedItem);
           },
