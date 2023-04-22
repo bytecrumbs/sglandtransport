@@ -7,7 +7,7 @@ class BusArrivalCardHeader extends StatelessWidget {
     super.key,
     required this.serviceNo,
     required this.inService,
-    required this.destinationName,
+    this.destinationName,
   });
 
   final String serviceNo;
