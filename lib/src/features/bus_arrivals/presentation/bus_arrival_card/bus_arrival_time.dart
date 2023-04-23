@@ -13,23 +13,20 @@ class BusArrivalTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return estimatedArrival != 'n/a'
-        ? Column(
-            children: [
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: loadColor,
-                      width: 6, // Underline thickness
-                    ),
-                  ),
-                ),
-                child: Text(
-                  estimatedArrival,
-                  style: Theme.of(context).textTheme.titleLarge,
+        ? DecoratedBox(
+            key: const Key('estimatedArrivalKey'),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: loadColor,
+                  width: 6, // Underline thickness
                 ),
               ),
-            ],
+            ),
+            child: Text(
+              estimatedArrival,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
           )
         : Text(
             'n/a',
