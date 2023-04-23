@@ -14,7 +14,6 @@ class BusArrivalTime extends StatelessWidget {
   Widget build(BuildContext context) {
     return estimatedArrival != 'n/a'
         ? DecoratedBox(
-            key: const Key('estimatedArrivalKey'),
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
