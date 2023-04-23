@@ -13,8 +13,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   group('BusArrivalsService should', () {
-    ProviderContainer _setupContainer() {
-      return ProviderContainer(
+    ProviderContainer makeProviderContainer({
+      Map<String, Object>? mockedSharedPreferences,
+    }) {
+      if (mockedSharedPreferences != null) {
+        SharedPreferences.setMockInitialValues(mockedSharedPreferences);
+      }
+
+      final container = ProviderContainer(
         overrides: [
           loggerProvider.overrideWithValue(
             Logger(
@@ -23,20 +29,14 @@ void main() {
           )
         ],
       );
-    }
 
-    ProviderContainer _setupWithSharedPreferences(
-      Map<String, List<String>> stringList,
-    ) {
-      final values = stringList;
-      SharedPreferences.setMockInitialValues(values);
-
-      return _setupContainer();
+      addTearDown(container.dispose);
+      return container;
     }
 
     test('Sort bus stops by distance in ascending order', () {
       // setup
-      final container = _setupContainer();
+      final container = makeProviderContainer();
       final busArrivalsService = container.read(busArrivalsServiceProvider);
       const awayDistance = 100;
       const nearDistance = 50;
@@ -93,7 +93,7 @@ void main() {
 
     test('return a list of unique strings based on favorites', () {
       // setup
-      final container = _setupContainer();
+      final container = makeProviderContainer();
       final busArrivalsService = container.read(busArrivalsServiceProvider);
       final stringListToTest = [
         '101010~342',
@@ -117,7 +117,7 @@ void main() {
 
     test('return a filtered list of Bus Service No based on bus stop code', () {
       // setup
-      final container = _setupContainer();
+      final container = makeProviderContainer();
       final busArrivalsService = container.read(busArrivalsServiceProvider);
       const value1 = '101010~342';
       const value2 = '101010~56';
@@ -147,7 +147,8 @@ already stored as a favorite''',
             '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo'
           ]
         };
-        final container = _setupWithSharedPreferences(values);
+        final container =
+            makeProviderContainer(mockedSharedPreferences: values);
 
         final busServicesService = container.read(busArrivalsServiceProvider);
         expect(
@@ -171,7 +172,8 @@ already stored as a favorite''',
             '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo'
           ]
         };
-        final container = _setupWithSharedPreferences(values);
+        final container =
+            makeProviderContainer(mockedSharedPreferences: values);
 
         final busServicesService = container.read(busArrivalsServiceProvider);
         expect(
@@ -195,7 +197,8 @@ bus service is not a favourite yet''',
             '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo'
           ]
         };
-        final container = _setupWithSharedPreferences(values);
+        final container =
+            makeProviderContainer(mockedSharedPreferences: values);
         final busServicesService = container.read(busArrivalsServiceProvider);
 
         // setup new favorite to add
@@ -247,7 +250,8 @@ bus service is already a favourite''',
             '$newBusStopCode$busStopCodeServiceNoDelimiter$newServiceNo'
           ]
         };
-        final container = _setupWithSharedPreferences(values);
+        final container =
+            makeProviderContainer(mockedSharedPreferences: values);
         final busServicesService = container.read(busArrivalsServiceProvider);
 
         // setup new favorite to add
