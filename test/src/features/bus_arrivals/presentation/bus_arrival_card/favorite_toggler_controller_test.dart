@@ -32,16 +32,16 @@ void main() {
       // set initial value to true
       when(
         () => busArrivalsService.isFavorite(
-          busStopCode: '111222',
-          serviceNo: '354',
+          busStopCode: busStopCode,
+          serviceNo: serviceNo,
         ),
       ).thenAnswer((_) => Future.value(true));
 
       // set to false when toggle
       when(
         () => busArrivalsService.toggleFavoriteBusService(
-          busStopCode: '111222',
-          serviceNo: '354',
+          busStopCode: busStopCode,
+          serviceNo: serviceNo,
         ),
       ).thenAnswer((_) => Future.value(false));
 
