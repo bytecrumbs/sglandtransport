@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_card_header.dart';
+import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_time.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/favorite_toggler.dart';
 import 'package:lta_datamall_flutter/src/keys.dart';
 import 'package:lta_datamall_flutter/src/local_storage/local_storage_keys.dart';
@@ -17,6 +18,8 @@ class BusArrivalsRobot {
   final String serviceNo = '354';
   final String destinationName = '354 Destination';
   final String busStopCode = '111222';
+  final String estimatedArrival = '3min';
+  final Color loadColor = Colors.red;
 
   Future<void> pumpBusArrivalCardHeaderNotInService() async {
     await tester.pumpWidget(
@@ -42,6 +45,21 @@ class BusArrivalsRobot {
               serviceNo: serviceNo,
               inService: true,
               destinationName: destinationName,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> pumpBusArrivalTime() async {
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          home: Scaffold(
+            body: BusArrivalTime(
+              estimatedArrival: estimatedArrival,
+              loadColor: loadColor,
             ),
           ),
         ),
@@ -111,6 +129,11 @@ class BusArrivalsRobot {
       ),
     );
     await tester.pumpAndSettle();
+  }
+
+  void expectFindEstimatedArrival() {
+    final finder = find.text(estimatedArrival);
+    expect(finder, findsOneWidget);
   }
 
   void expectFindNoDestination() {
