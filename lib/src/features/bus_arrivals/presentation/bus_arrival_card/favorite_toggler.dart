@@ -8,12 +8,10 @@ class FavoriteToggler extends ConsumerWidget {
     super.key,
     required this.busStopCode,
     required this.serviceNo,
-    required this.isFavorite,
   });
 
   final String busStopCode;
   final String serviceNo;
-  final bool isFavorite;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,22 +19,30 @@ class FavoriteToggler extends ConsumerWidget {
       favoriteTogglerControllerProvider(
         busStopCode: busStopCode,
         serviceNo: serviceNo,
-        isFavorite: isFavorite,
       ).notifier,
     );
     final favoriteTogglerControllerState = ref.watch(
       favoriteTogglerControllerProvider(
         busStopCode: busStopCode,
         serviceNo: serviceNo,
-        isFavorite: isFavorite,
       ),
     );
 
-    return IconButton(
-      onPressed: favoriteTogglerController.toggle,
-      icon: favoriteTogglerControllerState
-          ? const Icon(Icons.favorite)
-          : const Icon(Icons.favorite_outline),
+    return favoriteTogglerControllerState.when(
+      data: (data) => IconButton(
+        onPressed: favoriteTogglerController.toggle,
+        icon: data
+            ? const Icon(Icons.favorite)
+            : const Icon(Icons.favorite_outline),
+      ),
+      loading: () => const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.favorite_outline),
+      ),
+      error: (_, __) => const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.favorite_outline),
+      ),
     );
   }
 }

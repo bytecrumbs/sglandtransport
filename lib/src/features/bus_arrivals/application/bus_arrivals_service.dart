@@ -47,20 +47,17 @@ class BusArrivalsService {
     final allBusArrivals = [...busArrivals.services, ...servicesNotInOperation];
 
     // add destination description to busArrivals
-    final busArrivalsWithDestinationAndNotInOperation =
-        await _addDestination(busArrivals: allBusArrivals);
-
-    // mark favorite bus service no
-    final busArrivalsWithFavorites = await _markFavoriteBusNo(
-      busStopCode: busStopCode,
-      busArrivals: busArrivalsWithDestinationAndNotInOperation,
+    final busArrivalsWithDestinationAndNotInOperation = await _addDestination(
+      busArrivals: allBusArrivals,
     )
       ..sort(
         (var a, var b) => int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
             .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))),
       );
 
-    return busArrivals.copyWith(services: busArrivalsWithFavorites);
+    return busArrivals.copyWith(
+      services: busArrivalsWithDestinationAndNotInOperation,
+    );
   }
 
   // the BusArrival API only returns bus services that are currently in service,
@@ -103,22 +100,6 @@ class BusArrivalsService {
     } else {
       return [];
     }
-  }
-
-  Future<List<BusArrivalServiceModel>> _markFavoriteBusNo({
-    required String busStopCode,
-    required List<BusArrivalServiceModel> busArrivals,
-  }) async {
-    return Future.wait(
-      busArrivals.map((e) async {
-        return e.copyWith(
-          isFavorite: await isFavorite(
-            busStopCode: busStopCode,
-            serviceNo: e.serviceNo,
-          ),
-        );
-      }).toList(),
-    );
   }
 
   Future<List<BusArrivalServiceModel>> _addDestination({
@@ -236,13 +217,11 @@ class BusArrivalsService {
               nextBus2: NextBusModel(),
               nextBus3: NextBusModel(),
               inService: false,
-              isFavorite: true,
             ),
           );
         } else {
           busArrivalServiceModelList.add(
-            busArrivalServiceModelListWithDestination[0]
-                .copyWith(isFavorite: true),
+            busArrivalServiceModelListWithDestination[0],
           );
         }
       }

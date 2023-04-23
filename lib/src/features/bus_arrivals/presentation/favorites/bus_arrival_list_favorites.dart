@@ -100,7 +100,6 @@ class BusArrivalListFavorites extends ConsumerWidget {
                                   nextBus3LoadColor: busArrivalServiceModel
                                       .nextBus3
                                       .getLoadColor(),
-                                  isFavorite: busArrivalServiceModel.isFavorite,
                                 ),
                               )
                               .toList(),

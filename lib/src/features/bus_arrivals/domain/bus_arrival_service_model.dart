@@ -14,7 +14,6 @@ class BusArrivalServiceModel with _$BusArrivalServiceModel {
     @JsonKey(name: 'NextBus2') required NextBusModel nextBus2,
     @JsonKey(name: 'NextBus3') required NextBusModel nextBus3,
     @Default(true) bool inService,
-    @Default(false) bool isFavorite,
     String? destinationName,
   }) = _BusArrivalServiceModel;
 

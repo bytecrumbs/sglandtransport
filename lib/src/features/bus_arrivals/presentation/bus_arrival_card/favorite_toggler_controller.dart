@@ -8,20 +8,22 @@ part 'favorite_toggler_controller.g.dart';
 @riverpod
 class FavoriteTogglerController extends _$FavoriteTogglerController {
   @override
-  bool build({
+  FutureOr<bool> build({
     required String busStopCode,
     required String serviceNo,
-    required bool isFavorite,
   }) {
-    return isFavorite;
+    return ref
+        .watch(busArrivalsServiceProvider)
+        .isFavorite(busStopCode: busStopCode, serviceNo: serviceNo);
   }
 
   Future<void> toggle() async {
-    state =
-        await ref.watch(busArrivalsServiceProvider).toggleFavoriteBusService(
-              busStopCode: busStopCode,
-              serviceNo: serviceNo,
-            );
+    state = AsyncValue.data(
+      await ref.watch(busArrivalsServiceProvider).toggleFavoriteBusService(
+            busStopCode: busStopCode,
+            serviceNo: serviceNo,
+          ),
+    );
     ref.invalidate(favoriteBusArrivalsStreamProvider);
   }
 }
