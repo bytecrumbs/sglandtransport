@@ -85,21 +85,21 @@ class BusArrivalListFavorites extends ConsumerWidget {
                                   nextBusEstimatedArrival:
                                       busArrivalServiceModel.nextBus
                                           .getEstimatedArrival(),
-                                  nextBusLoadColor: busArrivalServiceModel
-                                      .nextBus
-                                      .getLoadColor(),
+                                  nextBusLoad:
+                                      busArrivalServiceModel.nextBus.load ??
+                                          'SEQ',
                                   nextBus2EstimatedArrival:
                                       busArrivalServiceModel.nextBus2
                                           .getEstimatedArrival(),
-                                  nextBus2LoadColor: busArrivalServiceModel
-                                      .nextBus2
-                                      .getLoadColor(),
+                                  nextBus2Load:
+                                      busArrivalServiceModel.nextBus2.load ??
+                                          'SEQ',
                                   nextBus3EstimatedArrival:
                                       busArrivalServiceModel.nextBus3
                                           .getEstimatedArrival(),
-                                  nextBus3LoadColor: busArrivalServiceModel
-                                      .nextBus3
-                                      .getLoadColor(),
+                                  nextBus3Load:
+                                      busArrivalServiceModel.nextBus3.load ??
+                                          'SEQ',
                                 ),
                               )
                               .toList(),

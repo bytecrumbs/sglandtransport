@@ -19,7 +19,7 @@ class BusArrivalsRobot {
   final String destinationName = '354 Destination';
   final String busStopCode = '111222';
   final String estimatedArrival = '3min';
-  final Color loadColor = Colors.red;
+  final String busLoad = 'SEA';
 
   Future<void> pumpBusArrivalCardHeaderNotInService() async {
     await tester.pumpWidget(
@@ -59,7 +59,7 @@ class BusArrivalsRobot {
           home: Scaffold(
             body: BusArrivalTime(
               estimatedArrival: estimatedArrival,
-              loadColor: loadColor,
+              busLoad: busLoad,
             ),
           ),
         ),

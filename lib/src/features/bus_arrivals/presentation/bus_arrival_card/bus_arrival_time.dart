@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../../../palette.dart';
+
 class BusArrivalTime extends StatelessWidget {
   const BusArrivalTime({
     super.key,
     required this.estimatedArrival,
-    required this.loadColor,
+    required this.busLoad,
   });
 
   final String estimatedArrival;
-  final Color loadColor;
+  final String busLoad;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class BusArrivalTime extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: loadColor,
+                  color: kBusLoadColors[busLoad] ?? const Color(0x26009B60),
                   width: 6, // Underline thickness
                 ),
               ),

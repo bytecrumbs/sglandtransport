@@ -15,11 +15,11 @@ class BusArrivalCard extends StatelessWidget {
     required this.inService,
     this.destinationName,
     required this.nextBusEstimatedArrival,
-    required this.nextBusLoadColor,
+    required this.nextBusLoad,
     required this.nextBus2EstimatedArrival,
-    required this.nextBus2LoadColor,
+    required this.nextBus2Load,
     required this.nextBus3EstimatedArrival,
-    required this.nextBus3LoadColor,
+    required this.nextBus3Load,
     required this.busStopCode,
   });
 
@@ -28,11 +28,11 @@ class BusArrivalCard extends StatelessWidget {
   final bool inService;
   final String? destinationName;
   final String nextBusEstimatedArrival;
-  final Color nextBusLoadColor;
+  final String nextBusLoad;
   final String nextBus2EstimatedArrival;
-  final Color nextBus2LoadColor;
+  final String nextBus2Load;
   final String nextBus3EstimatedArrival;
-  final Color nextBus3LoadColor;
+  final String nextBus3Load;
   final String busStopCode;
 
   @override
@@ -65,11 +65,11 @@ class BusArrivalCard extends StatelessWidget {
                 child: BusArrivalSequence(
                   inService: inService,
                   nextBusEstimatedArrival: nextBusEstimatedArrival,
-                  nextBusLoadColor: nextBusLoadColor,
+                  nextBusLoad: nextBusLoad,
                   nextBus2EstimatedArrival: nextBus2EstimatedArrival,
-                  nextBus2LoadColor: nextBus2LoadColor,
+                  nextBus2Load: nextBus2Load,
                   nextBus3EstimatedArrival: nextBus3EstimatedArrival,
-                  nextBus3LoadColor: nextBus3LoadColor,
+                  nextBus3Load: nextBus3Load,
                 ),
               ),
               FavoriteToggler(

@@ -7,20 +7,20 @@ class BusArrivalSequence extends StatelessWidget {
     super.key,
     required this.inService,
     required this.nextBusEstimatedArrival,
-    required this.nextBusLoadColor,
+    required this.nextBusLoad,
     required this.nextBus2EstimatedArrival,
-    required this.nextBus2LoadColor,
+    required this.nextBus2Load,
     required this.nextBus3EstimatedArrival,
-    required this.nextBus3LoadColor,
+    required this.nextBus3Load,
   });
 
   final bool inService;
   final String nextBusEstimatedArrival;
-  final Color nextBusLoadColor;
+  final String nextBusLoad;
   final String nextBus2EstimatedArrival;
-  final Color nextBus2LoadColor;
+  final String nextBus2Load;
   final String nextBus3EstimatedArrival;
-  final Color nextBus3LoadColor;
+  final String nextBus3Load;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class BusArrivalSequence extends StatelessWidget {
               children: [
                 BusArrivalTime(
                   estimatedArrival: nextBusEstimatedArrival,
-                  loadColor: nextBusLoadColor,
+                  busLoad: nextBusLoad,
                 ),
                 const Icon(
                   Icons.arrow_back_ios,
@@ -56,7 +56,7 @@ class BusArrivalSequence extends StatelessWidget {
                 ),
                 BusArrivalTime(
                   estimatedArrival: nextBus2EstimatedArrival,
-                  loadColor: nextBus2LoadColor,
+                  busLoad: nextBus2Load,
                 ),
                 const Icon(
                   Icons.arrow_back_ios,
@@ -64,7 +64,7 @@ class BusArrivalSequence extends StatelessWidget {
                 ),
                 BusArrivalTime(
                   estimatedArrival: nextBus3EstimatedArrival,
-                  loadColor: nextBus3LoadColor,
+                  busLoad: nextBus3Load,
                 ),
               ],
             )

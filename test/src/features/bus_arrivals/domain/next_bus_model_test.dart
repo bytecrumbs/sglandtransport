@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/domain/next_bus_model.dart';
-import 'package:lta_datamall_flutter/src/palette.dart';
 
 void main() {
   group('NextBusModel should', () {
@@ -59,22 +58,6 @@ void main() {
       final nextBusModel2Minute59Seconds =
           NextBusModel(estimatedArrivalAbsolute: arrivalTime2Minute59Seconds);
       expect(nextBusModel2Minute59Seconds.getEstimatedArrival(), '2min');
-    });
-
-    test('show correct color when seats are available ', () {
-      final nextBusModel = NextBusModel(load: 'SEA');
-      final loadColor = nextBusModel.getLoadColor();
-      expect(loadColor, kLoadSeatsAvailable);
-    });
-    test('show correct color when standing is available ', () {
-      final nextBusModel = NextBusModel(load: 'SDA');
-      final loadColor = nextBusModel.getLoadColor();
-      expect(loadColor, kLoadStandingAvailable);
-    });
-    test('show correct color when standing is limited ', () {
-      final nextBusModel = NextBusModel(load: 'LDS');
-      final loadColor = nextBusModel.getLoadColor();
-      expect(loadColor, kLoadLimitedStanding);
     });
   });
 }

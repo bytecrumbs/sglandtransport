@@ -76,18 +76,18 @@ class BusArrivalList extends ConsumerWidget {
                     nextBusEstimatedArrival: currentBusArrivalServicesModel
                         .nextBus
                         .getEstimatedArrival(),
-                    nextBusLoadColor:
-                        currentBusArrivalServicesModel.nextBus.getLoadColor(),
+                    nextBusLoad:
+                        currentBusArrivalServicesModel.nextBus.load ?? 'SEA',
                     nextBus2EstimatedArrival: currentBusArrivalServicesModel
                         .nextBus2
                         .getEstimatedArrival(),
-                    nextBus2LoadColor:
-                        currentBusArrivalServicesModel.nextBus2.getLoadColor(),
+                    nextBus2Load:
+                        currentBusArrivalServicesModel.nextBus2.load ?? 'SEA',
                     nextBus3EstimatedArrival: currentBusArrivalServicesModel
                         .nextBus3
                         .getEstimatedArrival(),
-                    nextBus3LoadColor:
-                        currentBusArrivalServicesModel.nextBus3.getLoadColor(),
+                    nextBus3Load:
+                        currentBusArrivalServicesModel.nextBus3.load ?? 'SEA',
                   ),
                 );
               },

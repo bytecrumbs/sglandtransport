@@ -13,39 +13,39 @@ class BusLoadLegend extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
+        children: [
           DecoratedBox(
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: kLoadSeatsAvailable,
+                  color: kBusLoadColors['SEA']!,
                   width: 6, // Underline thickness
                 ),
               ),
             ),
-            child: Text('Seats Avail.'),
+            child: const Text('Seats Avail.'),
           ),
           DecoratedBox(
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: kLoadStandingAvailable,
+                  color: kBusLoadColors['SDA']!,
                   width: 6, // Underline thickness
                 ),
               ),
             ),
-            child: Text('Standing Avail.'),
+            child: const Text('Standing Avail.'),
           ),
           DecoratedBox(
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: kLoadLimitedStanding,
+                  color: kBusLoadColors['LDS']!,
                   width: 6, // Underline thickness
                 ),
               ),
             ),
-            child: Text('Limited Standing'),
+            child: const Text('Limited Standing'),
           ),
         ],
       ),

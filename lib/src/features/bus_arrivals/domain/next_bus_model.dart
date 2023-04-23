@@ -1,8 +1,4 @@
-import 'dart:ui';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../../palette.dart';
 
 part 'next_bus_model.freezed.dart';
 part 'next_bus_model.g.dart';
@@ -58,19 +54,6 @@ class NextBusModel with _$NextBusModel {
       }
     } else {
       return 'n/a';
-    }
-  }
-
-  Color getLoadColor() {
-    switch (load) {
-      case 'SEA':
-        return kLoadSeatsAvailable;
-      case 'SDA':
-        return kLoadStandingAvailable;
-      case 'LDS':
-        return kLoadLimitedStanding;
-      default:
-        return kLoadSeatsAvailable;
     }
   }
 }
