@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
+import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_card.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_card_header.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_sequence.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_time.dart';
@@ -79,6 +80,30 @@ class BusArrivalsRobot {
           home: Scaffold(
             body: BusArrivalSequence(
               inService: inService,
+              nextBusEstimatedArrival: estimatedArrival,
+              nextBusLoad: busLoad,
+              nextBus2EstimatedArrival: estimatedArrival2,
+              nextBus2Load: busLoad2,
+              nextBus3EstimatedArrival: estimatedArrival3,
+              nextBus3Load: busLoad3,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> pumpBusArrivalCard() async {
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          home: Scaffold(
+            body: BusArrivalCard(
+              serviceNo: serviceNo,
+              destinationCode: '333444',
+              destinationName: destinationName,
+              busStopCode: busStopCode,
+              inService: true,
               nextBusEstimatedArrival: estimatedArrival,
               nextBusLoad: busLoad,
               nextBus2EstimatedArrival: estimatedArrival2,
@@ -175,6 +200,12 @@ class BusArrivalsRobot {
     expect(arrival2, findsOneWidget);
     final arrival3 = find.text(estimatedArrival3);
     expect(arrival3, findsOneWidget);
+  }
+
+  void expectFindBusCardDetails() {
+    expectFindBusArrivalSequence();
+    expectFindServiceNo();
+    expectFindDestination();
   }
 
   void expectFindEstimatedArrival() {
