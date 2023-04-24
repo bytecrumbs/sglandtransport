@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_card_header.dart';
+import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_sequence.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_time.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/favorite_toggler.dart';
 import 'package:lta_datamall_flutter/src/keys.dart';
@@ -20,6 +21,10 @@ class BusArrivalsRobot {
   final String busStopCode = '111222';
   final String estimatedArrival = '3min';
   final String busLoad = 'SEA';
+  final String estimatedArrival2 = '6min';
+  final String busLoad2 = 'SDA';
+  final String estimatedArrival3 = '9min';
+  final String busLoad3 = 'LDS';
 
   Future<void> pumpBusArrivalCardHeaderNotInService() async {
     await tester.pumpWidget(
@@ -60,6 +65,26 @@ class BusArrivalsRobot {
             body: BusArrivalTime(
               estimatedArrival: estimatedArrival,
               busLoad: busLoad,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> pumpBusArrivalSequence({required bool inService}) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          home: Scaffold(
+            body: BusArrivalSequence(
+              inService: inService,
+              nextBusEstimatedArrival: estimatedArrival,
+              nextBusLoad: busLoad,
+              nextBus2EstimatedArrival: estimatedArrival2,
+              nextBus2Load: busLoad2,
+              nextBus3EstimatedArrival: estimatedArrival3,
+              nextBus3Load: busLoad3,
             ),
           ),
         ),
@@ -129,6 +154,27 @@ class BusArrivalsRobot {
       ),
     );
     await tester.pumpAndSettle();
+  }
+
+  void expectFindNotInOperation() {
+    final arrival1 = find.text(estimatedArrival);
+    expect(arrival1, findsNothing);
+    final arrival2 = find.text(estimatedArrival2);
+    expect(arrival2, findsNothing);
+    final arrival3 = find.text(estimatedArrival3);
+    expect(arrival3, findsNothing);
+
+    final finder = find.text('Not In Operation');
+    expect(finder, findsOneWidget);
+  }
+
+  void expectFindBusArrivalSequence() {
+    final arrival1 = find.text(estimatedArrival);
+    expect(arrival1, findsOneWidget);
+    final arrival2 = find.text(estimatedArrival2);
+    expect(arrival2, findsOneWidget);
+    final arrival3 = find.text(estimatedArrival3);
+    expect(arrival3, findsOneWidget);
   }
 
   void expectFindEstimatedArrival() {
