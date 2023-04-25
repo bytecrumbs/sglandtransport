@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../keys.dart';
 import '../../../palette.dart';
 import '../../../routing/app_router.dart';
 
@@ -108,6 +109,7 @@ class BusRouteTile extends StatelessWidget {
                 ),
                 if (!isPreviousStops)
                   const Padding(
+                    key: forwardArrowKey,
                     padding: EdgeInsets.only(right: 10),
                     child: Icon(
                       Icons.arrow_forward_ios,

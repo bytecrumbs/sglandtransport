@@ -7,6 +7,7 @@ import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_sequence.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_time.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/favorite_toggler.dart';
+import 'package:lta_datamall_flutter/src/features/bus_routes/presentation/bus_route_tile.dart';
 import 'package:lta_datamall_flutter/src/keys.dart';
 import 'package:lta_datamall_flutter/src/local_storage/local_storage_keys.dart';
 import 'package:lta_datamall_flutter/src/third_party_providers/third_party_providers.dart';
@@ -26,6 +27,8 @@ class BusArrivalsRobot {
   final String busLoad2 = 'SDA';
   final String estimatedArrival3 = '9min';
   final String busLoad3 = 'LDS';
+  final String roadName = 'Bus Road Name';
+  final String description = 'Bus Description';
 
   Future<void> pumpBusArrivalCardHeaderNotInService() async {
     await tester.pumpWidget(
@@ -117,6 +120,42 @@ class BusArrivalsRobot {
     );
   }
 
+  Future<void> pumpBusRouteTileMiddle() async {
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          home: Scaffold(
+            body: BusRouteTile(
+              busStopCode: busStopCode,
+              roadName: roadName,
+              description: description,
+              busSequenceType: BusSequenceType.middle,
+              isPreviousStops: false,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> pumpBusRouteTilePreviousStops() async {
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          home: Scaffold(
+            body: BusRouteTile(
+              busStopCode: busStopCode,
+              roadName: roadName,
+              description: description,
+              busSequenceType: BusSequenceType.start,
+              isPreviousStops: true,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Future<void> pumpFavoriteTogglerWithActivatedFavorite() async {
     SharedPreferences.setMockInitialValues({
       favoriteServiceNoKey: [
@@ -191,6 +230,30 @@ class BusArrivalsRobot {
 
     final finder = find.text('Not In Operation');
     expect(finder, findsOneWidget);
+  }
+
+  void expectFindBusRouteTileDetailsMiddle() {
+    final descriptionFinder = find.text(description);
+    expect(descriptionFinder, findsOneWidget);
+    final busStopCodeAndRoadNameFinder = find.text('$busStopCode | $roadName');
+    expect(busStopCodeAndRoadNameFinder, findsOneWidget);
+  }
+
+  void expectFindBusRouteTileForwardArrow() {
+    final finder = find.byKey(forwardArrowKey);
+    expect(finder, findsOneWidget);
+  }
+
+  void expectFindNoBusRouteTileForwardArrow() {
+    final finder = find.byKey(forwardArrowKey);
+    expect(finder, findsNothing);
+  }
+
+  void expectFindBusRouteTileDetailsPreviousStops() {
+    final descriptionFinder = find.text(description);
+    expect(descriptionFinder, findsOneWidget);
+    final busStopCodeAndRoadNameFinder = find.text('$busStopCode | $roadName');
+    expect(busStopCodeAndRoadNameFinder, findsNothing);
   }
 
   void expectFindBusArrivalSequence() {
