@@ -25,10 +25,5 @@ void main() {
       await r.pumpMyWidget();
       r.expectFindExceptionMessage();
     });
-    test(
-        'handle cases where the no bus service is returned due to not stored in local DB',
-        () async {
-      // TODO: Implementation
-    });
   });
 }
