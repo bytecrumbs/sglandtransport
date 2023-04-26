@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../common_widgets/error_display.dart';
 import '../../../custom_exception.dart';
+import '../../../keys.dart';
 import '../data/bus_service_repository.dart';
 import '../domain/bus_service_value_model.dart';
 
@@ -117,7 +118,11 @@ class BusServiceDetails extends ConsumerWidget {
             ],
           ),
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const Center(
+          child: CircularProgressIndicator(
+            key: loadingIndicatorKey,
+          ),
+        ),
         error: (error, stack) {
           if (error is CustomException) {
             return ErrorDisplay(
@@ -133,6 +138,7 @@ class BusServiceDetails extends ConsumerWidget {
             );
           }
           return ErrorDisplay(
+            key: exceptionMessageKey,
             message: error.toString(),
           );
         },
