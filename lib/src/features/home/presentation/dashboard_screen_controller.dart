@@ -11,7 +11,7 @@ class DashboardScreenController extends _$DashboardScreenController {
   FutureOr<int> build() async {
     final selectedIndex =
         await ref.read(localStorageServiceProvider).getInt(bottomBarIndexKey);
-    return selectedIndex ?? 1;
+    return selectedIndex ?? 0;
   }
 
   Future<void> onTap({
