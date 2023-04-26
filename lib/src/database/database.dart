@@ -67,28 +67,23 @@ class AppDatabase extends _$AppDatabase {
           if (details.wasCreated ||
               refreshDate < DateTime.now().millisecondsSinceEpoch) {
             ref.read(loggerProvider).d('Refreshing tables');
-            // add all bus stops into the local database. this has to complete
-            // before we show bus stops, as it is fetched from the local DB
-            // and not directly from the lta datamall API
+
+            /// Add all bus information into the local database. The most stable
+            /// way to do that seems to be to load one table after another
+            /// syncronous. Maybe this can be improved in a future release by
+            /// try to run those in parallel again, or if not show a nicer message
+            /// on the UI that this is being loaded.
             await _refreshBusStops();
-            // similar as above, this cannot run in background as it is needed
-            // to identify which direction the bus routes should show (plus
-            // other things)
             await _refreshBusServices();
-            // bus routes loading can run in the background as it is only used
-            // to add bus services that are not currently in operation for a given
-            // bus stop
-            unawaited(_refreshBusRoutes());
+            await _refreshBusRoutes();
             // tables should be refreshed again in 30 days
             final refreshDate = DateTime.now()
                 .add(const Duration(days: 30))
                 .millisecondsSinceEpoch;
 
-            unawaited(
-              ref
-                  .read(localStorageServiceProvider)
-                  .setInt(refreshDateKey, refreshDate),
-            );
+            await ref
+                .read(localStorageServiceProvider)
+                .setInt(refreshDateKey, refreshDate);
           }
         },
       );
