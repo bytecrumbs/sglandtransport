@@ -347,6 +347,22 @@ class AppDatabase extends _$AppDatabase {
       destinationCode: destinationCode,
     );
 
+    /// If for some reason the bus route information is not loaded, try
+    /// to load it again
+    final checkForBusRouteAvailability = await (select(tableBusRoutes)
+          ..where(
+            (t) =>
+                t.serviceNo.equals(serviceNo) &
+                t.direction.equalsExp(subqueryExpression(direction)),
+          ))
+        .get();
+    if (checkForBusRouteAvailability.isEmpty) {
+      ref
+          .read(loggerProvider)
+          .d('BusRoutes Table seems empty - trying to reload');
+      await _refreshBusRoutes();
+    }
+
     final stopSequence = getStopSequence(
       serviceNo: serviceNo,
       busStopCode: busStopCode,
