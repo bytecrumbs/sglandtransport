@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../bus_arrivals/bus_arrivals_robot.dart';
+import '../bus_services_robot.dart';
 
 void main() {
   group('BusServiceDetails should', () {
     testWidgets('show loading and then data', (tester) async {
-      final r = BusArrivalsRobot(tester);
+      final r = BusServicesRobot(tester);
       await r.pumpBusServiceDetails();
       r.expectFindBusServiceDetailsLoadingIndicator();
       // ensure loading is finished
@@ -20,7 +20,7 @@ void main() {
     });
     testWidgets('show show error when future returns an exception',
         (tester) async {
-      final r = BusArrivalsRobot(tester);
+      final r = BusServicesRobot(tester);
       await r.pumpBusServiceDetails(produceGenericException: true);
       await r.pumpMyWidget();
       r.expectFindExceptionMessage();

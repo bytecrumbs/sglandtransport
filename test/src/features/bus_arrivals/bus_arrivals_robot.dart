@@ -7,9 +7,6 @@ import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_sequence.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/bus_arrival_time.dart';
 import 'package:lta_datamall_flutter/src/features/bus_arrivals/presentation/bus_arrival_card/favorite_toggler.dart';
-import 'package:lta_datamall_flutter/src/features/bus_services/data/bus_service_repository.dart';
-import 'package:lta_datamall_flutter/src/features/bus_services/data/fake_bus_service_repository.dart';
-import 'package:lta_datamall_flutter/src/features/bus_services/presentation/bus_service_details.dart';
 import 'package:lta_datamall_flutter/src/keys.dart';
 import 'package:lta_datamall_flutter/src/local_storage/local_storage_keys.dart';
 import 'package:lta_datamall_flutter/src/third_party_providers/third_party_providers.dart';
@@ -22,7 +19,6 @@ class BusArrivalsRobot {
 
   final String serviceNo = '354';
   final String destinationName = '354 Destination';
-  final String destinationCode = '97009';
   final String busStopCode = '111222';
   final String estimatedArrival = '3min';
   final String busLoad = 'SEA';
@@ -30,37 +26,6 @@ class BusArrivalsRobot {
   final String busLoad2 = 'SDA';
   final String estimatedArrival3 = '9min';
   final String busLoad3 = 'LDS';
-
-  Future<void> pumpMyWidget() async {
-    await tester.pumpAndSettle();
-  }
-
-  Future<void> pumpBusServiceDetails({
-    bool produceGenericException = false,
-  }) async {
-    final container = ProviderContainer(
-      overrides: [
-        busServiceRepositoryProvider
-            .overrideWithValue(FakeBusServiceRepository()),
-      ],
-    );
-    await tester.pumpWidget(
-      UncontrolledProviderScope(
-        container: container,
-        child: MaterialApp(
-          home: Scaffold(
-            body: BusServiceDetails(
-              serviceNo:
-                  produceGenericException ? testExceptionServiceNo : serviceNo,
-              destinationCode: produceGenericException
-                  ? testExceptionDestinationCode
-                  : destinationCode,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   Future<void> pumpBusArrivalCardHeaderNotInService() async {
     await tester.pumpWidget(
@@ -214,59 +179,6 @@ class BusArrivalsRobot {
       ),
     );
     await tester.pumpAndSettle();
-  }
-
-  void expectFindExceptionMessage() {
-    final finder = find.byKey(exceptionMessageKey);
-    expect(finder, findsOneWidget);
-  }
-
-  void expectFindBusServiceDetailsLoadingIndicator() {
-    _expectFindLoadingIndicator(loadingIndicatorKey);
-  }
-
-  void _expectFindLoadingIndicator(Key loadingIndicatorKey) {
-    final finder = find.byKey(loadingIndicatorKey);
-    expect(finder, findsOneWidget);
-  }
-
-  void expectFindNoBusServiceDetailsLoadingIndicator() {
-    _expectFindNoLoadingIndicator(loadingIndicatorKey);
-  }
-
-  void _expectFindNoLoadingIndicator(Key loadingIndicatorKey) {
-    final finder = find.byKey(loadingIndicatorKey);
-    expect(finder, findsNothing);
-  }
-
-  void expectFindBusOperator() {
-    final finder = find.text(fakeBusServiceValueModel.busOperator);
-    expect(finder, findsOneWidget);
-  }
-
-  void expectFindBusCategory() {
-    final finder = find.text(fakeBusServiceValueModel.category);
-    expect(finder, findsOneWidget);
-  }
-
-  void expectFindAmPeakFreq() {
-    final finder = find.text('${fakeBusServiceValueModel.amPeakFreq} mins');
-    expect(finder, findsOneWidget);
-  }
-
-  void expectFindPmPeakFreq() {
-    final finder = find.text('${fakeBusServiceValueModel.pmPeakFreq} mins');
-    expect(finder, findsOneWidget);
-  }
-
-  void expectFindAmOffpeakFreq() {
-    final finder = find.text('${fakeBusServiceValueModel.amOffpeakFreq} mins');
-    expect(finder, findsOneWidget);
-  }
-
-  void expectFindPmOffpeakFreq() {
-    final finder = find.text('${fakeBusServiceValueModel.pmOffpeakFreq} mins');
-    expect(finder, findsOneWidget);
   }
 
   void expectFindNotInOperation() {
