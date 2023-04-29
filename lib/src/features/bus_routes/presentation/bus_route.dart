@@ -4,11 +4,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../common_widgets/error_display.dart';
 import '../../../custom_exception.dart';
-import '../../bus_routes/application/bus_routes_service.dart';
-import '../../bus_routes/domain/bus_route_with_bus_stop_info_model.dart';
-import '../../bus_routes/presentation/bus_route_tile.dart';
+import '../../../keys.dart';
+import '../application/bus_routes_service.dart';
+import '../domain/bus_route_with_bus_stop_info_model.dart';
+import 'bus_route_tile.dart';
 
-part 'bus_service_route.g.dart';
+part 'bus_route.g.dart';
 
 @riverpod
 Future<List<BusRouteWithBusStopInfoModel>> busRouteWithBusStopInfoModel(
@@ -25,8 +26,8 @@ Future<List<BusRouteWithBusStopInfoModel>> busRouteWithBusStopInfoModel(
   );
 }
 
-class BusServiceRoute extends ConsumerWidget {
-  const BusServiceRoute({
+class BusRoute extends ConsumerWidget {
+  const BusRoute({
     super.key,
     required this.busStopCode,
     required this.destinationCode,
@@ -83,7 +84,11 @@ class BusServiceRoute extends ConsumerWidget {
             ),
           ],
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const Center(
+          child: CircularProgressIndicator(
+            key: loadingIndicatorKey,
+          ),
+        ),
         error: (error, stack) {
           if (error is CustomException) {
             return ErrorDisplay(

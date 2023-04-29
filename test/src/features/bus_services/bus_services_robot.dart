@@ -45,6 +45,10 @@ class BusServicesRobot {
     );
   }
 
+  void expectFindBusServiceRouteLoadingIndicator() {
+    _expectFindLoadingIndicator(loadingIndicatorKey);
+  }
+
   void expectFindBusServiceDetailsLoadingIndicator() {
     _expectFindLoadingIndicator(loadingIndicatorKey);
   }

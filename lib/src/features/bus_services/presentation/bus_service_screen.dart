@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../bus_routes/presentation/bus_route.dart';
 import 'bus_service_details.dart';
-import 'bus_service_route.dart';
 
 class BusServiceScreen extends StatelessWidget {
   const BusServiceScreen({
@@ -32,7 +32,7 @@ class BusServiceScreen extends StatelessWidget {
             height: 10,
           ),
           Expanded(
-            child: BusServiceRoute(
+            child: BusRoute(
               busStopCode: busStopCode,
               destinationCode: destinationCode,
               serviceNo: serviceNo,
