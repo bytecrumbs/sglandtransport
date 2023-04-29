@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 
-import 'location_service.dart';
+import 'package:lta_datamall_flutter/src/user_location/location_service.dart';
 
 class FakeLocationService implements LocationService {
   @override

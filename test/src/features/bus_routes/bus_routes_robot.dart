@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lta_datamall_flutter/src/features/bus_routes/data/bus_routes_repository.dart';
-import 'package:lta_datamall_flutter/src/features/bus_routes/data/fake_bus_routes_repository.dart';
 import 'package:lta_datamall_flutter/src/features/bus_routes/presentation/bus_route.dart';
 import 'package:lta_datamall_flutter/src/features/bus_routes/presentation/bus_route_tile.dart';
 import 'package:lta_datamall_flutter/src/keys.dart';
+
+import '../../../fakes/fake_bus_routes_repository.dart';
 
 class BusRoutesRobot {
   BusRoutesRobot(this.tester);

@@ -1,5 +1,5 @@
-import '../domain/bus_stop_value_model.dart';
-import 'bus_stops_repository.dart';
+import 'package:lta_datamall_flutter/src/features/bus_stops/data/bus_stops_repository.dart';
+import 'package:lta_datamall_flutter/src/features/bus_stops/domain/bus_stop_value_model.dart';
 
 final fakeBusStopValueModel = BusStopValueModel(
   busStopCode: '111222',

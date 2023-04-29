@@ -1,5 +1,5 @@
-import '../domain/bus_service_value_model.dart';
-import 'bus_service_repository.dart';
+import 'package:lta_datamall_flutter/src/features/bus_services/data/bus_service_repository.dart';
+import 'package:lta_datamall_flutter/src/features/bus_services/domain/bus_service_value_model.dart';
 
 final fakeBusServiceValueModel = BusServiceValueModel(
   serviceNo: '354',

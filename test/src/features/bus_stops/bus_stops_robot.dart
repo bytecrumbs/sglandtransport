@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lta_datamall_flutter/src/features/bus_stops/data/bus_stops_repository.dart';
-import 'package:lta_datamall_flutter/src/features/bus_stops/data/fake_bus_stops_repository.dart';
 import 'package:lta_datamall_flutter/src/features/bus_stops/presentation/bus_stop_card/bus_stop_card.dart';
 import 'package:lta_datamall_flutter/src/features/bus_stops/presentation/bus_stop_card/bus_stop_card_with_fetch.dart';
 import 'package:lta_datamall_flutter/src/features/bus_stops/presentation/bus_stop_card/bus_stop_distance.dart';
 import 'package:lta_datamall_flutter/src/features/home/presentation/dashboard_screen.dart';
 import 'package:lta_datamall_flutter/src/keys.dart';
+
+import '../../../fakes/fake_bus_stops_repository.dart';
 
 class BusStopsRobot {
   BusStopsRobot(this.tester);

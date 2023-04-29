@@ -1,5 +1,5 @@
-import '../domain/bus_route_with_bus_stop_info_model.dart';
-import 'bus_routes_repository.dart';
+import 'package:lta_datamall_flutter/src/features/bus_routes/data/bus_routes_repository.dart';
+import 'package:lta_datamall_flutter/src/features/bus_routes/domain/bus_route_with_bus_stop_info_model.dart';
 
 final fakeBusRouteWithBusStopInfoModelList = [
   BusRouteWithBusStopInfoModel(

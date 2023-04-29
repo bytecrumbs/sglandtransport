@@ -5,9 +5,9 @@ import 'package:logger/logger.dart';
 import 'package:lta_datamall_flutter/src/app.dart';
 import 'package:lta_datamall_flutter/src/features/home/presentation/dashboard_screen.dart';
 import 'package:lta_datamall_flutter/src/third_party_providers/third_party_providers.dart';
-import 'package:lta_datamall_flutter/src/user_location/fake_location_service.dart';
 import 'package:lta_datamall_flutter/src/user_location/location_service.dart';
 
+import '../fakes/fake_location_service.dart';
 import 'features/home/home_robot.dart';
 import 'firebase_mocks.dart';
 
