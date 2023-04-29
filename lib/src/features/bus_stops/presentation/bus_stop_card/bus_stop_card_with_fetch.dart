@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../common_widgets/error_display.dart';
 import '../../../../custom_exception.dart';
+import '../../../../keys.dart';
 import '../../../home/presentation/dashboard_screen.dart';
 import '../../application/bus_stops_service.dart';
 import '../../domain/bus_stop_value_model.dart';
@@ -42,7 +43,11 @@ class BusStopCardWithFetch extends ConsumerWidget {
           allowBusArrivalView: false,
         ),
       ),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const Center(
+        child: CircularProgressIndicator(
+          key: loadingIndicatorKey,
+        ),
+      ),
       error: (error, stack) {
         if (error is CustomException) {
           return ErrorDisplay(
