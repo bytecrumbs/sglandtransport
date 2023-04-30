@@ -1,13 +1,9 @@
-SG Land Transport shows information about bus stops and bus arrival times.
-- Nearby bus stops: Find bus stops that are in near proximity (requires permission to track your location)
-- Favorite bus services: Personalize your experience and store frequently used bus services as favorites to easily access them at any time
-- Bus Arrival times: For each bus service it will show you the next 3 estimated arrivals for each bus and the available space
-- Search: Search for bus stops by name, bus stop code or address
-- Bus Routes: See bus routes along with bus service details like bus operator arrival frequency and more 
+Looking for a reliable and convenient way to get around Singapore? Look no further than SG Land Transport, the ultimate bus app for Singapore commuters! With SG Land Transport, you can easily search for nearby bus stops and get real-time information on bus arrivals, schedules, and bus load indicator for the next 3 bus arrival times, all at your fingertips.
 
-More features to come soon!
+Never miss a bus again with our advanced bus tracking system, which displays the next 3 bus arrival times for each bus service at your nearby bus stops. You can also save your favorite bus services for quick and easy access.
 
-Best of all, SG Land Transport is and always will be:
-- 100% free
-- 100% ad-free
-- 100% open source
+SG Land Transport is perfect for commuters on-the-go, whether you're a local or a tourist visiting Singapore. With our user-friendly interface and reliable data, you can easily plan your journey and navigate the city with ease.
+
+Best of all, SG Land Transport is completely free and ad-free, so you can enjoy all the features without any distractions. And if you're a tech enthusiast or developer, you'll be pleased to know that SG Land Transport is also open source. This means you can view and modify the app's source code, and contribute to the development of the app.
+
+Download SG Land Transport today and experience the best bus app Singapore has to offer!
