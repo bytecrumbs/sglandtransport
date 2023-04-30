@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lta_datamall_flutter/src/features/bus_routes/data/bus_routes_repository.dart';
+import 'package:logger/logger.dart';
+import 'package:lta_datamall_flutter/src/database/database.dart';
 import 'package:lta_datamall_flutter/src/features/bus_routes/presentation/bus_route.dart';
 import 'package:lta_datamall_flutter/src/features/bus_routes/presentation/bus_route_tile.dart';
 import 'package:lta_datamall_flutter/src/keys.dart';
+import 'package:lta_datamall_flutter/src/third_party_providers/third_party_providers.dart';
 
-import '../../../fakes/fake_bus_routes_repository.dart';
+import '../../../fakes/fake_database.dart';
 
 class BusRoutesRobot {
   BusRoutesRobot(this.tester);
@@ -28,8 +30,13 @@ class BusRoutesRobot {
   }) async {
     final container = ProviderContainer(
       overrides: [
-        busRoutesRepositoryProvider
-            .overrideWithValue(FakeBusRoutesRepository()),
+        loggerProvider.overrideWithValue(
+          Logger(
+            printer: PrettyPrinter(),
+            level: Level.error,
+          ),
+        ),
+        appDatabaseProvider.overrideWithValue(FakeAppDatabase()),
       ],
     );
     await tester.pumpWidget(
