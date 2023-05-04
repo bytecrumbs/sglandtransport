@@ -20,12 +20,17 @@ class BaseRepository {
         .read(loggerProvider)
         .d('GET $path with $queryParameters as query parameters');
 
+    const ltaDatamallApiKey = String.fromEnvironment(ltaDatamallApiKeyName);
+    if (ltaDatamallApiKey.isEmpty) {
+      throw AssertionError('$ltaDatamallApiKeyName is not set');
+    }
+
     try {
       return await dio.get<T>(
         path,
         options: Options(
           headers: <String, String>{
-            'AccountKey': EnvironmentConfig.ltaDatamallApiKey,
+            'AccountKey': ltaDatamallApiKey,
           },
         ),
         queryParameters: queryParameters,
