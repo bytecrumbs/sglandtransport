@@ -43,10 +43,8 @@ builds/dcinDi7y/0/sascha.derungs/lta-datamall-flutter.tmp/CI_SERVER_TLS_CA_FILE
 builds/dcinDi7y/0/sascha.derungs/lta-datamall-flutter.tmp/git-template/config
 
 # api keys
-.vscode/
-
-# environment variables for local development
-/.env
+.vscode/settings.json
+api-keys.json
 
 # generated code
 /**/*.g.dart

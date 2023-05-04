@@ -35,33 +35,22 @@ Our code of conduct is based on the [Contributor Covenant](CODE_OF_CONDUCT.md).
 
 #### LTA Datamall API key
 
-If you use VSCode, we recommend you create a launch.json file that launches the flutter run command with this argument, so that you can use the standard debug functionality of VSCode, rather than running your debug build via the command line.
+This app will attempt to read the LTA Datamall key from a file called api-keys.json in your project root directory.
 
-Example launch.json file:
+Example api-keys.json file:
 
 ```json
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Flutter",
-      "request": "launch",
-      "type": "dart",
-      "args": [
-        "--dart-define=LTA_DATAMALL_API_KEY=<your LTA Datamall API key goes here>"
-      ]
-    }
-  ]
+    "LTA_DATAMALL_API_KEY": "your-key"
 }
 ```
+
+For VSCode, a launch.json file is a there, with the necessary configuration.
 
 To run it from command line:
 
 ```zsh
-flutter run --dart-define=LTA_DATAMALL_API_KEY=<add your key here>
+flutter run --dart-define-from-file=api-keys.json
 ```
 
 A key can be generated following the guildeines of
