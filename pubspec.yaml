@@ -21,10 +21,10 @@ dependencies:
   convex_bottom_bar: ^3.2.0
   dio: ^5.1.1
   drift: ^2.6.0
-  firebase_analytics: ^10.2.0
-  firebase_core: ^2.9.0
-  firebase_crashlytics: ^3.1.0
-  firebase_performance: ^0.9.1
+  firebase_analytics: ^10.3.0
+  firebase_core: ^2.11.0
+  firebase_crashlytics: ^3.2.0
+  firebase_performance: ^0.9.1+2
   flare_flutter: ^3.0.2
   flutter:
     sdk: flutter
