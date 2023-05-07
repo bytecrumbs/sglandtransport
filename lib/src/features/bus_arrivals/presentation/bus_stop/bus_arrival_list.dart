@@ -82,88 +82,83 @@ class BusArrivalList extends ConsumerWidget {
       busArrivalsStreamProvider(busStopCode: busStopCode),
     );
 
-    return Expanded(
-      child: Column(
-        children: [
-          Text(
-            'Last Update: ${formatDateTime(lastRefreshTime)}',
-            style: const TextStyle(fontSize: 16),
-          ),
-          vmState.when(
-            data: (busArrival) => RefreshIndicator(
-              onRefresh: () {
-                ref.read(lastRefreshTimeNotifierProvider.notifier).refresh();
-                ref.invalidate(
-                  busArrivalsStreamProvider(
-                    busStopCode: busStopCode,
-                  ),
-                );
-                return Future.value();
-              },
-              child: AnimationLimiter(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: busArrival.services.length,
-                  itemBuilder: (_, index) {
-                    final currentBusArrivalServicesModel =
-                        busArrival.services[index];
-                    return StaggeredAnimation(
-                      key: Key(index.toString()),
-                      index: index,
-                      child: BusArrivalCard(
-                        busStopCode: busStopCode,
-                        destinationCode: currentBusArrivalServicesModel
-                                .nextBus.destinationCode ??
-                            '1',
-                        inService: currentBusArrivalServicesModel.inService,
-                        serviceNo: currentBusArrivalServicesModel.serviceNo,
-                        destinationName:
-                            currentBusArrivalServicesModel.destinationName,
-                        nextBusEstimatedArrival: currentBusArrivalServicesModel
-                            .nextBus
-                            .getEstimatedArrival(),
-                        nextBusLoad:
-                            currentBusArrivalServicesModel.nextBus.load ??
-                                'SEA',
-                        nextBus2EstimatedArrival: currentBusArrivalServicesModel
-                            .nextBus2
-                            .getEstimatedArrival(),
-                        nextBus2Load:
-                            currentBusArrivalServicesModel.nextBus2.load ??
-                                'SEA',
-                        nextBus3EstimatedArrival: currentBusArrivalServicesModel
-                            .nextBus3
-                            .getEstimatedArrival(),
-                        nextBus3Load:
-                            currentBusArrivalServicesModel.nextBus3.load ??
-                                'SEA',
-                      ),
-                    );
-                  },
+    return Column(
+      children: [
+        Text(
+          'Last Update: ${formatDateTime(lastRefreshTime)}',
+          style: const TextStyle(fontSize: 16),
+        ),
+        vmState.when(
+          data: (busArrival) => RefreshIndicator(
+            onRefresh: () {
+              ref.read(lastRefreshTimeNotifierProvider.notifier).refresh();
+              ref.invalidate(
+                busArrivalsStreamProvider(
+                  busStopCode: busStopCode,
                 ),
+              );
+              return Future.value();
+            },
+            child: AnimationLimiter(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: busArrival.services.length,
+                itemBuilder: (_, index) {
+                  final currentBusArrivalServicesModel =
+                      busArrival.services[index];
+                  return StaggeredAnimation(
+                    key: Key(index.toString()),
+                    index: index,
+                    child: BusArrivalCard(
+                      busStopCode: busStopCode,
+                      destinationCode: currentBusArrivalServicesModel
+                              .nextBus.destinationCode ??
+                          '1',
+                      inService: currentBusArrivalServicesModel.inService,
+                      serviceNo: currentBusArrivalServicesModel.serviceNo,
+                      destinationName:
+                          currentBusArrivalServicesModel.destinationName,
+                      nextBusEstimatedArrival: currentBusArrivalServicesModel
+                          .nextBus
+                          .getEstimatedArrival(),
+                      nextBusLoad:
+                          currentBusArrivalServicesModel.nextBus.load ?? 'SEA',
+                      nextBus2EstimatedArrival: currentBusArrivalServicesModel
+                          .nextBus2
+                          .getEstimatedArrival(),
+                      nextBus2Load:
+                          currentBusArrivalServicesModel.nextBus2.load ?? 'SEA',
+                      nextBus3EstimatedArrival: currentBusArrivalServicesModel
+                          .nextBus3
+                          .getEstimatedArrival(),
+                      nextBus3Load:
+                          currentBusArrivalServicesModel.nextBus3.load ?? 'SEA',
+                    ),
+                  );
+                },
               ),
             ),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error, stack) {
-              if (error is CustomException) {
-                return ErrorDisplay(
-                  message: error.message,
-                  onPressed: () {
-                    ref.invalidate(
-                      busArrivalsStreamProvider(
-                        busStopCode: busStopCode,
-                      ),
-                    );
-                  },
-                );
-              }
-              return ErrorDisplay(
-                message: error.toString(),
-              );
-            },
           ),
-        ],
-      ),
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, stack) {
+            if (error is CustomException) {
+              return ErrorDisplay(
+                message: error.message,
+                onPressed: () {
+                  ref.invalidate(
+                    busArrivalsStreamProvider(
+                      busStopCode: busStopCode,
+                    ),
+                  );
+                },
+              );
+            }
+            return ErrorDisplay(
+              message: error.toString(),
+            );
+          },
+        ),
+      ],
     );
   }
 }
