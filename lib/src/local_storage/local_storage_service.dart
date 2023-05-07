@@ -55,6 +55,16 @@ class LocalStorageService {
     return sp.getInt(key);
   }
 
+  Future<bool> setString(String key, String value) async {
+    final sp = await spInstance();
+    return sp.setString(key, value);
+  }
+
+  Future<String?> getString(String key) async {
+    final sp = await spInstance();
+    return sp.getString(key);
+  }
+
   Future<bool> setBool({
     required String key,
     required bool value,
