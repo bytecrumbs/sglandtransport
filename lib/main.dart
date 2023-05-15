@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flare_flutter/flare_cache.dart';
 import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lta_datamall_flutter/src/features/firebase/firebase_remote_config_service.dart';
 
 import 'firebase_options.dart';
 import 'src/app.dart';
@@ -43,9 +45,18 @@ Future<void> main() async {
     AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
   );
 
+  final firebaseRemoteConfigService = FirebaseRemoteConfigService(
+    firebaseRemoteConfig: FirebaseRemoteConfig.instance,
+  );
+  await firebaseRemoteConfigService.init();
+
   runApp(
-    const ProviderScope(
-      child: MyApp(),
+    ProviderScope(
+      overrides: [
+        firebaseRemoteConfigServiceProvider
+            .overrideWith((_) => firebaseRemoteConfigService)
+      ],
+      child: const MyApp(),
     ),
   );
 }

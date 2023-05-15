@@ -25,6 +25,7 @@ dependencies:
   firebase_core: ^2.11.0
   firebase_crashlytics: ^3.2.0
   firebase_performance: ^0.9.1+2
+  firebase_remote_config: ^4.2.0
   flare_flutter: ^3.0.2
   flutter:
     sdk: flutter
