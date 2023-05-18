@@ -7,10 +7,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lta_datamall_flutter/src/features/firebase/firebase_remote_config_service.dart';
 
 import 'firebase_options.dart';
 import 'src/app.dart';
+import 'src/features/firebase/firebase_remote_config_service.dart';
 
 // Toggle this for testing Crashlytics in the app locally.
 const _kTestingCrashlytics = false;

@@ -23,7 +23,6 @@ final fakeBusRouteWithBusStopInfoModelList = [
     description: 'Description 1',
     latitude: 102,
     longitude: 203,
-    isPreviousStops: false,
   ),
   BusRouteWithBusStopInfoModel(
     serviceNo: '354',
@@ -35,7 +34,6 @@ final fakeBusRouteWithBusStopInfoModelList = [
     description: 'Description 2',
     latitude: 103,
     longitude: 204,
-    isPreviousStops: false,
   ),
 ];
 

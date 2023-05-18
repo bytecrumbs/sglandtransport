@@ -113,12 +113,12 @@ class BusArrivalListFavorites extends ConsumerWidget {
             ),
           );
         } else {
-          return SliverFillRemaining(
+          return const SliverFillRemaining(
             child: Padding(
-              padding: const EdgeInsets.all(8),
+              padding: EdgeInsets.all(8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     'Tap the favorites icon on any bus arrival to add '
                     'a bus to your favorites',
