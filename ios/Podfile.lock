@@ -12,11 +12,14 @@ PODS:
   - Firebase/Performance (10.7.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 10.7.0)
+  - Firebase/RemoteConfig (10.7.0):
+    - Firebase/CoreOnly
+    - FirebaseRemoteConfig (~> 10.7.0)
   - firebase_analytics (10.3.0):
     - Firebase/Analytics (= 10.7.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.11.0):
+  - firebase_core (2.12.0):
     - Firebase/CoreOnly (= 10.7.0)
     - Flutter
   - firebase_crashlytics (3.2.0):
@@ -25,6 +28,10 @@ PODS:
     - Flutter
   - firebase_performance (0.9.1-2):
     - Firebase/Performance (= 10.7.0)
+    - firebase_core
+    - Flutter
+  - firebase_remote_config (4.2.0):
+    - Firebase/RemoteConfig (= 10.7.0)
     - firebase_core
     - Flutter
   - FirebaseABTesting (10.7.0):
@@ -182,6 +189,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
   - firebase_performance (from `.symlinks/plugins/firebase_performance/ios`)
+  - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
   - Flutter (from `Flutter`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
@@ -222,6 +230,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_crashlytics/ios"
   firebase_performance:
     :path: ".symlinks/plugins/firebase_performance/ios"
+  firebase_remote_config:
+    :path: ".symlinks/plugins/firebase_remote_config/ios"
   Flutter:
     :path: Flutter
   geolocator_apple:
@@ -244,9 +254,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Firebase: 0219acf760880eeec8ce479895bd7767466d9f81
   firebase_analytics: 216977fc8c05f54c2c4935181e3f1a368949c5cd
-  firebase_core: dee76ded6c693fdb38b8ea39aef7129e32e587a3
+  firebase_core: 312d0d81b346ec20540822c8498e626d6918ef48
   firebase_crashlytics: 450dc80dcb167d04714c147336dd04a7230d20e4
   firebase_performance: 6a92bbefc5286e6488629b1cc3c32a7a8a7032f2
+  firebase_remote_config: e6b22eba96aba1a34d39c89fbc96917b8c2f680f
   FirebaseABTesting: 76c8297fd026074e0366dc941d265d1be80a56d5
   FirebaseAnalytics: f8133442ee6f8512e28ff19e62ce15398bfaeace
   FirebaseCore: e317665b9d744727a97e623edbbed009320afdd7
@@ -276,4 +287,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: af6b891fb448119e2e3d0a226fcad7567aa13204
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2

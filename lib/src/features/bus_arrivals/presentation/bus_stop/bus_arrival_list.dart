@@ -8,6 +8,7 @@ import '../../../../common_widgets/error_display.dart';
 import '../../../../common_widgets/staggered_animation.dart';
 import '../../../../custom_exception.dart';
 import '../../../../local_storage/local_storage_service.dart';
+import '../../../firebase/firebase_remote_config_service.dart';
 import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_model.dart';
 import '../bus_arrival_card/bus_arrival_card.dart';
@@ -77,17 +78,23 @@ class BusArrivalList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final firebaseRemoteConfigService =
+        ref.watch(firebaseRemoteConfigServiceProvider);
+    final showShowRefreshTime =
+        firebaseRemoteConfigService.getLastRefreshTime();
     final lastRefreshTime = ref.watch(lastRefreshTimeProvider);
+
     final vmState = ref.watch(
       busArrivalsStreamProvider(busStopCode: busStopCode),
     );
 
     return Column(
       children: [
-        Text(
-          'Last Update: ${formatDateTime(lastRefreshTime)}',
-          style: const TextStyle(fontSize: 16),
-        ),
+        if (showShowRefreshTime)
+          Text(
+            'Last Update: ${formatDateTime(lastRefreshTime)}',
+            style: const TextStyle(fontSize: 16),
+          ),
         vmState.when(
           data: (busArrival) => RefreshIndicator(
             onRefresh: () {
