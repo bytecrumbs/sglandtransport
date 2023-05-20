@@ -27,6 +27,9 @@ class FirebaseRemoteConfigService {
           minimumFetchInterval: Duration.zero,
         ),
       );
+      await firebaseRemoteConfig.setDefaults(const {
+        'show_last_refresh_time': false,
+      });
       await firebaseRemoteConfig.fetchAndActivate();
     } on FirebaseException catch (e, st) {
       developer.log(
