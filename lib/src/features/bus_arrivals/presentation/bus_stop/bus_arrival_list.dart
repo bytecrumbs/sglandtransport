@@ -8,7 +8,7 @@ import '../../../../common_widgets/error_display.dart';
 import '../../../../common_widgets/staggered_animation.dart';
 import '../../../../custom_exception.dart';
 import '../../../../local_storage/local_storage_service.dart';
-import '../../../firebase/firebase_remote_config_service.dart';
+import '../../../firebase/remote_config_service.dart';
 import '../../application/bus_arrivals_service.dart';
 import '../../domain/bus_arrival_model.dart';
 import '../bus_arrival_card/bus_arrival_card.dart';
@@ -78,10 +78,11 @@ class BusArrivalList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final firebaseRemoteConfigServiceState =
+        ref.watch(remoteConfigServiceProvider);
     final firebaseRemoteConfigService =
-        ref.watch(firebaseRemoteConfigServiceProvider);
-    final showShowRefreshTime =
-        firebaseRemoteConfigService.getLastRefreshTime();
+        ref.watch(remoteConfigServiceProvider.notifier);
+
     final lastRefreshTime = ref.watch(lastRefreshTimeProvider);
 
     final vmState = ref.watch(
@@ -90,11 +91,24 @@ class BusArrivalList extends ConsumerWidget {
 
     return Column(
       children: [
-        if (showShowRefreshTime)
-          Text(
-            'Last Update: ${formatDateTime(lastRefreshTime)}',
-            style: const TextStyle(fontSize: 16),
-          ),
+        firebaseRemoteConfigServiceState.when(
+          data: (data) {
+            if (firebaseRemoteConfigService.getLastRefreshTime()) {
+              return Text(
+                'Last Update: ${formatDateTime(lastRefreshTime)}',
+                style: const TextStyle(fontSize: 16),
+              );
+            } else {
+              return Container();
+            }
+          },
+          error: (error, stackTrace) {
+            return Container();
+          },
+          loading: () {
+            return Container();
+          },
+        ),
         vmState.when(
           data: (busArrival) => RefreshIndicator(
             onRefresh: () {

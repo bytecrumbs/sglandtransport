@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flare_flutter/flare_cache.dart';
 import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
 import 'src/app.dart';
-import 'src/features/firebase/firebase_remote_config_service.dart';
 
 // Toggle this for testing Crashlytics in the app locally.
 const _kTestingCrashlytics = false;
@@ -45,18 +43,9 @@ Future<void> main() async {
     AssetFlare(bundle: rootBundle, name: 'images/city.flr'),
   );
 
-  final firebaseRemoteConfigService = FirebaseRemoteConfigService(
-    firebaseRemoteConfig: FirebaseRemoteConfig.instance,
-  );
-  await firebaseRemoteConfigService.init();
-
   runApp(
-    ProviderScope(
-      overrides: [
-        firebaseRemoteConfigServiceProvider
-            .overrideWith((_) => firebaseRemoteConfigService)
-      ],
-      child: const MyApp(),
+    const ProviderScope(
+      child: MyApp(),
     ),
   );
 }
