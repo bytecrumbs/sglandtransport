@@ -26,7 +26,7 @@ final goRouter = GoRouter(
           path: 'busArrivals/:busStopCode',
           name: AppRoute.busArrivals.name,
           builder: (context, state) {
-            final busStopCode = state.params['busStopCode']!;
+            final busStopCode = state.pathParameters['busStopCode']!;
             return BusArrivalsListScreen(
               busStopCode: busStopCode,
             );
@@ -36,9 +36,9 @@ final goRouter = GoRouter(
           path: 'busDetails/:serviceNo/:busStopCode/:destinationCode',
           name: AppRoute.busDetails.name,
           pageBuilder: (context, state) {
-            final busStopCode = state.params['busStopCode']!;
-            final serviceNo = state.params['serviceNo']!;
-            final destinationCode = state.params['destinationCode']!;
+            final busStopCode = state.pathParameters['busStopCode']!;
+            final serviceNo = state.pathParameters['serviceNo']!;
+            final destinationCode = state.pathParameters['destinationCode']!;
             return MaterialPage<BusServiceScreen>(
               key: state.pageKey,
               fullscreenDialog: true,

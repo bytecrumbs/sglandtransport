@@ -46,7 +46,7 @@ class BusArrivalCard extends StatelessWidget {
             onTap: inService
                 ? () => context.pushNamed(
                       AppRoute.busDetails.name,
-                      params: {
+                      pathParameters: {
                         'serviceNo': serviceNo,
                         'busStopCode': busStopCode,
                         'destinationCode': destinationCode,

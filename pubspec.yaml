@@ -33,7 +33,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   freezed_annotation: ^2.2.0
   geolocator: ^9.0.2
-  go_router: ^6.5.5
+  go_router: ^7.0.2
   in_app_review: ^2.0.6
   intl: ^0.18.1
   json_annotation: ^4.8.1

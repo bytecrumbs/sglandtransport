@@ -35,7 +35,7 @@ class BusRouteTile extends StatelessWidget {
               GoRouter.of(context).pop();
               GoRouter.of(context).pushNamed(
                 AppRoute.busArrivals.name,
-                params: {
+                pathParameters: {
                   'busStopCode': busStopCode,
                 },
               );
