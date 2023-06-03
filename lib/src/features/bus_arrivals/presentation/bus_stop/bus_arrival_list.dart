@@ -40,7 +40,7 @@ final lastRefreshTimeNotifierProvider =
   final prefs = ref.watch(localStorageServiceProvider);
   return LastRefreshTimeNotifier(prefs)
     ..addListener((state) {
-      ref.refresh(lastRefreshTimeProvider);
+      return ref.refresh(lastRefreshTimeProvider);
     });
 });
 
