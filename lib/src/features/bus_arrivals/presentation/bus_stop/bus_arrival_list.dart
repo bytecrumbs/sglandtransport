@@ -112,7 +112,9 @@ class BusArrivalList extends ConsumerWidget {
         vmState.when(
           data: (busArrival) => RefreshIndicator(
             onRefresh: () {
-              ref.read(lastRefreshTimeNotifierProvider.notifier).refresh();
+              if (firebaseRemoteConfigService.getLastRefreshTime()) {
+                ref.read(lastRefreshTimeNotifierProvider.notifier).refresh();
+              }
               ref.invalidate(
                 busArrivalsStreamProvider(
                   busStopCode: busStopCode,
