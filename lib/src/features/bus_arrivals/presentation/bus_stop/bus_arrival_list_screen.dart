@@ -18,18 +18,18 @@ class BusArrivalsListScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Bus Arrivals'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            BusStopCardWithFetch(busStopCode: busStopCode),
-            const BusLoadLegend(),
-            BusArrivalList(busStopCode: busStopCode),
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          BusStopCardWithFetch(busStopCode: busStopCode),
+          const BusLoadLegend(),
+          Expanded(
+            child: BusArrivalList(busStopCode: busStopCode),
+          ),
+        ],
       ),
     );
   }

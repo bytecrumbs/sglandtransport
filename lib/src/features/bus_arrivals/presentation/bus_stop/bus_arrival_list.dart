@@ -89,7 +89,7 @@ class BusArrivalList extends ConsumerWidget {
       busArrivalsStreamProvider(busStopCode: busStopCode),
     );
 
-    return Column(
+    return Stack(
       children: [
         firebaseRemoteConfigServiceState.when(
           data: (data) {
