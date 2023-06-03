@@ -43,7 +43,6 @@ class BusServiceDetails extends ConsumerWidget {
       ),
     );
     return Card(
-      margin: const EdgeInsets.all(10),
       child: busServiceValueModel.when(
         data: (busService) => Padding(
           padding: const EdgeInsets.all(8),
@@ -51,19 +50,13 @@ class BusServiceDetails extends ConsumerWidget {
             children: [
               const TableRow(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 8),
-                    child: Text(
-                      'Operator:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                  Text(
+                    'Operator:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 8),
-                    child: Text(
-                      'Category:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                  Text(
+                    'Category:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

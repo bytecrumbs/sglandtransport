@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../common_widgets/error_display.dart';
+import '../../../common_widgets/main_content_margin.dart';
 import '../../../custom_exception.dart';
 import '../../bus_stops/data/bus_stops_repository.dart';
 import '../../bus_stops/domain/bus_stop_value_model.dart';
@@ -37,28 +38,33 @@ class SearchResult extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchResult =
         ref.watch(searchResultProvider(searchTerm: searchTerm));
-    return searchResult.when(
-      data: (searchResult) => ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        itemCount: searchResult.length,
-        itemBuilder: (_, index) => ProviderScope(
-          overrides: [
-            busStopValueModelProvider.overrideWithValue(searchResult[index])
-          ],
-          child: BusStopCard(
-            searchTerm: searchTerm,
+    return MainContentMargin(
+      child: searchResult.when(
+        data: (searchResult) => ListView.separated(
+          separatorBuilder: (_, __) => const SizedBox(
+            height: 8,
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          itemCount: searchResult.length,
+          itemBuilder: (_, index) => ProviderScope(
+            overrides: [
+              busStopValueModelProvider.overrideWithValue(searchResult[index])
+            ],
+            child: BusStopCard(
+              searchTerm: searchTerm,
+            ),
           ),
         ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) {
+          if (error is CustomException) {
+            return ErrorDisplay(message: error.message);
+          }
+          return ErrorDisplay(
+            message: error.toString(),
+          );
+        },
       ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) {
-        if (error is CustomException) {
-          return ErrorDisplay(message: error.message);
-        }
-        return ErrorDisplay(
-          message: error.toString(),
-        );
-      },
     );
   }
 }

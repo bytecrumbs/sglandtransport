@@ -12,7 +12,7 @@ class BusLoadLegend extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           DecoratedBox(
             decoration: BoxDecoration(

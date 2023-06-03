@@ -31,6 +31,8 @@ class FavoriteToggler extends ConsumerWidget {
 
     return favoriteTogglerControllerState.when(
       data: (data) => IconButton(
+        padding: const EdgeInsets.only(left: 16),
+        constraints: const BoxConstraints(),
         key: favoriteButtonKey,
         onPressed: favoriteTogglerController.toggle,
         icon: data

@@ -41,7 +41,6 @@ class BusArrivalSequence extends StatelessWidget {
         ],
       ),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-      margin: const EdgeInsets.symmetric(horizontal: 8),
       child: inService
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

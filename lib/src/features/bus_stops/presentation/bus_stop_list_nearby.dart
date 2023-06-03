@@ -4,6 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../common_widgets/error_display.dart';
+import '../../../common_widgets/main_content_margin.dart';
 import '../../../common_widgets/staggered_animation.dart';
 import '../../../custom_exception.dart';
 import '../../../user_location/location_service.dart';
@@ -60,13 +61,21 @@ class BusStopListNearby extends ConsumerWidget {
       data: (busStops) => AnimationLimiter(
         child: SliverList(
           delegate: SliverChildBuilderDelegate(
-            (_, index) => StaggeredAnimation(
-              index: index,
-              child: ProviderScope(
-                overrides: [
-                  busStopValueModelProvider.overrideWithValue(busStops[index]),
-                ],
-                child: const BusStopCard(),
+            (_, index) => MainContentMargin(
+              child: StaggeredAnimation(
+                index: index,
+                child: ProviderScope(
+                  overrides: [
+                    busStopValueModelProvider
+                        .overrideWithValue(busStops[index]),
+                  ],
+                  child: const Column(
+                    children: [
+                      BusStopCard(),
+                      SizedBox(height: 8),
+                    ],
+                  ),
+                ),
               ),
             ),
             childCount: busStops.length,

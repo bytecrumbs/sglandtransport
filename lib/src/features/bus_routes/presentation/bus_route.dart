@@ -48,7 +48,6 @@ class BusRoute extends ConsumerWidget {
       ),
     );
     return Card(
-      margin: const EdgeInsets.all(10),
       child: busRouteWithBusStopInfoModel.when(
         data: (busRoute) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,

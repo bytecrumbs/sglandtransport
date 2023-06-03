@@ -21,7 +21,7 @@ class BusStopCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final busStopValueModel = ref.watch(busStopValueModelProvider);
     return Card(
-      margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+      margin: EdgeInsets.zero,
       child: ListTile(
         title: SubstringHighlight(
           text: busStopValueModel.description,
