@@ -51,7 +51,7 @@ class BusStopsRobot {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          busStopValueModelProvider.overrideWithValue(fakeBusStopValueModel)
+          busStopValueModelProvider.overrideWithValue(fakeBusStopValueModel),
         ],
         child: const MaterialApp(
           home: Scaffold(
@@ -66,7 +66,7 @@ class BusStopsRobot {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          busStopValueModelProvider.overrideWithValue(fakeBusStopValueModel)
+          busStopValueModelProvider.overrideWithValue(fakeBusStopValueModel),
         ],
         child: const MaterialApp(
           home: Scaffold(

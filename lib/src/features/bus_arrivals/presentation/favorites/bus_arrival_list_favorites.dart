@@ -127,7 +127,7 @@ class BusArrivalListFavorites extends ConsumerWidget {
                   Text(
                     'Tap the favorites icon on any bus arrival to add '
                     'a bus to your favorites',
-                  )
+                  ),
                 ],
               ),
             ),

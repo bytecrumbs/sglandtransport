@@ -30,7 +30,7 @@ class Robot {
             printer: PrettyPrinter(),
             level: Level.error,
           ),
-        )
+        ),
       ],
     );
 

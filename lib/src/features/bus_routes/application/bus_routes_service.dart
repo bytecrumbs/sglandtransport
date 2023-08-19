@@ -46,7 +46,7 @@ class BusRoutesService {
               latitude: 1,
               longitude: 2,
             ),
-            ...busRoutes
+            ...busRoutes,
           ];
   }
 }

@@ -24,7 +24,7 @@ class MainBottomAppBar extends StatelessWidget {
         TabItem<IconData>(
           icon: Icons.favorite,
           title: 'Favorite Buses',
-        )
+        ),
       ],
       initialActiveIndex: activeIndex,
       onTap: onTap,

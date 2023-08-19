@@ -373,7 +373,7 @@ class AppDatabase extends _$AppDatabase {
       innerJoin(
         tableBusRoutes,
         tableBusRoutes.busStopCode.equalsExp(tableBusStops.busStopCode),
-      )
+      ),
     ])
       ..where(
         tableBusRoutes.serviceNo.equals(serviceNo) &

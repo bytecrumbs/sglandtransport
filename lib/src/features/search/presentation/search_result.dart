@@ -48,7 +48,7 @@ class SearchResult extends ConsumerWidget {
           itemCount: searchResult.length,
           itemBuilder: (_, index) => ProviderScope(
             overrides: [
-              busStopValueModelProvider.overrideWithValue(searchResult[index])
+              busStopValueModelProvider.overrideWithValue(searchResult[index]),
             ],
             child: BusStopCard(
               searchTerm: searchTerm,

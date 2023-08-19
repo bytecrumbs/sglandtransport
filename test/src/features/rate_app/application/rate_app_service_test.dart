@@ -19,7 +19,7 @@ void main() {
               printer: PrettyPrinter(),
               level: Level.error,
             ),
-          )
+          ),
         ],
       );
     }

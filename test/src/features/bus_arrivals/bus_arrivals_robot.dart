@@ -121,7 +121,7 @@ class BusArrivalsRobot {
     SharedPreferences.setMockInitialValues({
       favoriteServiceNoKey: [
         '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo',
-      ]
+      ],
     });
 
     final container = ProviderContainer(
@@ -131,7 +131,7 @@ class BusArrivalsRobot {
             printer: PrettyPrinter(),
             level: Level.error,
           ),
-        )
+        ),
       ],
     );
 
@@ -161,7 +161,7 @@ class BusArrivalsRobot {
             printer: PrettyPrinter(),
             level: Level.error,
           ),
-        )
+        ),
       ],
     );
 

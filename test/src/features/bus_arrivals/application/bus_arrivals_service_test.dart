@@ -26,7 +26,7 @@ void main() {
             Logger(
               level: Level.error,
             ),
-          )
+          ),
         ],
       );
 
@@ -144,8 +144,8 @@ already stored as a favorite''',
         const serviceNo = '123';
         final values = <String, List<String>>{
           favoriteServiceNoKey: [
-            '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo'
-          ]
+            '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo',
+          ],
         };
         final container =
             makeProviderContainer(mockedSharedPreferences: values);
@@ -169,8 +169,8 @@ already stored as a favorite''',
         const serviceNo = '123';
         final values = <String, List<String>>{
           favoriteServiceNoKey: [
-            '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo'
-          ]
+            '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo',
+          ],
         };
         final container =
             makeProviderContainer(mockedSharedPreferences: values);
@@ -194,8 +194,8 @@ bus service is not a favourite yet''',
         const serviceNo = '123';
         final values = <String, List<String>>{
           favoriteServiceNoKey: [
-            '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo'
-          ]
+            '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo',
+          ],
         };
         final container =
             makeProviderContainer(mockedSharedPreferences: values);
@@ -247,8 +247,8 @@ bus service is already a favourite''',
         final values = <String, List<String>>{
           favoriteServiceNoKey: [
             '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo',
-            '$newBusStopCode$busStopCodeServiceNoDelimiter$newServiceNo'
-          ]
+            '$newBusStopCode$busStopCodeServiceNoDelimiter$newServiceNo',
+          ],
         };
         final container =
             makeProviderContainer(mockedSharedPreferences: values);
