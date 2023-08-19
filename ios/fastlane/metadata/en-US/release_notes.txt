@@ -1,2 +1,1 @@
 - Performance and Stability improvements
-- Layout tweaks
