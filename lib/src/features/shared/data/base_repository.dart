@@ -35,7 +35,7 @@ class BaseRepository {
         ),
         queryParameters: queryParameters,
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       refBase
           .read(loggerProvider)
           .e('message: ${e.message}; response: ${e.response}');

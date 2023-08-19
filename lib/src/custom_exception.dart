@@ -1,24 +1,25 @@
 import 'package:dio/dio.dart';
 
 class CustomException implements Exception {
-  CustomException.fromDioError(DioError dioError) {
-    statusCode = dioError.response?.statusCode;
-    switch (dioError.type) {
-      case DioErrorType.unknown:
-        message = message = dioError.response?.statusMessage ?? 'Unknown Error';
-      case DioErrorType.connectionError:
+  CustomException.fromDioError(DioException dioException) {
+    statusCode = dioException.response?.statusCode;
+    switch (dioException.type) {
+      case DioExceptionType.unknown:
+        message =
+            message = dioException.response?.statusMessage ?? 'Unknown Error';
+      case DioExceptionType.connectionError:
         message = 'No Internet connectivity';
-      case DioErrorType.badCertificate:
+      case DioExceptionType.badCertificate:
         message = 'Invalid certificate provided';
-      case DioErrorType.cancel:
+      case DioExceptionType.cancel:
         message = 'Request to API server was cancelled';
-      case DioErrorType.connectionTimeout:
+      case DioExceptionType.connectionTimeout:
         message = 'Connection timeout with API server';
-      case DioErrorType.receiveTimeout:
+      case DioExceptionType.receiveTimeout:
         message = 'Received timeout in connection with API server';
-      case DioErrorType.badResponse:
-        message = _handleError(dioError.response?.statusCode);
-      case DioErrorType.sendTimeout:
+      case DioExceptionType.badResponse:
+        message = _handleError(dioException.response?.statusCode);
+      case DioExceptionType.sendTimeout:
         message = 'Send timeout in connection with API server';
     }
   }
