@@ -26,9 +26,15 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Turning on location allows us to show you nearby bus stops</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Turning on location allows us to show you nearby bus stops</string>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Turning on location allows us to show you nearby bus stops</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
