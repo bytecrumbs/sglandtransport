@@ -1,4 +1,4 @@
-name: Create Release
+name: Beta
 on: 
   workflow_dispatch:
     inputs:

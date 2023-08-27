@@ -88,43 +88,35 @@ platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
     setup_ci
+    match(
+      type: "appstore",
+      readonly: is_ci
+      )
+    build_ios_app(export_method: "app-store")
     app_store_connect_api_key(
       key_id: ENV['ASCAPI_KEY_ID'],
       issuer_id: ENV['ASCAPI_ISSUER_ID'],
       key_content: ENV['ASCAPI_KEY_CONTENT'],
       is_key_content_base64: true
     )
-    match(type: "appstore")
-    build_ios_app(export_method: "app-store")
     testflight(skip_waiting_for_build_processing: is_ci)
-    upload_to_app_store(
-      submit_for_review: false,
-      automatic_release: false,
-      force: true, # Skip HTMl report verification
-      skip_metadata: false,
-      skip_screenshots: false,
-      skip_binary_upload: true,
-      overwrite_screenshots: true,
-      precheck_include_in_app_purchases: false
-    )
   end
-
-  lane :submit_review do
-    upload_to_app_store(
-      submit_for_review: true,
-      automatic_release: false,
-      force: true, # Skip HTMl report verification
-      skip_metadata: true,
-      skip_screenshots: true,
-      skip_binary_upload: true,
+  
+  lane :release do
+    setup_ci
+    app_store_connect_api_key(
+      key_id: ENV['ASCAPI_KEY_ID'],
+      issuer_id: ENV['ASCAPI_ISSUER_ID'],
+      key_content: ENV['ASCAPI_KEY_CONTENT'],
+      is_key_content_base64: true
+    )
+    deliver(
+      automatic_release: true,
+      force: is_ci, # Skip HTMl report verification
+      overwrite_screenshots: true,
       precheck_include_in_app_purchases: false,
-      submission_information: {
-        add_id_info_limits_tracking: true,
-        add_id_info_serves_ads: false,
-        add_id_info_tracks_action: true,
-        add_id_info_tracks_install: true,
-        add_id_info_uses_idfa: true,
-      }
+      submit_for_review: false,
+      skip_binary_upload: true
     )
   end
 
