@@ -45,6 +45,11 @@ void main() {
         ),
       ).thenAnswer((_) => Future.value(false));
 
+      when(busArrivalsService.handleLegacyFavorites).thenAnswer((_) async {});
+
+      when(busArrivalsService.getFavoriteBusServices)
+          .thenAnswer((_) => Future.value([]));
+
       // setup
       final container = makeProviderContainer(busArrivalsService);
       final controller = container.read(
