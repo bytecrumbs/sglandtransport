@@ -45,8 +45,12 @@ void main() {
         ),
       ).thenAnswer((_) => Future.value(false));
 
+      // By default when a class extends Mock any unstubbed methods return null,
+      // so we need to mock this method to ensure it does not return anything
       when(busArrivalsService.handleLegacyFavorites).thenAnswer((_) async {});
 
+      // By default when a class extends Mock any unstubbed methods return null,
+      // so we need to mock this method return a list
       when(busArrivalsService.getFavoriteBusServices)
           .thenAnswer((_) => Future.value([]));
 
