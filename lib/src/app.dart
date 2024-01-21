@@ -18,6 +18,7 @@ class MyApp extends ConsumerWidget {
       routerConfig: goRouter,
       restorationScopeId: 'app',
       theme: ThemeData(
+        useMaterial3: false,
         scaffoldBackgroundColor: kMainBackgroundColor,
         appBarTheme: const AppBarTheme(
           backgroundColor: kPrimaryColor,
