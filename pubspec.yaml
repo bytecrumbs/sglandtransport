@@ -54,7 +54,7 @@ dev_dependencies:
   firebase_core_platform_interface: ^4.8.0
   flutter_test:
     sdk: flutter
-  freezed: ^2.4.1
+  freezed: ^2.4.6
   integration_test:
     sdk: flutter
   json_serializable: ^6.7.1
