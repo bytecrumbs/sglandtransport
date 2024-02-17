@@ -21,11 +21,11 @@ dependencies:
   convex_bottom_bar: ^3.2.0
   dio: ^5.4.0
   drift: ^2.15.0
-  firebase_analytics: ^10.8.0
-  firebase_core: ^2.24.2
-  firebase_crashlytics: ^3.4.9
-  firebase_performance: ^0.9.3+8
-  firebase_remote_config: ^4.3.8
+  firebase_analytics: ^10.8.5
+  firebase_core: ^2.25.4
+  firebase_crashlytics: ^3.4.14
+  firebase_performance: ^0.9.3+13
+  firebase_remote_config: ^4.3.13
   flare_flutter: ^3.0.2
   flutter:
     sdk: flutter
