@@ -7,7 +7,6 @@ import '../../../common_widgets/error_display.dart';
 import '../../../common_widgets/main_content_margin.dart';
 import '../../../common_widgets/staggered_animation.dart';
 import '../../../custom_exception.dart';
-import '../../../database/db_init_notifier.dart';
 import '../../../user_location/location_service.dart';
 import '../../home/presentation/dashboard_screen.dart';
 import '../application/bus_stops_service.dart';
