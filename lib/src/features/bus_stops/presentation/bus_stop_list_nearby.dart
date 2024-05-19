@@ -13,6 +13,7 @@ import '../../home/presentation/dashboard_screen.dart';
 import '../application/bus_stops_service.dart';
 import '../domain/bus_stop_value_model.dart';
 import 'bus_stop_card/bus_stop_card.dart';
+import 'bus_stop_list_loading.dart';
 
 part 'bus_stop_list_nearby.g.dart';
 
@@ -57,7 +58,6 @@ class BusStopListNearby extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final busStops = ref.watch(nearbyBusStopsStreamProvider);
-    final isDBInitiating = ref.watch(dBInitNotifierProvider);
 
     return busStops.when(
       data: (busStops) => AnimationLimiter(
@@ -96,28 +96,7 @@ class BusStopListNearby extends ConsumerWidget {
           ),
         );
       },
-      loading: () {
-        if (isDBInitiating.isInitializing) {
-          return SliverFillRemaining(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(isDBInitiating.busStopsStatus),
-                  Text(isDBInitiating.busServicesStatus),
-                  Text(isDBInitiating.busRoutesStatus),
-                ],
-              ),
-            ),
-          );
-        } else {
-          return const SliverFillRemaining(
-            child: Center(
-              child: Text('Looking for nearby bus stops...'),
-            ),
-          );
-        }
-      },
+      loading: BusStopListLoading.new,
     );
   }
 }
