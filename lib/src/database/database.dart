@@ -75,25 +75,10 @@ class AppDatabase extends _$AppDatabase {
             /// syncronous. Maybe this can be improved in a future release by
             /// try to run those in parallel again, or if not show a nicer message
             /// on the UI that this is being loaded.
-            ref.watch(dBInitNotifierProvider.notifier).busStopsLoadingStart();
             await _refreshBusStops();
-            ref
-                .watch(dBInitNotifierProvider.notifier)
-                .busStopsLoadingComplete();
-
-            ref
-                .watch(dBInitNotifierProvider.notifier)
-                .busServicesLoadingStart();
             await _refreshBusServices();
-            ref
-                .watch(dBInitNotifierProvider.notifier)
-                .busServicesLoadingComplete();
-
-            ref.watch(dBInitNotifierProvider.notifier).busRoutesLoadingStart();
             await _refreshBusRoutes();
-            ref
-                .watch(dBInitNotifierProvider.notifier)
-                .busRoutesLoadingComplete();
+
             // tables should be refreshed again in 30 days
             final refreshDate = DateTime.now()
                 .add(const Duration(days: 30))
@@ -136,6 +121,7 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> _refreshBusRoutes() async {
     ref.read(loggerProvider).d('deleting bus routes from table');
+    ref.watch(dBInitNotifierProvider.notifier).busRoutesLoadingStart();
     await delete(tableBusRoutes).go();
     ref.read(loggerProvider).d('adding bus routes to table');
     for (var i = 0; i <= 26000; i = i + 500) {
@@ -165,10 +151,12 @@ class AppDatabase extends _$AppDatabase {
         batch.insertAll(tableBusRoutes, [...busRouteValueTableList]);
       });
     }
+    ref.watch(dBInitNotifierProvider.notifier).busRoutesLoadingComplete();
   }
 
   Future<void> _refreshBusServices() async {
     ref.read(loggerProvider).d('deleting bus services from table');
+    ref.watch(dBInitNotifierProvider.notifier).busServicesLoadingStart();
     await delete(tableBusServices).go();
     ref.read(loggerProvider).d('adding bus services to table');
     for (var i = 0; i <= 500; i = i + 500) {
@@ -198,10 +186,12 @@ class AppDatabase extends _$AppDatabase {
         batch.insertAll(tableBusServices, [...busServiceValueTableList]);
       });
     }
+    ref.watch(dBInitNotifierProvider.notifier).busServicesLoadingComplete();
   }
 
   Future<void> _refreshBusStops() async {
     ref.read(loggerProvider).d('deleting bus stops from table');
+    ref.watch(dBInitNotifierProvider.notifier).busStopsLoadingStart();
     await delete(tableBusStops).go();
     ref.read(loggerProvider).d('adding bus stops to table');
     for (var i = 0; i <= 5000; i = i + 500) {
@@ -224,6 +214,7 @@ class AppDatabase extends _$AppDatabase {
         batch.insertAll(tableBusStops, [...busStopValueTableList]);
       });
     }
+    ref.watch(dBInitNotifierProvider.notifier).busStopsLoadingComplete();
   }
 
   List<BusStopValueModel> _busStopTableToFreezed(
