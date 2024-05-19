@@ -1,1 +1,2 @@
 - Performance and Stability improvements
+- Improved user experience when bus information is downloaded and refreshed with the latest data
