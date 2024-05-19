@@ -15,8 +15,10 @@ import '../features/bus_services/data/bus_service_repository.dart';
 import '../features/bus_services/domain/bus_service_value_model.dart';
 import '../features/bus_stops/data/bus_stops_repository.dart';
 import '../features/bus_stops/domain/bus_stop_value_model.dart';
+import '../features/home/presentation/dashboard_screen_controller.dart';
 import '../local_storage/local_storage_service.dart';
 import '../third_party_providers/third_party_providers.dart';
+import 'db_init_notifier.dart';
 import 'tables.dart';
 
 part 'database.g.dart';
@@ -67,6 +69,7 @@ class AppDatabase extends _$AppDatabase {
           if (details.wasCreated ||
               refreshDate < DateTime.now().millisecondsSinceEpoch) {
             ref.read(loggerProvider).d('Refreshing tables');
+            ref.watch(dBInitNotifierProvider.notifier).initDBStart();
 
             /// Add all bus information into the local database. The most stable
             /// way to do that seems to be to load one table after another
@@ -74,8 +77,17 @@ class AppDatabase extends _$AppDatabase {
             /// try to run those in parallel again, or if not show a nicer message
             /// on the UI that this is being loaded.
             await _refreshBusStops();
+            ref
+                .watch(dBInitNotifierProvider.notifier)
+                .busStopsLoadingComplete();
             await _refreshBusServices();
+            ref
+                .watch(dBInitNotifierProvider.notifier)
+                .busServicesLoadingComplete();
             await _refreshBusRoutes();
+            ref
+                .watch(dBInitNotifierProvider.notifier)
+                .busRoutesLoadingComplete();
             // tables should be refreshed again in 30 days
             final refreshDate = DateTime.now()
                 .add(const Duration(days: 30))
@@ -84,6 +96,8 @@ class AppDatabase extends _$AppDatabase {
             await ref
                 .read(localStorageServiceProvider)
                 .setInt(refreshDateKey, refreshDate);
+
+            ref.watch(dBInitNotifierProvider.notifier).initDBComplete();
           }
         },
       );

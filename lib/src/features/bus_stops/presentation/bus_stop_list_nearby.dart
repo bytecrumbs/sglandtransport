@@ -7,6 +7,7 @@ import '../../../common_widgets/error_display.dart';
 import '../../../common_widgets/main_content_margin.dart';
 import '../../../common_widgets/staggered_animation.dart';
 import '../../../custom_exception.dart';
+import '../../../database/db_init_notifier.dart';
 import '../../../user_location/location_service.dart';
 import '../../home/presentation/dashboard_screen.dart';
 import '../application/bus_stops_service.dart';
@@ -56,6 +57,7 @@ class BusStopListNearby extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final busStops = ref.watch(nearbyBusStopsStreamProvider);
+    final isDBInitiating = ref.watch(dBInitNotifierProvider);
 
     return busStops.when(
       data: (busStops) => AnimationLimiter(
@@ -94,11 +96,28 @@ class BusStopListNearby extends ConsumerWidget {
           ),
         );
       },
-      loading: () => const SliverFillRemaining(
-        child: Center(
-          child: Text('Looking for nearby bus stops...'),
-        ),
-      ),
+      loading: () {
+        if (isDBInitiating.isInitializing) {
+          return SliverFillRemaining(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(isDBInitiating.busStopsStatus),
+                  Text(isDBInitiating.busServicesStatus),
+                  Text(isDBInitiating.busRoutesStatus),
+                ],
+              ),
+            ),
+          );
+        } else {
+          return const SliverFillRemaining(
+            child: Center(
+              child: Text('Looking for nearby bus stops...'),
+            ),
+          );
+        }
+      },
     );
   }
 }
