@@ -18,19 +18,35 @@ class DBInitNotifier extends _$DBInitNotifier {
   }
 
   void busStopsLoadingComplete() {
-    state =
-        state.copyWith(busStopsStatus: 'Refreshing Bus Stops details... Done!');
+    state = state.copyWith(busStopsStatus: 'Downloading Bus Stops... Done!');
   }
 
   void busServicesLoadingComplete() {
     state = state.copyWith(
-      busServicesStatus: 'Refreshing Bus Services details... Done!',
+      busServicesStatus: 'Downloading Bus Services... Done!',
     );
   }
 
   void busRoutesLoadingComplete() {
-    state =
-        state.copyWith(busRoutesStatus: 'Refreshing Bus Routes details! Done!');
+    state = state.copyWith(busRoutesStatus: 'Downloading Bus Routes! Done!');
+  }
+
+  void busStopsLoadingStart() {
+    state = state.copyWith(
+      busStopsStatus: 'Downloading Bus Stops... Working on it!',
+    );
+  }
+
+  void busServicesLoadingStart() {
+    state = state.copyWith(
+      busServicesStatus: 'Downloading Bus Services... Working on it!',
+    );
+  }
+
+  void busRoutesLoadingStart() {
+    state = state.copyWith(
+      busRoutesStatus: 'Downloading Bus Routes... Working on it!',
+    );
   }
 }
 
@@ -38,11 +54,8 @@ class DBInitNotifier extends _$DBInitNotifier {
 class DBInitStateModel with _$DBInitStateModel {
   factory DBInitStateModel({
     @Default(false) bool isInitializing,
-    @Default('Refreshing Bus Stops details... Working on it!')
-    String busStopsStatus,
-    @Default('Refreshing Bus Services details... Working on it!')
-    String busServicesStatus,
-    @Default('Refreshing Bus Routes details... Working on it!')
-    String busRoutesStatus,
+    @Default('Downloading Bus Stops... Pending!') String busStopsStatus,
+    @Default('Downloading Bus Services... Pending!') String busServicesStatus,
+    @Default('Downloading Bus Routes... Pending!') String busRoutesStatus,
   }) = _DBInitStateModel;
 }

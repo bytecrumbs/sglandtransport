@@ -75,14 +75,21 @@ class AppDatabase extends _$AppDatabase {
             /// syncronous. Maybe this can be improved in a future release by
             /// try to run those in parallel again, or if not show a nicer message
             /// on the UI that this is being loaded.
+            ref.watch(dBInitNotifierProvider.notifier).busStopsLoadingStart();
             await _refreshBusStops();
             ref
                 .watch(dBInitNotifierProvider.notifier)
                 .busStopsLoadingComplete();
+
+            ref
+                .watch(dBInitNotifierProvider.notifier)
+                .busServicesLoadingStart();
             await _refreshBusServices();
             ref
                 .watch(dBInitNotifierProvider.notifier)
                 .busServicesLoadingComplete();
+
+            ref.watch(dBInitNotifierProvider.notifier).busRoutesLoadingStart();
             await _refreshBusRoutes();
             ref
                 .watch(dBInitNotifierProvider.notifier)
