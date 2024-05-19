@@ -31,21 +31,21 @@ class DBInitNotifier extends _$DBInitNotifier {
     state = state.copyWith(busRoutesStatus: 'Downloading Bus Routes! Done!');
   }
 
-  void busStopsLoadingStart() {
+  void busStopsLoadingUpdate(int percentageComplete) {
     state = state.copyWith(
-      busStopsStatus: 'Downloading Bus Stops... Working on it!',
+      busStopsStatus: 'Downloading Bus Stops... $percentageComplete%',
     );
   }
 
-  void busServicesLoadingStart() {
+  void busServicesLoadingUpdate(int percentageComplete) {
     state = state.copyWith(
-      busServicesStatus: 'Downloading Bus Services... Working on it!',
+      busServicesStatus: 'Downloading Bus Services... $percentageComplete%',
     );
   }
 
-  void busRoutesLoadingStart() {
+  void busRoutesLoadingUpdate(int percentageComplete) {
     state = state.copyWith(
-      busRoutesStatus: 'Downloading Bus Routes... Working on it!',
+      busRoutesStatus: 'Downloading Bus Routes... $percentageComplete%',
     );
   }
 }

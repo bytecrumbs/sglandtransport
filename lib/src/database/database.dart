@@ -121,7 +121,7 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> _refreshBusRoutes() async {
     ref.read(loggerProvider).d('deleting bus routes from table');
-    ref.watch(dBInitNotifierProvider.notifier).busRoutesLoadingStart();
+    ref.watch(dBInitNotifierProvider.notifier).busRoutesLoadingUpdate(0);
     await delete(tableBusRoutes).go();
     ref.read(loggerProvider).d('adding bus routes to table');
     for (var i = 0; i <= 26000; i = i + 500) {
@@ -150,13 +150,18 @@ class AppDatabase extends _$AppDatabase {
         // await the whole batch afterwards.
         batch.insertAll(tableBusRoutes, [...busRouteValueTableList]);
       });
+
+      final percentComplete = (100 / 26000 * i).round();
+      ref
+          .watch(dBInitNotifierProvider.notifier)
+          .busRoutesLoadingUpdate(percentComplete);
     }
     ref.watch(dBInitNotifierProvider.notifier).busRoutesLoadingComplete();
   }
 
   Future<void> _refreshBusServices() async {
     ref.read(loggerProvider).d('deleting bus services from table');
-    ref.watch(dBInitNotifierProvider.notifier).busServicesLoadingStart();
+    ref.watch(dBInitNotifierProvider.notifier).busServicesLoadingUpdate(0);
     await delete(tableBusServices).go();
     ref.read(loggerProvider).d('adding bus services to table');
     for (var i = 0; i <= 500; i = i + 500) {
@@ -185,13 +190,18 @@ class AppDatabase extends _$AppDatabase {
         // await the whole batch afterwards.
         batch.insertAll(tableBusServices, [...busServiceValueTableList]);
       });
+
+      final percentComplete = (100 / 500 * i).round();
+      ref
+          .watch(dBInitNotifierProvider.notifier)
+          .busServicesLoadingUpdate(percentComplete);
     }
     ref.watch(dBInitNotifierProvider.notifier).busServicesLoadingComplete();
   }
 
   Future<void> _refreshBusStops() async {
     ref.read(loggerProvider).d('deleting bus stops from table');
-    ref.watch(dBInitNotifierProvider.notifier).busStopsLoadingStart();
+    ref.watch(dBInitNotifierProvider.notifier).busStopsLoadingUpdate(0);
     await delete(tableBusStops).go();
     ref.read(loggerProvider).d('adding bus stops to table');
     for (var i = 0; i <= 5000; i = i + 500) {
@@ -213,6 +223,10 @@ class AppDatabase extends _$AppDatabase {
         // await the whole batch afterwards.
         batch.insertAll(tableBusStops, [...busStopValueTableList]);
       });
+      final percentComplete = (100 / 5000 * i).round();
+      ref
+          .watch(dBInitNotifierProvider.notifier)
+          .busStopsLoadingUpdate(percentComplete);
     }
     ref.watch(dBInitNotifierProvider.notifier).busStopsLoadingComplete();
   }
