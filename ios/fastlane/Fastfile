@@ -115,8 +115,6 @@ platform :ios do
       force: is_ci, # Skip HTMl report verification
       overwrite_screenshots: true,
       precheck_include_in_app_purchases: false,
-      submit_for_review: false,
-      skip_binary_upload: true
     )
   end
 
