@@ -99,7 +99,7 @@ platform :ios do
       key_content: ENV['ASCAPI_KEY_CONTENT'],
       is_key_content_base64: true
     )
-    testflight(skip_waiting_for_build_processing: is_ci)
+    deliver(skip_waiting_for_build_processing: is_ci)
   end
   
   lane :release do
