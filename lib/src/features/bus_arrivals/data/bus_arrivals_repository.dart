@@ -20,7 +20,7 @@ class BusArrivalsRepository extends BaseRepository {
     required String busStopCode,
     String? serviceNo,
   }) async {
-    const fetchUrl = '$ltaDatamallApi/BusArrivalv2';
+    const fetchUrl = '$ltaDatamallApi/v3/BusArrival';
 
     final response = await fetch<Map<String, Object?>>(
       fetchUrl,
@@ -30,8 +30,6 @@ class BusArrivalsRepository extends BaseRepository {
       },
     );
 
-    return BusArrivalModel.fromJson(
-      response.data!,
-    );
+    return BusArrivalModel.fromJson(response.data!);
   }
 }
