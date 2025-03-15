@@ -34,7 +34,8 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
-    compileSdkVersion 34
+    namespace = "com.example.lta_datamall_flutter"
+    compileSdkVersion 35
     ndkVersion flutter.ndkVersion
 
     compileOptions {
