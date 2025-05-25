@@ -70,7 +70,6 @@ jobs:
           channel: "stable"
           architecture: x64
           flutter-version: 3.29.0
-      - run: flutter --version
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -106,6 +105,7 @@ jobs:
           BUILD_NUMBER: ${{ steps.randomBuildGenerator.outputs.buildNumber }}
           RELEASE_VERSION: "${{ github.event.inputs.releaseVersion }}.0"
         run: |
+          flutter --version
           flutter pub get
           flutter pub run build_runner build
           flutter build appbundle --release --build-number=$BUILD_NUMBER --build-name=$RELEASE_VERSION --dart-define=LTA_DATAMALL_API_KEY=${{ secrets.LTA_DATAMALL_API_KEY }} --dart-define=BUILD_NAME=$RELEASE_VERSION
