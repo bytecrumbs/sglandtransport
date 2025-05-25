@@ -69,6 +69,7 @@ jobs:
         with:
           channel: "stable"
           architecture: x64
+          flutter-version: 3.29.0
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
