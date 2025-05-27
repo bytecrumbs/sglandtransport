@@ -1,0 +1,1 @@
+/Users/sascha/code/src/github.com/bytecrumbs/sglandtransport/build/app/intermediates/cxx/Debug/1m2p1c53/obj/armeabi-v7a

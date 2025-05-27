@@ -1,0 +1,2 @@
+/Users/sascha/code/src/github.com/bytecrumbs/sglandtransport/android/app/.cxx/Debug/1m2p1c53/x86_64/CMakeFiles/edit_cache.dir
+/Users/sascha/code/src/github.com/bytecrumbs/sglandtransport/android/app/.cxx/Debug/1m2p1c53/x86_64/CMakeFiles/rebuild_cache.dir
