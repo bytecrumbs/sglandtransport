@@ -118,7 +118,7 @@ jobs:
           bundle exec fastlane deploy_internal
   createRelease:
     runs-on: ubuntu-latest
-    needs: [googlePlay]
+    needs: [googlePlay, testflight]
     steps:
     - uses: ncipollo/release-action@v1
       with:
