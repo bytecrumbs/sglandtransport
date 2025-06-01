@@ -30,10 +30,9 @@ class BusArrivalCardHeader extends StatelessWidget {
           ),
           child: Text(
             serviceNo,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: Colors.white),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge!.copyWith(color: Colors.white),
           ),
         ),
         if (inService)
@@ -47,15 +46,13 @@ class BusArrivalCardHeader extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.35),
+                  color: Colors.grey.withValues(alpha: 0.35),
                   blurRadius: 3,
                   offset: const Offset(0, -1),
                 ),
               ],
             ),
-            child: Text(
-              'to ${destinationName ?? ''}',
-            ),
+            child: Text('to ${destinationName ?? ''}'),
           ),
       ],
     );

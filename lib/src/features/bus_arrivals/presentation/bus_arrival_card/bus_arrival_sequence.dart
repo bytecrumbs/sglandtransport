@@ -34,40 +34,35 @@ class BusArrivalSequence extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.grey.withValues(alpha: 0.5),
             blurRadius: 3,
             offset: const Offset(0, 1),
           ),
         ],
       ),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-      child: inService
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                BusArrivalTime(
-                  estimatedArrival: nextBusEstimatedArrival,
-                  busLoad: nextBusLoad,
-                ),
-                const Icon(
-                  Icons.arrow_back_ios,
-                  size: 15,
-                ),
-                BusArrivalTime(
-                  estimatedArrival: nextBus2EstimatedArrival,
-                  busLoad: nextBus2Load,
-                ),
-                const Icon(
-                  Icons.arrow_back_ios,
-                  size: 15,
-                ),
-                BusArrivalTime(
-                  estimatedArrival: nextBus3EstimatedArrival,
-                  busLoad: nextBus3Load,
-                ),
-              ],
-            )
-          : const Text('Not In Operation'),
+      child:
+          inService
+              ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  BusArrivalTime(
+                    estimatedArrival: nextBusEstimatedArrival,
+                    busLoad: nextBusLoad,
+                  ),
+                  const Icon(Icons.arrow_back_ios, size: 15),
+                  BusArrivalTime(
+                    estimatedArrival: nextBus2EstimatedArrival,
+                    busLoad: nextBus2Load,
+                  ),
+                  const Icon(Icons.arrow_back_ios, size: 15),
+                  BusArrivalTime(
+                    estimatedArrival: nextBus3EstimatedArrival,
+                    busLoad: nextBus3Load,
+                  ),
+                ],
+              )
+              : const Text('Not In Operation'),
     );
   }
 }
