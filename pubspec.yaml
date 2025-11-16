@@ -16,7 +16,7 @@ version: 21.0.0+2000000006
 publish_to: none
 
 environment:
-  sdk: '>=3.7.0 <4.0.0'
+  sdk: '>=3.8.0 <4.0.0'
 
 dependencies:
   collection: ^1.19.1

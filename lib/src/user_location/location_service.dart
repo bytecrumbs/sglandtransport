@@ -4,23 +4,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../third_party_providers/third_party_providers.dart';
 
-part 'location_service.g.dart';
 part 'location_service.freezed.dart';
 
 @freezed
-class UserLocationModel with _$UserLocationModel {
-  factory UserLocationModel({
-    double? latitude,
-    double? longitude,
-  }) = _UserLocationModel;
+abstract class UserLocationModel with _$UserLocationModel {
+  factory UserLocationModel({double? latitude, double? longitude}) =
+      _UserLocationModel;
 }
 
-@Riverpod(keepAlive: true)
-LocationService locationService(LocationServiceRef ref) => LocationService(ref);
+final locationServiceProvider = Provider<LocationService>(LocationService.new);
 
 class LocationService {
   LocationService(this.ref);
@@ -90,22 +85,21 @@ class LocationService {
         pauseLocationUpdatesAutomatically: true,
       );
     } else {
-      locationSettings = const LocationSettings(
-        distanceFilter: 5,
-      );
+      locationSettings = const LocationSettings(distanceFilter: 5);
     }
 
-    _geolocatorStream = Geolocator.getPositionStream(
-      locationSettings: locationSettings,
-    ).listen((position) async {
-      ref.read(loggerProvider).d('adding new position');
-      _locationController!.add(
-        UserLocationModel(
-          latitude: position.latitude,
-          longitude: position.longitude,
-        ),
-      );
-    });
+    _geolocatorStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings).listen(
+          (position) async {
+            ref.read(loggerProvider).d('adding new position');
+            _locationController!.add(
+              UserLocationModel(
+                latitude: position.latitude,
+                longitude: position.longitude,
+              ),
+            );
+          },
+        );
     return _locationController!.stream.asBroadcastStream();
   }
 

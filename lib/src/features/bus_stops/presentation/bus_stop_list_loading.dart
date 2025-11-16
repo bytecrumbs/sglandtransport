@@ -8,7 +8,7 @@ class BusStopListLoading extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDBInitiating = ref.watch(dBInitNotifierProvider);
+    final isDBInitiating = ref.watch(dBInitProvider);
 
     if (isDBInitiating.isInitializing) {
       return SliverFillRemaining(
@@ -25,9 +25,7 @@ class BusStopListLoading extends ConsumerWidget {
       );
     } else {
       return const SliverFillRemaining(
-        child: Center(
-          child: Text('Looking for nearby bus stops...'),
-        ),
+        child: Center(child: Text('Looking for nearby bus stops...')),
       );
     }
   }

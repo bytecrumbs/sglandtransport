@@ -12,7 +12,7 @@ part 'bus_service_details.g.dart';
 
 @riverpod
 Future<BusServiceValueModel> busServiceValueModel(
-  BusServiceValueModelRef ref, {
+  Ref ref, {
   required String serviceNo,
   required String destinationCode,
 }) async {
@@ -112,9 +112,7 @@ class BusServiceDetails extends ConsumerWidget {
           ),
         ),
         loading: () => const Center(
-          child: CircularProgressIndicator(
-            key: loadingIndicatorKey,
-          ),
+          child: CircularProgressIndicator(key: loadingIndicatorKey),
         ),
         error: (error, stack) {
           if (error is CustomException) {

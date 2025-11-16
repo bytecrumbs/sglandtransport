@@ -4,7 +4,7 @@ part 'bus_service_value_model.freezed.dart';
 part 'bus_service_value_model.g.dart';
 
 @freezed
-class BusServiceValueModel with _$BusServiceValueModel {
+abstract class BusServiceValueModel with _$BusServiceValueModel {
   factory BusServiceValueModel({
     @JsonKey(name: 'ServiceNo') required String serviceNo,
     @JsonKey(name: 'Operator') required String busOperator,

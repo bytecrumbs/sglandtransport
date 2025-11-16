@@ -13,7 +13,7 @@ part 'bus_route.g.dart';
 
 @riverpod
 Future<List<BusRouteWithBusStopInfoModel>> busRouteWithBusStopInfoModel(
-  BusRouteWithBusStopInfoModelRef ref, {
+  Ref ref, {
   required String serviceNo,
   required String busStopCode,
   required String destinationCode,
@@ -49,45 +49,45 @@ class BusRoute extends ConsumerWidget {
     );
     return Card(
       child: busRouteWithBusStopInfoModel.when(
-        data: (busRoute) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: Text(
-                'Route',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: busRoute.length,
-                itemBuilder: (context, index) {
-                  var busSequenceType = BusSequenceType.middle;
+        data:
+            (busRoute) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(
+                    'Route',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: busRoute.length,
+                    itemBuilder: (context, index) {
+                      var busSequenceType = BusSequenceType.middle;
 
-                  if (index == 0) {
-                    busSequenceType = BusSequenceType.start;
-                  } else if (index == busRoute.length - 1) {
-                    busSequenceType = BusSequenceType.end;
-                  }
+                      if (index == 0) {
+                        busSequenceType = BusSequenceType.start;
+                      } else if (index == busRoute.length - 1) {
+                        busSequenceType = BusSequenceType.end;
+                      }
 
-                  return BusRouteTile(
-                    busStopCode: busRoute[index].busStopCode,
-                    roadName: busRoute[index].roadName,
-                    description: busRoute[index].description,
-                    busSequenceType: busSequenceType,
-                    isPreviousStops: busRoute[index].isPreviousStops,
-                  );
-                },
-              ),
+                      return BusRouteTile(
+                        busStopCode: busRoute[index].busStopCode,
+                        roadName: busRoute[index].roadName,
+                        description: busRoute[index].description,
+                        busSequenceType: busSequenceType,
+                        isPreviousStops: busRoute[index].isPreviousStops,
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-        loading: () => const Center(
-          child: CircularProgressIndicator(
-            key: loadingIndicatorKey,
-          ),
-        ),
+        loading:
+            () => const Center(
+              child: CircularProgressIndicator(key: loadingIndicatorKey),
+            ),
         error: (error, stack) {
           if (error is CustomException) {
             return ErrorDisplay(
@@ -103,9 +103,7 @@ class BusRoute extends ConsumerWidget {
               },
             );
           }
-          return ErrorDisplay(
-            message: error.toString(),
-          );
+          return ErrorDisplay(message: error.toString());
         },
       ),
     );

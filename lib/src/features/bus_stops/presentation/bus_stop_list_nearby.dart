@@ -17,9 +17,7 @@ import 'bus_stop_list_loading.dart';
 part 'bus_stop_list_nearby.g.dart';
 
 @riverpod
-Stream<List<BusStopValueModel>> nearbyBusStopsStream(
-  NearbyBusStopsStreamRef ref,
-) async* {
+Stream<List<BusStopValueModel>> nearbyBusStopsStream(Ref ref) async* {
   final locationService = ref.watch(locationServiceProvider);
 
   // TODO: can this be done on startup, rather than repeating it in all the
@@ -34,14 +32,18 @@ Stream<List<BusStopValueModel>> nearbyBusStopsStream(
     // Yield the bus stops of the last known position, if current position
     // has not changed since last time the widget was called
     final currentPosition = await locationService.getLastKnownPosition();
-    yield await ref.watch(busStopsServiceProvider).getNearbyBusStops(
+    yield await ref
+        .watch(busStopsServiceProvider)
+        .getNearbyBusStops(
           latitude: currentPosition.latitude,
           longitude: currentPosition.longitude,
         );
 
     // Yield updated positions
     await for (final locationData in locationStream) {
-      yield await ref.watch(busStopsServiceProvider).getNearbyBusStops(
+      yield await ref
+          .watch(busStopsServiceProvider)
+          .getNearbyBusStops(
             latitude: locationData.latitude,
             longitude: locationData.longitude,
           );
@@ -67,14 +69,12 @@ class BusStopListNearby extends ConsumerWidget {
                 index: index,
                 child: ProviderScope(
                   overrides: [
-                    busStopValueModelProvider
-                        .overrideWithValue(busStops[index]),
+                    busStopValueModelProvider.overrideWithValue(
+                      busStops[index],
+                    ),
                   ],
                   child: const Column(
-                    children: [
-                      BusStopCard(),
-                      SizedBox(height: 8),
-                    ],
+                    children: [BusStopCard(), SizedBox(height: 8)],
                   ),
                 ),
               ),
@@ -90,9 +90,7 @@ class BusStopListNearby extends ConsumerWidget {
           );
         }
         return SliverFillRemaining(
-          child: ErrorDisplay(
-            message: error.toString(),
-          ),
+          child: ErrorDisplay(message: error.toString()),
         );
       },
       loading: BusStopListLoading.new,

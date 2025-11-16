@@ -3,6 +3,7 @@ import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../palette.dart';
 import '../../bus_arrivals/presentation/favorites/bus_arrival_list_favorites.dart';
@@ -19,8 +20,9 @@ import 'main_bottom_app_bar.dart';
 /// specify the value 'Idle'.
 final flareAnimationProvider = Provider((ref) => 'Loop');
 
-final busStopValueModelProvider =
-    Provider<BusStopValueModel>((_) => throw UnimplementedError());
+final busStopValueModelProvider = Provider<BusStopValueModel>(
+  (_) => throw UnimplementedError(),
+);
 
 final isExpandedStateProvider = StateProvider<bool>((ref) => true);
 
@@ -43,8 +45,9 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activeIndex = ref.watch(dashboardScreenControllerProvider);
-    final activeIndexNotifier =
-        ref.watch(dashboardScreenControllerProvider.notifier);
+    final activeIndexNotifier = ref.watch(
+      dashboardScreenControllerProvider.notifier,
+    );
 
     final flareAnimation = ref.watch(flareAnimationProvider);
 

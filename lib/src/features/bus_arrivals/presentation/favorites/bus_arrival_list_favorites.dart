@@ -17,7 +17,7 @@ part 'bus_arrival_list_favorites.g.dart';
 
 @riverpod
 Stream<List<BusArrivalWithBusStopModel>> favoriteBusArrivalsStream(
-  FavoriteBusArrivalsStreamRef ref,
+  Ref ref,
 ) async* {
   final busServicesService = ref.watch(busArrivalsServiceProvider);
 
@@ -30,12 +30,9 @@ Stream<List<BusArrivalWithBusStopModel>> favoriteBusArrivalsStream(
   // make sure it is executed immediately
   yield await busServicesService.getFavoriteBusServices();
   // then execute regularly
-  yield* Stream.periodic(
-    busArrivalRefreshDuration,
-    (computationCount) {
-      return busServicesService.getFavoriteBusServices();
-    },
-  ).asyncMap((event) async => event);
+  yield* Stream.periodic(busArrivalRefreshDuration, (computationCount) {
+    return busServicesService.getFavoriteBusServices();
+  }).asyncMap((event) async => event);
 }
 
 class BusArrivalListFavorites extends ConsumerWidget {
@@ -50,71 +47,74 @@ class BusArrivalListFavorites extends ConsumerWidget {
         if (busArrivalWithBusStopModels.isNotEmpty) {
           return AnimationLimiter(
             child: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (_, index) {
-                  final currentBusArrivalWithBusStopModel =
-                      busArrivalWithBusStopModels[index];
+              delegate: SliverChildBuilderDelegate((_, index) {
+                final currentBusArrivalWithBusStopModel =
+                    busArrivalWithBusStopModels[index];
 
-                  return MainContentMargin(
-                    child: StaggeredAnimation(
-                      index: index,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BusArrivalHeader(
-                            busStopCode: currentBusArrivalWithBusStopModel
-                                .busStopValueModel.busStopCode,
-                            description: currentBusArrivalWithBusStopModel
-                                .busStopValueModel.description,
-                            roadName: currentBusArrivalWithBusStopModel
-                                .busStopValueModel.roadName,
-                            distanceInMeters: currentBusArrivalWithBusStopModel
-                                .busStopValueModel.distanceInMeters,
-                          ),
-                          Column(
-                            children: currentBusArrivalWithBusStopModel.services
-                                .map(
-                                  (busArrivalServiceModel) => BusArrivalCard(
-                                    busStopCode:
-                                        currentBusArrivalWithBusStopModel
-                                            .busStopValueModel.busStopCode,
-                                    destinationCode: busArrivalServiceModel
-                                            .nextBus.destinationCode ??
-                                        '1',
-                                    inService: busArrivalServiceModel.inService,
-                                    serviceNo: busArrivalServiceModel.serviceNo,
-                                    destinationName:
-                                        busArrivalServiceModel.destinationName,
-                                    nextBusEstimatedArrival:
-                                        busArrivalServiceModel.nextBus
-                                            .getEstimatedArrival(),
-                                    nextBusLoad:
-                                        busArrivalServiceModel.nextBus.load ??
-                                            'SEQ',
-                                    nextBus2EstimatedArrival:
-                                        busArrivalServiceModel.nextBus2
-                                            .getEstimatedArrival(),
-                                    nextBus2Load:
-                                        busArrivalServiceModel.nextBus2.load ??
-                                            'SEQ',
-                                    nextBus3EstimatedArrival:
-                                        busArrivalServiceModel.nextBus3
-                                            .getEstimatedArrival(),
-                                    nextBus3Load:
-                                        busArrivalServiceModel.nextBus3.load ??
-                                            'SEQ',
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                          const SizedBox(height: 16),
-                        ],
-                      ),
+                return MainContentMargin(
+                  child: StaggeredAnimation(
+                    index: index,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BusArrivalHeader(
+                          busStopCode: currentBusArrivalWithBusStopModel
+                              .busStopValueModel
+                              .busStopCode,
+                          description: currentBusArrivalWithBusStopModel
+                              .busStopValueModel
+                              .description,
+                          roadName: currentBusArrivalWithBusStopModel
+                              .busStopValueModel
+                              .roadName,
+                          distanceInMeters: currentBusArrivalWithBusStopModel
+                              .busStopValueModel
+                              .distanceInMeters,
+                        ),
+                        Column(
+                          children: currentBusArrivalWithBusStopModel.services
+                              .map(
+                                (busArrivalServiceModel) => BusArrivalCard(
+                                  busStopCode: currentBusArrivalWithBusStopModel
+                                      .busStopValueModel
+                                      .busStopCode,
+                                  destinationCode:
+                                      busArrivalServiceModel
+                                          .nextBus
+                                          .destinationCode ??
+                                      '1',
+                                  inService: busArrivalServiceModel.inService,
+                                  serviceNo: busArrivalServiceModel.serviceNo,
+                                  destinationName:
+                                      busArrivalServiceModel.destinationName,
+                                  nextBusEstimatedArrival:
+                                      busArrivalServiceModel.nextBus
+                                          .getEstimatedArrival(),
+                                  nextBusLoad:
+                                      busArrivalServiceModel.nextBus.load ??
+                                      'SEQ',
+                                  nextBus2EstimatedArrival:
+                                      busArrivalServiceModel.nextBus2
+                                          .getEstimatedArrival(),
+                                  nextBus2Load:
+                                      busArrivalServiceModel.nextBus2.load ??
+                                      'SEQ',
+                                  nextBus3EstimatedArrival:
+                                      busArrivalServiceModel.nextBus3
+                                          .getEstimatedArrival(),
+                                  nextBus3Load:
+                                      busArrivalServiceModel.nextBus3.load ??
+                                      'SEQ',
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
                     ),
-                  );
-                },
-                childCount: busArrivalWithBusStopModels.length,
-              ),
+                  ),
+                );
+              }, childCount: busArrivalWithBusStopModels.length),
             ),
           );
         } else {
@@ -140,9 +140,7 @@ class BusArrivalListFavorites extends ConsumerWidget {
             child: ErrorDisplay(
               message: error.message,
               onPressed: () {
-                ref.invalidate(
-                  favoriteBusArrivalsStreamProvider,
-                );
+                ref.invalidate(favoriteBusArrivalsStreamProvider);
               },
             ),
           );
@@ -151,17 +149,13 @@ class BusArrivalListFavorites extends ConsumerWidget {
           child: ErrorDisplay(
             message: error.toString(),
             onPressed: () {
-              ref.invalidate(
-                favoriteBusArrivalsStreamProvider,
-              );
+              ref.invalidate(favoriteBusArrivalsStreamProvider);
             },
           ),
         );
       },
       loading: () => const SliverFillRemaining(
-        child: Center(
-          child: Text('Looking for favorites...'),
-        ),
+        child: Center(child: Text('Looking for favorites...')),
       ),
     );
   }

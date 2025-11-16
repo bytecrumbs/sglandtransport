@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../local_storage/local_storage_keys.dart';
 import '../../../local_storage/local_storage_service.dart';
@@ -15,11 +14,9 @@ import '../domain/bus_arrival_service_model.dart';
 import '../domain/bus_arrival_with_bus_stop_model.dart';
 import '../domain/next_bus_model.dart';
 
-part 'bus_arrivals_service.g.dart';
-
-@Riverpod(keepAlive: true)
-BusArrivalsService busArrivalsService(BusArrivalsServiceRef ref) =>
-    BusArrivalsService(ref);
+final busArrivalsServiceProvider = Provider<BusArrivalsService>(
+  BusArrivalsService.new,
+);
 
 class BusArrivalsService {
   BusArrivalsService(this.ref);
@@ -47,13 +44,13 @@ class BusArrivalsService {
     final allBusArrivals = [...busArrivals.services, ...servicesNotInOperation];
 
     // add destination description to busArrivals
-    final busArrivalsWithDestinationAndNotInOperation = await _addDestination(
-      busArrivals: allBusArrivals,
-    )
-      ..sort(
-        (var a, var b) => int.parse((a.serviceNo).replaceAll(RegExp(r'\D'), ''))
-            .compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))),
-      );
+    final busArrivalsWithDestinationAndNotInOperation =
+        await _addDestination(busArrivals: allBusArrivals)
+          ..sort(
+            (var a, var b) => int.parse(
+              (a.serviceNo).replaceAll(RegExp(r'\D'), ''),
+            ).compareTo(int.parse((b.serviceNo).replaceAll(RegExp(r'\D'), ''))),
+          );
 
     return busArrivals.copyWith(
       services: busArrivalsWithDestinationAndNotInOperation,
@@ -106,8 +103,9 @@ class BusArrivalsService {
     required List<BusArrivalServiceModel> busArrivals,
   }) async {
     // get a list of all bus service nos
-    final busArrivalsDestinationCode =
-        busArrivals.map((e) => e.nextBus.destinationCode ?? '').toList();
+    final busArrivalsDestinationCode = busArrivals
+        .map((e) => e.nextBus.destinationCode ?? '')
+        .toList();
 
     // fetch all bus stops as per the busArrivals list
     final busStops = await ref
@@ -125,9 +123,7 @@ class BusArrivalsService {
           .toList();
       if (destination.isNotEmpty) {
         busArrivalsWithDestination.add(
-          busArrival.copyWith(
-            destinationName: destination[0].description,
-          ),
+          busArrival.copyWith(destinationName: destination[0].description),
         );
       } else {
         busArrivalsWithDestination.add(busArrival);
@@ -143,12 +139,15 @@ class BusArrivalsService {
     final localStorageService = ref.read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
     bool newIsFavoriteValue;
-    final currentFavorites =
-        await localStorageService.getStringList(favoriteServiceNoKey);
+    final currentFavorites = await localStorageService.getStringList(
+      favoriteServiceNoKey,
+    );
 
     // add or remove the service no from the local storage
     if (currentFavorites.contains(searchValue)) {
-      ref.read(loggerProvider).d(
+      ref
+          .read(loggerProvider)
+          .d(
             'removing from Favorites, as bus stop with service no already exists',
           );
       await localStorageService.removeStringFromList(
@@ -173,17 +172,19 @@ class BusArrivalsService {
     final localStorageService = ref.read(localStorageServiceProvider);
     final repository = ref.read(busArrivalsRepositoryProvider);
 
-    final currentFavorites =
-        await localStorageService.getStringList(favoriteServiceNoKey);
+    final currentFavorites = await localStorageService.getStringList(
+      favoriteServiceNoKey,
+    );
 
     currentFavorites.sort(compareNatural);
 
-    final uniqueBusStopsList =
-        favoritesToUniqueBusStops(list: currentFavorites);
+    final uniqueBusStopsList = favoritesToUniqueBusStops(
+      list: currentFavorites,
+    );
 
-    final busStops = await ref.read(busStopsRepositoryProvider).getBusStops(
-          busStopCodes: uniqueBusStopsList,
-        );
+    final busStops = await ref
+        .read(busStopsRepositoryProvider)
+        .getBusStops(busStopCodes: uniqueBusStopsList);
 
     final busArrivalWithBusStopModelList = <BusArrivalWithBusStopModel>[];
 
@@ -203,8 +204,9 @@ class BusArrivalsService {
           serviceNo: serviceNo,
         );
 
-        final busArrivalServiceModelListWithDestination =
-            await _addDestination(busArrivals: busArrivalModel.services);
+        final busArrivalServiceModelListWithDestination = await _addDestination(
+          busArrivals: busArrivalModel.services,
+        );
 
         // if the bus is not in service, the API will return an empty list, so
         // we are adding a service model marking it as "not in service"
@@ -266,23 +268,19 @@ class BusArrivalsService {
   List<String> favoriteServiceNosForBusStop({
     required String busStop,
     required List<String> favorites,
-  }) =>
-      favorites
-          .where(
-            (element) =>
-                busStop == element.split(busStopCodeServiceNoDelimiter)[0],
-          )
-          .toList();
+  }) => favorites
+      .where(
+        (element) => busStop == element.split(busStopCodeServiceNoDelimiter)[0],
+      )
+      .toList();
 
   List<String> favoritesToUniqueBusStops({
     required List<String> list,
     String delimiter = busStopCodeServiceNoDelimiter,
     int index = 0,
-  }) =>
-      List<String>.from(list)
-          .map((e) => e.split(delimiter)[index])
-          .toSet()
-          .toList();
+  }) => List<String>.from(
+    list,
+  ).map((e) => e.split(delimiter)[index]).toSet().toList();
 
   void sortBusStopsByDistance(List<BusArrivalWithBusStopModel> list) {
     list.sort((a, b) {
@@ -296,8 +294,9 @@ class BusArrivalsService {
     final localStorageService = ref.read(localStorageServiceProvider);
     final busRouteRepo = ref.read(busRoutesRepositoryProvider);
 
-    final favoriteBusStops =
-        await localStorageService.getStringList(favoriteBusStopsKey);
+    final favoriteBusStops = await localStorageService.getStringList(
+      favoriteBusStopsKey,
+    );
 
     if (favoriteBusStops.isNotEmpty) {
       ref
@@ -309,8 +308,8 @@ class BusArrivalsService {
         );
 
         ref.read(loggerProvider).d('Processing bus stop $favoriteBusStop');
-        final existingBusServiceFavorites =
-            await localStorageService.getStringList(favoriteServiceNoKey);
+        final existingBusServiceFavorites = await localStorageService
+            .getStringList(favoriteServiceNoKey);
         for (final busStop in busStops) {
           final valueToAdd =
               '${busStop.busStopCode}$busStopCodeServiceNoDelimiter${busStop.serviceNo}';
@@ -341,8 +340,9 @@ class BusArrivalsService {
     final localStorageService = ref.read(localStorageServiceProvider);
     final searchValue = '$busStopCode$busStopCodeServiceNoDelimiter$serviceNo';
 
-    final currentFavorites =
-        await localStorageService.getStringList(favoriteServiceNoKey);
+    final currentFavorites = await localStorageService.getStringList(
+      favoriteServiceNoKey,
+    );
 
     return currentFavorites.contains(searchValue);
   }

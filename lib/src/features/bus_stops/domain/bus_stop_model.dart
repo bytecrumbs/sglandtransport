@@ -6,7 +6,7 @@ part 'bus_stop_model.freezed.dart';
 part 'bus_stop_model.g.dart';
 
 @freezed
-class BusStopModel with _$BusStopModel {
+abstract class BusStopModel with _$BusStopModel {
   factory BusStopModel({
     @JsonKey(name: 'odata.metadata') required String odataMetadata,
     required List<BusStopValueModel> value,

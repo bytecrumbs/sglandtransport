@@ -1,14 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../data/bus_routes_repository.dart';
 import '../domain/bus_route_with_bus_stop_info_model.dart';
 
-part 'bus_routes_service.g.dart';
-
-@Riverpod(keepAlive: true)
-BusRoutesService busRoutesService(BusRoutesServiceRef ref) =>
-    BusRoutesService(ref);
+final busRoutesServiceProvider = Provider<BusRoutesService>(
+  BusRoutesService.new,
+);
 
 class BusRoutesService {
   BusRoutesService(this.ref);
@@ -34,19 +31,19 @@ class BusRoutesService {
     return busRoutes[0].stopSequence == 1
         ? busRoutes
         : [
-            BusRouteWithBusStopInfoModel(
-              isPreviousStops: true,
-              serviceNo: '',
-              direction: 1,
-              stopSequence: 0,
-              distance: 0,
-              busStopCode: '',
-              roadName: '',
-              description: '${busRoutes[0].stopSequence - 1} previous stops',
-              latitude: 1,
-              longitude: 2,
-            ),
-            ...busRoutes,
-          ];
+          BusRouteWithBusStopInfoModel(
+            isPreviousStops: true,
+            serviceNo: '',
+            direction: 1,
+            stopSequence: 0,
+            distance: 0,
+            busStopCode: '',
+            roadName: '',
+            description: '${busRoutes[0].stopSequence - 1} previous stops',
+            latitude: 1,
+            longitude: 2,
+          ),
+          ...busRoutes,
+        ];
   }
 }

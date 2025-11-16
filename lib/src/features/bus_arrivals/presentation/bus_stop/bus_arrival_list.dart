@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -18,31 +19,27 @@ part 'bus_arrival_list.g.dart';
 
 @riverpod
 Stream<BusArrivalModel> busArrivalsStream(
-  BusArrivalsStreamRef ref, {
+  Ref ref, {
   required String busStopCode,
 }) async* {
   final busServicesService = ref.watch(busArrivalsServiceProvider);
   // make sure it is executed immediately
   yield await busServicesService.getBusArrivals(busStopCode);
   // then execute regularly
-  yield* Stream.periodic(
-    busArrivalRefreshDuration,
-    (computationCount) {
-      return busServicesService.getBusArrivals(busStopCode);
-    },
-  ).asyncMap((event) async => event);
+  yield* Stream.periodic(busArrivalRefreshDuration, (computationCount) {
+    return busServicesService.getBusArrivals(busStopCode);
+  }).asyncMap((event) async => event);
 }
 
 final lastRefreshTimeProvider = StateProvider<DateTime>((_) => DateTime.now());
 
 final lastRefreshTimeNotifierProvider =
     StateNotifierProvider<LastRefreshTimeNotifier, DateTime>((ref) {
-  final prefs = ref.watch(localStorageServiceProvider);
-  return LastRefreshTimeNotifier(prefs)
-    ..addListener((state) {
-      return ref.refresh(lastRefreshTimeProvider);
+      final prefs = ref.watch(localStorageServiceProvider);
+      return LastRefreshTimeNotifier(prefs)..addListener((state) {
+        return ref.refresh(lastRefreshTimeProvider);
+      });
     });
-});
 
 class LastRefreshTimeNotifier extends StateNotifier<DateTime> {
   LastRefreshTimeNotifier(this.prefs) : super(DateTime.now());
@@ -54,10 +51,7 @@ class LastRefreshTimeNotifier extends StateNotifier<DateTime> {
 }
 
 class BusArrivalList extends ConsumerWidget {
-  const BusArrivalList({
-    super.key,
-    required this.busStopCode,
-  });
+  const BusArrivalList({super.key, required this.busStopCode});
 
   final String busStopCode;
 
@@ -78,10 +72,12 @@ class BusArrivalList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final firebaseRemoteConfigServiceState =
-        ref.watch(remoteConfigServiceProvider);
-    final firebaseRemoteConfigService =
-        ref.watch(remoteConfigServiceProvider.notifier);
+    final firebaseRemoteConfigServiceState = ref.watch(
+      remoteConfigServiceProvider,
+    );
+    final firebaseRemoteConfigService = ref.watch(
+      remoteConfigServiceProvider.notifier,
+    );
 
     final lastRefreshTime = ref.watch(lastRefreshTimeProvider);
 
@@ -116,9 +112,7 @@ class BusArrivalList extends ConsumerWidget {
                 ref.read(lastRefreshTimeNotifierProvider.notifier).refresh();
               }
               ref.invalidate(
-                busArrivalsStreamProvider(
-                  busStopCode: busStopCode,
-                ),
+                busArrivalsStreamProvider(busStopCode: busStopCode),
               );
               return Future.value();
             },
@@ -134,8 +128,10 @@ class BusArrivalList extends ConsumerWidget {
                     index: index,
                     child: BusArrivalCard(
                       busStopCode: busStopCode,
-                      destinationCode: currentBusArrivalServicesModel
-                              .nextBus.destinationCode ??
+                      destinationCode:
+                          currentBusArrivalServicesModel
+                              .nextBus
+                              .destinationCode ??
                           '1',
                       inService: currentBusArrivalServicesModel.inService,
                       serviceNo: currentBusArrivalServicesModel.serviceNo,
@@ -169,16 +165,12 @@ class BusArrivalList extends ConsumerWidget {
                 message: error.message,
                 onPressed: () {
                   ref.invalidate(
-                    busArrivalsStreamProvider(
-                      busStopCode: busStopCode,
-                    ),
+                    busArrivalsStreamProvider(busStopCode: busStopCode),
                   );
                 },
               );
             }
-            return ErrorDisplay(
-              message: error.toString(),
-            );
+            return ErrorDisplay(message: error.toString());
           },
         ),
       ],

@@ -14,7 +14,7 @@ part 'search_result.g.dart';
 
 @riverpod
 Future<List<BusStopValueModel>> searchResult(
-  SearchResultRef ref, {
+  Ref ref, {
   required String searchTerm,
 }) {
   if (searchTerm.isNotEmpty) {
@@ -27,32 +27,26 @@ Future<List<BusStopValueModel>> searchResult(
 }
 
 class SearchResult extends ConsumerWidget {
-  const SearchResult({
-    super.key,
-    required this.searchTerm,
-  });
+  const SearchResult({super.key, required this.searchTerm});
 
   final String searchTerm;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final searchResult =
-        ref.watch(searchResultProvider(searchTerm: searchTerm));
+    final searchResult = ref.watch(
+      searchResultProvider(searchTerm: searchTerm),
+    );
     return MainContentMargin(
       child: searchResult.when(
         data: (searchResult) => ListView.separated(
-          separatorBuilder: (_, __) => const SizedBox(
-            height: 8,
-          ),
+          separatorBuilder: (_, __) => const SizedBox(height: 8),
           padding: const EdgeInsets.symmetric(vertical: 10),
           itemCount: searchResult.length,
           itemBuilder: (_, index) => ProviderScope(
             overrides: [
               busStopValueModelProvider.overrideWithValue(searchResult[index]),
             ],
-            child: BusStopCard(
-              searchTerm: searchTerm,
-            ),
+            child: BusStopCard(searchTerm: searchTerm),
           ),
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -60,9 +54,7 @@ class SearchResult extends ConsumerWidget {
           if (error is CustomException) {
             return ErrorDisplay(message: error.message);
           }
-          return ErrorDisplay(
-            message: error.toString(),
-          );
+          return ErrorDisplay(message: error.toString());
         },
       ),
     );

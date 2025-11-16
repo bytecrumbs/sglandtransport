@@ -1,12 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-part 'local_storage_service.g.dart';
-
-@Riverpod(keepAlive: true)
-LocalStorageService localStorageService(LocalStorageServiceRef ref) =>
-    LocalStorageService(ref);
+final localStorageServiceProvider = Provider<LocalStorageService>(
+  LocalStorageService.new,
+);
 
 class LocalStorageService {
   LocalStorageService(this.ref);
@@ -65,10 +62,7 @@ class LocalStorageService {
     return sp.getString(key);
   }
 
-  Future<bool> setBool({
-    required String key,
-    required bool value,
-  }) async {
+  Future<bool> setBool({required String key, required bool value}) async {
     final sp = await spInstance();
     return sp.setBool(key, value);
   }

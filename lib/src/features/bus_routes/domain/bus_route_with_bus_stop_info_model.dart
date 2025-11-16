@@ -3,7 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'bus_route_with_bus_stop_info_model.freezed.dart';
 
 @freezed
-class BusRouteWithBusStopInfoModel with _$BusRouteWithBusStopInfoModel {
+abstract class BusRouteWithBusStopInfoModel
+    with _$BusRouteWithBusStopInfoModel {
   factory BusRouteWithBusStopInfoModel({
     @JsonKey(name: 'ServiceNo') required String serviceNo,
     @JsonKey(name: 'Direction') required int direction,

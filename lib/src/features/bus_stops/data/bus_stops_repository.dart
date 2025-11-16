@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../environment_config.dart';
 import '../../../database/database.dart';
@@ -8,12 +7,9 @@ import '../../shared/data/base_repository.dart';
 import '../domain/bus_stop_model.dart';
 import '../domain/bus_stop_value_model.dart';
 
-part 'bus_stops_repository.g.dart';
-
-@Riverpod(keepAlive: true)
-BusStopsRepository busStopsRepository(BusStopsRepositoryRef ref) {
-  return BusStopsRepository(ref);
-}
+final busStopsRepositoryProvider = Provider<BusStopsRepository>(
+  BusStopsRepository.new,
+);
 
 class BusStopsRepository extends BaseRepository {
   BusStopsRepository(this.ref) : super(ref);
@@ -28,9 +24,7 @@ class BusStopsRepository extends BaseRepository {
       queryParameters: {r'$skip': skip},
     );
 
-    return BusStopModel.fromJson(
-      response.data!,
-    ).value;
+    return BusStopModel.fromJson(response.data!).value;
   }
 
   Future<List<BusStopValueModel>> getAllBusStops() {

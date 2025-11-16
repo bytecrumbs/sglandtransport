@@ -1,15 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../third_party_providers/third_party_providers.dart';
 import '../../../user_location/location_service.dart';
 import '../data/bus_stops_repository.dart';
 import '../domain/bus_stop_value_model.dart';
 
-part 'bus_stops_service.g.dart';
-
-@Riverpod(keepAlive: true)
-BusStopsService busStopsService(BusStopsServiceRef ref) => BusStopsService(ref);
+final busStopsServiceProvider = Provider<BusStopsService>(BusStopsService.new);
 
 class BusStopsService {
   BusStopsService(this.ref);
@@ -31,19 +27,18 @@ class BusStopsService {
     final nearbyBusStops = <BusStopValueModel>[];
     if (latitude != null && longitude != null) {
       for (final busStop in allBusStops) {
-        final distanceInMeters =
-            ref.read(locationServiceProvider).getDistanceInMeters(
-                  startLatitude: latitude,
-                  startLongitude: longitude,
-                  endLatitude: busStop.latitude,
-                  endLongitude: busStop.longitude,
-                );
+        final distanceInMeters = ref
+            .read(locationServiceProvider)
+            .getDistanceInMeters(
+              startLatitude: latitude,
+              startLongitude: longitude,
+              endLatitude: busStop.latitude,
+              endLongitude: busStop.longitude,
+            );
 
         if (distanceInMeters <= 500) {
           nearbyBusStops.add(
-            busStop.copyWith(
-              distanceInMeters: distanceInMeters.round(),
-            ),
+            busStop.copyWith(distanceInMeters: distanceInMeters.round()),
           );
         }
       }

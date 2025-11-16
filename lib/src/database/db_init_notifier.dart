@@ -51,7 +51,7 @@ class DBInitNotifier extends _$DBInitNotifier {
 }
 
 @freezed
-class DBInitStateModel with _$DBInitStateModel {
+abstract class DBInitStateModel with _$DBInitStateModel {
   factory DBInitStateModel({
     @Default(false) bool isInitializing,
     @Default('Downloading Bus Stops... Pending!') String busStopsStatus,

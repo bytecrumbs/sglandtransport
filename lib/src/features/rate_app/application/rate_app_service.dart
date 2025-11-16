@@ -2,16 +2,12 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../local_storage/local_storage_keys.dart';
 import '../../../local_storage/local_storage_service.dart';
 import '../../../third_party_providers/third_party_providers.dart';
 
-part 'rate_app_service.g.dart';
-
-@Riverpod(keepAlive: true)
-RateAppService rateAppService(RateAppServiceRef ref) => RateAppService(ref);
+final rateAppServiceProvider = Provider<RateAppService>(RateAppService.new);
 
 class RateAppService {
   RateAppService(this.ref);
@@ -36,17 +32,18 @@ class RateAppService {
   Future<bool> isEligibleForReviewPrompt() async {
     final firstLaunchDate =
         await ref.read(localStorageServiceProvider).getInt(firstLaunchKey) ??
-            DateTime.now().millisecondsSinceEpoch;
+        DateTime.now().millisecondsSinceEpoch;
     final currentLaunchCount =
         await ref.read(localStorageServiceProvider).getInt(launchCountKey) ?? 1;
 
     ref.read(loggerProvider).d('First launch date: $firstLaunchDate');
     ref.read(loggerProvider).d('Current launch count: $currentLaunchCount');
 
-    final firstLaunchCheck = DateTime.now().millisecondsSinceEpoch >
-        DateTime.fromMillisecondsSinceEpoch(firstLaunchDate)
-            .add(const Duration(days: 7))
-            .millisecondsSinceEpoch;
+    final firstLaunchCheck =
+        DateTime.now().millisecondsSinceEpoch >
+        DateTime.fromMillisecondsSinceEpoch(
+          firstLaunchDate,
+        ).add(const Duration(days: 7)).millisecondsSinceEpoch;
 
     final launchCountCheck = currentLaunchCount >= 10;
 
@@ -54,15 +51,15 @@ class RateAppService {
   }
 
   Future<void> setLastLaunchDate({DateTime? launchDate}) async {
-    final firstLaunch =
-        await ref.read(localStorageServiceProvider).getInt(firstLaunchKey);
+    final firstLaunch = await ref
+        .read(localStorageServiceProvider)
+        .getInt(firstLaunchKey);
 
     if (firstLaunch == null || launchDate != null) {
       final launchDateToSet = launchDate ?? DateTime.now();
-      await ref.read(localStorageServiceProvider).setInt(
-            firstLaunchKey,
-            launchDateToSet.millisecondsSinceEpoch,
-          );
+      await ref
+          .read(localStorageServiceProvider)
+          .setInt(firstLaunchKey, launchDateToSet.millisecondsSinceEpoch);
     }
   }
 
@@ -73,10 +70,7 @@ class RateAppService {
   }
 
   Future<void> _setLaunchCount(String key, int count) async {
-    await ref.read(localStorageServiceProvider).setInt(
-          key,
-          count,
-        );
+    await ref.read(localStorageServiceProvider).setInt(key, count);
   }
 
   Future<void> resetLaunchCount() async {

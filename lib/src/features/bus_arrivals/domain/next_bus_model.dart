@@ -4,7 +4,7 @@ part 'next_bus_model.freezed.dart';
 part 'next_bus_model.g.dart';
 
 @freezed
-class NextBusModel with _$NextBusModel {
+abstract class NextBusModel with _$NextBusModel {
   factory NextBusModel({
     @JsonKey(name: 'OriginCode') String? originCode,
     @JsonKey(name: 'DestinationCode') String? destinationCode,
@@ -45,8 +45,9 @@ class NextBusModel with _$NextBusModel {
         now.minute,
         now.second,
       );
-      final arrivalInMinutes =
-          arrivalDateTimeTrimmed.difference(nowTrimmed).inSeconds;
+      final arrivalInMinutes = arrivalDateTimeTrimmed
+          .difference(nowTrimmed)
+          .inSeconds;
       if (arrivalInMinutes <= 59) {
         return 'Arr';
       } else {

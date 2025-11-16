@@ -13,57 +13,39 @@ import 'bus_stop_card.dart';
 part 'bus_stop_card_with_fetch.g.dart';
 
 @riverpod
-Future<BusStopValueModel> busStop(
-  BusStopRef ref, {
-  required String busStopCode,
-}) {
+Future<BusStopValueModel> busStop(Ref ref, {required String busStopCode}) {
   final busStopsService = ref.watch(busStopsServiceProvider);
   return busStopsService.getBusStop(busStopCode);
 }
 
 class BusStopCardWithFetch extends ConsumerWidget {
-  const BusStopCardWithFetch({
-    super.key,
-    required this.busStopCode,
-  });
+  const BusStopCardWithFetch({super.key, required this.busStopCode});
 
   final String busStopCode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final busStop = ref.watch(
-      busStopProvider(busStopCode: busStopCode),
-    );
+    final busStop = ref.watch(busStopProvider(busStopCode: busStopCode));
     return busStop.when(
       data: (busStopValueModel) => ProviderScope(
         overrides: [
           busStopValueModelProvider.overrideWithValue(busStopValueModel),
         ],
-        child: const BusStopCard(
-          allowBusArrivalView: false,
-        ),
+        child: const BusStopCard(allowBusArrivalView: false),
       ),
       loading: () => const Center(
-        child: CircularProgressIndicator(
-          key: loadingIndicatorKey,
-        ),
+        child: CircularProgressIndicator(key: loadingIndicatorKey),
       ),
       error: (error, stack) {
         if (error is CustomException) {
           return ErrorDisplay(
             message: error.message,
             onPressed: () {
-              ref.invalidate(
-                busStopProvider(
-                  busStopCode: busStopCode,
-                ),
-              );
+              ref.invalidate(busStopProvider(busStopCode: busStopCode));
             },
           );
         }
-        return ErrorDisplay(
-          message: error.toString(),
-        );
+        return ErrorDisplay(message: error.toString());
       },
     );
   }
