@@ -1,0 +1,16 @@
+# Secrets — never commit
+Configs/Secrets.local.xcconfig
+
+# Generated Xcode project (regenerate with `xcodegen generate`)
+*.xcodeproj
+
+# Xcode / build artifacts
+DerivedData/
+build/
+*.xcuserstate
+xcuserdata/
+.DS_Store
+
+# SPM
+.swiftpm/
+.build/

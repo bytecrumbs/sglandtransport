@@ -1,0 +1,14 @@
+// Base build configuration shared by Debug and Release.
+
+// LTA Datamall API key. Default is empty; supply a real value via the
+// gitignored Secrets.local.xcconfig (see Secrets.example.xcconfig).
+// The empty default lets the project build; the app fails loudly at runtime
+// (AppConfig) if the key is missing — parity with the Flutter AssertionError.
+LTA_DATAMALL_API_KEY =
+
+// Optionally overrides the displayed build name (parity with BUILD_NAME dart-define).
+BUILD_NAME = $(MARKETING_VERSION)
+
+// Pull in local secrets if present (not committed). Must come AFTER the
+// defaults above so it overrides them.
+#include? "Secrets.local.xcconfig"
