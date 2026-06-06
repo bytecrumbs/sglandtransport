@@ -1,0 +1,72 @@
+name: SGLandTransport
+options:
+  bundleIdPrefix: com.saschaderungs
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+
+configs:
+  Debug: debug
+  Release: release
+
+settings:
+  base:
+    MARKETING_VERSION: "21.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "6.0"
+    DEVELOPMENT_TEAM: ""
+    # Simulator builds need no signing; release/device signing is handled by Fastlane/match later (M8).
+    CODE_SIGNING_ALLOWED: "NO"
+    CODE_SIGNING_REQUIRED: "NO"
+    CODE_SIGN_IDENTITY: ""
+
+configFiles:
+  Debug: Configs/Debug.xcconfig
+  Release: Configs/Release.xcconfig
+
+targets:
+  SGLandTransport:
+    type: application
+    platform: iOS
+    sources:
+      - Sources
+      - path: Resources
+        excludes:
+          - "Info.plist"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.saschaderungs.ltaDatamall
+        INFOPLIST_FILE: Resources/Info.plist
+        GENERATE_INFOPLIST_FILE: "NO"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ENABLE_USER_SCRIPT_SANDBOXING: "YES"
+    configFiles:
+      Debug: Configs/Debug.xcconfig
+      Release: Configs/Release.xcconfig
+
+  SGLandTransportUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - Tests/UITests
+    dependencies:
+      - target: SGLandTransport
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.saschaderungs.ltaDatamall.uitests
+        GENERATE_INFOPLIST_FILE: "YES"
+
+schemes:
+  SGLandTransport:
+    build:
+      targets:
+        SGLandTransport: all
+        SGLandTransportUITests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - SGLandTransportUITests
